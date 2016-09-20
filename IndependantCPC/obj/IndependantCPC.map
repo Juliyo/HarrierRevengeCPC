@@ -1,0 +1,100 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           cpct_firmware
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__DATA                         
+     00000000  l__GSFINAL                      
+     00000000  l__GSINIT                       
+     00000000  l__HOME                         
+     00000000  l__INITIALIZED                  
+     00000000  l__INITIALIZER                  
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000F32  l__CODE                         
+     00004000  s__CODE                         
+     00004F32  s__DATA                         
+     00004F32  s__GSFINAL                      
+     00004F32  s__GSINIT                       
+     00004F32  s__HOME                         
+     00004F32  s__INITIALIZED                  
+     00004F32  s__INITIALIZER                  
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00004000    00000F32 =        3890. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00004000  _g_palette                         ghost
+     00004010  _g_ghost                           ghost
+     00004090  _g_palette1                        hero
+     000040A0  _g_hero_00                         hero
+     00004178  _g_hero_01                         hero
+     00004250  _g_hero_02                         hero
+     00004328  _g_hero_03                         hero
+     00004400  _g_hero_04                         hero
+     000044D8  _g_hero_05                         hero
+     000045B0  _g_hero_06                         hero
+     00004688  _g_hero_07                         hero
+     00004760  _g_hero_08                         hero
+     00004838  _g_hero_09                         hero
+     00004910  _g_hero_10                         hero
+     000049E8  _g_hero_11                         hero
+     00004AC0  _g_hero_12                         hero
+     00004B98  _g_hero_13                         hero
+     00004C70  _g_hero_14                         hero
+     00004D48  _g_hero_15                         hero
+     00004E20  _main                              main
+     00004E4B  _cpct_setPalette                   cpct_video
+     00004E62  _cpct_setPALColour                 cpct_video
+     00004E6E  _cpct_drawSprite                   cpct_sprites
+     00004F13  _cpct_setVideoMode                 cpct_video
+     00004F21  _cpct_disableFirmware              cpct_firmware
+     00004F21  _cpct_removeInterruptHandler       cpct_firmware
+     00004F21  cpct_disableFirmware_asm           cpct_firmware
+     00004F21  cpct_removeInterruptHandler_asm    cpct_firmware
+     00004F31  _cpct_mode_rom_status              cpct_firmware
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+
+Files Linked                              [ module(s) ]
+
+obj/ghost.rel                             [ ghost ]
+obj/hero.rel                              [ hero ]
+obj/main.rel                              [ main ]
+
+
+Libraries Linked                          [ object file ]
+
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPalette_cbindings.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPALColour_cbindings.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSprite_cbindings.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setVideoMode_cbindings.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_removeInterruptHandler.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpc_mode_rom_status.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+
+User Base Address Definitions
+
+_CODE = 0x4000
+_DATA = 0x0000
+
+

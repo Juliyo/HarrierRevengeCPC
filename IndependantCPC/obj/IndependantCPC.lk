@@ -1,0 +1,14 @@
+-mjwx
+-i obj/IndependantCPC.ihx
+-b _CODE = 0x4000
+-b _DATA = 0x0000
+-u
+-k /mnt/c/Users/julio/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80
+-k /mnt/c/Users/julio/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
+-l /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+-l z80
+obj/ghost.rel
+obj/hero.rel
+obj/main.rel
+
+-e

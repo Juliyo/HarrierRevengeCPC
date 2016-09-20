@@ -17,16 +17,30 @@
 //------------------------------------------------------------------------------
 
 #include <cpctelera.h>
+#include "ghost.h"
+//#include "hero.h"
+
+#define VMEM_START (u8*)0xC000
+
+//Pos. memoria
+//u8* vmem;
+
+/*void dibujarProta() {
+	u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,20, 20);
+	cpct_drawSprite(g_hero_00,vmem,8,27);
+}*/
+
 
 void main(void) {
-   u8* pvmem;  // Pointer to video memory
 
-   // Clear Screen
-   cpct_memset(CPCT_VMEM_START, 0, 0x4000);
+	cpct_disableFirmware();
+	cpct_setVideoMode(0);
+	cpct_setBorder(HW_BLACK);
 
-   // Draw String on the middle of the screen
-   pvmem = cpct_getScreenPtr(CPCT_VMEM_START, 20, 96);
-   cpct_drawStringM1("Welcome to CPCtelera!", pvmem, 1, 0);
+	cpct_setPalette(g_palette,16);
+	//dibujarProta();
+	/*vmem = cpct_getScreenPtr(CPCT_VMEM_START,20, 20);*/
+	cpct_drawSprite(g_ghost,VMEM_START,8,16);
 
    // Loop forever
    while (1);
