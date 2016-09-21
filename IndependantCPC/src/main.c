@@ -17,30 +17,42 @@
 //------------------------------------------------------------------------------
 
 #include <cpctelera.h>
-#include "ghost.h"
-//#include "hero.h"
+#include "naves.h"
+#include "hero.h"
 
 #define VMEM_START (u8*)0xC000
 
-//Pos. memoria
-//u8* vmem;
+typedef struct{
+	u8 x,y;
+	u8* sprite;
+}TPlayer;
 
-/*void dibujarProta() {
-	u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,20, 20);
-	cpct_drawSprite(g_hero_00,vmem,8,27);
-}*/
+TPlayer player;
 
+void dibujarPlayer(){
+	u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player.x, player.y);
+	cpct_drawSprite(player.sprite,vmem,8,17);
+}
 
-void main(void) {
-
+void inicializar(){
 	cpct_disableFirmware();
 	cpct_setVideoMode(0);
 	cpct_setBorder(HW_BLACK);
-
 	cpct_setPalette(g_palette,16);
+
+	player.x = 100;
+	player.y = 50;
+	player.sprite = g_naves_0;
+
+	dibujarPlayer();
+
+}
+
+void main(void) {
+
+	
 	//dibujarProta();
-	/*vmem = cpct_getScreenPtr(CPCT_VMEM_START,20, 20);*/
-	cpct_drawSprite(g_ghost,VMEM_START,8,16);
+	inicializar();
 
    // Loop forever
    while (1);

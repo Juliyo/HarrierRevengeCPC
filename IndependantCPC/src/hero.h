@@ -3,8 +3,6 @@
 #define _RESOURCES_HERO_H_
 
 #include <types.h>
-extern const u8 g_palette1[16];
-
 #define G_HERO_00_W 8
 #define G_HERO_00_H 27
 extern const u8 g_hero_00[8 * 27];

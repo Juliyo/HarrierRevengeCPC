@@ -9,20 +9,25 @@ Symbol Table
     .__.H$L.                                                    =  0000 L
     _cpct_disableFirmware                                          **** GX
     _cpct_drawSprite                                               **** GX
+    _cpct_getScreenPtr                                             **** GX
     _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
-    _g_ghost                                                       **** GX
+  0 _dibujarPlayer                                                 0000 GR
+    _g_naves_0                                                     **** GX
     _g_palette                                                     **** GX
-  0 _main                                                          0000 GR
+  0 _inicializar                                                   0023 GR
+  0 _main                                                          0051 GR
+  1 _player                                                        0000 GR
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   2B   flags    0
-   1 _DATA                                      size    0   flags    0
+   0 _CODE                                      size   56   flags    0
+   1 _DATA                                      size    4   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0
