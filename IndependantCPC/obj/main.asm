@@ -83,41 +83,61 @@ _dibujarPlayer::
 ; Function inicializar
 ; ---------------------------------
 _inicializar::
-;src/main.c:38: cpct_disableFirmware();
+;src/main.c:40: cpct_disableFirmware();
 	call	_cpct_disableFirmware
-;src/main.c:39: cpct_setVideoMode(0);
+;src/main.c:41: cpct_setVideoMode(0);
 	ld	l,#0x00
 	call	_cpct_setVideoMode
-;src/main.c:40: cpct_setBorder(HW_BLACK);
+;src/main.c:42: cpct_setBorder(HW_BLACK);
 	ld	hl,#0x1410
 	push	hl
 	call	_cpct_setPALColour
-;src/main.c:41: cpct_setPalette(g_palette,16);
+;src/main.c:43: cpct_setPalette(g_palette,16);
 	ld	hl,#0x0010
 	push	hl
 	ld	hl,#_g_palette
 	push	hl
 	call	_cpct_setPalette
-;src/main.c:43: player.x = 100;
+;src/main.c:45: player.x = 100;
 	ld	hl,#_player
 	ld	(hl),#0x64
-;src/main.c:44: player.y = 50;
-	ld	hl,#(_player + 0x0001)
-	ld	(hl),#0x32
-;src/main.c:45: player.sprite = g_naves_0;
+;src/main.c:46: player.y = 50;
+	ld	bc,#_player + 1
+	ld	a,#0x32
+	ld	(bc),a
+;src/main.c:47: player.sprite = g_naves_0;
 	ld	hl,#_g_naves_0
 	ld	((_player + 0x0002)), hl
-;src/main.c:47: dibujarPlayer();
-	call	_dibujarPlayer
+;src/main.c:51: vmem = cpct_getScreenPtr(CPCT_VMEM_START,player.x, player.y);
+	ld	a,(bc)
+	ld	d,a
+	ld	hl, #_player + 0
+	ld	b,(hl)
+	push	de
+	inc	sp
+	push	bc
+	inc	sp
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	e,l
+	ld	d,h
+;src/main.c:52: cpct_drawSprite(player.sprite,vmem,8,17);
+	ld	bc, (#(_player + 0x0002) + 0)
+	ld	hl,#0x1108
+	push	hl
+	push	de
+	push	bc
+	call	_cpct_drawSprite
 	ret
-;src/main.c:51: void main(void) {
+;src/main.c:56: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src/main.c:55: inicializar();
+;src/main.c:60: inicializar();
 	call	_inicializar
-;src/main.c:58: while (1);
+;src/main.c:63: while (1);
 00102$:
 	jr	00102$
 	.area _CODE

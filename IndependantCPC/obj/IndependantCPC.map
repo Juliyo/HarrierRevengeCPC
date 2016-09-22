@@ -18,21 +18,21 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__CABS                         
      00000000  s__DABS                         
      00000004  l__DATA                         
-     000011D5  l__CODE                         
+     000011F3  l__CODE                         
      00004000  s__CODE                         
-     000051D5  s__DATA                         
-     000051D9  s__GSFINAL                      
-     000051D9  s__GSINIT                       
-     000051D9  s__HOME                         
-     000051D9  s__INITIALIZED                  
-     000051D9  s__INITIALIZER                  
+     000051F3  s__DATA                         
+     000051F7  s__GSFINAL                      
+     000051F7  s__GSINIT                       
+     000051F7  s__HOME                         
+     000051F7  s__INITIALIZED                  
+     000051F7  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000011D5 =        4565. bytes (REL,CON)
+_CODE                               00004000    000011F3 =        4595. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -61,27 +61,27 @@ _CODE                               00004000    000011D5 =        4565. bytes (R
      00005000  _g_naves_5                         naves
      00005078  _dibujarPlayer                     main
      0000509B  _inicializar                       main
-     000050C9  _main                              main
-     000050CE  _cpct_setPalette                   cpct_video
-     000050E5  _cpct_setPALColour                 cpct_video
-     000050F1  _cpct_drawSprite                   cpct_sprites
-     00005196  _cpct_setVideoMode                 cpct_video
-     000051A4  _cpct_disableFirmware              cpct_firmware
-     000051A4  _cpct_removeInterruptHandler       cpct_firmware
-     000051A4  cpct_disableFirmware_asm           cpct_firmware
-     000051A4  cpct_removeInterruptHandler_asm    cpct_firmware
-     000051B4  _cpct_mode_rom_status              cpct_firmware
-     000051B5  _cpct_getScreenPtr                 cpct_video
+     000050E7  _main                              main
+     000050EC  _cpct_setPalette                   cpct_video
+     00005103  _cpct_setPALColour                 cpct_video
+     0000510F  _cpct_drawSprite                   cpct_sprites
+     000051B4  _cpct_setVideoMode                 cpct_video
+     000051C2  _cpct_disableFirmware              cpct_firmware
+     000051C2  _cpct_removeInterruptHandler       cpct_firmware
+     000051C2  cpct_disableFirmware_asm           cpct_firmware
+     000051C2  cpct_removeInterruptHandler_asm    cpct_firmware
+     000051D2  _cpct_mode_rom_status              cpct_firmware
+     000051D3  _cpct_getScreenPtr                 cpct_video
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000051D5    00000004 =           4. bytes (REL,CON)
+_DATA                               000051F3    00000004 =           4. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     000051D5  _player                            main
+     000051F3  _player                            main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 

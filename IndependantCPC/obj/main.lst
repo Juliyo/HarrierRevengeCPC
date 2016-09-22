@@ -83,43 +83,63 @@
                              83 ; Function inicializar
                              84 ; ---------------------------------
    0023                      85 _inicializar::
-                             86 ;src/main.c:38: cpct_disableFirmware();
+                             86 ;src/main.c:40: cpct_disableFirmware();
    0023 CDr00r00      [17]   87 	call	_cpct_disableFirmware
-                             88 ;src/main.c:39: cpct_setVideoMode(0);
+                             88 ;src/main.c:41: cpct_setVideoMode(0);
    0026 2E 00         [ 7]   89 	ld	l,#0x00
    0028 CDr00r00      [17]   90 	call	_cpct_setVideoMode
-                             91 ;src/main.c:40: cpct_setBorder(HW_BLACK);
+                             91 ;src/main.c:42: cpct_setBorder(HW_BLACK);
    002B 21 10 14      [10]   92 	ld	hl,#0x1410
    002E E5            [11]   93 	push	hl
    002F CDr00r00      [17]   94 	call	_cpct_setPALColour
-                             95 ;src/main.c:41: cpct_setPalette(g_palette,16);
+                             95 ;src/main.c:43: cpct_setPalette(g_palette,16);
    0032 21 10 00      [10]   96 	ld	hl,#0x0010
    0035 E5            [11]   97 	push	hl
    0036 21r00r00      [10]   98 	ld	hl,#_g_palette
    0039 E5            [11]   99 	push	hl
    003A CDr00r00      [17]  100 	call	_cpct_setPalette
-                            101 ;src/main.c:43: player.x = 100;
+                            101 ;src/main.c:45: player.x = 100;
    003D 21r00r00      [10]  102 	ld	hl,#_player
    0040 36 64         [10]  103 	ld	(hl),#0x64
-                            104 ;src/main.c:44: player.y = 50;
-   0042 21r01r00      [10]  105 	ld	hl,#(_player + 0x0001)
-   0045 36 32         [10]  106 	ld	(hl),#0x32
-                            107 ;src/main.c:45: player.sprite = g_naves_0;
-   0047 21r00r00      [10]  108 	ld	hl,#_g_naves_0
-   004A 22r02r00      [16]  109 	ld	((_player + 0x0002)), hl
-                            110 ;src/main.c:47: dibujarPlayer();
-   004D CDr00r00      [17]  111 	call	_dibujarPlayer
-   0050 C9            [10]  112 	ret
-                            113 ;src/main.c:51: void main(void) {
-                            114 ;	---------------------------------
-                            115 ; Function main
-                            116 ; ---------------------------------
-   0051                     117 _main::
-                            118 ;src/main.c:55: inicializar();
-   0051 CDr23r00      [17]  119 	call	_inicializar
-                            120 ;src/main.c:58: while (1);
-   0054                     121 00102$:
-   0054 18 FE         [12]  122 	jr	00102$
-                            123 	.area _CODE
-                            124 	.area _INITIALIZER
-                            125 	.area _CABS (ABS)
+                            104 ;src/main.c:46: player.y = 50;
+   0042 01r01r00      [10]  105 	ld	bc,#_player + 1
+   0045 3E 32         [ 7]  106 	ld	a,#0x32
+   0047 02            [ 7]  107 	ld	(bc),a
+                            108 ;src/main.c:47: player.sprite = g_naves_0;
+   0048 21r00r00      [10]  109 	ld	hl,#_g_naves_0
+   004B 22r02r00      [16]  110 	ld	((_player + 0x0002)), hl
+                            111 ;src/main.c:51: vmem = cpct_getScreenPtr(CPCT_VMEM_START,player.x, player.y);
+   004E 0A            [ 7]  112 	ld	a,(bc)
+   004F 57            [ 4]  113 	ld	d,a
+   0050 21r00r00      [10]  114 	ld	hl, #_player + 0
+   0053 46            [ 7]  115 	ld	b,(hl)
+   0054 D5            [11]  116 	push	de
+   0055 33            [ 6]  117 	inc	sp
+   0056 C5            [11]  118 	push	bc
+   0057 33            [ 6]  119 	inc	sp
+   0058 21 00 C0      [10]  120 	ld	hl,#0xC000
+   005B E5            [11]  121 	push	hl
+   005C CDr00r00      [17]  122 	call	_cpct_getScreenPtr
+   005F 5D            [ 4]  123 	ld	e,l
+   0060 54            [ 4]  124 	ld	d,h
+                            125 ;src/main.c:52: cpct_drawSprite(player.sprite,vmem,8,17);
+   0061 ED 4Br02r00   [20]  126 	ld	bc, (#(_player + 0x0002) + 0)
+   0065 21 08 11      [10]  127 	ld	hl,#0x1108
+   0068 E5            [11]  128 	push	hl
+   0069 D5            [11]  129 	push	de
+   006A C5            [11]  130 	push	bc
+   006B CDr00r00      [17]  131 	call	_cpct_drawSprite
+   006E C9            [10]  132 	ret
+                            133 ;src/main.c:56: void main(void) {
+                            134 ;	---------------------------------
+                            135 ; Function main
+                            136 ; ---------------------------------
+   006F                     137 _main::
+                            138 ;src/main.c:60: inicializar();
+   006F CDr23r00      [17]  139 	call	_inicializar
+                            140 ;src/main.c:63: while (1);
+   0072                     141 00102$:
+   0072 18 FE         [12]  142 	jr	00102$
+                            143 	.area _CODE
+                            144 	.area _INITIALIZER
+                            145 	.area _CABS (ABS)

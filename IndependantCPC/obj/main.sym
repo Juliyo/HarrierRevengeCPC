@@ -17,7 +17,7 @@ Symbol Table
     _g_naves_0                                                     **** GX
     _g_palette                                                     **** GX
   0 _inicializar                                                   0023 GR
-  0 _main                                                          0051 GR
+  0 _main                                                          006F GR
   1 _player                                                        0000 GR
 
 
@@ -26,7 +26,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   56   flags    0
+   0 _CODE                                      size   74   flags    0
    1 _DATA                                      size    4   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

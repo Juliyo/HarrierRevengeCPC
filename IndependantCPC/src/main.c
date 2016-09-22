@@ -35,6 +35,8 @@ void dibujarPlayer(){
 }
 
 void inicializar(){
+	u8* vmem;
+
 	cpct_disableFirmware();
 	cpct_setVideoMode(0);
 	cpct_setBorder(HW_BLACK);
@@ -44,7 +46,10 @@ void inicializar(){
 	player.y = 50;
 	player.sprite = g_naves_0;
 
+
 	dibujarPlayer();
+	/*vmem = cpct_getScreenPtr(CPCT_VMEM_START,player.x, player.y);
+	cpct_drawSprite(player.sprite,vmem,8,17);*/
 
 }
 
