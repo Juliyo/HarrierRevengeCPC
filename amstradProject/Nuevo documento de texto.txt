@@ -1,7 +1,0 @@
-Harrier Attack
-
-https://www.youtube.com/watch?v=MePgjXoo9aA
-
-Nuestra idea consiste en desarrollar un juego con mecánicas similares a Harrier Attack pero modificado ligeramente para que exista una IA durante las partidas, con vista aérea (top) para darle mucha más libertad a la IA y que pueda moverse por el mapa. Además implementaremos un scroll similar al que se usa en "Green Beret".
-
-:)
