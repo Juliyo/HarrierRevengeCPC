@@ -1,0 +1,109 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module entities
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _cpct_getScreenPtr
+                             12 	.globl _cpct_drawSprite
+                             13 	.globl _incializarEntities
+                             14 	.globl _dibujarPlayer
+                             15 	.globl _drawAll
+                             16 ;--------------------------------------------------------
+                             17 ; special function registers
+                             18 ;--------------------------------------------------------
+                             19 ;--------------------------------------------------------
+                             20 ; ram data
+                             21 ;--------------------------------------------------------
+                             22 	.area _DATA
+                             23 ;--------------------------------------------------------
+                             24 ; ram data
+                             25 ;--------------------------------------------------------
+                             26 	.area _INITIALIZED
+                             27 ;--------------------------------------------------------
+                             28 ; absolute external ram data
+                             29 ;--------------------------------------------------------
+                             30 	.area _DABS (ABS)
+                             31 ;--------------------------------------------------------
+                             32 ; global & static initialisations
+                             33 ;--------------------------------------------------------
+                             34 	.area _HOME
+                             35 	.area _GSINIT
+                             36 	.area _GSFINAL
+                             37 	.area _GSINIT
+                             38 ;--------------------------------------------------------
+                             39 ; Home
+                             40 ;--------------------------------------------------------
+                             41 	.area _HOME
+                             42 	.area _HOME
+                             43 ;--------------------------------------------------------
+                             44 ; code
+                             45 ;--------------------------------------------------------
+                             46 	.area _CODE
+                             47 ;src/entities/entities.c:8: void incializarEntities(){
+                             48 ;	---------------------------------
+                             49 ; Function incializarEntities
+                             50 ; ---------------------------------
+   0000                      51 _incializarEntities::
+                             52 ;src/entities/entities.c:10: }
+   0000 C9            [10]   53 	ret
+                             54 ;src/entities/entities.c:12: void dibujarPlayer(TPlayer* player){
+                             55 ;	---------------------------------
+                             56 ; Function dibujarPlayer
+                             57 ; ---------------------------------
+   0001                      58 _dibujarPlayer::
+   0001 DD E5         [15]   59 	push	ix
+   0003 DD 21 00 00   [14]   60 	ld	ix,#0
+   0007 DD 39         [15]   61 	add	ix,sp
+                             62 ;src/entities/entities.c:13: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
+   0009 DD 4E 04      [19]   63 	ld	c,4 (ix)
+   000C DD 46 05      [19]   64 	ld	b,5 (ix)
+   000F 69            [ 4]   65 	ld	l, c
+   0010 60            [ 4]   66 	ld	h, b
+   0011 23            [ 6]   67 	inc	hl
+   0012 56            [ 7]   68 	ld	d,(hl)
+   0013 0A            [ 7]   69 	ld	a,(bc)
+   0014 C5            [11]   70 	push	bc
+   0015 D5            [11]   71 	push	de
+   0016 33            [ 6]   72 	inc	sp
+   0017 F5            [11]   73 	push	af
+   0018 33            [ 6]   74 	inc	sp
+   0019 21 00 C0      [10]   75 	ld	hl,#0xC000
+   001C E5            [11]   76 	push	hl
+   001D CDr00r00      [17]   77 	call	_cpct_getScreenPtr
+   0020 EB            [ 4]   78 	ex	de,hl
+                             79 ;src/entities/entities.c:14: cpct_drawSprite(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H);
+   0021 E1            [10]   80 	pop	hl
+   0022 23            [ 6]   81 	inc	hl
+   0023 23            [ 6]   82 	inc	hl
+   0024 4E            [ 7]   83 	ld	c,(hl)
+   0025 23            [ 6]   84 	inc	hl
+   0026 46            [ 7]   85 	ld	b,(hl)
+   0027 21 08 10      [10]   86 	ld	hl,#0x1008
+   002A E5            [11]   87 	push	hl
+   002B D5            [11]   88 	push	de
+   002C C5            [11]   89 	push	bc
+   002D CDr00r00      [17]   90 	call	_cpct_drawSprite
+   0030 DD E1         [14]   91 	pop	ix
+   0032 C9            [10]   92 	ret
+                             93 ;src/entities/entities.c:17: void drawAll(TPlayer* player){
+                             94 ;	---------------------------------
+                             95 ; Function drawAll
+                             96 ; ---------------------------------
+   0033                      97 _drawAll::
+                             98 ;src/entities/entities.c:19: dibujarPlayer(player);
+   0033 C1            [10]   99 	pop	bc
+   0034 E1            [10]  100 	pop	hl
+   0035 E5            [11]  101 	push	hl
+   0036 C5            [11]  102 	push	bc
+   0037 E5            [11]  103 	push	hl
+   0038 CDr01r00      [17]  104 	call	_dibujarPlayer
+   003B F1            [10]  105 	pop	af
+   003C C9            [10]  106 	ret
+                            107 	.area _CODE
+                            108 	.area _INITIALIZER
+                            109 	.area _CABS (ABS)

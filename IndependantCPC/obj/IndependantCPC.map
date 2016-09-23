@@ -10,6 +10,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  .__.ABS.                           cpct_video
      00000000  l__CABS                         
      00000000  l__DABS                         
+     00000000  l__DATA                         
      00000000  l__GSFINAL                      
      00000000  l__GSINIT                       
      00000000  l__HOME                         
@@ -17,79 +18,59 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  l__INITIALIZER                  
      00000000  s__CABS                         
      00000000  s__DABS                         
-     00000004  l__DATA                         
-     000011F3  l__CODE                         
+     0000048F  l__CODE                         
      00004000  s__CODE                         
-     000051F3  s__DATA                         
-     000051F7  s__GSFINAL                      
-     000051F7  s__GSINIT                       
-     000051F7  s__HOME                         
-     000051F7  s__INITIALIZED                  
-     000051F7  s__INITIALIZER                  
+     0000448F  s__DATA                         
+     0000448F  s__GSFINAL                      
+     0000448F  s__GSINIT                       
+     0000448F  s__HOME                         
+     0000448F  s__INITIALIZED                  
+     0000448F  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000011F3 =        4595. bytes (REL,CON)
+_CODE                               00004000    0000048F =        1167. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004000  _g_hero_00                         hero
-     000040D8  _g_hero_01                         hero
-     000041B0  _g_hero_02                         hero
-     00004288  _g_hero_03                         hero
-     00004360  _g_hero_04                         hero
-     00004438  _g_hero_05                         hero
-     00004510  _g_hero_06                         hero
-     000045E8  _g_hero_07                         hero
-     000046C0  _g_hero_08                         hero
-     00004798  _g_hero_09                         hero
-     00004870  _g_hero_10                         hero
-     00004948  _g_hero_11                         hero
-     00004A20  _g_hero_12                         hero
-     00004AF8  _g_hero_13                         hero
-     00004BD0  _g_hero_14                         hero
-     00004CA8  _g_hero_15                         hero
-     00004D80  _g_palette                         naves
-     00004D90  _g_naves_0                         naves
-     00004E10  _g_naves_1                         naves
-     00004E90  _g_naves_2                         naves
-     00004F10  _g_naves_3                         naves
-     00004F88  _g_naves_4                         naves
-     00005000  _g_naves_5                         naves
-     00005078  _dibujarPlayer                     main
-     0000509B  _inicializar                       main
-     000050E7  _main                              main
-     000050EC  _cpct_setPalette                   cpct_video
-     00005103  _cpct_setPALColour                 cpct_video
-     0000510F  _cpct_drawSprite                   cpct_sprites
-     000051B4  _cpct_setVideoMode                 cpct_video
-     000051C2  _cpct_disableFirmware              cpct_firmware
-     000051C2  _cpct_removeInterruptHandler       cpct_firmware
-     000051C2  cpct_disableFirmware_asm           cpct_firmware
-     000051C2  cpct_removeInterruptHandler_asm    cpct_firmware
-     000051D2  _cpct_mode_rom_status              cpct_firmware
-     000051D3  _cpct_getScreenPtr                 cpct_video
+     00004000  _inicializarPantalla               game
+     0000400E  _player                            game
+     00004012  _play                              game
+     00004022  _inicializar                       main
+     0000403D  _main                              main
+     00004045  _incializarEntities                entities
+     00004046  _dibujarPlayer                     entities
+     00004078  _drawAll                           entities
+     00004082  _g_palette                         naves
+     00004092  _g_naves_0                         naves
+     00004112  _g_naves_1                         naves
+     00004192  _g_naves_2                         naves
+     00004212  _g_naves_3                         naves
+     0000428A  _g_naves_4                         naves
+     00004302  _g_naves_5                         naves
+     0000437A  _cpct_setPalette                   cpct_video
+     00004391  _cpct_setPALColour                 cpct_video
+     0000439D  _cpct_drawSprite                   cpct_sprites
+     00004442  _cpct_setVideoMode                 cpct_video
+     00004450  _cpct_memset                       cpct_memutils
+     0000445E  _cpct_disableFirmware              cpct_firmware
+     0000445E  _cpct_removeInterruptHandler       cpct_firmware
+     0000445E  cpct_disableFirmware_asm           cpct_firmware
+     0000445E  cpct_removeInterruptHandler_asm    cpct_firmware
+     0000446E  _cpct_mode_rom_status              cpct_firmware
+     0000446F  _cpct_getScreenPtr                 cpct_video
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
-Hexadecimal  [32-Bits]
-
-Area                                    Addr        Size        Decimal Bytes (Attributes)
---------------------------------        ----        ----        ------- ----- ------------
-_DATA                               000051F3    00000004 =           4. bytes (REL,CON)
-
-      Value  Global                              Global Defined In Module
-      -----  --------------------------------   ------------------------
-     000051F3  _player                            main
-
-ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 
 Files Linked                              [ module(s) ]
 
-obj/hero.rel                              [ hero ]
-obj/naves.rel                             [ naves ]
+obj/game.rel                              [ game ]
 obj/main.rel                              [ main ]
+obj/entities/entities.rel                 [ entities ]
+obj/sprites/naves.rel                     [ naves ]
 
 
 Libraries Linked                          [ object file ]
@@ -103,13 +84,15 @@ Libraries Linked                          [ object file ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_cbindings.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_memset_cbinding.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_removeInterruptHandler.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpc_mode_rom_status.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_getScreenPtr_cbindings.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 
 User Base Address Definitions
 

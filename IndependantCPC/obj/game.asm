@@ -2,19 +2,18 @@
 ; File Created by SDCC : free open source ANSI-C Compiler
 ; Version 3.5.5 #9498 (Linux)
 ;--------------------------------------------------------
-	.module main
+	.module game
 	.optsdcc -mz80
 	
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _main
-	.globl _inicializar
+	.globl _drawAll
+	.globl _incializarEntities
+	.globl _cpct_memset
+	.globl _player
+	.globl _inicializarPantalla
 	.globl _play
-	.globl _cpct_setPALColour
-	.globl _cpct_setPalette
-	.globl _cpct_setVideoMode
-	.globl _cpct_disableFirmware
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -46,38 +45,41 @@
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/main.c:23: void inicializar(){
+;src/game.c:13: void inicializarPantalla(){
 ;	---------------------------------
-; Function inicializar
+; Function inicializarPantalla
 ; ---------------------------------
-_inicializar::
-;src/main.c:24: cpct_disableFirmware();
-	call	_cpct_disableFirmware
-;src/main.c:25: cpct_setBorder(HW_BLACK);
-	ld	hl,#0x1410
+_inicializarPantalla::
+;src/game.c:15: cpct_clearScreen(0);
+	ld	hl,#0x4000
 	push	hl
-	call	_cpct_setPALColour
-;src/main.c:26: cpct_setPalette(g_palette,16);
-	ld	hl,#0x0010
+	xor	a, a
+	push	af
+	inc	sp
+	ld	h, #0xC0
 	push	hl
-	ld	hl,#_g_palette
-	push	hl
-	call	_cpct_setPalette
-;src/main.c:29: cpct_setVideoMode(0);
-	ld	l,#0x00
-	call	_cpct_setVideoMode
+	call	_cpct_memset
 	ret
-;src/main.c:32: void main(void) {
+_player:
+	.db #0x64	; 100	'd'
+	.db #0x32	; 50	'2'
+	.dw _g_naves_0
+;src/game.c:24: void play(){
 ;	---------------------------------
-; Function main
+; Function play
 ; ---------------------------------
-_main::
-;src/main.c:34: inicializar();
-	call	_inicializar
-;src/main.c:37: while (1){
+_play::
+;src/game.c:26: inicializarPantalla();
+	call	_inicializarPantalla
+;src/game.c:27: incializarEntities();
+	call	_incializarEntities
+;src/game.c:30: while(1){
 00102$:
-;src/main.c:38: play();
-	call	_play
+;src/game.c:33: drawAll(&player);
+	ld	hl,#_player
+	push	hl
+	call	_drawAll
+	pop	af
 	jr	00102$
 	.area _CODE
 	.area _INITIALIZER

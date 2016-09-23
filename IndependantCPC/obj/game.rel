@@ -1,0 +1,37 @@
+XL2
+H 9 areas 8 global symbols
+M game
+O -mz80
+S _incializarEntities Ref0000
+S _g_naves_0 Ref0000
+S .__.ABS. Def0000
+S _drawAll Ref0000
+S _cpct_memset Ref0000
+A _CODE size 22 flags 0 addr 0
+S _play Def0012
+S _inicializarPantalla Def0000
+S _player Def000E
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 21 00 40 E5 AF F5 33 26 C0 E5 CD 00 00 C9
+R 00 00 00 00 02 0D 04 00
+T 0E 00
+R 00 00 00 00
+T 0E 00 64 32 00 00
+R 00 00 00 00 02 04 01 00
+T 12 00
+R 00 00 00 00
+T 12 00 CD 00 00 CD 00 00
+R 00 00 00 00 00 03 00 00 02 06 00 00
+T 18 00
+R 00 00 00 00
+T 18 00 21 0E 00 E5 CD 00 00 F1 18 F6
+R 00 00 00 00 00 03 00 00 02 07 03 00
