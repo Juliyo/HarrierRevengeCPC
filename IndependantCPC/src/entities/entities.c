@@ -17,6 +17,7 @@ void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
 			switch(dir){
 				case d_up:
 					moverArriba(player);
+
 				break;
 			}
 		break;
@@ -25,9 +26,10 @@ void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
 }
 
 void moverArriba(TPlayer* player){
-	if (player->x + G_NAVES_0_W < ALTO) {
-      player->x++;
+	if (player->y + G_NAVES_0_H < ALTO) {
+      player->y--;
   	}else{
+
   		//Aqui yo haria scroll del mapa z
   	}
 }

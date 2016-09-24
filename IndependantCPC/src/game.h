@@ -3,8 +3,8 @@
 
 #include <types.h>
 
-#define ANCHO 168
-#define ALTO 80
+#define ANCHO 160
+#define ALTO 200
 
 typedef enum {
    es_static, 
