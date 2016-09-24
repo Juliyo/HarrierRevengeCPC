@@ -27,6 +27,10 @@ void updateUser(){
    		accion(&player, es_mover, d_up);
    }else if(cpct_isKeyPressed(Key_CursorDown)){
    		accion(&player, es_mover, d_down);
+   }else if(cpct_isKeyPressed(Key_CursorRight)){
+   		accion(&player,es_mover,d_right);
+   }else if(cpct_isKeyPressed(Key_CursorLeft)){
+   		accion(&player,es_mover,d_left);
    }
 
 

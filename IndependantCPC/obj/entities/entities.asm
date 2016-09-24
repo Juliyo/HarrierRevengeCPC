@@ -13,6 +13,9 @@
 	.globl _incializarEntities
 	.globl _accion
 	.globl _moverArriba
+	.globl _moverAbajo
+	.globl _moverIzquierda
+	.globl _moverDerecha
 	.globl _updatePlayer
 	.globl _redibujarPlayer
 	.globl _borrarPlayer
@@ -61,37 +64,97 @@ _incializarEntities::
 ; Function accion
 ; ---------------------------------
 _accion::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
 ;src/entities/entities.c:15: switch(action){
-	ld	hl, #4+0
-	add	hl, sp
-	ld	a, (hl)
+	ld	a,6 (ix)
 	dec	a
-	ret	NZ
+	jr	NZ,00108$
 ;src/entities/entities.c:17: switch(dir){
-	ld	hl, #5+0
-	add	hl, sp
-	ld	a, (hl)
-	or	a, a
-	ret	NZ
+	ld	a,#0x03
+	sub	a, 7 (ix)
+	jr	C,00108$
+	ld	e,7 (ix)
+	ld	d,#0x00
+	ld	hl,#00120$
+	add	hl,de
+	add	hl,de
+;src/entities/entities.c:18: case d_up:
+	jp	(hl)
+00120$:
+	jr	00102$
+	jr	00103$
+	jr	00105$
+	jr	00104$
+00102$:
 ;src/entities/entities.c:19: moverArriba(player);
-	pop	bc
-	pop	hl
-	push	hl
-	push	bc
+	ld	l,4 (ix)
+	ld	h,5 (ix)
 	push	hl
 	call	_moverArriba
 	pop	af
-;src/entities/entities.c:25: }
+;src/entities/entities.c:20: break;
+	jr	00108$
+;src/entities/entities.c:21: case d_down:
+00103$:
+;src/entities/entities.c:22: moverAbajo(player);
+	ld	l,4 (ix)
+	ld	h,5 (ix)
+	push	hl
+	call	_moverAbajo
+	pop	af
+;src/entities/entities.c:23: break;
+	jr	00108$
+;src/entities/entities.c:24: case d_left:
+00104$:
+;src/entities/entities.c:25: moverIzquierda(player);
+	ld	l,4 (ix)
+	ld	h,5 (ix)
+	push	hl
+	call	_moverIzquierda
+	pop	af
+;src/entities/entities.c:26: break;
+	jr	00108$
+;src/entities/entities.c:27: case d_right:
+00105$:
+;src/entities/entities.c:28: moverDerecha(player);
+	ld	l,4 (ix)
+	ld	h,5 (ix)
+	push	hl
+	call	_moverDerecha
+	pop	af
+;src/entities/entities.c:33: }
+00108$:
+	pop	ix
 	ret
-;src/entities/entities.c:28: void moverArriba(TPlayer* player){
+;src/entities/entities.c:36: void moverArriba(TPlayer* player){
 ;	---------------------------------
 ; Function moverArriba
 ; ---------------------------------
 _moverArriba::
+;src/entities/entities.c:37: if (player->y > 0) {
+	pop	de
+	pop	bc
+	push	bc
+	push	de
+	inc	bc
+	ld	a,(bc)
+	or	a, a
+	ret	Z
+;src/entities/entities.c:38: player->y--;
+	add	a,#0xFF
+	ld	(bc),a
+	ret
+;src/entities/entities.c:45: void moverAbajo(TPlayer* player){
+;	---------------------------------
+; Function moverAbajo
+; ---------------------------------
+_moverAbajo::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:29: if (player->y + G_NAVES_0_H < ALTO) {
+;src/entities/entities.c:46: if (player->y + G_NAVES_0_H < ALTO) {
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	inc	bc
@@ -111,21 +174,72 @@ _moverArriba::
 	rra
 	sbc	a, #0x80
 	jr	NC,00103$
-;src/entities/entities.c:30: player->y--;
-	dec	e
+;src/entities/entities.c:47: player->y++;
+	inc	e
 	ld	a,e
 	ld	(bc),a
 00103$:
 	pop	ix
 	ret
-;src/entities/entities.c:37: void updatePlayer(TPlayer* player){
+;src/entities/entities.c:54: void moverIzquierda(TPlayer* player){
+;	---------------------------------
+; Function moverIzquierda
+; ---------------------------------
+_moverIzquierda::
+;src/entities/entities.c:55: if (player->x > 0) {
+	pop	de
+	pop	bc
+	push	bc
+	push	de
+	ld	a,(bc)
+	or	a, a
+	ret	Z
+;src/entities/entities.c:56: player->x--;
+	add	a,#0xFF
+	ld	(bc),a
+	ret
+;src/entities/entities.c:62: void moverDerecha(TPlayer* player){
+;	---------------------------------
+; Function moverDerecha
+; ---------------------------------
+_moverDerecha::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+;src/entities/entities.c:63: if (player->x + G_NAVES_0_W < ANCHO) {
+	ld	c,4 (ix)
+	ld	b,5 (ix)
+	ld	a,(bc)
+	ld	e,a
+	ld	l,e
+	ld	h,#0x00
+	push	de
+	ld	de,#0x0008
+	add	hl, de
+	pop	de
+	ld	a,l
+	sub	a, #0x50
+	ld	a,h
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jr	NC,00103$
+;src/entities/entities.c:64: player->x++;
+	inc	e
+	ld	a,e
+	ld	(bc),a
+00103$:
+	pop	ix
+	ret
+;src/entities/entities.c:72: void updatePlayer(TPlayer* player){
 ;	---------------------------------
 ; Function updatePlayer
 ; ---------------------------------
 _updatePlayer::
-;src/entities/entities.c:39: }
+;src/entities/entities.c:74: }
 	ret
-;src/entities/entities.c:41: void redibujarPlayer(TPlayer* player){
+;src/entities/entities.c:76: void redibujarPlayer(TPlayer* player){
 ;	---------------------------------
 ; Function redibujarPlayer
 ; ---------------------------------
@@ -133,13 +247,13 @@ _redibujarPlayer::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:42: borrarPlayer(player);
+;src/entities/entities.c:77: borrarPlayer(player);
 	ld	l,4 (ix)
 	ld	h,5 (ix)
 	push	hl
 	call	_borrarPlayer
 	pop	af
-;src/entities/entities.c:43: player->px = player->x;
+;src/entities/entities.c:78: player->px = player->x;
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	e, c
@@ -148,7 +262,7 @@ _redibujarPlayer::
 	inc	de
 	ld	a,(bc)
 	ld	(de),a
-;src/entities/entities.c:44: player->py = player->y;
+;src/entities/entities.c:79: player->py = player->y;
 	ld	e, c
 	ld	d, b
 	inc	de
@@ -159,20 +273,20 @@ _redibujarPlayer::
 	inc	hl
 	ld	a,(hl)
 	ld	(de),a
-;src/entities/entities.c:45: dibujarPlayer(player);
+;src/entities/entities.c:80: dibujarPlayer(player);
 	push	bc
 	call	_dibujarPlayer
 	pop	af
 	pop	ix
 	ret
-;src/entities/entities.c:48: void borrarPlayer(TPlayer* player){
+;src/entities/entities.c:83: void borrarPlayer(TPlayer* player){
 ;	---------------------------------
 ; Function borrarPlayer
 ; ---------------------------------
 _borrarPlayer::
-;src/entities/entities.c:50: }
+;src/entities/entities.c:85: }
 	ret
-;src/entities/entities.c:52: void dibujarPlayer(TPlayer* player){
+;src/entities/entities.c:87: void dibujarPlayer(TPlayer* player){
 ;	---------------------------------
 ; Function dibujarPlayer
 ; ---------------------------------
@@ -180,7 +294,7 @@ _dibujarPlayer::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:53: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
+;src/entities/entities.c:88: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	l, c
@@ -197,7 +311,7 @@ _dibujarPlayer::
 	push	hl
 	call	_cpct_getScreenPtr
 	ex	de,hl
-;src/entities/entities.c:54: cpct_drawSprite(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H);
+;src/entities/entities.c:89: cpct_drawSprite(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H);
 	pop	hl
 	ld	bc, #0x0004
 	add	hl, bc
@@ -211,12 +325,12 @@ _dibujarPlayer::
 	call	_cpct_drawSprite
 	pop	ix
 	ret
-;src/entities/entities.c:57: void drawAll(TPlayer* player){
+;src/entities/entities.c:92: void drawAll(TPlayer* player){
 ;	---------------------------------
 ; Function drawAll
 ; ---------------------------------
 _drawAll::
-;src/entities/entities.c:59: dibujarPlayer(player);
+;src/entities/entities.c:94: dibujarPlayer(player);
 	pop	bc
 	pop	hl
 	push	hl

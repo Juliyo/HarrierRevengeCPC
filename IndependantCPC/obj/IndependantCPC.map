@@ -18,21 +18,21 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  l__INITIALIZER                  
      00000000  s__CABS                         
      00000000  s__DABS                         
-     000005D1  l__CODE                         
+     00000687  l__CODE                         
      00004000  s__CODE                         
-     000045D1  s__DATA                         
-     000045D1  s__GSFINAL                      
-     000045D1  s__GSINIT                       
-     000045D1  s__HOME                         
-     000045D1  s__INITIALIZED                  
-     000045D1  s__INITIALIZER                  
+     00004687  s__DATA                         
+     00004687  s__GSFINAL                      
+     00004687  s__GSINIT                       
+     00004687  s__HOME                         
+     00004687  s__INITIALIZED                  
+     00004687  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    000005D1 =        1489. bytes (REL,CON)
+_CODE                               00004000    00000687 =        1671. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -46,35 +46,38 @@ _CODE                               00004000    000005D1 =        1489. bytes (R
      000042F8  _inicializarPantalla               game
      00004306  _player                            game
      0000430C  _updateUser                        game
-     0000433E  _play                              game
-     0000435C  _inicializar                       main
-     00004377  _main                              main
-     0000437F  _incializarEntities                entities
-     00004380  _accion                            entities
-     00004398  _moverArriba                       entities
-     000043C3  _updatePlayer                      entities
-     000043C4  _redibujarPlayer                   entities
-     000043F5  _borrarPlayer                      entities
-     000043F6  _dibujarPlayer                     entities
-     0000442A  _drawAll                           entities
-     00004434  _cpct_setPalette                   cpct_video
-     0000444B  _cpct_isKeyPressed                 cpct_keyboard
-     0000444B  cpct_isKeyPressed_asm              cpct_keyboard
-     00004457  _cpct_scanKeyboard_f               cpct_keyboard
-     00004457  cpct_scanKeyboard_f_asm            cpct_keyboard
-     000044C1  _cpct_setPALColour                 cpct_video
-     000044CD  _cpct_drawSprite                   cpct_sprites
-     00004572  _cpct_keyboardStatusBuffer         cpct_keyboard
-     0000457C  _cpct_setVideoMode                 cpct_video
-     0000458A  _cpct_waitVSYNC                    cpct_video
-     0000458A  cpct_waitVSYNC_asm                 cpct_video
-     00004592  _cpct_memset                       cpct_memutils
-     000045A0  _cpct_disableFirmware              cpct_firmware
-     000045A0  _cpct_removeInterruptHandler       cpct_firmware
-     000045A0  cpct_disableFirmware_asm           cpct_firmware
-     000045A0  cpct_removeInterruptHandler_asm    cpct_firmware
-     000045B0  _cpct_mode_rom_status              cpct_firmware
-     000045B1  _cpct_getScreenPtr                 cpct_video
+     0000436E  _play                              game
+     0000438C  _inicializar                       main
+     000043A7  _main                              main
+     000043AF  _incializarEntities                entities
+     000043B0  _accion                            entities
+     0000440D  _moverArriba                       entities
+     00004419  _moverAbajo                        entities
+     00004444  _moverIzquierda                    entities
+     0000444F  _moverDerecha                      entities
+     00004479  _updatePlayer                      entities
+     0000447A  _redibujarPlayer                   entities
+     000044AB  _borrarPlayer                      entities
+     000044AC  _dibujarPlayer                     entities
+     000044E0  _drawAll                           entities
+     000044EA  _cpct_setPalette                   cpct_video
+     00004501  _cpct_isKeyPressed                 cpct_keyboard
+     00004501  cpct_isKeyPressed_asm              cpct_keyboard
+     0000450D  _cpct_scanKeyboard_f               cpct_keyboard
+     0000450D  cpct_scanKeyboard_f_asm            cpct_keyboard
+     00004577  _cpct_setPALColour                 cpct_video
+     00004583  _cpct_drawSprite                   cpct_sprites
+     00004628  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00004632  _cpct_setVideoMode                 cpct_video
+     00004640  _cpct_waitVSYNC                    cpct_video
+     00004640  cpct_waitVSYNC_asm                 cpct_video
+     00004648  _cpct_memset                       cpct_memutils
+     00004656  _cpct_disableFirmware              cpct_firmware
+     00004656  _cpct_removeInterruptHandler       cpct_firmware
+     00004656  cpct_disableFirmware_asm           cpct_firmware
+     00004656  cpct_removeInterruptHandler_asm    cpct_firmware
+     00004666  _cpct_mode_rom_status              cpct_firmware
+     00004667  _cpct_getScreenPtr                 cpct_video
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 
 Files Linked                              [ module(s) ]

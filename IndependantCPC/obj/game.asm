@@ -84,7 +84,7 @@ _updateUser::
 	call	_cpct_isKeyPressed
 	ld	a, l
 	or	a, a
-	jr	Z,00104$
+	jr	Z,00110$
 ;src/game.c:27: accion(&player, es_mover, d_up);
 	ld	hl,#0x0001
 	push	hl
@@ -94,13 +94,13 @@ _updateUser::
 	pop	af
 	pop	af
 	ret
-00104$:
+00110$:
 ;src/game.c:28: }else if(cpct_isKeyPressed(Key_CursorDown)){
 	ld	hl,#0x0400
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-	ret	Z
+	jr	Z,00107$
 ;src/game.c:29: accion(&player, es_mover, d_down);
 	ld	hl,#0x0101
 	push	hl
@@ -110,27 +110,59 @@ _updateUser::
 	pop	af
 	pop	af
 	ret
-;src/game.c:35: void play(){
+00107$:
+;src/game.c:30: }else if(cpct_isKeyPressed(Key_CursorRight)){
+	ld	hl,#0x0200
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	jr	Z,00104$
+;src/game.c:31: accion(&player,es_mover,d_right);
+	ld	hl,#0x0201
+	push	hl
+	ld	hl,#_player
+	push	hl
+	call	_accion
+	pop	af
+	pop	af
+	ret
+00104$:
+;src/game.c:32: }else if(cpct_isKeyPressed(Key_CursorLeft)){
+	ld	hl,#0x0101
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	ret	Z
+;src/game.c:33: accion(&player,es_mover,d_left);
+	ld	hl,#0x0301
+	push	hl
+	ld	hl,#_player
+	push	hl
+	call	_accion
+	pop	af
+	pop	af
+	ret
+;src/game.c:39: void play(){
 ;	---------------------------------
 ; Function play
 ; ---------------------------------
 _play::
-;src/game.c:37: inicializarPantalla();
+;src/game.c:41: inicializarPantalla();
 	call	_inicializarPantalla
-;src/game.c:38: incializarEntities();
+;src/game.c:42: incializarEntities();
 	call	_incializarEntities
-;src/game.c:41: while(1){
+;src/game.c:45: while(1){
 00102$:
-;src/game.c:42: updateUser();	
+;src/game.c:46: updateUser();	
 	call	_updateUser
-;src/game.c:43: updatePlayer(&player);
+;src/game.c:47: updatePlayer(&player);
 	ld	hl,#_player
 	push	hl
 	call	_updatePlayer
 	pop	af
-;src/game.c:45: cpct_waitVSYNC();
+;src/game.c:49: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/game.c:46: drawAll(&player);
+;src/game.c:50: drawAll(&player);
 	ld	hl,#_player
 	push	hl
 	call	_drawAll

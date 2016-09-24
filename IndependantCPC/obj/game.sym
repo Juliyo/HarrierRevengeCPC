@@ -16,7 +16,7 @@ Symbol Table
     _g_naves_1                                                     **** GX
     _incializarEntities                                            **** GX
   0 _inicializarPantalla                                           0000 GR
-  0 _play                                                          0046 GR
+  0 _play                                                          0076 GR
   0 _player                                                        000E GR
     _updatePlayer                                                  **** GX
   0 _updateUser                                                    0014 GR
@@ -27,7 +27,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   64   flags    0
+   0 _CODE                                      size   94   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

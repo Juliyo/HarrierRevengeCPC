@@ -84,7 +84,7 @@
    001A CDr00r00      [17]   84 	call	_cpct_isKeyPressed
    001D 7D            [ 4]   85 	ld	a, l
    001E B7            [ 4]   86 	or	a, a
-   001F 28 0E         [12]   87 	jr	Z,00104$
+   001F 28 0E         [12]   87 	jr	Z,00110$
                              88 ;src/game.c:27: accion(&player, es_mover, d_up);
    0021 21 01 00      [10]   89 	ld	hl,#0x0001
    0024 E5            [11]   90 	push	hl
@@ -94,48 +94,80 @@
    002C F1            [10]   94 	pop	af
    002D F1            [10]   95 	pop	af
    002E C9            [10]   96 	ret
-   002F                      97 00104$:
+   002F                      97 00110$:
                              98 ;src/game.c:28: }else if(cpct_isKeyPressed(Key_CursorDown)){
    002F 21 00 04      [10]   99 	ld	hl,#0x0400
    0032 CDr00r00      [17]  100 	call	_cpct_isKeyPressed
    0035 7D            [ 4]  101 	ld	a,l
    0036 B7            [ 4]  102 	or	a, a
-   0037 C8            [11]  103 	ret	Z
+   0037 28 0E         [12]  103 	jr	Z,00107$
                             104 ;src/game.c:29: accion(&player, es_mover, d_down);
-   0038 21 01 01      [10]  105 	ld	hl,#0x0101
-   003B E5            [11]  106 	push	hl
-   003C 21r0Er00      [10]  107 	ld	hl,#_player
-   003F E5            [11]  108 	push	hl
-   0040 CDr00r00      [17]  109 	call	_accion
-   0043 F1            [10]  110 	pop	af
-   0044 F1            [10]  111 	pop	af
-   0045 C9            [10]  112 	ret
-                            113 ;src/game.c:35: void play(){
-                            114 ;	---------------------------------
-                            115 ; Function play
-                            116 ; ---------------------------------
-   0046                     117 _play::
-                            118 ;src/game.c:37: inicializarPantalla();
-   0046 CDr00r00      [17]  119 	call	_inicializarPantalla
-                            120 ;src/game.c:38: incializarEntities();
-   0049 CDr00r00      [17]  121 	call	_incializarEntities
-                            122 ;src/game.c:41: while(1){
-   004C                     123 00102$:
-                            124 ;src/game.c:42: updateUser();	
-   004C CDr14r00      [17]  125 	call	_updateUser
-                            126 ;src/game.c:43: updatePlayer(&player);
-   004F 21r0Er00      [10]  127 	ld	hl,#_player
-   0052 E5            [11]  128 	push	hl
-   0053 CDr00r00      [17]  129 	call	_updatePlayer
-   0056 F1            [10]  130 	pop	af
-                            131 ;src/game.c:45: cpct_waitVSYNC();
-   0057 CDr00r00      [17]  132 	call	_cpct_waitVSYNC
-                            133 ;src/game.c:46: drawAll(&player);
-   005A 21r0Er00      [10]  134 	ld	hl,#_player
-   005D E5            [11]  135 	push	hl
-   005E CDr00r00      [17]  136 	call	_drawAll
-   0061 F1            [10]  137 	pop	af
-   0062 18 E8         [12]  138 	jr	00102$
-                            139 	.area _CODE
-                            140 	.area _INITIALIZER
-                            141 	.area _CABS (ABS)
+   0039 21 01 01      [10]  105 	ld	hl,#0x0101
+   003C E5            [11]  106 	push	hl
+   003D 21r0Er00      [10]  107 	ld	hl,#_player
+   0040 E5            [11]  108 	push	hl
+   0041 CDr00r00      [17]  109 	call	_accion
+   0044 F1            [10]  110 	pop	af
+   0045 F1            [10]  111 	pop	af
+   0046 C9            [10]  112 	ret
+   0047                     113 00107$:
+                            114 ;src/game.c:30: }else if(cpct_isKeyPressed(Key_CursorRight)){
+   0047 21 00 02      [10]  115 	ld	hl,#0x0200
+   004A CDr00r00      [17]  116 	call	_cpct_isKeyPressed
+   004D 7D            [ 4]  117 	ld	a,l
+   004E B7            [ 4]  118 	or	a, a
+   004F 28 0E         [12]  119 	jr	Z,00104$
+                            120 ;src/game.c:31: accion(&player,es_mover,d_right);
+   0051 21 01 02      [10]  121 	ld	hl,#0x0201
+   0054 E5            [11]  122 	push	hl
+   0055 21r0Er00      [10]  123 	ld	hl,#_player
+   0058 E5            [11]  124 	push	hl
+   0059 CDr00r00      [17]  125 	call	_accion
+   005C F1            [10]  126 	pop	af
+   005D F1            [10]  127 	pop	af
+   005E C9            [10]  128 	ret
+   005F                     129 00104$:
+                            130 ;src/game.c:32: }else if(cpct_isKeyPressed(Key_CursorLeft)){
+   005F 21 01 01      [10]  131 	ld	hl,#0x0101
+   0062 CDr00r00      [17]  132 	call	_cpct_isKeyPressed
+   0065 7D            [ 4]  133 	ld	a,l
+   0066 B7            [ 4]  134 	or	a, a
+   0067 C8            [11]  135 	ret	Z
+                            136 ;src/game.c:33: accion(&player,es_mover,d_left);
+   0068 21 01 03      [10]  137 	ld	hl,#0x0301
+   006B E5            [11]  138 	push	hl
+   006C 21r0Er00      [10]  139 	ld	hl,#_player
+   006F E5            [11]  140 	push	hl
+   0070 CDr00r00      [17]  141 	call	_accion
+   0073 F1            [10]  142 	pop	af
+   0074 F1            [10]  143 	pop	af
+   0075 C9            [10]  144 	ret
+                            145 ;src/game.c:39: void play(){
+                            146 ;	---------------------------------
+                            147 ; Function play
+                            148 ; ---------------------------------
+   0076                     149 _play::
+                            150 ;src/game.c:41: inicializarPantalla();
+   0076 CDr00r00      [17]  151 	call	_inicializarPantalla
+                            152 ;src/game.c:42: incializarEntities();
+   0079 CDr00r00      [17]  153 	call	_incializarEntities
+                            154 ;src/game.c:45: while(1){
+   007C                     155 00102$:
+                            156 ;src/game.c:46: updateUser();	
+   007C CDr14r00      [17]  157 	call	_updateUser
+                            158 ;src/game.c:47: updatePlayer(&player);
+   007F 21r0Er00      [10]  159 	ld	hl,#_player
+   0082 E5            [11]  160 	push	hl
+   0083 CDr00r00      [17]  161 	call	_updatePlayer
+   0086 F1            [10]  162 	pop	af
+                            163 ;src/game.c:49: cpct_waitVSYNC();
+   0087 CDr00r00      [17]  164 	call	_cpct_waitVSYNC
+                            165 ;src/game.c:50: drawAll(&player);
+   008A 21r0Er00      [10]  166 	ld	hl,#_player
+   008D E5            [11]  167 	push	hl
+   008E CDr00r00      [17]  168 	call	_drawAll
+   0091 F1            [10]  169 	pop	af
+   0092 18 E8         [12]  170 	jr	00102$
+                            171 	.area _CODE
+                            172 	.area _INITIALIZER
+                            173 	.area _CABS (ABS)

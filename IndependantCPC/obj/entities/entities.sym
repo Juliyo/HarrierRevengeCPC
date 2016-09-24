@@ -8,15 +8,18 @@ Symbol Table
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
   0 _accion                                                        0001 GR
-  0 _borrarPlayer                                                  0076 GR
+  0 _borrarPlayer                                                  00FC GR
     _cpct_drawSprite                                               **** GX
     _cpct_getScreenPtr                                             **** GX
-  0 _dibujarPlayer                                                 0077 GR
-  0 _drawAll                                                       00AB GR
+  0 _dibujarPlayer                                                 00FD GR
+  0 _drawAll                                                       0131 GR
   0 _incializarEntities                                            0000 GR
-  0 _moverArriba                                                   0019 GR
-  0 _redibujarPlayer                                               0045 GR
-  0 _updatePlayer                                                  0044 GR
+  0 _moverAbajo                                                    006A GR
+  0 _moverArriba                                                   005E GR
+  0 _moverDerecha                                                  00A0 GR
+  0 _moverIzquierda                                                0095 GR
+  0 _redibujarPlayer                                               00CB GR
+  0 _updatePlayer                                                  00CA GR
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -24,7 +27,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   B5   flags    0
+   0 _CODE                                      size  13B   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

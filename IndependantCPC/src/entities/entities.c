@@ -17,7 +17,15 @@ void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
 			switch(dir){
 				case d_up:
 					moverArriba(player);
-
+				break;
+				case d_down:
+					moverAbajo(player);
+				break;
+				case d_left:
+					moverIzquierda(player);
+				break;
+				case d_right:
+					moverDerecha(player);
 				break;
 			}
 		break;
@@ -26,13 +34,40 @@ void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
 }
 
 void moverArriba(TPlayer* player){
-	if (player->y + G_NAVES_0_H < ALTO) {
+	if (player->y > 0) {
       player->y--;
   	}else{
 
-  		//Aqui yo haria scroll del mapa z
+  		//Aqui yo haria scroll del mapa
   	}
 }
+
+void moverAbajo(TPlayer* player){
+	if (player->y + G_NAVES_0_H < ALTO) {
+      player->y++;
+  	}else{
+
+  		//Aqui yo haria scroll del mapa
+  	}
+}
+
+void moverIzquierda(TPlayer* player){
+	if (player->x > 0) {
+      player->x--;
+  	}else{
+
+  		//Aqui yo haria scroll del mapa
+  	}
+}
+void moverDerecha(TPlayer* player){
+	if (player->x + G_NAVES_0_W < ANCHO) {
+      player->x++;
+  	}else{
+
+  		//Aqui yo haria scroll del mapa
+  	}
+}
+
 
 void updatePlayer(TPlayer* player){
 

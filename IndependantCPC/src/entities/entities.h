@@ -10,6 +10,9 @@ void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir);
 
 //Acciones Entities
 void moverArriba(TPlayer* player);
+void moverAbajo(TPlayer* player);
+void moverIzquierda(TPlayer* player);
+void moverDerecha(TPlayer* player);
 
 void updatePlayer(TPlayer* player);
 
