@@ -18,59 +18,71 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  l__INITIALIZER                  
      00000000  s__CABS                         
      00000000  s__DABS                         
-     0000048F  l__CODE                         
+     000005D0  l__CODE                         
      00004000  s__CODE                         
-     0000448F  s__DATA                         
-     0000448F  s__GSFINAL                      
-     0000448F  s__GSINIT                       
-     0000448F  s__HOME                         
-     0000448F  s__INITIALIZED                  
-     0000448F  s__INITIALIZER                  
+     000045D0  s__DATA                         
+     000045D0  s__GSFINAL                      
+     000045D0  s__GSINIT                       
+     000045D0  s__HOME                         
+     000045D0  s__INITIALIZED                  
+     000045D0  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    0000048F =        1167. bytes (REL,CON)
+_CODE                               00004000    000005D0 =        1488. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004000  _inicializarPantalla               game
-     0000400E  _player                            game
-     00004012  _play                              game
-     00004022  _inicializar                       main
-     0000403D  _main                              main
-     00004045  _incializarEntities                entities
-     00004046  _dibujarPlayer                     entities
-     00004078  _drawAll                           entities
-     00004082  _g_palette                         naves
-     00004092  _g_naves_0                         naves
-     00004112  _g_naves_1                         naves
-     00004192  _g_naves_2                         naves
-     00004212  _g_naves_3                         naves
-     0000428A  _g_naves_4                         naves
-     00004302  _g_naves_5                         naves
-     0000437A  _cpct_setPalette                   cpct_video
-     00004391  _cpct_setPALColour                 cpct_video
-     0000439D  _cpct_drawSprite                   cpct_sprites
-     00004442  _cpct_setVideoMode                 cpct_video
-     00004450  _cpct_memset                       cpct_memutils
-     0000445E  _cpct_disableFirmware              cpct_firmware
-     0000445E  _cpct_removeInterruptHandler       cpct_firmware
-     0000445E  cpct_disableFirmware_asm           cpct_firmware
-     0000445E  cpct_removeInterruptHandler_asm    cpct_firmware
-     0000446E  _cpct_mode_rom_status              cpct_firmware
-     0000446F  _cpct_getScreenPtr                 cpct_video
-
+     00004000  _g_palette                         naves
+     00004010  _g_naves_0                         naves
+     00004090  _g_naves_1                         naves
+     00004110  _g_naves_2                         naves
+     00004190  _g_naves_3                         naves
+     00004208  _g_naves_4                         naves
+     00004280  _g_naves_5                         naves
+     000042F8  _inicializarPantalla               game
+     00004306  _player                            game
+     0000430C  _updateUser                        game
+     0000433E  _play                              game
+     0000435C  _inicializar                       main
+     00004377  _main                              main
+     0000437F  _incializarEntities                entities
+     00004380  _accion                            entities
+     00004398  _moverArriba                       entities
+     000043C2  _updatePlayer                      entities
+     000043C3  _redibujarPlayer                   entities
+     000043F4  _borrarPlayer                      entities
+     000043F5  _dibujarPlayer                     entities
+     00004429  _drawAll                           entities
+     00004433  _cpct_setPalette                   cpct_video
+     0000444A  _cpct_isKeyPressed                 cpct_keyboard
+     0000444A  cpct_isKeyPressed_asm              cpct_keyboard
+     00004456  _cpct_scanKeyboard_f               cpct_keyboard
+     00004456  cpct_scanKeyboard_f_asm            cpct_keyboard
+     000044C0  _cpct_setPALColour                 cpct_video
+     000044CC  _cpct_drawSprite                   cpct_sprites
+     00004571  _cpct_keyboardStatusBuffer         cpct_keyboard
+     0000457B  _cpct_setVideoMode                 cpct_video
+     00004589  _cpct_waitVSYNC                    cpct_video
+     00004589  cpct_waitVSYNC_asm                 cpct_video
+     00004591  _cpct_memset                       cpct_memutils
+     0000459F  _cpct_disableFirmware              cpct_firmware
+     0000459F  _cpct_removeInterruptHandler       cpct_firmware
+     0000459F  cpct_disableFirmware_asm           cpct_firmware
+     0000459F  cpct_removeInterruptHandler_asm    cpct_firmware
+     000045AF  _cpct_mode_rom_status              cpct_firmware
+     000045B0  _cpct_getScreenPtr                 cpct_video
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 
 Files Linked                              [ module(s) ]
 
+obj/sprites/naves.rel                     [ naves ]
 obj/game.rel                              [ game ]
 obj/main.rel                              [ main ]
 obj/entities/entities.rel                 [ entities ]
-obj/sprites/naves.rel                     [ naves ]
 
 
 Libraries Linked                          [ object file ]
@@ -78,11 +90,19 @@ Libraries Linked                          [ object file ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPalette_cbindings.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isKeyPressed.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard_f.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setPALColour_cbindings.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSprite_cbindings.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ keyboard.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_setVideoMode_cbindings.rel ]
+/mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitVSYNC.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_memset_cbinding.rel ]
 /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib

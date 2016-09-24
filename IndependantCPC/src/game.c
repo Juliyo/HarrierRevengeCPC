@@ -7,7 +7,9 @@
 const TPlayer player = {
 	100,
 	50,
-	g_naves_0
+	player.x,
+	player.y,
+	g_naves_1
 };
 
 void inicializarPantalla(){
@@ -17,9 +19,18 @@ void inicializarPantalla(){
 	//Aqui dibujariamos cosas de la pantalla 
 }
 
-/*void updateUser(TPlayer* user){
+void updateUser(){
+	// Scan Keyboard
+   cpct_scanKeyboard_f();
 
-}*/
+   if(cpct_isKeyPressed(Key_CursorUp)){
+   		accion(&player, es_mover, d_up);
+   }else if(cpct_isKeyPressed(Key_CursorDown)){
+   		accion(&player, es_mover, d_down);
+   }
+
+
+}
 
 void play(){
 
@@ -28,8 +39,10 @@ void play(){
 
 	//Esto seria mientras estes vivo
 	while(1){
-		//updateUser(&player);	
-		//updatePlayer(player);
+		updateUser();	
+		updatePlayer(&player);
+
+		cpct_waitVSYNC();
 		drawAll(&player);
 	}
 }

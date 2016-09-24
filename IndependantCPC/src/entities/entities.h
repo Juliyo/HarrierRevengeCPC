@@ -6,6 +6,16 @@
 #include "../game.h"
 
 void incializarEntities();
+void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir);
+
+//Acciones Entities
+void moverArriba(TPlayer* player);
+
+void updatePlayer(TPlayer* player);
+
+
+void redibujarPlayer(TPlayer *player);
+void borrarPlayer(TPlayer *player);
 void dibujarPlayer(TPlayer* player);
 void drawAll(TPlayer* player);
 

@@ -50,35 +50,35 @@
                              50 ;	---------------------------------
                              51 ; Function inicializar
                              52 ; ---------------------------------
-   4022                      53 _inicializar::
+   435C                      53 _inicializar::
                              54 ;src/main.c:24: cpct_disableFirmware();
-   4022 CD 5E 44      [17]   55 	call	_cpct_disableFirmware
+   435C CD 9F 45      [17]   55 	call	_cpct_disableFirmware
                              56 ;src/main.c:25: cpct_setBorder(HW_BLACK);
-   4025 21 10 14      [10]   57 	ld	hl,#0x1410
-   4028 E5            [11]   58 	push	hl
-   4029 CD 91 43      [17]   59 	call	_cpct_setPALColour
+   435F 21 10 14      [10]   57 	ld	hl,#0x1410
+   4362 E5            [11]   58 	push	hl
+   4363 CD C0 44      [17]   59 	call	_cpct_setPALColour
                              60 ;src/main.c:26: cpct_setPalette(g_palette,16);
-   402C 21 10 00      [10]   61 	ld	hl,#0x0010
-   402F E5            [11]   62 	push	hl
-   4030 21 82 40      [10]   63 	ld	hl,#_g_palette
-   4033 E5            [11]   64 	push	hl
-   4034 CD 7A 43      [17]   65 	call	_cpct_setPalette
+   4366 21 10 00      [10]   61 	ld	hl,#0x0010
+   4369 E5            [11]   62 	push	hl
+   436A 21 00 40      [10]   63 	ld	hl,#_g_palette
+   436D E5            [11]   64 	push	hl
+   436E CD 33 44      [17]   65 	call	_cpct_setPalette
                              66 ;src/main.c:29: cpct_setVideoMode(0);
-   4037 2E 00         [ 7]   67 	ld	l,#0x00
-   4039 CD 42 44      [17]   68 	call	_cpct_setVideoMode
-   403C C9            [10]   69 	ret
+   4371 2E 00         [ 7]   67 	ld	l,#0x00
+   4373 CD 7B 45      [17]   68 	call	_cpct_setVideoMode
+   4376 C9            [10]   69 	ret
                              70 ;src/main.c:32: void main(void) {
                              71 ;	---------------------------------
                              72 ; Function main
                              73 ; ---------------------------------
-   403D                      74 _main::
+   4377                      74 _main::
                              75 ;src/main.c:34: inicializar();
-   403D CD 22 40      [17]   76 	call	_inicializar
+   4377 CD 5C 43      [17]   76 	call	_inicializar
                              77 ;src/main.c:37: while (1){
-   4040                      78 00102$:
+   437A                      78 00102$:
                              79 ;src/main.c:38: play();
-   4040 CD 12 40      [17]   80 	call	_play
-   4043 18 FB         [12]   81 	jr	00102$
+   437A CD 3E 43      [17]   80 	call	_play
+   437D 18 FB         [12]   81 	jr	00102$
                              82 	.area _CODE
                              83 	.area _INITIALIZER
                              84 	.area _CABS (ABS)

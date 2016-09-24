@@ -9,10 +9,16 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _drawAll
+	.globl _updatePlayer
+	.globl _accion
 	.globl _incializarEntities
+	.globl _cpct_waitVSYNC
+	.globl _cpct_isKeyPressed
+	.globl _cpct_scanKeyboard_f
 	.globl _cpct_memset
 	.globl _player
 	.globl _inicializarPantalla
+	.globl _updateUser
 	.globl _play
 ;--------------------------------------------------------
 ; special function registers
@@ -45,12 +51,12 @@
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/game.c:13: void inicializarPantalla(){
+;src/game.c:15: void inicializarPantalla(){
 ;	---------------------------------
 ; Function inicializarPantalla
 ; ---------------------------------
 _inicializarPantalla::
-;src/game.c:15: cpct_clearScreen(0);
+;src/game.c:17: cpct_clearScreen(0);
 	ld	hl,#0x4000
 	push	hl
 	xor	a, a
@@ -63,19 +69,68 @@ _inicializarPantalla::
 _player:
 	.db #0x64	; 100	'd'
 	.db #0x32	; 50	'2'
-	.dw _g_naves_0
-;src/game.c:24: void play(){
+	.byte (_player + 0)
+	.byte (_player + 1)
+	.dw _g_naves_1
+;src/game.c:22: void updateUser(){
+;	---------------------------------
+; Function updateUser
+; ---------------------------------
+_updateUser::
+;src/game.c:24: cpct_scanKeyboard_f();
+	call	_cpct_scanKeyboard_f
+;src/game.c:26: if(cpct_isKeyPressed(Key_CursorUp)){
+	ld	hl,#0x0100
+	call	_cpct_isKeyPressed
+	ld	a, l
+	or	a, a
+	jr	Z,00104$
+;src/game.c:27: accion(&player, es_mover, d_up);
+	ld	hl,#0x0001
+	push	hl
+	ld	hl,#_player
+	push	hl
+	call	_accion
+	pop	af
+	pop	af
+	ret
+00104$:
+;src/game.c:28: }else if(cpct_isKeyPressed(Key_CursorDown)){
+	ld	hl,#0x0400
+	call	_cpct_isKeyPressed
+	ld	a,l
+	or	a, a
+	ret	Z
+;src/game.c:29: accion(&player, es_mover, d_down);
+	ld	hl,#0x0101
+	push	hl
+	ld	hl,#_player
+	push	hl
+	call	_accion
+	pop	af
+	pop	af
+	ret
+;src/game.c:35: void play(){
 ;	---------------------------------
 ; Function play
 ; ---------------------------------
 _play::
-;src/game.c:26: inicializarPantalla();
+;src/game.c:37: inicializarPantalla();
 	call	_inicializarPantalla
-;src/game.c:27: incializarEntities();
+;src/game.c:38: incializarEntities();
 	call	_incializarEntities
-;src/game.c:30: while(1){
+;src/game.c:41: while(1){
 00102$:
-;src/game.c:33: drawAll(&player);
+;src/game.c:42: updateUser();	
+	call	_updateUser
+;src/game.c:43: updatePlayer(&player);
+	ld	hl,#_player
+	push	hl
+	call	_updatePlayer
+	pop	af
+;src/game.c:45: cpct_waitVSYNC();
+	call	_cpct_waitVSYNC
+;src/game.c:46: drawAll(&player);
 	ld	hl,#_player
 	push	hl
 	call	_drawAll

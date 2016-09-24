@@ -11,6 +11,11 @@
 	.globl _cpct_getScreenPtr
 	.globl _cpct_drawSprite
 	.globl _incializarEntities
+	.globl _accion
+	.globl _moverArriba
+	.globl _updatePlayer
+	.globl _redibujarPlayer
+	.globl _borrarPlayer
 	.globl _dibujarPlayer
 	.globl _drawAll
 ;--------------------------------------------------------
@@ -51,7 +56,122 @@
 _incializarEntities::
 ;src/entities/entities.c:10: }
 	ret
-;src/entities/entities.c:12: void dibujarPlayer(TPlayer* player){
+;src/entities/entities.c:14: void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
+;	---------------------------------
+; Function accion
+; ---------------------------------
+_accion::
+;src/entities/entities.c:15: switch(action){
+	ld	hl, #4+0
+	add	hl, sp
+	ld	a, (hl)
+	dec	a
+	ret	NZ
+;src/entities/entities.c:17: switch(dir){
+	ld	hl, #5+0
+	add	hl, sp
+	ld	a, (hl)
+	or	a, a
+	ret	NZ
+;src/entities/entities.c:19: moverArriba(player);
+	pop	bc
+	pop	hl
+	push	hl
+	push	bc
+	push	hl
+	call	_moverArriba
+	pop	af
+;src/entities/entities.c:24: }
+	ret
+;src/entities/entities.c:27: void moverArriba(TPlayer* player){
+;	---------------------------------
+; Function moverArriba
+; ---------------------------------
+_moverArriba::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+;src/entities/entities.c:28: if (player->x + G_NAVES_0_W < ALTO) {
+	ld	c,4 (ix)
+	ld	b,5 (ix)
+	ld	a,(bc)
+	ld	e,a
+	ld	l,e
+	ld	h,#0x00
+	push	de
+	ld	de,#0x0008
+	add	hl, de
+	pop	de
+	ld	a,l
+	sub	a, #0x50
+	ld	a,h
+	rla
+	ccf
+	rra
+	sbc	a, #0x80
+	jr	NC,00103$
+;src/entities/entities.c:29: player->x++;
+	inc	e
+	ld	a,e
+	ld	(bc),a
+00103$:
+	pop	ix
+	ret
+;src/entities/entities.c:35: void updatePlayer(TPlayer* player){
+;	---------------------------------
+; Function updatePlayer
+; ---------------------------------
+_updatePlayer::
+;src/entities/entities.c:37: }
+	ret
+;src/entities/entities.c:39: void redibujarPlayer(TPlayer* player){
+;	---------------------------------
+; Function redibujarPlayer
+; ---------------------------------
+_redibujarPlayer::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+;src/entities/entities.c:40: borrarPlayer(player);
+	ld	l,4 (ix)
+	ld	h,5 (ix)
+	push	hl
+	call	_borrarPlayer
+	pop	af
+;src/entities/entities.c:41: player->px = player->x;
+	ld	c,4 (ix)
+	ld	b,5 (ix)
+	ld	e, c
+	ld	d, b
+	inc	de
+	inc	de
+	ld	a,(bc)
+	ld	(de),a
+;src/entities/entities.c:42: player->py = player->y;
+	ld	e, c
+	ld	d, b
+	inc	de
+	inc	de
+	inc	de
+	ld	l, c
+	ld	h, b
+	inc	hl
+	ld	a,(hl)
+	ld	(de),a
+;src/entities/entities.c:43: dibujarPlayer(player);
+	push	bc
+	call	_dibujarPlayer
+	pop	af
+	pop	ix
+	ret
+;src/entities/entities.c:46: void borrarPlayer(TPlayer* player){
+;	---------------------------------
+; Function borrarPlayer
+; ---------------------------------
+_borrarPlayer::
+;src/entities/entities.c:48: }
+	ret
+;src/entities/entities.c:50: void dibujarPlayer(TPlayer* player){
 ;	---------------------------------
 ; Function dibujarPlayer
 ; ---------------------------------
@@ -59,7 +179,7 @@ _dibujarPlayer::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:13: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
+;src/entities/entities.c:51: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	l, c
@@ -76,10 +196,10 @@ _dibujarPlayer::
 	push	hl
 	call	_cpct_getScreenPtr
 	ex	de,hl
-;src/entities/entities.c:14: cpct_drawSprite(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H);
+;src/entities/entities.c:52: cpct_drawSprite(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H);
 	pop	hl
-	inc	hl
-	inc	hl
+	ld	bc, #0x0004
+	add	hl, bc
 	ld	c,(hl)
 	inc	hl
 	ld	b,(hl)
@@ -90,12 +210,12 @@ _dibujarPlayer::
 	call	_cpct_drawSprite
 	pop	ix
 	ret
-;src/entities/entities.c:17: void drawAll(TPlayer* player){
+;src/entities/entities.c:55: void drawAll(TPlayer* player){
 ;	---------------------------------
 ; Function drawAll
 ; ---------------------------------
 _drawAll::
-;src/entities/entities.c:19: dibujarPlayer(player);
+;src/entities/entities.c:57: dibujarPlayer(player);
 	pop	bc
 	pop	hl
 	push	hl

@@ -7,13 +7,19 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
+    _accion                                                        **** GX
+    _cpct_isKeyPressed                                             **** GX
     _cpct_memset                                                   **** GX
+    _cpct_scanKeyboard_f                                           **** GX
+    _cpct_waitVSYNC                                                **** GX
     _drawAll                                                       **** GX
-    _g_naves_0                                                     **** GX
+    _g_naves_1                                                     **** GX
     _incializarEntities                                            **** GX
   0 _inicializarPantalla                                           0000 GR
-  0 _play                                                          0012 GR
+  0 _play                                                          0046 GR
   0 _player                                                        000E GR
+    _updatePlayer                                                  **** GX
+  0 _updateUser                                                    0014 GR
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -21,7 +27,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   22   flags    0
+   0 _CODE                                      size   64   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

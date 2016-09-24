@@ -7,9 +7,9 @@
 -k /mnt/c/Users/julio/cpctelera/cpctelera/tools/sdcc-3.5.5/share/sdcc/lib/z80
 -l /mnt/c/Users/julio/cpctelera/cpctelera/cpctelera.lib
 -l z80
+obj/sprites/naves.rel
 obj/game.rel
 obj/main.rel
 obj/entities/entities.rel
-obj/sprites/naves.rel
 
 -e
