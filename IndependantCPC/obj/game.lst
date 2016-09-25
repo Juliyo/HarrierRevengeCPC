@@ -12,162 +12,218 @@
                              12 	.globl _updatePlayer
                              13 	.globl _accion
                              14 	.globl _incializarEntities
-                             15 	.globl _cpct_waitVSYNC
-                             16 	.globl _cpct_isKeyPressed
-                             17 	.globl _cpct_scanKeyboard_f
-                             18 	.globl _cpct_memset
-                             19 	.globl _player
-                             20 	.globl _inicializarPantalla
-                             21 	.globl _updateUser
-                             22 	.globl _play
-                             23 ;--------------------------------------------------------
-                             24 ; special function registers
-                             25 ;--------------------------------------------------------
-                             26 ;--------------------------------------------------------
-                             27 ; ram data
+                             15 	.globl _cpct_etm_setTileset2x4
+                             16 	.globl _cpct_etm_drawTileBox2x4
+                             17 	.globl _cpct_waitVSYNC
+                             18 	.globl _cpct_isAnyKeyPressed
+                             19 	.globl _cpct_isKeyPressed
+                             20 	.globl _cpct_scanKeyboard_if
+                             21 	.globl _cpct_memset
+                             22 	.globl _mapa
+                             23 	.globl _player
+                             24 	.globl _inicializarPantalla
+                             25 	.globl _dibujarMapa
+                             26 	.globl _updateUser
+                             27 	.globl _play
                              28 ;--------------------------------------------------------
-                             29 	.area _DATA
+                             29 ; special function registers
                              30 ;--------------------------------------------------------
-                             31 ; ram data
-                             32 ;--------------------------------------------------------
-                             33 	.area _INITIALIZED
-                             34 ;--------------------------------------------------------
-                             35 ; absolute external ram data
-                             36 ;--------------------------------------------------------
-                             37 	.area _DABS (ABS)
-                             38 ;--------------------------------------------------------
-                             39 ; global & static initialisations
-                             40 ;--------------------------------------------------------
-                             41 	.area _HOME
-                             42 	.area _GSINIT
-                             43 	.area _GSFINAL
-                             44 	.area _GSINIT
+                             31 ;--------------------------------------------------------
+                             32 ; ram data
+                             33 ;--------------------------------------------------------
+                             34 	.area _DATA
+                             35 ;--------------------------------------------------------
+                             36 ; ram data
+                             37 ;--------------------------------------------------------
+                             38 	.area _INITIALIZED
+   0000                      39 _mapa::
+   0000                      40 	.ds 2
+                             41 ;--------------------------------------------------------
+                             42 ; absolute external ram data
+                             43 ;--------------------------------------------------------
+                             44 	.area _DABS (ABS)
                              45 ;--------------------------------------------------------
-                             46 ; Home
+                             46 ; global & static initialisations
                              47 ;--------------------------------------------------------
                              48 	.area _HOME
-                             49 	.area _HOME
-                             50 ;--------------------------------------------------------
-                             51 ; code
+                             49 	.area _GSINIT
+                             50 	.area _GSFINAL
+                             51 	.area _GSINIT
                              52 ;--------------------------------------------------------
-                             53 	.area _CODE
-                             54 ;src/game.c:15: void inicializarPantalla(){
-                             55 ;	---------------------------------
-                             56 ; Function inicializarPantalla
-                             57 ; ---------------------------------
-   0000                      58 _inicializarPantalla::
-                             59 ;src/game.c:17: cpct_clearScreen(0);
-   0000 21 00 40      [10]   60 	ld	hl,#0x4000
-   0003 E5            [11]   61 	push	hl
-   0004 AF            [ 4]   62 	xor	a, a
-   0005 F5            [11]   63 	push	af
-   0006 33            [ 6]   64 	inc	sp
-   0007 26 C0         [ 7]   65 	ld	h, #0xC0
-   0009 E5            [11]   66 	push	hl
-   000A CDr00r00      [17]   67 	call	_cpct_memset
-   000D C9            [10]   68 	ret
-   000E                      69 _player:
-   000E 64                   70 	.db #0x64	; 100	'd'
-   000F 32                   71 	.db #0x32	; 50	'2'
-   0010r0E                   72 	.byte (_player + 0)
-   0011r0F                   73 	.byte (_player + 1)
-   0012r00r00                74 	.dw _g_naves_1
-                             75 ;src/game.c:22: void updateUser(){
-                             76 ;	---------------------------------
-                             77 ; Function updateUser
-                             78 ; ---------------------------------
-   0014                      79 _updateUser::
-                             80 ;src/game.c:24: cpct_scanKeyboard_f();
-   0014 CDr00r00      [17]   81 	call	_cpct_scanKeyboard_f
-                             82 ;src/game.c:26: if(cpct_isKeyPressed(Key_CursorUp)){
-   0017 21 00 01      [10]   83 	ld	hl,#0x0100
-   001A CDr00r00      [17]   84 	call	_cpct_isKeyPressed
-   001D 7D            [ 4]   85 	ld	a, l
-   001E B7            [ 4]   86 	or	a, a
-   001F 28 0E         [12]   87 	jr	Z,00110$
-                             88 ;src/game.c:27: accion(&player, es_mover, d_up);
-   0021 21 01 00      [10]   89 	ld	hl,#0x0001
-   0024 E5            [11]   90 	push	hl
-   0025 21r0Er00      [10]   91 	ld	hl,#_player
-   0028 E5            [11]   92 	push	hl
-   0029 CDr00r00      [17]   93 	call	_accion
-   002C F1            [10]   94 	pop	af
-   002D F1            [10]   95 	pop	af
-   002E C9            [10]   96 	ret
-   002F                      97 00110$:
-                             98 ;src/game.c:28: }else if(cpct_isKeyPressed(Key_CursorDown)){
-   002F 21 00 04      [10]   99 	ld	hl,#0x0400
-   0032 CDr00r00      [17]  100 	call	_cpct_isKeyPressed
-   0035 7D            [ 4]  101 	ld	a,l
-   0036 B7            [ 4]  102 	or	a, a
-   0037 28 0E         [12]  103 	jr	Z,00107$
-                            104 ;src/game.c:29: accion(&player, es_mover, d_down);
-   0039 21 01 01      [10]  105 	ld	hl,#0x0101
-   003C E5            [11]  106 	push	hl
-   003D 21r0Er00      [10]  107 	ld	hl,#_player
-   0040 E5            [11]  108 	push	hl
-   0041 CDr00r00      [17]  109 	call	_accion
-   0044 F1            [10]  110 	pop	af
-   0045 F1            [10]  111 	pop	af
-   0046 C9            [10]  112 	ret
-   0047                     113 00107$:
-                            114 ;src/game.c:30: }else if(cpct_isKeyPressed(Key_CursorRight)){
-   0047 21 00 02      [10]  115 	ld	hl,#0x0200
-   004A CDr00r00      [17]  116 	call	_cpct_isKeyPressed
-   004D 7D            [ 4]  117 	ld	a,l
-   004E B7            [ 4]  118 	or	a, a
-   004F 28 0E         [12]  119 	jr	Z,00104$
-                            120 ;src/game.c:31: accion(&player,es_mover,d_right);
-   0051 21 01 02      [10]  121 	ld	hl,#0x0201
-   0054 E5            [11]  122 	push	hl
-   0055 21r0Er00      [10]  123 	ld	hl,#_player
-   0058 E5            [11]  124 	push	hl
-   0059 CDr00r00      [17]  125 	call	_accion
-   005C F1            [10]  126 	pop	af
-   005D F1            [10]  127 	pop	af
-   005E C9            [10]  128 	ret
-   005F                     129 00104$:
-                            130 ;src/game.c:32: }else if(cpct_isKeyPressed(Key_CursorLeft)){
-   005F 21 01 01      [10]  131 	ld	hl,#0x0101
-   0062 CDr00r00      [17]  132 	call	_cpct_isKeyPressed
-   0065 7D            [ 4]  133 	ld	a,l
-   0066 B7            [ 4]  134 	or	a, a
-   0067 C8            [11]  135 	ret	Z
-                            136 ;src/game.c:33: accion(&player,es_mover,d_left);
-   0068 21 01 03      [10]  137 	ld	hl,#0x0301
-   006B E5            [11]  138 	push	hl
-   006C 21r0Er00      [10]  139 	ld	hl,#_player
-   006F E5            [11]  140 	push	hl
-   0070 CDr00r00      [17]  141 	call	_accion
-   0073 F1            [10]  142 	pop	af
-   0074 F1            [10]  143 	pop	af
-   0075 C9            [10]  144 	ret
-                            145 ;src/game.c:39: void play(){
-                            146 ;	---------------------------------
-                            147 ; Function play
-                            148 ; ---------------------------------
-   0076                     149 _play::
-                            150 ;src/game.c:41: inicializarPantalla();
-   0076 CDr00r00      [17]  151 	call	_inicializarPantalla
-                            152 ;src/game.c:42: incializarEntities();
-   0079 CDr00r00      [17]  153 	call	_incializarEntities
-                            154 ;src/game.c:45: while(1){
-   007C                     155 00102$:
-                            156 ;src/game.c:46: updateUser();	
-   007C CDr14r00      [17]  157 	call	_updateUser
-                            158 ;src/game.c:47: updatePlayer(&player);
-   007F 21r0Er00      [10]  159 	ld	hl,#_player
-   0082 E5            [11]  160 	push	hl
-   0083 CDr00r00      [17]  161 	call	_updatePlayer
-   0086 F1            [10]  162 	pop	af
-                            163 ;src/game.c:49: cpct_waitVSYNC();
-   0087 CDr00r00      [17]  164 	call	_cpct_waitVSYNC
-                            165 ;src/game.c:50: drawAll(&player);
-   008A 21r0Er00      [10]  166 	ld	hl,#_player
-   008D E5            [11]  167 	push	hl
-   008E CDr00r00      [17]  168 	call	_drawAll
-   0091 F1            [10]  169 	pop	af
-   0092 18 E8         [12]  170 	jr	00102$
-                            171 	.area _CODE
-                            172 	.area _INITIALIZER
-                            173 	.area _CABS (ABS)
+                             53 ; Home
+                             54 ;--------------------------------------------------------
+                             55 	.area _HOME
+                             56 	.area _HOME
+                             57 ;--------------------------------------------------------
+                             58 ; code
+                             59 ;--------------------------------------------------------
+                             60 	.area _CODE
+                             61 ;src/game.c:22: void inicializarPantalla(){
+                             62 ;	---------------------------------
+                             63 ; Function inicializarPantalla
+                             64 ; ---------------------------------
+   0000                      65 _inicializarPantalla::
+                             66 ;src/game.c:24: cpct_clearScreen(0);
+   0000 21 00 40      [10]   67 	ld	hl,#0x4000
+   0003 E5            [11]   68 	push	hl
+   0004 AF            [ 4]   69 	xor	a, a
+   0005 F5            [11]   70 	push	af
+   0006 33            [ 6]   71 	inc	sp
+   0007 26 C0         [ 7]   72 	ld	h, #0xC0
+   0009 E5            [11]   73 	push	hl
+   000A CDr00r00      [17]   74 	call	_cpct_memset
+                             75 ;src/game.c:26: mapa = g_map1;
+   000D 21r00r00      [10]   76 	ld	hl,#_g_map1+0
+   0010 22r00r00      [16]   77 	ld	(_mapa),hl
+                             78 ;src/game.c:27: cpct_etm_setTileset2x4(g_tileset);
+   0013 21r00r00      [10]   79 	ld	hl,#_g_tileset
+   0016 CDr00r00      [17]   80 	call	_cpct_etm_setTileset2x4
+                             81 ;src/game.c:28: dibujarMapa();
+   0019 CDr24r00      [17]   82 	call	_dibujarMapa
+   001C C9            [10]   83 	ret
+   001D                      84 _player:
+   001D 64                   85 	.db #0x64	; 100	'd'
+   001E 32                   86 	.db #0x32	; 50	'2'
+   001Fr1D                   87 	.byte (_player + 0)
+   0020r1E                   88 	.byte (_player + 1)
+   0021 01                   89 	.db #0x01	; 1
+   0022r00r00                90 	.dw _g_naves_0
+                             91 ;src/game.c:32: void dibujarMapa(){
+                             92 ;	---------------------------------
+                             93 ; Function dibujarMapa
+                             94 ; ---------------------------------
+   0024                      95 _dibujarMapa::
+                             96 ;src/game.c:33: cpct_etm_drawTilemap2x4(g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
+   0024 2Ar00r00      [16]   97 	ld	hl,(_mapa)
+   0027 E5            [11]   98 	push	hl
+   0028 21 00 C0      [10]   99 	ld	hl,#0xC000
+   002B E5            [11]  100 	push	hl
+   002C 21 32 28      [10]  101 	ld	hl,#0x2832
+   002F E5            [11]  102 	push	hl
+   0030 2E 00         [ 7]  103 	ld	l, #0x00
+   0032 E5            [11]  104 	push	hl
+   0033 AF            [ 4]  105 	xor	a, a
+   0034 F5            [11]  106 	push	af
+   0035 33            [ 6]  107 	inc	sp
+   0036 CDr00r00      [17]  108 	call	_cpct_etm_drawTileBox2x4
+   0039 C9            [10]  109 	ret
+                            110 ;src/game.c:36: void updateUser(){
+                            111 ;	---------------------------------
+                            112 ; Function updateUser
+                            113 ; ---------------------------------
+   003A                     114 _updateUser::
+                            115 ;src/game.c:38: cpct_scanKeyboard_if();
+   003A CDr00r00      [17]  116 	call	_cpct_scanKeyboard_if
+                            117 ;src/game.c:39: if(cpct_isAnyKeyPressed()){
+   003D CDr00r00      [17]  118 	call	_cpct_isAnyKeyPressed
+   0040 7D            [ 4]  119 	ld	a,l
+   0041 B7            [ 4]  120 	or	a, a
+   0042 C8            [11]  121 	ret	Z
+                            122 ;src/game.c:40: if(cpct_isKeyPressed(Key_CursorUp)){
+   0043 21 00 01      [10]  123 	ld	hl,#0x0100
+   0046 CDr00r00      [17]  124 	call	_cpct_isKeyPressed
+   0049 7D            [ 4]  125 	ld	a,l
+   004A B7            [ 4]  126 	or	a, a
+   004B 28 0E         [12]  127 	jr	Z,00110$
+                            128 ;src/game.c:41: accion(&player, es_mover, d_up);
+   004D 21 01 00      [10]  129 	ld	hl,#0x0001
+   0050 E5            [11]  130 	push	hl
+   0051 21r1Dr00      [10]  131 	ld	hl,#_player
+   0054 E5            [11]  132 	push	hl
+   0055 CDr00r00      [17]  133 	call	_accion
+   0058 F1            [10]  134 	pop	af
+   0059 F1            [10]  135 	pop	af
+   005A C9            [10]  136 	ret
+   005B                     137 00110$:
+                            138 ;src/game.c:42: }else if(cpct_isKeyPressed(Key_CursorDown)){
+   005B 21 00 04      [10]  139 	ld	hl,#0x0400
+   005E CDr00r00      [17]  140 	call	_cpct_isKeyPressed
+   0061 7D            [ 4]  141 	ld	a,l
+   0062 B7            [ 4]  142 	or	a, a
+   0063 28 0E         [12]  143 	jr	Z,00107$
+                            144 ;src/game.c:43: accion(&player, es_mover, d_down);
+   0065 21 01 01      [10]  145 	ld	hl,#0x0101
+   0068 E5            [11]  146 	push	hl
+   0069 21r1Dr00      [10]  147 	ld	hl,#_player
+   006C E5            [11]  148 	push	hl
+   006D CDr00r00      [17]  149 	call	_accion
+   0070 F1            [10]  150 	pop	af
+   0071 F1            [10]  151 	pop	af
+   0072 C9            [10]  152 	ret
+   0073                     153 00107$:
+                            154 ;src/game.c:44: }else if(cpct_isKeyPressed(Key_CursorRight)){
+   0073 21 00 02      [10]  155 	ld	hl,#0x0200
+   0076 CDr00r00      [17]  156 	call	_cpct_isKeyPressed
+   0079 7D            [ 4]  157 	ld	a,l
+   007A B7            [ 4]  158 	or	a, a
+   007B 28 0E         [12]  159 	jr	Z,00104$
+                            160 ;src/game.c:45: accion(&player,es_mover,d_right);
+   007D 21 01 02      [10]  161 	ld	hl,#0x0201
+   0080 E5            [11]  162 	push	hl
+   0081 21r1Dr00      [10]  163 	ld	hl,#_player
+   0084 E5            [11]  164 	push	hl
+   0085 CDr00r00      [17]  165 	call	_accion
+   0088 F1            [10]  166 	pop	af
+   0089 F1            [10]  167 	pop	af
+   008A C9            [10]  168 	ret
+   008B                     169 00104$:
+                            170 ;src/game.c:46: }else if(cpct_isKeyPressed(Key_CursorLeft)){
+   008B 21 01 01      [10]  171 	ld	hl,#0x0101
+   008E CDr00r00      [17]  172 	call	_cpct_isKeyPressed
+   0091 7D            [ 4]  173 	ld	a,l
+   0092 B7            [ 4]  174 	or	a, a
+   0093 C8            [11]  175 	ret	Z
+                            176 ;src/game.c:47: accion(&player,es_mover,d_left);
+   0094 21 01 03      [10]  177 	ld	hl,#0x0301
+   0097 E5            [11]  178 	push	hl
+   0098 21r1Dr00      [10]  179 	ld	hl,#_player
+   009B E5            [11]  180 	push	hl
+   009C CDr00r00      [17]  181 	call	_accion
+   009F F1            [10]  182 	pop	af
+   00A0 F1            [10]  183 	pop	af
+   00A1 C9            [10]  184 	ret
+                            185 ;src/game.c:55: void play(){
+                            186 ;	---------------------------------
+                            187 ; Function play
+                            188 ; ---------------------------------
+   00A2                     189 _play::
+   00A2 DD E5         [15]  190 	push	ix
+   00A4 DD 21 00 00   [14]  191 	ld	ix,#0
+   00A8 DD 39         [15]  192 	add	ix,sp
+   00AA 3B            [ 6]  193 	dec	sp
+                            194 ;src/game.c:57: u8 alive = 1;
+   00AB DD 36 FF 01   [19]  195 	ld	-1 (ix),#0x01
+                            196 ;src/game.c:59: inicializarPantalla();
+   00AF CDr00r00      [17]  197 	call	_inicializarPantalla
+                            198 ;src/game.c:60: incializarEntities();
+   00B2 CDr00r00      [17]  199 	call	_incializarEntities
+                            200 ;src/game.c:63: while(alive){
+   00B5                     201 00101$:
+   00B5 DD 7E FF      [19]  202 	ld	a,-1 (ix)
+   00B8 B7            [ 4]  203 	or	a, a
+   00B9 28 1B         [12]  204 	jr	Z,00104$
+                            205 ;src/game.c:64: updateUser();	
+   00BB CDr3Ar00      [17]  206 	call	_updateUser
+                            207 ;src/game.c:65: alive = updatePlayer(&player);
+   00BE 21r1Dr00      [10]  208 	ld	hl,#_player
+   00C1 E5            [11]  209 	push	hl
+   00C2 CDr00r00      [17]  210 	call	_updatePlayer
+   00C5 F1            [10]  211 	pop	af
+   00C6 DD 75 FF      [19]  212 	ld	-1 (ix),l
+                            213 ;src/game.c:67: cpct_waitVSYNC();
+   00C9 CDr00r00      [17]  214 	call	_cpct_waitVSYNC
+                            215 ;src/game.c:68: drawAll(&player);
+   00CC 21r1Dr00      [10]  216 	ld	hl,#_player
+   00CF E5            [11]  217 	push	hl
+   00D0 CDr00r00      [17]  218 	call	_drawAll
+   00D3 F1            [10]  219 	pop	af
+   00D4 18 DF         [12]  220 	jr	00101$
+   00D6                     221 00104$:
+   00D6 33            [ 6]  222 	inc	sp
+   00D7 DD E1         [14]  223 	pop	ix
+   00D9 C9            [10]  224 	ret
+                            225 	.area _CODE
+                            226 	.area _INITIALIZER
+   0000                     227 __xinit__mapa:
+   0000 00 00               228 	.dw #0x0000
+                            229 	.area _CABS (ABS)

@@ -7,19 +7,27 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
+  7 __xinit__mapa                                                  0000 R
     _accion                                                        **** GX
+    _cpct_etm_drawTileBox2x4                                       **** GX
+    _cpct_etm_setTileset2x4                                        **** GX
+    _cpct_isAnyKeyPressed                                          **** GX
     _cpct_isKeyPressed                                             **** GX
     _cpct_memset                                                   **** GX
-    _cpct_scanKeyboard_f                                           **** GX
+    _cpct_scanKeyboard_if                                          **** GX
     _cpct_waitVSYNC                                                **** GX
+  0 _dibujarMapa                                                   0024 GR
     _drawAll                                                       **** GX
-    _g_naves_1                                                     **** GX
+    _g_map1                                                        **** GX
+    _g_naves_0                                                     **** GX
+    _g_tileset                                                     **** GX
     _incializarEntities                                            **** GX
   0 _inicializarPantalla                                           0000 GR
-  0 _play                                                          0076 GR
-  0 _player                                                        000E GR
+  2 _mapa                                                          0000 GR
+  0 _play                                                          00A2 GR
+  0 _player                                                        001D GR
     _updatePlayer                                                  **** GX
-  0 _updateUser                                                    0014 GR
+  0 _updateUser                                                    003A GR
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -27,13 +35,13 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   94   flags    0
+   0 _CODE                                      size   DA   flags    0
    1 _DATA                                      size    0   flags    0
-   2 _INITIALIZED                               size    0   flags    0
+   2 _INITIALIZED                               size    2   flags    0
    3 _DABS                                      size    0   flags    8
    4 _HOME                                      size    0   flags    0
    5 _GSINIT                                    size    0   flags    0
    6 _GSFINAL                                   size    0   flags    0
-   7 _INITIALIZER                               size    0   flags    0
+   7 _INITIALIZER                               size    2   flags    0
    8 _CABS                                      size    0   flags    8
 
