@@ -5,6 +5,7 @@
 
 #include "../game.h"
 
+
 void incializarEntities();
 void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir);
 
@@ -14,7 +15,7 @@ void moverAbajo(TPlayer* player);
 void moverIzquierda(TPlayer* player);
 void moverDerecha(TPlayer* player);
 
-void updatePlayer(TPlayer* player);
+u8 updatePlayer(TPlayer* player);
 
 
 void redibujarPlayer(TPlayer *player);

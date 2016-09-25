@@ -15,13 +15,7 @@ extern const u8 g_naves_1[8 * 16];
 #define G_NAVES_2_H 16
 extern const u8 g_naves_2[8 * 16];
 #define G_NAVES_3_W 8
-#define G_NAVES_3_H 15
-extern const u8 g_naves_3[8 * 15];
-#define G_NAVES_4_W 8
-#define G_NAVES_4_H 15
-extern const u8 g_naves_4[8 * 15];
-#define G_NAVES_5_W 8
-#define G_NAVES_5_H 15
-extern const u8 g_naves_5[8 * 15];
+#define G_NAVES_3_H 16
+extern const u8 g_naves_3[8 * 16];
 
 #endif
