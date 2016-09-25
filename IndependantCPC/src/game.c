@@ -8,8 +8,8 @@
 #include "entities/entities.h"
 
 const TPlayer player = {
-	100,
-	50,
+	20,
+	157,
 	player.x,
 	player.y,
 	1,
@@ -67,4 +67,5 @@ void play(){
 		cpct_waitVSYNC();
 		drawAll(&player);
 	}
+	
 }

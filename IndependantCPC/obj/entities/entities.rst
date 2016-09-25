@@ -350,7 +350,7 @@
    4ED9 12            [ 7]  318 	ld	(de),a
                             319 ;src/entities/entities.c:92: dibujarPlayer(player);
    4EDA C5            [11]  320 	push	bc
-   4EDB CD 32 4F      [17]  321 	call	_dibujarPlayer
+   4EDB CD 30 4F      [17]  321 	call	_dibujarPlayer
    4EDE F1            [10]  322 	pop	af
    4EDF DD E1         [14]  323 	pop	ix
    4EE1 C9            [10]  324 	ret
@@ -362,7 +362,7 @@
    4EE2 DD E5         [15]  330 	push	ix
    4EE4 DD 21 00 00   [14]  331 	ld	ix,#0
    4EE8 DD 39         [15]  332 	add	ix,sp
-                            333 ;src/entities/entities.c:96: u8 w = 4 + (player->px & 1);
+                            333 ;src/entities/entities.c:96: u8 w = 2 + (player->px & 1);
    4EEA DD 5E 04      [19]  334 	ld	e,4 (ix)
    4EED DD 56 05      [19]  335 	ld	d,5 (ix)
    4EF0 6B            [ 4]  336 	ld	l, e
@@ -375,103 +375,101 @@
    4EF8 47            [ 4]  343 	ld	b,a
    4EF9 04            [ 4]  344 	inc	b
    4EFA 04            [ 4]  345 	inc	b
-   4EFB 04            [ 4]  346 	inc	b
-   4EFC 04            [ 4]  347 	inc	b
-                            348 ;src/entities/entities.c:97: u8 h = 7 + (player->py & 3 ? 1 : 0);
-   4EFD EB            [ 4]  349 	ex	de,hl
+                            346 ;src/entities/entities.c:97: u8 h = 7 + (player->py & 3 ? 1 : 0);
+   4EFB EB            [ 4]  347 	ex	de,hl
+   4EFC 23            [ 6]  348 	inc	hl
+   4EFD 23            [ 6]  349 	inc	hl
    4EFE 23            [ 6]  350 	inc	hl
-   4EFF 23            [ 6]  351 	inc	hl
-   4F00 23            [ 6]  352 	inc	hl
-   4F01 5E            [ 7]  353 	ld	e,(hl)
-   4F02 7B            [ 4]  354 	ld	a,e
-   4F03 E6 03         [ 7]  355 	and	a, #0x03
-   4F05 28 04         [12]  356 	jr	Z,00103$
-   4F07 3E 01         [ 7]  357 	ld	a,#0x01
-   4F09 18 02         [12]  358 	jr	00104$
-   4F0B                     359 00103$:
-   4F0B 3E 00         [ 7]  360 	ld	a,#0x00
-   4F0D                     361 00104$:
-   4F0D C6 07         [ 7]  362 	add	a, #0x07
-   4F0F 57            [ 4]  363 	ld	d,a
-                            364 ;src/entities/entities.c:98: cpct_etm_drawTileBox2x4(player->px / 2, player->py /4, w, h, g_map1_W, 0, mapa);
-   4F10 2A E0 4D      [16]  365 	ld	hl,(_mapa)
-   4F13 CB 3B         [ 8]  366 	srl	e
-   4F15 CB 3B         [ 8]  367 	srl	e
-   4F17 CB 39         [ 8]  368 	srl	c
-   4F19 E5            [11]  369 	push	hl
-   4F1A 21 00 00      [10]  370 	ld	hl,#0x0000
-   4F1D E5            [11]  371 	push	hl
-   4F1E 3E 28         [ 7]  372 	ld	a,#0x28
-   4F20 F5            [11]  373 	push	af
+   4EFF 5E            [ 7]  351 	ld	e,(hl)
+   4F00 7B            [ 4]  352 	ld	a,e
+   4F01 E6 03         [ 7]  353 	and	a, #0x03
+   4F03 28 04         [12]  354 	jr	Z,00103$
+   4F05 3E 01         [ 7]  355 	ld	a,#0x01
+   4F07 18 02         [12]  356 	jr	00104$
+   4F09                     357 00103$:
+   4F09 3E 00         [ 7]  358 	ld	a,#0x00
+   4F0B                     359 00104$:
+   4F0B C6 07         [ 7]  360 	add	a, #0x07
+   4F0D 57            [ 4]  361 	ld	d,a
+                            362 ;src/entities/entities.c:98: cpct_etm_drawTileBox2x4(player->px / 2, player->py /4, w, h, g_map1_W, 0, mapa);
+   4F0E 2A E0 4D      [16]  363 	ld	hl,(_mapa)
+   4F11 CB 3B         [ 8]  364 	srl	e
+   4F13 CB 3B         [ 8]  365 	srl	e
+   4F15 CB 39         [ 8]  366 	srl	c
+   4F17 E5            [11]  367 	push	hl
+   4F18 21 00 00      [10]  368 	ld	hl,#0x0000
+   4F1B E5            [11]  369 	push	hl
+   4F1C 3E 28         [ 7]  370 	ld	a,#0x28
+   4F1E F5            [11]  371 	push	af
+   4F1F 33            [ 6]  372 	inc	sp
+   4F20 D5            [11]  373 	push	de
    4F21 33            [ 6]  374 	inc	sp
-   4F22 D5            [11]  375 	push	de
+   4F22 C5            [11]  375 	push	bc
    4F23 33            [ 6]  376 	inc	sp
-   4F24 C5            [11]  377 	push	bc
-   4F25 33            [ 6]  378 	inc	sp
-   4F26 7B            [ 4]  379 	ld	a,e
-   4F27 F5            [11]  380 	push	af
-   4F28 33            [ 6]  381 	inc	sp
-   4F29 79            [ 4]  382 	ld	a,c
-   4F2A F5            [11]  383 	push	af
-   4F2B 33            [ 6]  384 	inc	sp
-   4F2C CD FC 4B      [17]  385 	call	_cpct_etm_drawTileBox2x4
-   4F2F DD E1         [14]  386 	pop	ix
-   4F31 C9            [10]  387 	ret
-                            388 ;src/entities/entities.c:101: void dibujarPlayer(TPlayer* player){
-                            389 ;	---------------------------------
-                            390 ; Function dibujarPlayer
-                            391 ; ---------------------------------
-   4F32                     392 _dibujarPlayer::
-   4F32 DD E5         [15]  393 	push	ix
-   4F34 DD 21 00 00   [14]  394 	ld	ix,#0
-   4F38 DD 39         [15]  395 	add	ix,sp
-                            396 ;src/entities/entities.c:103: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
-   4F3A DD 4E 04      [19]  397 	ld	c,4 (ix)
-   4F3D DD 46 05      [19]  398 	ld	b,5 (ix)
-   4F40 69            [ 4]  399 	ld	l, c
-   4F41 60            [ 4]  400 	ld	h, b
-   4F42 23            [ 6]  401 	inc	hl
-   4F43 56            [ 7]  402 	ld	d,(hl)
-   4F44 0A            [ 7]  403 	ld	a,(bc)
-   4F45 C5            [11]  404 	push	bc
-   4F46 D5            [11]  405 	push	de
+   4F24 7B            [ 4]  377 	ld	a,e
+   4F25 F5            [11]  378 	push	af
+   4F26 33            [ 6]  379 	inc	sp
+   4F27 79            [ 4]  380 	ld	a,c
+   4F28 F5            [11]  381 	push	af
+   4F29 33            [ 6]  382 	inc	sp
+   4F2A CD FC 4B      [17]  383 	call	_cpct_etm_drawTileBox2x4
+   4F2D DD E1         [14]  384 	pop	ix
+   4F2F C9            [10]  385 	ret
+                            386 ;src/entities/entities.c:101: void dibujarPlayer(TPlayer* player){
+                            387 ;	---------------------------------
+                            388 ; Function dibujarPlayer
+                            389 ; ---------------------------------
+   4F30                     390 _dibujarPlayer::
+   4F30 DD E5         [15]  391 	push	ix
+   4F32 DD 21 00 00   [14]  392 	ld	ix,#0
+   4F36 DD 39         [15]  393 	add	ix,sp
+                            394 ;src/entities/entities.c:103: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
+   4F38 DD 4E 04      [19]  395 	ld	c,4 (ix)
+   4F3B DD 46 05      [19]  396 	ld	b,5 (ix)
+   4F3E 69            [ 4]  397 	ld	l, c
+   4F3F 60            [ 4]  398 	ld	h, b
+   4F40 23            [ 6]  399 	inc	hl
+   4F41 56            [ 7]  400 	ld	d,(hl)
+   4F42 0A            [ 7]  401 	ld	a,(bc)
+   4F43 C5            [11]  402 	push	bc
+   4F44 D5            [11]  403 	push	de
+   4F45 33            [ 6]  404 	inc	sp
+   4F46 F5            [11]  405 	push	af
    4F47 33            [ 6]  406 	inc	sp
-   4F48 F5            [11]  407 	push	af
-   4F49 33            [ 6]  408 	inc	sp
-   4F4A 21 00 C0      [10]  409 	ld	hl,#0xC000
-   4F4D E5            [11]  410 	push	hl
-   4F4E CD 85 4D      [17]  411 	call	_cpct_getScreenPtr
-   4F51 EB            [ 4]  412 	ex	de,hl
-                            413 ;src/entities/entities.c:105: cpct_drawSpriteMaskedAlignedTable(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H, g_tablatrans);
-   4F52 E1            [10]  414 	pop	hl
-   4F53 01 05 00      [10]  415 	ld	bc, #0x0005
-   4F56 09            [11]  416 	add	hl, bc
-   4F57 4E            [ 7]  417 	ld	c,(hl)
-   4F58 23            [ 6]  418 	inc	hl
-   4F59 46            [ 7]  419 	ld	b,(hl)
-   4F5A 21 00 01      [10]  420 	ld	hl,#_g_tablatrans
-   4F5D E5            [11]  421 	push	hl
-   4F5E 21 08 10      [10]  422 	ld	hl,#0x1008
-   4F61 E5            [11]  423 	push	hl
-   4F62 D5            [11]  424 	push	de
-   4F63 C5            [11]  425 	push	bc
-   4F64 CD A5 4D      [17]  426 	call	_cpct_drawSpriteMaskedAlignedTable
-   4F67 DD E1         [14]  427 	pop	ix
-   4F69 C9            [10]  428 	ret
-                            429 ;src/entities/entities.c:109: void drawAll(TPlayer* player){
-                            430 ;	---------------------------------
-                            431 ; Function drawAll
-                            432 ; ---------------------------------
-   4F6A                     433 _drawAll::
-                            434 ;src/entities/entities.c:111: redibujarPlayer(player);
-   4F6A C1            [10]  435 	pop	bc
-   4F6B E1            [10]  436 	pop	hl
+   4F48 21 00 C0      [10]  407 	ld	hl,#0xC000
+   4F4B E5            [11]  408 	push	hl
+   4F4C CD 85 4D      [17]  409 	call	_cpct_getScreenPtr
+   4F4F EB            [ 4]  410 	ex	de,hl
+                            411 ;src/entities/entities.c:105: cpct_drawSpriteMaskedAlignedTable(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H, g_tablatrans);
+   4F50 E1            [10]  412 	pop	hl
+   4F51 01 05 00      [10]  413 	ld	bc, #0x0005
+   4F54 09            [11]  414 	add	hl, bc
+   4F55 4E            [ 7]  415 	ld	c,(hl)
+   4F56 23            [ 6]  416 	inc	hl
+   4F57 46            [ 7]  417 	ld	b,(hl)
+   4F58 21 00 01      [10]  418 	ld	hl,#_g_tablatrans
+   4F5B E5            [11]  419 	push	hl
+   4F5C 21 08 10      [10]  420 	ld	hl,#0x1008
+   4F5F E5            [11]  421 	push	hl
+   4F60 D5            [11]  422 	push	de
+   4F61 C5            [11]  423 	push	bc
+   4F62 CD A5 4D      [17]  424 	call	_cpct_drawSpriteMaskedAlignedTable
+   4F65 DD E1         [14]  425 	pop	ix
+   4F67 C9            [10]  426 	ret
+                            427 ;src/entities/entities.c:109: void drawAll(TPlayer* player){
+                            428 ;	---------------------------------
+                            429 ; Function drawAll
+                            430 ; ---------------------------------
+   4F68                     431 _drawAll::
+                            432 ;src/entities/entities.c:111: redibujarPlayer(player);
+   4F68 C1            [10]  433 	pop	bc
+   4F69 E1            [10]  434 	pop	hl
+   4F6A E5            [11]  435 	push	hl
+   4F6B C5            [11]  436 	push	bc
    4F6C E5            [11]  437 	push	hl
-   4F6D C5            [11]  438 	push	bc
-   4F6E E5            [11]  439 	push	hl
-   4F6F CD B1 4E      [17]  440 	call	_redibujarPlayer
-   4F72 F1            [10]  441 	pop	af
-   4F73 C9            [10]  442 	ret
-                            443 	.area _CODE
-                            444 	.area _INITIALIZER
-                            445 	.area _CABS (ABS)
+   4F6D CD B1 4E      [17]  438 	call	_redibujarPlayer
+   4F70 F1            [10]  439 	pop	af
+   4F71 C9            [10]  440 	ret
+                            441 	.area _CODE
+                            442 	.area _INITIALIZER
+                            443 	.area _CABS (ABS)

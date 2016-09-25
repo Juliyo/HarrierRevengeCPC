@@ -82,8 +82,8 @@
    4AE9 CD F4 4A      [17]   82 	call	_dibujarMapa
    4AEC C9            [10]   83 	ret
    4AED                      84 _player:
-   4AED 64                   85 	.db #0x64	; 100	'd'
-   4AEE 32                   86 	.db #0x32	; 50	'2'
+   4AED 14                   85 	.db #0x14	; 20
+   4AEE 9D                   86 	.db #0x9D	; 157
    4AEF ED                   87 	.byte (_player + 0)
    4AF0 EE                   88 	.byte (_player + 1)
    4AF1 01                   89 	.db #0x01	; 1
@@ -215,7 +215,7 @@
                             215 ;src/game.c:68: drawAll(&player);
    4B9C 21 ED 4A      [10]  216 	ld	hl,#_player
    4B9F E5            [11]  217 	push	hl
-   4BA0 CD 6A 4F      [17]  218 	call	_drawAll
+   4BA0 CD 68 4F      [17]  218 	call	_drawAll
    4BA3 F1            [10]  219 	pop	af
    4BA4 18 DF         [12]  220 	jr	00101$
    4BA6                     221 00104$:

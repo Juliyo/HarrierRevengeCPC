@@ -82,8 +82,8 @@ _inicializarPantalla::
 	call	_dibujarMapa
 	ret
 _player:
-	.db #0x64	; 100	'd'
-	.db #0x32	; 50	'2'
+	.db #0x14	; 20
+	.db #0x9D	; 157
 	.byte (_player + 0)
 	.byte (_player + 1)
 	.db #0x01	; 1

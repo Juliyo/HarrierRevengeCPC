@@ -22,7 +22,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000002  l__INITIALIZED                  
      00000002  l__INITIALIZER                  
      00000100  l__g_tablatrans_0               
-     00000190  l__CSEG                         
+     0000018E  l__CSEG                         
      00000DE0  l__CODE                         
      00004000  s__CODE                         
      00004DE0  s__DATA                         
@@ -153,7 +153,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00004DE4    00000190 =         400. bytes (REL,CON)
+_CSEG                               00004DE4    0000018E =         398. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -166,8 +166,8 @@ _CSEG                               00004DE4    00000190 =         400. bytes (R
      00004EAE  _updatePlayer                      entities
      00004EB1  _redibujarPlayer                   entities
      00004EE2  _borrarPlayer                      entities
-     00004F32  _dibujarPlayer                     entities
-     00004F6A  _drawAll                           entities
+     00004F30  _dibujarPlayer                     entities
+     00004F68  _drawAll                           entities
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 

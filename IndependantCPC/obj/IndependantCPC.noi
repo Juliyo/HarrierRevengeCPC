@@ -13,7 +13,7 @@ DEF s__g_tablatrans_0 0x0
 DEF l__INITIALIZED 0x2
 DEF l__INITIALIZER 0x2
 DEF l__g_tablatrans_0 0x100
-DEF l__CSEG 0x190
+DEF l__CSEG 0x18E
 DEF l__CODE 0xDE0
 DEF s__CODE 0x4000
 DEF s__DATA 0x4DE0
@@ -100,6 +100,6 @@ DEF _moverDerecha 0x4E84
 DEF _updatePlayer 0x4EAE
 DEF _redibujarPlayer 0x4EB1
 DEF _borrarPlayer 0x4EE2
-DEF _dibujarPlayer 0x4F32
-DEF _drawAll 0x4F6A
+DEF _dibujarPlayer 0x4F30
+DEF _drawAll 0x4F68
 LOAD obj/IndependantCPC.ihx

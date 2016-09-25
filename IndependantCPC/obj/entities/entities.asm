@@ -330,7 +330,7 @@ _borrarPlayer::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:96: u8 w = 4 + (player->px & 1);
+;src/entities/entities.c:96: u8 w = 2 + (player->px & 1);
 	ld	e,4 (ix)
 	ld	d,5 (ix)
 	ld	l, e
@@ -341,8 +341,6 @@ _borrarPlayer::
 	ld	a,c
 	and	a, #0x01
 	ld	b,a
-	inc	b
-	inc	b
 	inc	b
 	inc	b
 ;src/entities/entities.c:97: u8 h = 7 + (player->py & 3 ? 1 : 0);

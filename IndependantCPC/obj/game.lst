@@ -82,8 +82,8 @@
    0019 CDr24r00      [17]   82 	call	_dibujarMapa
    001C C9            [10]   83 	ret
    001D                      84 _player:
-   001D 64                   85 	.db #0x64	; 100	'd'
-   001E 32                   86 	.db #0x32	; 50	'2'
+   001D 14                   85 	.db #0x14	; 20
+   001E 9D                   86 	.db #0x9D	; 157
    001Fr1D                   87 	.byte (_player + 0)
    0020r1E                   88 	.byte (_player + 1)
    0021 01                   89 	.db #0x01	; 1
