@@ -3,6 +3,8 @@
 #define _RESOURCES_RETROPOLIS_H_
 
 #include <types.h>
+extern const u8 g_palette[16];
+
 #define G_RETROPOLIS_0_W 40
 #define G_RETROPOLIS_0_H 66
 extern const u8 g_retropolis_0[40 * 66];

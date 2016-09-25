@@ -17,11 +17,12 @@
 //------------------------------------------------------------------------------
 
 #include <cpctelera.h>
-#include "fantasma.h"
+//#include "fantasma.h"
 #include "retropolis.h"
 #include "tiles.h"
 #include "map1.h"
-#include "hero.h"
+//#include "hero.h"
+#include "nave.h"
 
 
 #define SI 1
@@ -45,8 +46,17 @@ typedef struct{
 } TProta;
 
 TProta prota;
-
 u8* mapa;
+
+void interrupcion() {
+   static u8 kk;
+
+   if (++kk == 5) {
+      //playmusic();
+      cpct_scanKeyboard_if();
+      kk = 0;
+   }
+}
 
 void dibujarProta(){
 
@@ -59,8 +69,8 @@ void dibujarProta(){
 	*/
 
 	//con tabla de transparencias
-	 cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_HERO_00_W, 
-	 		G_HERO_00_H, g_tablatrans);
+	 cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_NAVE_0_W, 
+	 		G_NAVE_0_H, g_tablatrans);
 
 
 }
@@ -80,6 +90,23 @@ void dibujarMapa(){
 											,mapa);
 }
 
+#define ANCHO_PANTALLA 80
+#define LIMITE_DERECHO ANCHO_PANTALLA - G_NAVE_0_W
+
+void moverIzquierda(){
+	if(prota.x > 0 ){
+		prota.x--;
+		prota.mover = SI;
+	}
+}
+
+void moverDerecha(){
+	if(prota.x < LIMITE_DERECHO){
+		prota.x++;
+		prota.mover = SI;
+	}
+}
+
 void comprobarTeclado(){
 
 	cpct_scanKeyboard_if();
@@ -92,26 +119,15 @@ void comprobarTeclado(){
 	}
 }
 
-#define ANCHO_PANTALLA 80
-#define LIMITE_DERECHO ANCHO_PANTALLA - G_HERO_00_W
 
-void moverDerecha(){
-	if(prota.x < LIMITE_DERECHO){
-		prota.x++;
-		prota.mover = SI;
-	}
-}
 
-void moverIzquierda(){
-	if(prota.x > 0 ){
-		prota.x--;
-		prota.mover = SI;
-	}
-}
+
+
+
 
 void borrarProta(){
 
-	u8 w = 4 + (prota.px & 1);
+	u8 w = 2 + (prota.px & 1);
 	u8 h = 7 + (prota.py & 3 ? 1: 0);
 	cpct_etm_drawTileBox2x4 (prota.px/2, (prota.py - ORIGEN_MAPA_Y)/4,w, h,g_map1_W,ORIGEN_MAPA,mapa);
 
@@ -126,6 +142,9 @@ void redibujarProta(){
 
 }
 
+
+
+
 void inicializar(){
 
 	cpct_disableFirmware();
@@ -136,7 +155,7 @@ void inicializar(){
 	prota.x = prota.px = 20;
 	prota.y = prota.py = 160;
 	prota.mover = NO;
-	prota.sprite = g_hero_00;
+	prota.sprite = g_nave_0;
 
 	dibujaRotulo();
 
@@ -147,11 +166,15 @@ void inicializar(){
 
 	dibujarProta();
 
+	cpct_setInterruptHandler(interrupcion);
+
 
 
 
 
 }
+
+
 
 
 void main(void) {

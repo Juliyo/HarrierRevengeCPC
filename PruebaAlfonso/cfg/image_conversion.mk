@@ -56,7 +56,7 @@
 
 ## Example firmware palette definition as variable in cpct_img2tileset format
 
-PALETTE={0 1 3 4 7 9 10 12 13 16 19 20 21 24 25 26}
+PALETTE={0 1 3 4 7 9 10 12 15 16 19 20 21 24 25 26}
 
 ## Example image conversion
 ##    This example would convert img/example.png into src/example.{c|h} files.
@@ -67,8 +67,11 @@ PALETTE={0 1 3 4 7 9 10 12 13 16 19 20 21 24 25 26}
 ##	  hardware colour values.
 
 #convertimos las imagenes en .h y .c. Solo hace falta poner una vez el "hwpalette"
-$(eval $(call IMG2SPRITES,resources/fantasma.PNG,0,g,16,16,$(PALETTE),,src/,hwpalette))
-$(eval $(call IMG2SPRITES,resources/retropolis.png,0,g,80,66,$(PALETTE),,src/))
-$(eval $(call IMG2SPRITES, resources/hero.png,0,g,16,27,$(PALETTE),,src/))
+
+$(eval $(call IMG2SPRITES,resources/retropolis.png,0,g,80,66,$(PALETTE),,src/,hwpalette))
+#$(eval $(call IMG2SPRITES,resources/fantasma.PNG,0,g,16,16,$(PALETTE),,src/,hwpalette))
+#$(eval $(call IMG2SPRITES, resources/hero.png,0,g,16,27,$(PALETTE),,src/))
+$(eval $(call IMG2SPRITES, resources/nave.png,0,g,16,16,$(PALETTE),,src/))
+
 #asi se convierten los tiles a .h y .c
 $(eval $(call IMG2SPRITES,resources/tiles.png,0,g,4,4,$(PALETTE),tileset,src/))

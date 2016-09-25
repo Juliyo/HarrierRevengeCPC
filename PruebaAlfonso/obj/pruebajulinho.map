@@ -7,7 +7,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00000000  .__.ABS.                           cpct_sprites
+     00000000  .__.ABS.                           cpct_firmware
      00000000  l__CABS                         
      00000000  l__DABS                         
      00000000  l__GSFINAL                      
@@ -20,25 +20,25 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__DABS                         
      00000000  s__g_tablatrans_                
      00000000  s__g_tablatrans_0               
-     00000009  l__DATA                         
+     0000000A  l__DATA                         
      00000100  l__g_tablatrans_0               
-     00000187  l__CSEG                         
-     00002B42  l__CODE                         
+     0000019E  l__CSEG                         
+     00002D7A  l__CODE                         
      00004000  s__CODE                         
-     00006B42  s__DATA                         
-     00006B4B  s__CSEG                         
-     00006B4B  s__GSFINAL                      
-     00006B4B  s__GSINIT                       
-     00006B4B  s__HOME                         
-     00006B4B  s__INITIALIZED                  
-     00006B4B  s__INITIALIZER                  
+     00006D7A  s__DATA                         
+     00006D84  s__CSEG                         
+     00006D84  s__GSFINAL                      
+     00006D84  s__GSINIT                       
+     00006D84  s__HOME                         
+     00006D84  s__INITIALIZED                  
+     00006D84  s__INITIALIZER                  
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002B42 =       11074. bytes (REL,CON)
+_CODE                               00004000    00002D7A =       11642. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -64,73 +64,79 @@ _CODE                               00004000    00002B42 =       11074. bytes (R
      000045D8  _g_tiles_17                        tiles
      000045E0  _g_tiles_18                        tiles
      000045E8  _g_tiles_19                        tiles
-     000045F0  _g_hero_00                         hero
-     000046C8  _g_hero_01                         hero
-     000047A0  _g_hero_02                         hero
-     00004878  _g_hero_03                         hero
-     00004950  _g_hero_04                         hero
-     00004A28  _g_hero_05                         hero
-     00004B00  _g_hero_06                         hero
-     00004BD8  _g_hero_07                         hero
-     00004CB0  _g_hero_08                         hero
-     00004D88  _g_hero_09                         hero
-     00004E60  _g_hero_10                         hero
-     00004F38  _g_hero_11                         hero
-     00005010  _g_hero_12                         hero
-     000050E8  _g_hero_13                         hero
-     000051C0  _g_hero_14                         hero
-     00005298  _g_hero_15                         hero
-     00005370  _g_retropolis_0                    retropolis
-     00005DC0  _g_retropolis_1                    retropolis
-     00006810  _g_palette                         fantasma
-     00006820  _g_fantasma                        fantasma
-     000068A0  _cpct_setPalette                   cpct_video
-     000068A0  _dummy_cpct_transparentMaskTable   main
-     000068B7  _cpct_isKeyPressed                 cpct_keyboard
-     000068B7  cpct_isKeyPressed_asm              cpct_keyboard
-     000068C3  _cpct_setPALColour                 cpct_video
-     000068CF  _cpct_drawSprite                   cpct_sprites
-     00006974  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
-     00006A03  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     000045F0  _g_nave_0                          nave
+     00004670  _g_nave_1                          nave
+     000046F0  _g_nave_2                          nave
+     00004770  _g_nave_3                          nave
+     00004800  _g_retropolis_0                    retropolis
+     00005250  _g_retropolis_1                    retropolis
+     00005CA0  _g_palette                         fantasma
+     00005CB0  _g_fantasma                        fantasma
+     00005D30  _g_hero_00                         hero
+     00005E08  _g_hero_01                         hero
+     00005EE0  _g_hero_02                         hero
+     00005FB8  _g_hero_03                         hero
+     00006090  _g_hero_04                         hero
+     00006168  _g_hero_05                         hero
+     00006240  _g_hero_06                         hero
+     00006318  _g_hero_07                         hero
+     000063F0  _g_hero_08                         hero
+     000064C8  _g_hero_09                         hero
+     000065A0  _g_hero_10                         hero
+     00006678  _g_hero_11                         hero
+     00006750  _g_hero_12                         hero
+     00006828  _g_hero_13                         hero
+     00006900  _g_hero_14                         hero
+     000069D8  _g_hero_15                         hero
+     00006AB0  _cpct_setPalette                   cpct_video
+     00006AB0  _dummy_cpct_transparentMaskTable   main
+     00006AC7  _cpct_isKeyPressed                 cpct_keyboard
+     00006AC7  cpct_isKeyPressed_asm              cpct_keyboard
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00002B42 =       11074. bytes (REL,CON)
+_CODE                               00004000    00002D7A =       11642. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006A03  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
-     00006A07  _cpct_keyboardStatusBuffer         cpct_keyboard
-     00006A11  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
-     00006A18  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
-     00006A1A  dtr_restore_ptileset               cpct_easytilemaps
-     00006A32  _cpct_isAnyKeyPressed              cpct_keyboard
-     00006A32  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     00006A3F  _cpct_scanKeyboard_if              cpct_keyboard
-     00006A3F  cpct_scanKeyboard_if_asm           cpct_keyboard
-     00006AA7  _cpct_setVideoMode                 cpct_video
-     00006AB5  _cpct_disableFirmware              cpct_firmware
-     00006AB5  _cpct_removeInterruptHandler       cpct_firmware
-     00006AB5  cpct_disableFirmware_asm           cpct_firmware
-     00006AB5  cpct_removeInterruptHandler_asm    cpct_firmware
-     00006AC5  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     00006AE6  _cpct_mode_rom_status              cpct_firmware
-     00006AE7  _cpct_getScreenPtr                 cpct_video
-     00006B07  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
-
+     00006AD3  _cpct_setPALColour                 cpct_video
+     00006ADF  _cpct_drawSprite                   cpct_sprites
+     00006B84  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     00006C13  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     00006C13  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
+     00006C17  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00006C21  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     00006C28  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     00006C2A  dtr_restore_ptileset               cpct_easytilemaps
+     00006C42  _cpct_isAnyKeyPressed              cpct_keyboard
+     00006C42  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     00006C4F  _cpct_scanKeyboard_if              cpct_keyboard
+     00006C4F  cpct_scanKeyboard_if_asm           cpct_keyboard
+     00006CB7  _cpct_setVideoMode                 cpct_video
+     00006CC5  _cpct_disableFirmware              cpct_firmware
+     00006CC5  _cpct_removeInterruptHandler       cpct_firmware
+     00006CC5  cpct_disableFirmware_asm           cpct_firmware
+     00006CC5  cpct_removeInterruptHandler_asm    cpct_firmware
+     00006CD5  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     00006CF6  _cpct_mode_rom_status              cpct_firmware
+     00006CF7  _cpct_getScreenPtr                 cpct_video
+     00006D17  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     00006D52  _cpct_setInterruptHandler          cpct_firmware
+     00006D52  cpct_setInterruptHandler_asm       cpct_firmware
+     00006D63  cpct_safeInterruptHandlerHook      cpct_firmware
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00006B42    00000009 =           9. bytes (REL,CON)
+_DATA                               00006D7A    0000000A =          10. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006B42  _prota                             main
-     00006B49  _mapa                              main
+     00006D7A  _prota                             main
+     00006D81  _mapa                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
@@ -148,20 +154,21 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00006B4B    00000187 =         391. bytes (REL,CON)
+_CSEG                               00006D84    0000019E =         414. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00006B4B  _dibujarProta                      main
-     00006B71  _dibujaRotulo                      main
-     00006B8F  _dibujarMapa                       main
-     00006BA5  _comprobarTeclado                  main
-     00006BC5  _moverDerecha                      main
-     00006BD5  _moverIzquierda                    main
-     00006BE4  _borrarProta                       main
-     00006C59  _redibujarProta                    main
-     00006C6D  _inicializar                       main
-     00006CBC  _main                              main
+     00006D84  _interrupcion                      main
+     00006D97  _dibujarProta                      main
+     00006DBD  _dibujaRotulo                      main
+     00006DDB  _dibujarMapa                       main
+     00006DF1  _moverIzquierda                    main
+     00006E00  _moverDerecha                      main
+     00006E10  _comprobarTeclado                  main
+     00006E30  _borrarProta                       main
+     00006EA3  _redibujarProta                    main
+     00006EB7  _inicializar                       main
+     00006F0C  _main                              main
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 
@@ -169,9 +176,10 @@ Files Linked                              [ module(s) ]
 
 obj/map1.rel                              [ map1 ]
 obj/tiles.rel                             [ tiles ]
-obj/hero.rel                              [ hero ]
+obj/nave.rel                              [ nave ]
 obj/retropolis.rel                        [ retropolis ]
 obj/fantasma.rel                          [ fantasma ]
+obj/hero.rel                              [ hero ]
 obj/main.rel                              [ main ]
 
 
@@ -209,6 +217,8 @@ Libraries Linked                          [ object file ]
                                           [ cpct_getScreenPtr_cbindings.rel ]
 /mnt/c/Users/Alfonso/cpctelera/cpctelera/cpctelera.lib
                                           [ cpct_drawSpriteMaskedAlignedTabl ]
+/mnt/c/Users/Alfonso/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setInterruptHandler.rel ]
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 

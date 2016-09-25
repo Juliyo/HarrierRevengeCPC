@@ -9,9 +9,10 @@
 -l z80
 obj/map1.rel
 obj/tiles.rel
-obj/hero.rel
+obj/nave.rel
 obj/retropolis.rel
 obj/fantasma.rel
+obj/hero.rel
 obj/main.rel
 
 -e
