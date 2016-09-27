@@ -58,12 +58,12 @@ _mapa::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/game.c:22: void inicializarPantalla(){
+;src/game.c:23: void inicializarPantalla(){
 ;	---------------------------------
 ; Function inicializarPantalla
 ; ---------------------------------
 _inicializarPantalla::
-;src/game.c:24: cpct_clearScreen(0);
+;src/game.c:25: cpct_clearScreen(0);
 	ld	hl,#0x4000
 	push	hl
 	xor	a, a
@@ -72,13 +72,13 @@ _inicializarPantalla::
 	ld	h, #0xC0
 	push	hl
 	call	_cpct_memset
-;src/game.c:26: mapa = g_map1;
+;src/game.c:27: mapa = g_map1;
 	ld	hl,#_g_map1+0
 	ld	(_mapa),hl
-;src/game.c:27: cpct_etm_setTileset2x4(g_tileset);
+;src/game.c:28: cpct_etm_setTileset2x4(g_tileset);
 	ld	hl,#_g_tileset
 	call	_cpct_etm_setTileset2x4
-;src/game.c:28: dibujarMapa();
+;src/game.c:29: dibujarMapa();
 	call	_dibujarMapa
 	ret
 _player:
@@ -88,12 +88,13 @@ _player:
 	.byte (_player + 1)
 	.db #0x01	; 1
 	.dw _g_naves_0
-;src/game.c:32: void dibujarMapa(){
+	.db #0x00	; 0
+;src/game.c:33: void dibujarMapa(){
 ;	---------------------------------
 ; Function dibujarMapa
 ; ---------------------------------
 _dibujarMapa::
-;src/game.c:33: cpct_etm_drawTilemap2x4(g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
+;src/game.c:34: cpct_etm_drawTilemap2x4(g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
 	ld	hl,(_mapa)
 	push	hl
 	ld	hl,#0xC000
@@ -107,25 +108,25 @@ _dibujarMapa::
 	inc	sp
 	call	_cpct_etm_drawTileBox2x4
 	ret
-;src/game.c:36: void updateUser(){
+;src/game.c:37: void updateUser(){
 ;	---------------------------------
 ; Function updateUser
 ; ---------------------------------
 _updateUser::
-;src/game.c:38: cpct_scanKeyboard_if();
+;src/game.c:39: cpct_scanKeyboard_if();
 	call	_cpct_scanKeyboard_if
-;src/game.c:39: if(cpct_isAnyKeyPressed()){
+;src/game.c:40: if(cpct_isAnyKeyPressed()){
 	call	_cpct_isAnyKeyPressed
 	ld	a,l
 	or	a, a
 	ret	Z
-;src/game.c:40: if(cpct_isKeyPressed(Key_CursorUp)){
+;src/game.c:41: if(cpct_isKeyPressed(Key_CursorUp)){
 	ld	hl,#0x0100
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
 	jr	Z,00110$
-;src/game.c:41: accion(&player, es_mover, d_up);
+;src/game.c:42: accion(&player, es_mover, d_up);
 	ld	hl,#0x0001
 	push	hl
 	ld	hl,#_player
@@ -135,13 +136,13 @@ _updateUser::
 	pop	af
 	ret
 00110$:
-;src/game.c:42: }else if(cpct_isKeyPressed(Key_CursorDown)){
+;src/game.c:43: }else if(cpct_isKeyPressed(Key_CursorDown)){
 	ld	hl,#0x0400
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
 	jr	Z,00107$
-;src/game.c:43: accion(&player, es_mover, d_down);
+;src/game.c:44: accion(&player, es_mover, d_down);
 	ld	hl,#0x0101
 	push	hl
 	ld	hl,#_player
@@ -151,13 +152,13 @@ _updateUser::
 	pop	af
 	ret
 00107$:
-;src/game.c:44: }else if(cpct_isKeyPressed(Key_CursorRight)){
+;src/game.c:45: }else if(cpct_isKeyPressed(Key_CursorRight)){
 	ld	hl,#0x0200
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
 	jr	Z,00104$
-;src/game.c:45: accion(&player,es_mover,d_right);
+;src/game.c:46: accion(&player,es_mover,d_right);
 	ld	hl,#0x0201
 	push	hl
 	ld	hl,#_player
@@ -167,13 +168,13 @@ _updateUser::
 	pop	af
 	ret
 00104$:
-;src/game.c:46: }else if(cpct_isKeyPressed(Key_CursorLeft)){
+;src/game.c:47: }else if(cpct_isKeyPressed(Key_CursorLeft)){
 	ld	hl,#0x0101
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
 	ret	Z
-;src/game.c:47: accion(&player,es_mover,d_left);
+;src/game.c:48: accion(&player,es_mover,d_left);
 	ld	hl,#0x0301
 	push	hl
 	ld	hl,#_player
@@ -182,7 +183,7 @@ _updateUser::
 	pop	af
 	pop	af
 	ret
-;src/game.c:55: void play(){
+;src/game.c:56: void play(){
 ;	---------------------------------
 ; Function play
 ; ---------------------------------
@@ -191,28 +192,28 @@ _play::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src/game.c:57: u8 alive = 1;
+;src/game.c:58: u8 alive = 1;
 	ld	-1 (ix),#0x01
-;src/game.c:59: inicializarPantalla();
+;src/game.c:60: inicializarPantalla();
 	call	_inicializarPantalla
-;src/game.c:60: incializarEntities();
+;src/game.c:61: incializarEntities();
 	call	_incializarEntities
-;src/game.c:63: while(alive){
+;src/game.c:64: while(alive){
 00101$:
 	ld	a,-1 (ix)
 	or	a, a
 	jr	Z,00104$
-;src/game.c:64: updateUser();	
+;src/game.c:65: updateUser();	
 	call	_updateUser
-;src/game.c:65: alive = updatePlayer(&player);
+;src/game.c:66: alive = updatePlayer(&player);
 	ld	hl,#_player
 	push	hl
 	call	_updatePlayer
 	pop	af
 	ld	-1 (ix),l
-;src/game.c:67: cpct_waitVSYNC();
+;src/game.c:68: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
-;src/game.c:68: drawAll(&player);
+;src/game.c:69: drawAll(&player);
 	ld	hl,#_player
 	push	hl
 	call	_drawAll

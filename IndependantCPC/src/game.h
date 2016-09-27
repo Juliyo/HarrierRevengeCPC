@@ -27,6 +27,7 @@ typedef struct Player
 	u8 px, py;
 	u8 draw;
 	u8* sprite;
+	TPlayerDirection curr_dir;
 } TPlayer;
 
 extern const u8* mapa;

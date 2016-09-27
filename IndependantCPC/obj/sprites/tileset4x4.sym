@@ -8,38 +8,41 @@ Symbol Table
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
   0 _g_tileset                                                     0000 GR
-  0 _g_tileset4x4_00                                               0030 GR
-  0 _g_tileset4x4_01                                               0038 GR
-  0 _g_tileset4x4_02                                               0040 GR
-  0 _g_tileset4x4_03                                               0048 GR
-  0 _g_tileset4x4_04                                               0050 GR
-  0 _g_tileset4x4_05                                               0058 GR
-  0 _g_tileset4x4_06                                               0060 GR
-  0 _g_tileset4x4_07                                               0068 GR
-  0 _g_tileset4x4_08                                               0070 GR
-  0 _g_tileset4x4_09                                               0078 GR
-  0 _g_tileset4x4_10                                               0080 GR
-  0 _g_tileset4x4_11                                               0088 GR
-  0 _g_tileset4x4_12                                               0090 GR
-  0 _g_tileset4x4_13                                               0098 GR
-  0 _g_tileset4x4_14                                               00A0 GR
-  0 _g_tileset4x4_15                                               00A8 GR
-  0 _g_tileset4x4_16                                               00B0 GR
-  0 _g_tileset4x4_17                                               00B8 GR
-  0 _g_tileset4x4_18                                               00C0 GR
-  0 _g_tileset4x4_19                                               00C8 GR
-  0 _g_tileset4x4_20                                               00D0 GR
-  0 _g_tileset4x4_21                                               00D8 GR
-  0 _g_tileset4x4_22                                               00E0 GR
-  0 _g_tileset4x4_23                                               00E8 GR
-
+  0 _g_tileset4x4_00                                               0038 GR
+  0 _g_tileset4x4_01                                               0040 GR
+  0 _g_tileset4x4_02                                               0048 GR
+  0 _g_tileset4x4_03                                               0050 GR
+  0 _g_tileset4x4_04                                               0058 GR
+  0 _g_tileset4x4_05                                               0060 GR
+  0 _g_tileset4x4_06                                               0068 GR
+  0 _g_tileset4x4_07                                               0070 GR
+  0 _g_tileset4x4_08                                               0078 GR
+  0 _g_tileset4x4_09                                               0080 GR
+  0 _g_tileset4x4_10                                               0088 GR
+  0 _g_tileset4x4_11                                               0090 GR
+  0 _g_tileset4x4_12                                               0098 GR
+  0 _g_tileset4x4_13                                               00A0 GR
+  0 _g_tileset4x4_14                                               00A8 GR
+  0 _g_tileset4x4_15                                               00B0 GR
+  0 _g_tileset4x4_16                                               00B8 GR
+  0 _g_tileset4x4_17                                               00C0 GR
+  0 _g_tileset4x4_18                                               00C8 GR
+  0 _g_tileset4x4_19                                               00D0 GR
+  0 _g_tileset4x4_20                                               00D8 GR
+  0 _g_tileset4x4_21                                               00E0 GR
+  0 _g_tileset4x4_22                                               00E8 GR
+  0 _g_tileset4x4_23                                               00F0 GR
+  0 _g_tileset4x4_24                                               00F8 GR
+  0 _g_tileset4x4_25                                               0100 GR
+  0 _g_tileset4x4_26                                               0108 GR
+  0 _g_tileset4x4_27                                               0110 GR
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   F0   flags    0
+   0 _CODE                                      size  118   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    0   flags    0
    3 _DABS                                      size    0   flags    8

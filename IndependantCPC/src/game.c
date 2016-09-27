@@ -13,7 +13,8 @@ const TPlayer player = {
 	player.x,
 	player.y,
 	1,
-	g_naves_0
+	g_naves_0,
+	d_up
 };
 
 const u8* mapa = NULL;

@@ -3,7 +3,7 @@
 #define _RESOURCES_TILESET4X4_H_
 
 #include <types.h>
-extern u8* const g_tileset[24];
+extern u8* const g_tileset[28];
 
 #define G_TILESET4X4_00_W 2
 #define G_TILESET4X4_00_H 4
@@ -77,5 +77,17 @@ extern const u8 g_tileset4x4_22[2 * 4];
 #define G_TILESET4X4_23_W 2
 #define G_TILESET4X4_23_H 4
 extern const u8 g_tileset4x4_23[2 * 4];
+#define G_TILESET4X4_24_W 2
+#define G_TILESET4X4_24_H 4
+extern const u8 g_tileset4x4_24[2 * 4];
+#define G_TILESET4X4_25_W 2
+#define G_TILESET4X4_25_H 4
+extern const u8 g_tileset4x4_25[2 * 4];
+#define G_TILESET4X4_26_W 2
+#define G_TILESET4X4_26_H 4
+extern const u8 g_tileset4x4_26[2 * 4];
+#define G_TILESET4X4_27_W 2
+#define G_TILESET4X4_27_H 4
+extern const u8 g_tileset4x4_27[2 * 4];
 
 #endif

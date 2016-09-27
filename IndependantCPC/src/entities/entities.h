@@ -5,6 +5,8 @@
 
 #include "../game.h"
 
+#define SI 1
+#define NO 0
 
 void incializarEntities();
 void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir);
@@ -14,6 +16,9 @@ void moverArriba(TPlayer* player);
 void moverAbajo(TPlayer* player);
 void moverIzquierda(TPlayer* player);
 void moverDerecha(TPlayer* player);
+
+//Operaciones con sprites
+void flipSprite(TPlayer* player, TPlayerDirection dir);
 
 u8 updatePlayer(TPlayer* player);
 

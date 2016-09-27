@@ -8,303 +8,347 @@
                               8 ;--------------------------------------------------------
                               9 ; Public variables in this module
                              10 ;--------------------------------------------------------
-                             11 	.globl _g_tileset4x4_23
-                             12 	.globl _g_tileset4x4_22
-                             13 	.globl _g_tileset4x4_21
-                             14 	.globl _g_tileset4x4_20
-                             15 	.globl _g_tileset4x4_19
-                             16 	.globl _g_tileset4x4_18
-                             17 	.globl _g_tileset4x4_17
-                             18 	.globl _g_tileset4x4_16
-                             19 	.globl _g_tileset4x4_15
-                             20 	.globl _g_tileset4x4_14
-                             21 	.globl _g_tileset4x4_13
-                             22 	.globl _g_tileset4x4_12
-                             23 	.globl _g_tileset4x4_11
-                             24 	.globl _g_tileset4x4_10
-                             25 	.globl _g_tileset4x4_09
-                             26 	.globl _g_tileset4x4_08
-                             27 	.globl _g_tileset4x4_07
-                             28 	.globl _g_tileset4x4_06
-                             29 	.globl _g_tileset4x4_05
-                             30 	.globl _g_tileset4x4_04
-                             31 	.globl _g_tileset4x4_03
-                             32 	.globl _g_tileset4x4_02
-                             33 	.globl _g_tileset4x4_01
-                             34 	.globl _g_tileset4x4_00
-                             35 	.globl _g_tileset
-                             36 ;--------------------------------------------------------
-                             37 ; special function registers
-                             38 ;--------------------------------------------------------
-                             39 ;--------------------------------------------------------
-                             40 ; ram data
-                             41 ;--------------------------------------------------------
-                             42 	.area _DATA
+                             11 	.globl _g_tileset4x4_27
+                             12 	.globl _g_tileset4x4_26
+                             13 	.globl _g_tileset4x4_25
+                             14 	.globl _g_tileset4x4_24
+                             15 	.globl _g_tileset4x4_23
+                             16 	.globl _g_tileset4x4_22
+                             17 	.globl _g_tileset4x4_21
+                             18 	.globl _g_tileset4x4_20
+                             19 	.globl _g_tileset4x4_19
+                             20 	.globl _g_tileset4x4_18
+                             21 	.globl _g_tileset4x4_17
+                             22 	.globl _g_tileset4x4_16
+                             23 	.globl _g_tileset4x4_15
+                             24 	.globl _g_tileset4x4_14
+                             25 	.globl _g_tileset4x4_13
+                             26 	.globl _g_tileset4x4_12
+                             27 	.globl _g_tileset4x4_11
+                             28 	.globl _g_tileset4x4_10
+                             29 	.globl _g_tileset4x4_09
+                             30 	.globl _g_tileset4x4_08
+                             31 	.globl _g_tileset4x4_07
+                             32 	.globl _g_tileset4x4_06
+                             33 	.globl _g_tileset4x4_05
+                             34 	.globl _g_tileset4x4_04
+                             35 	.globl _g_tileset4x4_03
+                             36 	.globl _g_tileset4x4_02
+                             37 	.globl _g_tileset4x4_01
+                             38 	.globl _g_tileset4x4_00
+                             39 	.globl _g_tileset
+                             40 ;--------------------------------------------------------
+                             41 ; special function registers
+                             42 ;--------------------------------------------------------
                              43 ;--------------------------------------------------------
                              44 ; ram data
                              45 ;--------------------------------------------------------
-                             46 	.area _INITIALIZED
+                             46 	.area _DATA
                              47 ;--------------------------------------------------------
-                             48 ; absolute external ram data
+                             48 ; ram data
                              49 ;--------------------------------------------------------
-                             50 	.area _DABS (ABS)
+                             50 	.area _INITIALIZED
                              51 ;--------------------------------------------------------
-                             52 ; global & static initialisations
+                             52 ; absolute external ram data
                              53 ;--------------------------------------------------------
-                             54 	.area _HOME
-                             55 	.area _GSINIT
-                             56 	.area _GSFINAL
-                             57 	.area _GSINIT
-                             58 ;--------------------------------------------------------
-                             59 ; Home
-                             60 ;--------------------------------------------------------
-                             61 	.area _HOME
-                             62 	.area _HOME
-                             63 ;--------------------------------------------------------
-                             64 ; code
-                             65 ;--------------------------------------------------------
-                             66 	.area _CODE
-                             67 	.area _CODE
-   47D0                      68 _g_tileset:
-   47D0 00 48                69 	.dw _g_tileset4x4_00
-   47D2 08 48                70 	.dw _g_tileset4x4_01
-   47D4 10 48                71 	.dw _g_tileset4x4_02
-   47D6 18 48                72 	.dw _g_tileset4x4_03
-   47D8 20 48                73 	.dw _g_tileset4x4_04
-   47DA 28 48                74 	.dw _g_tileset4x4_05
-   47DC 30 48                75 	.dw _g_tileset4x4_06
-   47DE 38 48                76 	.dw _g_tileset4x4_07
-   47E0 40 48                77 	.dw _g_tileset4x4_08
-   47E2 48 48                78 	.dw _g_tileset4x4_09
-   47E4 50 48                79 	.dw _g_tileset4x4_10
-   47E6 58 48                80 	.dw _g_tileset4x4_11
-   47E8 60 48                81 	.dw _g_tileset4x4_12
-   47EA 68 48                82 	.dw _g_tileset4x4_13
-   47EC 70 48                83 	.dw _g_tileset4x4_14
-   47EE 78 48                84 	.dw _g_tileset4x4_15
-   47F0 80 48                85 	.dw _g_tileset4x4_16
-   47F2 88 48                86 	.dw _g_tileset4x4_17
-   47F4 90 48                87 	.dw _g_tileset4x4_18
-   47F6 98 48                88 	.dw _g_tileset4x4_19
-   47F8 A0 48                89 	.dw _g_tileset4x4_20
-   47FA A8 48                90 	.dw _g_tileset4x4_21
-   47FC B0 48                91 	.dw _g_tileset4x4_22
-   47FE B8 48                92 	.dw _g_tileset4x4_23
-   4800                      93 _g_tileset4x4_00:
-   4800 A9                   94 	.db #0xA9	; 169
-   4801 FC                   95 	.db #0xFC	; 252
-   4802 A9                   96 	.db #0xA9	; 169
-   4803 03                   97 	.db #0x03	; 3
-   4804 16                   98 	.db #0x16	; 22
-   4805 94                   99 	.db #0x94	; 148
-   4806 A9                  100 	.db #0xA9	; 169
-   4807 C0                  101 	.db #0xC0	; 192
-   4808                     102 _g_tileset4x4_01:
-   4808 03                  103 	.db #0x03	; 3
-   4809 A9                  104 	.db #0xA9	; 169
-   480A 03                  105 	.db #0x03	; 3
-   480B 03                  106 	.db #0x03	; 3
-   480C 68                  107 	.db #0x68	; 104	'h'
-   480D C0                  108 	.db #0xC0	; 192
-   480E C0                  109 	.db #0xC0	; 192
-   480F C0                  110 	.db #0xC0	; 192
-   4810                     111 _g_tileset4x4_02:
-   4810 A9                  112 	.db #0xA9	; 169
-   4811 A9                  113 	.db #0xA9	; 169
-   4812 03                  114 	.db #0x03	; 3
-   4813 03                  115 	.db #0x03	; 3
-   4814 C0                  116 	.db #0xC0	; 192
-   4815 3C                  117 	.db #0x3C	; 60
-   4816 C0                  118 	.db #0xC0	; 192
-   4817 C0                  119 	.db #0xC0	; 192
-   4818                     120 _g_tileset4x4_03:
-   4818 56                  121 	.db #0x56	; 86	'V'
-   4819 56                  122 	.db #0x56	; 86	'V'
-   481A 03                  123 	.db #0x03	; 3
-   481B 56                  124 	.db #0x56	; 86	'V'
-   481C 94                  125 	.db #0x94	; 148
-   481D 03                  126 	.db #0x03	; 3
-   481E 94                  127 	.db #0x94	; 148
-   481F 56                  128 	.db #0x56	; 86	'V'
-   4820                     129 _g_tileset4x4_04:
-   4820 C0                  130 	.db #0xC0	; 192
-   4821 C0                  131 	.db #0xC0	; 192
-   4822 C0                  132 	.db #0xC0	; 192
-   4823 42                  133 	.db #0x42	; 66	'B'
-   4824 81                  134 	.db #0x81	; 129
-   4825 56                  135 	.db #0x56	; 86	'V'
-   4826 81                  136 	.db #0x81	; 129
-   4827 03                  137 	.db #0x03	; 3
-   4828                     138 _g_tileset4x4_05:
-   4828 C0                  139 	.db #0xC0	; 192
-   4829 C0                  140 	.db #0xC0	; 192
-   482A 42                  141 	.db #0x42	; 66	'B'
-   482B C0                  142 	.db #0xC0	; 192
-   482C 03                  143 	.db #0x03	; 3
-   482D C0                  144 	.db #0xC0	; 192
-   482E FC                  145 	.db #0xFC	; 252
-   482F C0                  146 	.db #0xC0	; 192
-   4830                     147 _g_tileset4x4_06:
-   4830 A9                  148 	.db #0xA9	; 169
-   4831 C0                  149 	.db #0xC0	; 192
-   4832 03                  150 	.db #0x03	; 3
-   4833 C0                  151 	.db #0xC0	; 192
-   4834 A9                  152 	.db #0xA9	; 169
-   4835 C0                  153 	.db #0xC0	; 192
-   4836 03                  154 	.db #0x03	; 3
-   4837 C0                  155 	.db #0xC0	; 192
-   4838                     156 _g_tileset4x4_07:
-   4838 C0                  157 	.db #0xC0	; 192
-   4839 C0                  158 	.db #0xC0	; 192
-   483A C0                  159 	.db #0xC0	; 192
-   483B C0                  160 	.db #0xC0	; 192
-   483C C0                  161 	.db #0xC0	; 192
-   483D C0                  162 	.db #0xC0	; 192
-   483E C0                  163 	.db #0xC0	; 192
-   483F C0                  164 	.db #0xC0	; 192
-   4840                     165 _g_tileset4x4_08:
-   4840 C0                  166 	.db #0xC0	; 192
-   4841 C0                  167 	.db #0xC0	; 192
-   4842 C0                  168 	.db #0xC0	; 192
-   4843 C0                  169 	.db #0xC0	; 192
-   4844 C0                  170 	.db #0xC0	; 192
-   4845 C0                  171 	.db #0xC0	; 192
-   4846 C0                  172 	.db #0xC0	; 192
-   4847 C0                  173 	.db #0xC0	; 192
-   4848                     174 _g_tileset4x4_09:
-   4848 94                  175 	.db #0x94	; 148
-   4849 03                  176 	.db #0x03	; 3
-   484A C0                  177 	.db #0xC0	; 192
-   484B 03                  178 	.db #0x03	; 3
-   484C C0                  179 	.db #0xC0	; 192
-   484D 56                  180 	.db #0x56	; 86	'V'
-   484E C0                  181 	.db #0xC0	; 192
-   484F 03                  182 	.db #0x03	; 3
-   4850                     183 _g_tileset4x4_10:
-   4850 C0                  184 	.db #0xC0	; 192
-   4851 56                  185 	.db #0x56	; 86	'V'
-   4852 C0                  186 	.db #0xC0	; 192
-   4853 FC                  187 	.db #0xFC	; 252
-   4854 81                  188 	.db #0x81	; 129
-   4855 C0                  189 	.db #0xC0	; 192
-   4856 C0                  190 	.db #0xC0	; 192
-   4857 C0                  191 	.db #0xC0	; 192
-   4858                     192 _g_tileset4x4_11:
-   4858 56                  193 	.db #0x56	; 86	'V'
-   4859 42                  194 	.db #0x42	; 66	'B'
-   485A FC                  195 	.db #0xFC	; 252
-   485B C0                  196 	.db #0xC0	; 192
-   485C 42                  197 	.db #0x42	; 66	'B'
-   485D C0                  198 	.db #0xC0	; 192
-   485E C0                  199 	.db #0xC0	; 192
-   485F C0                  200 	.db #0xC0	; 192
-   4860                     201 _g_tileset4x4_12:
-   4860 A9                  202 	.db #0xA9	; 169
-   4861 C0                  203 	.db #0xC0	; 192
-   4862 A9                  204 	.db #0xA9	; 169
-   4863 C0                  205 	.db #0xC0	; 192
-   4864 03                  206 	.db #0x03	; 3
-   4865 C0                  207 	.db #0xC0	; 192
-   4866 42                  208 	.db #0x42	; 66	'B'
-   4867 C0                  209 	.db #0xC0	; 192
-   4868                     210 _g_tileset4x4_13:
-   4868 C0                  211 	.db #0xC0	; 192
-   4869 C0                  212 	.db #0xC0	; 192
-   486A C0                  213 	.db #0xC0	; 192
-   486B C0                  214 	.db #0xC0	; 192
-   486C C0                  215 	.db #0xC0	; 192
-   486D C0                  216 	.db #0xC0	; 192
-   486E C0                  217 	.db #0xC0	; 192
-   486F C0                  218 	.db #0xC0	; 192
-   4870                     219 _g_tileset4x4_14:
-   4870 C0                  220 	.db #0xC0	; 192
-   4871 C0                  221 	.db #0xC0	; 192
-   4872 C0                  222 	.db #0xC0	; 192
-   4873 C0                  223 	.db #0xC0	; 192
-   4874 C0                  224 	.db #0xC0	; 192
-   4875 C0                  225 	.db #0xC0	; 192
-   4876 C0                  226 	.db #0xC0	; 192
-   4877 C0                  227 	.db #0xC0	; 192
-   4878                     228 _g_tileset4x4_15:
-   4878 C0                  229 	.db #0xC0	; 192
-   4879 03                  230 	.db #0x03	; 3
-   487A C0                  231 	.db #0xC0	; 192
-   487B 7C                  232 	.db #0x7C	; 124
-   487C C0                  233 	.db #0xC0	; 192
-   487D 56                  234 	.db #0x56	; 86	'V'
-   487E C0                  235 	.db #0xC0	; 192
-   487F 03                  236 	.db #0x03	; 3
-   4880                     237 _g_tileset4x4_16:
-   4880 C0                  238 	.db #0xC0	; 192
-   4881 C0                  239 	.db #0xC0	; 192
-   4882 C0                  240 	.db #0xC0	; 192
-   4883 C0                  241 	.db #0xC0	; 192
-   4884 56                  242 	.db #0x56	; 86	'V'
-   4885 94                  243 	.db #0x94	; 148
-   4886 56                  244 	.db #0x56	; 86	'V'
-   4887 A9                  245 	.db #0xA9	; 169
-   4888                     246 _g_tileset4x4_17:
-   4888 C0                  247 	.db #0xC0	; 192
-   4889 C0                  248 	.db #0xC0	; 192
-   488A C0                  249 	.db #0xC0	; 192
-   488B C0                  250 	.db #0xC0	; 192
-   488C C0                  251 	.db #0xC0	; 192
-   488D C0                  252 	.db #0xC0	; 192
-   488E 68                  253 	.db #0x68	; 104	'h'
-   488F C0                  254 	.db #0xC0	; 192
-   4890                     255 _g_tileset4x4_18:
-   4890 E8                  256 	.db #0xE8	; 232
-   4891 C0                  257 	.db #0xC0	; 192
-   4892 A9                  258 	.db #0xA9	; 169
-   4893 C0                  259 	.db #0xC0	; 192
-   4894 03                  260 	.db #0x03	; 3
-   4895 68                  261 	.db #0x68	; 104	'h'
-   4896 03                  262 	.db #0x03	; 3
-   4897 FC                  263 	.db #0xFC	; 252
-   4898                     264 _g_tileset4x4_19:
-   4898 C0                  265 	.db #0xC0	; 192
-   4899 C0                  266 	.db #0xC0	; 192
-   489A C0                  267 	.db #0xC0	; 192
-   489B C0                  268 	.db #0xC0	; 192
-   489C C0                  269 	.db #0xC0	; 192
-   489D 94                  270 	.db #0x94	; 148
-   489E 03                  271 	.db #0x03	; 3
-   489F 56                  272 	.db #0x56	; 86	'V'
-   48A0                     273 _g_tileset4x4_20:
-   48A0 C0                  274 	.db #0xC0	; 192
-   48A1 C0                  275 	.db #0xC0	; 192
-   48A2 C0                  276 	.db #0xC0	; 192
-   48A3 C0                  277 	.db #0xC0	; 192
-   48A4 03                  278 	.db #0x03	; 3
-   48A5 3C                  279 	.db #0x3C	; 60
-   48A6 A9                  280 	.db #0xA9	; 169
-   48A7 56                  281 	.db #0x56	; 86	'V'
-   48A8                     282 _g_tileset4x4_21:
-   48A8 C0                  283 	.db #0xC0	; 192
-   48A9 03                  284 	.db #0x03	; 3
-   48AA C0                  285 	.db #0xC0	; 192
-   48AB 81                  286 	.db #0x81	; 129
-   48AC C0                  287 	.db #0xC0	; 192
-   48AD 56                  288 	.db #0x56	; 86	'V'
-   48AE A9                  289 	.db #0xA9	; 169
-   48AF 56                  290 	.db #0x56	; 86	'V'
-   48B0                     291 _g_tileset4x4_22:
-   48B0 DC                  292 	.db #0xDC	; 220
-   48B1 FC                  293 	.db #0xFC	; 252
-   48B2 A9                  294 	.db #0xA9	; 169
-   48B3 03                  295 	.db #0x03	; 3
-   48B4 03                  296 	.db #0x03	; 3
-   48B5 03                  297 	.db #0x03	; 3
-   48B6 56                  298 	.db #0x56	; 86	'V'
-   48B7 FC                  299 	.db #0xFC	; 252
-   48B8                     300 _g_tileset4x4_23:
-   48B8 C0                  301 	.db #0xC0	; 192
-   48B9 C0                  302 	.db #0xC0	; 192
-   48BA 42                  303 	.db #0x42	; 66	'B'
-   48BB C0                  304 	.db #0xC0	; 192
-   48BC 03                  305 	.db #0x03	; 3
-   48BD C0                  306 	.db #0xC0	; 192
-   48BE FC                  307 	.db #0xFC	; 252
-   48BF E8                  308 	.db #0xE8	; 232
-                            309 	.area _INITIALIZER
-                            310 	.area _CABS (ABS)
+                             54 	.area _DABS (ABS)
+                             55 ;--------------------------------------------------------
+                             56 ; global & static initialisations
+                             57 ;--------------------------------------------------------
+                             58 	.area _HOME
+                             59 	.area _GSINIT
+                             60 	.area _GSFINAL
+                             61 	.area _GSINIT
+                             62 ;--------------------------------------------------------
+                             63 ; Home
+                             64 ;--------------------------------------------------------
+                             65 	.area _HOME
+                             66 	.area _HOME
+                             67 ;--------------------------------------------------------
+                             68 ; code
+                             69 ;--------------------------------------------------------
+                             70 	.area _CODE
+                             71 	.area _CODE
+   47D0                      72 _g_tileset:
+   47D0 08 48                73 	.dw _g_tileset4x4_00
+   47D2 10 48                74 	.dw _g_tileset4x4_01
+   47D4 18 48                75 	.dw _g_tileset4x4_02
+   47D6 20 48                76 	.dw _g_tileset4x4_03
+   47D8 28 48                77 	.dw _g_tileset4x4_04
+   47DA 30 48                78 	.dw _g_tileset4x4_05
+   47DC 38 48                79 	.dw _g_tileset4x4_06
+   47DE 40 48                80 	.dw _g_tileset4x4_07
+   47E0 48 48                81 	.dw _g_tileset4x4_08
+   47E2 50 48                82 	.dw _g_tileset4x4_09
+   47E4 58 48                83 	.dw _g_tileset4x4_10
+   47E6 60 48                84 	.dw _g_tileset4x4_11
+   47E8 68 48                85 	.dw _g_tileset4x4_12
+   47EA 70 48                86 	.dw _g_tileset4x4_13
+   47EC 78 48                87 	.dw _g_tileset4x4_14
+   47EE 80 48                88 	.dw _g_tileset4x4_15
+   47F0 88 48                89 	.dw _g_tileset4x4_16
+   47F2 90 48                90 	.dw _g_tileset4x4_17
+   47F4 98 48                91 	.dw _g_tileset4x4_18
+   47F6 A0 48                92 	.dw _g_tileset4x4_19
+   47F8 A8 48                93 	.dw _g_tileset4x4_20
+   47FA B0 48                94 	.dw _g_tileset4x4_21
+   47FC B8 48                95 	.dw _g_tileset4x4_22
+   47FE C0 48                96 	.dw _g_tileset4x4_23
+   4800 C8 48                97 	.dw _g_tileset4x4_24
+   4802 D0 48                98 	.dw _g_tileset4x4_25
+   4804 D8 48                99 	.dw _g_tileset4x4_26
+   4806 E0 48               100 	.dw _g_tileset4x4_27
+   4808                     101 _g_tileset4x4_00:
+   4808 CC                  102 	.db #0xCC	; 204
+   4809 CC                  103 	.db #0xCC	; 204
+   480A CC                  104 	.db #0xCC	; 204
+   480B CC                  105 	.db #0xCC	; 204
+   480C CC                  106 	.db #0xCC	; 204
+   480D 0C                  107 	.db #0x0C	; 12
+   480E CC                  108 	.db #0xCC	; 204
+   480F C0                  109 	.db #0xC0	; 192
+   4810                     110 _g_tileset4x4_01:
+   4810 CC                  111 	.db #0xCC	; 204
+   4811 CC                  112 	.db #0xCC	; 204
+   4812 8C                  113 	.db #0x8C	; 140
+   4813 CC                  114 	.db #0xCC	; 204
+   4814 84                  115 	.db #0x84	; 132
+   4815 0C                  116 	.db #0x0C	; 12
+   4816 48                  117 	.db #0x48	; 72	'H'
+   4817 C0                  118 	.db #0xC0	; 192
+   4818                     119 _g_tileset4x4_02:
+   4818 CC                  120 	.db #0xCC	; 204
+   4819 CC                  121 	.db #0xCC	; 204
+   481A 4C                  122 	.db #0x4C	; 76	'L'
+   481B 8C                  123 	.db #0x8C	; 140
+   481C C0                  124 	.db #0xC0	; 192
+   481D 0C                  125 	.db #0x0C	; 12
+   481E 48                  126 	.db #0x48	; 72	'H'
+   481F 48                  127 	.db #0x48	; 72	'H'
+   4820                     128 _g_tileset4x4_03:
+   4820 CC                  129 	.db #0xCC	; 204
+   4821 CC                  130 	.db #0xCC	; 204
+   4822 CC                  131 	.db #0xCC	; 204
+   4823 CC                  132 	.db #0xCC	; 204
+   4824 0C                  133 	.db #0x0C	; 12
+   4825 CC                  134 	.db #0xCC	; 204
+   4826 C0                  135 	.db #0xC0	; 192
+   4827 CC                  136 	.db #0xCC	; 204
+   4828                     137 _g_tileset4x4_04:
+   4828 DD                  138 	.db #0xDD	; 221
+   4829 FF                  139 	.db #0xFF	; 255
+   482A DD                  140 	.db #0xDD	; 221
+   482B FF                  141 	.db #0xFF	; 255
+   482C DD                  142 	.db #0xDD	; 221
+   482D FF                  143 	.db #0xFF	; 255
+   482E DD                  144 	.db #0xDD	; 221
+   482F FF                  145 	.db #0xFF	; 255
+   4830                     146 _g_tileset4x4_05:
+   4830 C0                  147 	.db #0xC0	; 192
+   4831 C0                  148 	.db #0xC0	; 192
+   4832 84                  149 	.db #0x84	; 132
+   4833 0C                  150 	.db #0x0C	; 12
+   4834 84                  151 	.db #0x84	; 132
+   4835 CC                  152 	.db #0xCC	; 204
+   4836 84                  153 	.db #0x84	; 132
+   4837 CC                  154 	.db #0xCC	; 204
+   4838                     155 _g_tileset4x4_06:
+   4838 C0                  156 	.db #0xC0	; 192
+   4839 D5                  157 	.db #0xD5	; 213
+   483A 0C                  158 	.db #0x0C	; 12
+   483B D5                  159 	.db #0xD5	; 213
+   483C 8C                  160 	.db #0x8C	; 140
+   483D D5                  161 	.db #0xD5	; 213
+   483E 8C                  162 	.db #0x8C	; 140
+   483F D5                  163 	.db #0xD5	; 213
+   4840                     164 _g_tileset4x4_07:
+   4840 CC                  165 	.db #0xCC	; 204
+   4841 48                  166 	.db #0x48	; 72	'H'
+   4842 8C                  167 	.db #0x8C	; 140
+   4843 48                  168 	.db #0x48	; 72	'H'
+   4844 CC                  169 	.db #0xCC	; 204
+   4845 48                  170 	.db #0x48	; 72	'H'
+   4846 CC                  171 	.db #0xCC	; 204
+   4847 84                  172 	.db #0x84	; 132
+   4848                     173 _g_tileset4x4_08:
+   4848 48                  174 	.db #0x48	; 72	'H'
+   4849 C0                  175 	.db #0xC0	; 192
+   484A C0                  176 	.db #0xC0	; 192
+   484B C0                  177 	.db #0xC0	; 192
+   484C C0                  178 	.db #0xC0	; 192
+   484D C0                  179 	.db #0xC0	; 192
+   484E C0                  180 	.db #0xC0	; 192
+   484F 48                  181 	.db #0x48	; 72	'H'
+   4850                     182 _g_tileset4x4_09:
+   4850 C0                  183 	.db #0xC0	; 192
+   4851 C0                  184 	.db #0xC0	; 192
+   4852 C0                  185 	.db #0xC0	; 192
+   4853 C0                  186 	.db #0xC0	; 192
+   4854 C0                  187 	.db #0xC0	; 192
+   4855 C0                  188 	.db #0xC0	; 192
+   4856 C0                  189 	.db #0xC0	; 192
+   4857 C0                  190 	.db #0xC0	; 192
+   4858                     191 _g_tileset4x4_10:
+   4858 C0                  192 	.db #0xC0	; 192
+   4859 4C                  193 	.db #0x4C	; 76	'L'
+   485A C0                  194 	.db #0xC0	; 192
+   485B CC                  195 	.db #0xCC	; 204
+   485C C0                  196 	.db #0xC0	; 192
+   485D 4C                  197 	.db #0x4C	; 76	'L'
+   485E C0                  198 	.db #0xC0	; 192
+   485F CC                  199 	.db #0xCC	; 204
+   4860                     200 _g_tileset4x4_11:
+   4860 5D                  201 	.db #0x5D	; 93
+   4861 FF                  202 	.db #0xFF	; 255
+   4862 DD                  203 	.db #0xDD	; 221
+   4863 FF                  204 	.db #0xFF	; 255
+   4864 DD                  205 	.db #0xDD	; 221
+   4865 FF                  206 	.db #0xFF	; 255
+   4866 CC                  207 	.db #0xCC	; 204
+   4867 DD                  208 	.db #0xDD	; 221
+   4868                     209 _g_tileset4x4_12:
+   4868 84                  210 	.db #0x84	; 132
+   4869 CC                  211 	.db #0xCC	; 204
+   486A 84                  212 	.db #0x84	; 132
+   486B 0C                  213 	.db #0x0C	; 12
+   486C C0                  214 	.db #0xC0	; 192
+   486D C0                  215 	.db #0xC0	; 192
+   486E FF                  216 	.db #0xFF	; 255
+   486F FF                  217 	.db #0xFF	; 255
+   4870                     218 _g_tileset4x4_13:
+   4870 8C                  219 	.db #0x8C	; 140
+   4871 D5                  220 	.db #0xD5	; 213
+   4872 0C                  221 	.db #0x0C	; 12
+   4873 D5                  222 	.db #0xD5	; 213
+   4874 C0                  223 	.db #0xC0	; 192
+   4875 D5                  224 	.db #0xD5	; 213
+   4876 DD                  225 	.db #0xDD	; 221
+   4877 FF                  226 	.db #0xFF	; 255
+   4878                     227 _g_tileset4x4_14:
+   4878 CC                  228 	.db #0xCC	; 204
+   4879 84                  229 	.db #0x84	; 132
+   487A 8C                  230 	.db #0x8C	; 140
+   487B 48                  231 	.db #0x48	; 72	'H'
+   487C CC                  232 	.db #0xCC	; 204
+   487D 48                  233 	.db #0x48	; 72	'H'
+   487E CC                  234 	.db #0xCC	; 204
+   487F 48                  235 	.db #0x48	; 72	'H'
+   4880                     236 _g_tileset4x4_15:
+   4880 C0                  237 	.db #0xC0	; 192
+   4881 48                  238 	.db #0x48	; 72	'H'
+   4882 C0                  239 	.db #0xC0	; 192
+   4883 48                  240 	.db #0x48	; 72	'H'
+   4884 C0                  241 	.db #0xC0	; 192
+   4885 C0                  242 	.db #0xC0	; 192
+   4886 C0                  243 	.db #0xC0	; 192
+   4887 C0                  244 	.db #0xC0	; 192
+   4888                     245 _g_tileset4x4_16:
+   4888 C0                  246 	.db #0xC0	; 192
+   4889 C0                  247 	.db #0xC0	; 192
+   488A C0                  248 	.db #0xC0	; 192
+   488B C0                  249 	.db #0xC0	; 192
+   488C 48                  250 	.db #0x48	; 72	'H'
+   488D C0                  251 	.db #0xC0	; 192
+   488E C0                  252 	.db #0xC0	; 192
+   488F C0                  253 	.db #0xC0	; 192
+   4890                     254 _g_tileset4x4_17:
+   4890 C0                  255 	.db #0xC0	; 192
+   4891 4C                  256 	.db #0x4C	; 76	'L'
+   4892 C0                  257 	.db #0xC0	; 192
+   4893 CC                  258 	.db #0xCC	; 204
+   4894 C0                  259 	.db #0xC0	; 192
+   4895 CC                  260 	.db #0xCC	; 204
+   4896 48                  261 	.db #0x48	; 72	'H'
+   4897 4C                  262 	.db #0x4C	; 76	'L'
+   4898                     263 _g_tileset4x4_18:
+   4898 4C                  264 	.db #0x4C	; 76	'L'
+   4899 C8                  265 	.db #0xC8	; 200
+   489A DD                  266 	.db #0xDD	; 221
+   489B C8                  267 	.db #0xC8	; 200
+   489C DD                  268 	.db #0xDD	; 221
+   489D DD                  269 	.db #0xDD	; 221
+   489E DD                  270 	.db #0xDD	; 221
+   489F DD                  271 	.db #0xDD	; 221
+   48A0                     272 _g_tileset4x4_19:
+   48A0 CC                  273 	.db #0xCC	; 204
+   48A1 CC                  274 	.db #0xCC	; 204
+   48A2 CC                  275 	.db #0xCC	; 204
+   48A3 CC                  276 	.db #0xCC	; 204
+   48A4 CC                  277 	.db #0xCC	; 204
+   48A5 CC                  278 	.db #0xCC	; 204
+   48A6 CC                  279 	.db #0xCC	; 204
+   48A7 CC                  280 	.db #0xCC	; 204
+   48A8                     281 _g_tileset4x4_20:
+   48A8 DD                  282 	.db #0xDD	; 221
+   48A9 FF                  283 	.db #0xFF	; 255
+   48AA DD                  284 	.db #0xDD	; 221
+   48AB FF                  285 	.db #0xFF	; 255
+   48AC DD                  286 	.db #0xDD	; 221
+   48AD FF                  287 	.db #0xFF	; 255
+   48AE DD                  288 	.db #0xDD	; 221
+   48AF FF                  289 	.db #0xFF	; 255
+   48B0                     290 _g_tileset4x4_21:
+   48B0 CC                  291 	.db #0xCC	; 204
+   48B1 84                  292 	.db #0x84	; 132
+   48B2 CC                  293 	.db #0xCC	; 204
+   48B3 0C                  294 	.db #0x0C	; 12
+   48B4 CC                  295 	.db #0xCC	; 204
+   48B5 CC                  296 	.db #0xCC	; 204
+   48B6 CC                  297 	.db #0xCC	; 204
+   48B7 CC                  298 	.db #0xCC	; 204
+   48B8                     299 _g_tileset4x4_22:
+   48B8 C0                  300 	.db #0xC0	; 192
+   48B9 48                  301 	.db #0x48	; 72	'H'
+   48BA 0C                  302 	.db #0x0C	; 12
+   48BB 84                  303 	.db #0x84	; 132
+   48BC 8C                  304 	.db #0x8C	; 140
+   48BD CC                  305 	.db #0xCC	; 204
+   48BE CC                  306 	.db #0xCC	; 204
+   48BF CC                  307 	.db #0xCC	; 204
+   48C0                     308 _g_tileset4x4_23:
+   48C0 C0                  309 	.db #0xC0	; 192
+   48C1 84                  310 	.db #0x84	; 132
+   48C2 0C                  311 	.db #0x0C	; 12
+   48C3 0C                  312 	.db #0x0C	; 12
+   48C4 8C                  313 	.db #0x8C	; 140
+   48C5 8C                  314 	.db #0x8C	; 140
+   48C6 CC                  315 	.db #0xCC	; 204
+   48C7 CC                  316 	.db #0xCC	; 204
+   48C8                     317 _g_tileset4x4_24:
+   48C8 84                  318 	.db #0x84	; 132
+   48C9 CC                  319 	.db #0xCC	; 204
+   48CA 84                  320 	.db #0x84	; 132
+   48CB CC                  321 	.db #0xCC	; 204
+   48CC CC                  322 	.db #0xCC	; 204
+   48CD CC                  323 	.db #0xCC	; 204
+   48CE CC                  324 	.db #0xCC	; 204
+   48CF CC                  325 	.db #0xCC	; 204
+   48D0                     326 _g_tileset4x4_25:
+   48D0 DD                  327 	.db #0xDD	; 221
+   48D1 DD                  328 	.db #0xDD	; 221
+   48D2 DD                  329 	.db #0xDD	; 221
+   48D3 DD                  330 	.db #0xDD	; 221
+   48D4 DD                  331 	.db #0xDD	; 221
+   48D5 DD                  332 	.db #0xDD	; 221
+   48D6 CC                  333 	.db #0xCC	; 204
+   48D7 DD                  334 	.db #0xDD	; 221
+   48D8                     335 _g_tileset4x4_26:
+   48D8 CC                  336 	.db #0xCC	; 204
+   48D9 CC                  337 	.db #0xCC	; 204
+   48DA FF                  338 	.db #0xFF	; 255
+   48DB FF                  339 	.db #0xFF	; 255
+   48DC FF                  340 	.db #0xFF	; 255
+   48DD EA                  341 	.db #0xEA	; 234
+   48DE FF                  342 	.db #0xFF	; 255
+   48DF EA                  343 	.db #0xEA	; 234
+   48E0                     344 _g_tileset4x4_27:
+   48E0 DD                  345 	.db #0xDD	; 221
+   48E1 FF                  346 	.db #0xFF	; 255
+   48E2 FF                  347 	.db #0xFF	; 255
+   48E3 FF                  348 	.db #0xFF	; 255
+   48E4 FF                  349 	.db #0xFF	; 255
+   48E5 FF                  350 	.db #0xFF	; 255
+   48E6 FF                  351 	.db #0xFF	; 255
+   48E7 FF                  352 	.db #0xFF	; 255
+                            353 	.area _INITIALIZER
+                            354 	.area _CABS (ABS)

@@ -22,118 +22,123 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000002  l__INITIALIZED                  
      00000002  l__INITIALIZER                  
      00000100  l__g_tablatrans_0               
-     0000018E  l__CSEG                         
-     00000DE0  l__CODE                         
+     00000312  l__CSEG                         
+     00000E09  l__CODE                         
      00004000  s__CODE                         
-     00004DE0  s__DATA                         
-     00004DE0  s__INITIALIZED                  
-     00004DE2  s__GSFINAL                      
-     00004DE2  s__GSINIT                       
-     00004DE2  s__HOME                         
-     00004DE2  s__INITIALIZER                  
-     00004DE4  s__CSEG                         
+     00004E09  s__DATA                         
+     00004E09  s__INITIALIZED                  
+     00004E0B  s__GSFINAL                      
+     00004E0B  s__GSINIT                       
+     00004E0B  s__HOME                         
+     00004E0B  s__INITIALIZER                  
+     00004E0D  s__CSEG                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00000DE0 =        3552. bytes (REL,CON)
+_CODE                               00004000    00000E09 =        3593. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00004000  _g_map1                            mapa1
      000047D0  _g_tileset                         tileset4x4
-     00004800  _g_tileset4x4_00                   tileset4x4
-     00004808  _g_tileset4x4_01                   tileset4x4
-     00004810  _g_tileset4x4_02                   tileset4x4
-     00004818  _g_tileset4x4_03                   tileset4x4
-     00004820  _g_tileset4x4_04                   tileset4x4
-     00004828  _g_tileset4x4_05                   tileset4x4
-     00004830  _g_tileset4x4_06                   tileset4x4
-     00004838  _g_tileset4x4_07                   tileset4x4
-     00004840  _g_tileset4x4_08                   tileset4x4
-     00004848  _g_tileset4x4_09                   tileset4x4
-     00004850  _g_tileset4x4_10                   tileset4x4
-     00004858  _g_tileset4x4_11                   tileset4x4
-     00004860  _g_tileset4x4_12                   tileset4x4
-     00004868  _g_tileset4x4_13                   tileset4x4
-     00004870  _g_tileset4x4_14                   tileset4x4
-     00004878  _g_tileset4x4_15                   tileset4x4
-     00004880  _g_tileset4x4_16                   tileset4x4
-     00004888  _g_tileset4x4_17                   tileset4x4
-     00004890  _g_tileset4x4_18                   tileset4x4
-     00004898  _g_tileset4x4_19                   tileset4x4
-     000048A0  _g_tileset4x4_20                   tileset4x4
-     000048A8  _g_tileset4x4_21                   tileset4x4
-     000048B0  _g_tileset4x4_22                   tileset4x4
-     000048B8  _g_tileset4x4_23                   tileset4x4
-     000048C0  _g_palette                         naves
-     000048D0  _g_naves_0                         naves
-     00004950  _g_naves_1                         naves
-     000049D0  _g_naves_2                         naves
-     00004A50  _g_naves_3                         naves
-     00004AD0  _inicializarPantalla               game
-     00004AED  _player                            game
-     00004AF4  _dibujarMapa                       game
-     00004B0A  _updateUser                        game
-     00004B72  _play                              game
-     00004BAA  _inicializar                       main
-     00004BC5  _main                              main
-     00004BCD  _cpct_setPalette                   cpct_video
-     00004BCD  _dummy_cpct_transparentMaskTable   entities
-     00004BE4  _cpct_isKeyPressed                 cpct_keyboard
-     00004BE4  cpct_isKeyPressed_asm              cpct_keyboard
-     00004BF0  _cpct_setPALColour                 cpct_video
-     00004BFC  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
-     00004C8B  _cpct_etm_setTileset2x4            cpct_easytilemaps
-     00004C8B  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
-     00004C8F  _cpct_keyboardStatusBuffer         cpct_keyboard
-     00004C99  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
-     00004CA0  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
-     00004CA2  dtr_restore_ptileset               cpct_easytilemaps
+     00004808  _g_tileset4x4_00                   tileset4x4
+     00004810  _g_tileset4x4_01                   tileset4x4
+     00004818  _g_tileset4x4_02                   tileset4x4
+     00004820  _g_tileset4x4_03                   tileset4x4
+     00004828  _g_tileset4x4_04                   tileset4x4
+     00004830  _g_tileset4x4_05                   tileset4x4
+     00004838  _g_tileset4x4_06                   tileset4x4
+     00004840  _g_tileset4x4_07                   tileset4x4
+     00004848  _g_tileset4x4_08                   tileset4x4
+     00004850  _g_tileset4x4_09                   tileset4x4
+     00004858  _g_tileset4x4_10                   tileset4x4
+     00004860  _g_tileset4x4_11                   tileset4x4
+     00004868  _g_tileset4x4_12                   tileset4x4
+     00004870  _g_tileset4x4_13                   tileset4x4
+     00004878  _g_tileset4x4_14                   tileset4x4
+     00004880  _g_tileset4x4_15                   tileset4x4
+     00004888  _g_tileset4x4_16                   tileset4x4
+     00004890  _g_tileset4x4_17                   tileset4x4
+     00004898  _g_tileset4x4_18                   tileset4x4
+     000048A0  _g_tileset4x4_19                   tileset4x4
+     000048A8  _g_tileset4x4_20                   tileset4x4
+     000048B0  _g_tileset4x4_21                   tileset4x4
+     000048B8  _g_tileset4x4_22                   tileset4x4
+     000048C0  _g_tileset4x4_23                   tileset4x4
+     000048C8  _g_tileset4x4_24                   tileset4x4
+     000048D0  _g_tileset4x4_25                   tileset4x4
+     000048D8  _g_tileset4x4_26                   tileset4x4
+     000048E0  _g_tileset4x4_27                   tileset4x4
+     000048E8  _g_palette                         naves
+     000048F8  _g_naves_0                         naves
+     00004978  _g_naves_1                         naves
+     000049F8  _g_naves_2                         naves
+     00004A78  _g_naves_3                         naves
+     00004AF8  _inicializarPantalla               game
+     00004B15  _player                            game
+     00004B1D  _dibujarMapa                       game
+     00004B33  _updateUser                        game
+     00004B9B  _play                              game
+     00004BD3  _inicializar                       main
+     00004BEE  _main                              main
+     00004BF6  _cpct_setPalette                   cpct_video
+     00004BF6  _dummy_cpct_transparentMaskTable   entities
+     00004C0D  _cpct_isKeyPressed                 cpct_keyboard
+     00004C0D  cpct_isKeyPressed_asm              cpct_keyboard
+     00004C19  _cpct_setPALColour                 cpct_video
+     00004C25  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     00004CB4  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     00004CB4  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00000DE0 =        3552. bytes (REL,CON)
+_CODE                               00004000    00000E09 =        3593. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004CBA  _cpct_isAnyKeyPressed              cpct_keyboard
-     00004CBA  cpct_isAnyKeyPressed_asm           cpct_keyboard
-     00004CC7  _cpct_scanKeyboard_if              cpct_keyboard
-     00004CC7  cpct_scanKeyboard_if_asm           cpct_keyboard
-     00004D2F  _cpct_setVideoMode                 cpct_video
-     00004D3D  _cpct_waitVSYNC                    cpct_video
-     00004D3D  cpct_waitVSYNC_asm                 cpct_video
-     00004D45  _cpct_memset                       cpct_memutils
-     00004D53  _cpct_disableFirmware              cpct_firmware
-     00004D53  _cpct_removeInterruptHandler       cpct_firmware
-     00004D53  cpct_disableFirmware_asm           cpct_firmware
-     00004D53  cpct_removeInterruptHandler_asm    cpct_firmware
-     00004D63  cpct_drawTileAligned2x4_f_asm      cpct_sprites
-     00004D84  _cpct_mode_rom_status              cpct_firmware
-     00004D85  _cpct_getScreenPtr                 cpct_video
-     00004DA5  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     00004CB8  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00004CC2  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     00004CC9  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     00004CCB  dtr_restore_ptileset               cpct_easytilemaps
+     00004CE3  _cpct_isAnyKeyPressed              cpct_keyboard
+     00004CE3  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     00004CF0  _cpct_scanKeyboard_if              cpct_keyboard
+     00004CF0  cpct_scanKeyboard_if_asm           cpct_keyboard
+     00004D58  _cpct_setVideoMode                 cpct_video
+     00004D66  _cpct_waitVSYNC                    cpct_video
+     00004D66  cpct_waitVSYNC_asm                 cpct_video
+     00004D6E  _cpct_memset                       cpct_memutils
+     00004D7C  _cpct_disableFirmware              cpct_firmware
+     00004D7C  _cpct_removeInterruptHandler       cpct_firmware
+     00004D7C  cpct_disableFirmware_asm           cpct_firmware
+     00004D7C  cpct_removeInterruptHandler_asm    cpct_firmware
+     00004D8C  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     00004DAD  _cpct_mode_rom_status              cpct_firmware
+     00004DAE  _cpct_getScreenPtr                 cpct_video
+     00004DCE  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZED                        00004DE0    00000002 =           2. bytes (REL,CON)
+_INITIALIZED                        00004E09    00000002 =           2. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004DE0  _mapa                              game
+     00004E09  _mapa                              game
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_INITIALIZER                        00004DE2    00000002 =           2. bytes (REL,CON)
+_INITIALIZER                        00004E0B    00000002 =           2. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -153,21 +158,23 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CSEG                               00004DE4    0000018E =         398. bytes (REL,CON)
+_CSEG                               00004E0D    00000312 =         786. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004DE4  _incializarEntities                entities
-     00004DE5  _accion                            entities
-     00004E42  _moverArriba                       entities
-     00004E4E  _moverAbajo                        entities
-     00004E79  _moverIzquierda                    entities
-     00004E84  _moverDerecha                      entities
-     00004EAE  _updatePlayer                      entities
-     00004EB1  _redibujarPlayer                   entities
-     00004EE2  _borrarPlayer                      entities
-     00004F30  _dibujarPlayer                     entities
-     00004F68  _drawAll                           entities
+     00004E0D  _incializarEntities                entities
+     00004E0E  _accion                            entities
+     00004EB1  _flipSprite                        entities
+     00004F18  _flipByMolto                       entities
+     00004F90  _moverArriba                       entities
+     00004FBA  _moverAbajo                        entities
+     00005001  _moverIzquierda                    entities
+     00005012  _moverDerecha                      entities
+     00005042  _updatePlayer                      entities
+     00005045  _redibujarPlayer                   entities
+     0000508C  _borrarPlayer                      entities
+     000050DD  _dibujarPlayer                     entities
+     00005115  _drawAll                           entities
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
 
