@@ -157,10 +157,18 @@ u8 updatePlayer(TEntity* player){
 }
 
 void updateEntities(){
+	u32 seed;
+	u8 random_number;
 	u8 i;
-	u8 rand;
 
+	seed = 15315;
+	cpct_srand(seed);
+
+	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; i++){
+		random_number = cpct_rand()%5;
+		accion(&enemigos[i],es_mover,random_number);
+	}
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
