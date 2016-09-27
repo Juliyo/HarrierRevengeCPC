@@ -11,7 +11,10 @@
 #define NUM_ENEMIGOS 2
 
 extern const TEntity enemigos[NUM_ENEMIGOS];
+extern u32 seed;
 
+extern u8 count1;
+extern u8 count2;
 
 void incializarEntities();
 

@@ -62,6 +62,8 @@ void play(){
 
 	//Esto seria mientras estes vivo
 	while(alive){
+		
+
 		updateUser();	
 		alive = updatePlayer(&player);
 		updateEntities();

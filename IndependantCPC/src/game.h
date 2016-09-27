@@ -15,10 +15,10 @@ typedef enum {
 } TPlayerStatus;
 
 typedef enum{
-	d_up = 0,
-	d_down = 1,
-	d_right = 2,
-	d_left = 3 
+	d_up,
+	d_down,
+	d_right,
+	d_left
 } TPlayerDirection;
 
 typedef struct Entity

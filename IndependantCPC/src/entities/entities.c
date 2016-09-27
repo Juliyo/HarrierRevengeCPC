@@ -31,6 +31,10 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 		d_up}
 };
 
+u32 seed = 1;
+u8 count1 = 0;
+u8 count2 = 0;
+
 void incializarEntities(){
 	//Inicializar entities necesarias
 
@@ -156,19 +160,37 @@ u8 updatePlayer(TEntity* player){
 	return 1;
 }
 
+
+
 void updateEntities(){
-	u32 seed;
+	
 	u8 random_number;
 	u8 i;
 
-	seed = 15315;
+	TEntity* ent;
+
+	//seed = 1;
+
+	seed++;
+	if(seed > 15000)
+		seed = 1;
+
 	cpct_srand(seed);
 
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; i++){
-		random_number = cpct_rand()%5;
-		accion(&enemigos[i],es_mover,random_number);
+		ent = &enemigos[i];
+		accion(&enemigos[i],es_mover,enemigos[i].curr_dir);
+		random_number = cpct_rand()%4;
+		if(count1 > 60){
+			count1 = 0;
+			ent->curr_dir = random_number;
+		}
+
+		count1++;
 	}
+
+	
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
