@@ -9,7 +9,6 @@
 ; Public variables in this module
 ;--------------------------------------------------------
 	.globl _drawAll
-	.globl _updateEntities
 	.globl _updatePlayer
 	.globl _accion
 	.globl _incializarEntities
@@ -212,8 +211,6 @@ _play::
 	call	_updatePlayer
 	pop	af
 	ld	-1 (ix),l
-;src/game.c:67: updateEntities();
-	call	_updateEntities
 ;src/game.c:68: cpct_waitVSYNC();
 	call	_cpct_waitVSYNC
 ;src/game.c:69: drawAll(&player);

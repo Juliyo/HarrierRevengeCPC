@@ -26,7 +26,6 @@ Symbol Table
   2 _mapa                                                          0000 GR
   0 _play                                                          00A3 GR
   0 _player                                                        001D GR
-    _updateEntities                                                **** GX
     _updatePlayer                                                  **** GX
   0 _updateUser                                                    003B GR
 
@@ -36,7 +35,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size   DE   flags    0
+   0 _CODE                                      size   DB   flags    0
    1 _DATA                                      size    0   flags    0
    2 _INITIALIZED                               size    2   flags    0
    3 _DABS                                      size    0   flags    8

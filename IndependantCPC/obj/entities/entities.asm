@@ -56,7 +56,7 @@
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;src/entities/entities.c:12: cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
+;src/entities/entities.c:14: cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
 ;	---------------------------------
 ; Function dummy_cpct_transparentMaskTable0M0_container
 ; ---------------------------------
@@ -97,12 +97,12 @@ _dummy_cpct_transparentMaskTable0M0_container::
 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
 	.area _CSEG (REL, CON) 
-;src/entities/entities.c:31: void incializarEntities(){
+;src/entities/entities.c:33: void incializarEntities(){
 ;	---------------------------------
 ; Function incializarEntities
 ; ---------------------------------
 _incializarEntities::
-;src/entities/entities.c:33: }
+;src/entities/entities.c:35: }
 	ret
 _enemigos:
 	.db #0x32	; 50	'2'
@@ -119,7 +119,7 @@ _enemigos:
 	.db #0x01	; 1
 	.dw _g_naves_0
 	.db #0x00	; 0
-;src/entities/entities.c:37: void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir){
+;src/entities/entities.c:39: void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir){
 ;	---------------------------------
 ; Function accion
 ; ---------------------------------
@@ -127,11 +127,11 @@ _accion::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:38: switch(action){
+;src/entities/entities.c:40: switch(action){
 	ld	a,6 (ix)
 	dec	a
 	jp	NZ,00108$
-;src/entities/entities.c:40: switch(dir){
+;src/entities/entities.c:42: switch(dir){
 	ld	a,#0x03
 	sub	a, 7 (ix)
 	jp	C,00108$
@@ -140,7 +140,7 @@ _accion::
 	ld	hl,#00120$
 	add	hl,de
 	add	hl,de
-;src/entities/entities.c:41: case d_up:
+;src/entities/entities.c:43: case d_up:
 	jp	(hl)
 00120$:
 	jr	00102$
@@ -148,13 +148,13 @@ _accion::
 	jr	00105$
 	jr	00104$
 00102$:
-;src/entities/entities.c:42: moverArriba(ent);
+;src/entities/entities.c:44: moverArriba(ent);
 	ld	l,4 (ix)
 	ld	h,5 (ix)
 	push	hl
 	call	_moverArriba
 	pop	af
-;src/entities/entities.c:43: flipSprite(ent,dir);
+;src/entities/entities.c:45: flipSprite(ent,dir);
 	ld	a,7 (ix)
 	push	af
 	inc	sp
@@ -164,17 +164,17 @@ _accion::
 	call	_flipSprite
 	pop	af
 	inc	sp
-;src/entities/entities.c:44: break;
+;src/entities/entities.c:46: break;
 	jr	00108$
-;src/entities/entities.c:45: case d_down:
+;src/entities/entities.c:47: case d_down:
 00103$:
-;src/entities/entities.c:46: moverAbajo(ent);
+;src/entities/entities.c:48: moverAbajo(ent);
 	ld	l,4 (ix)
 	ld	h,5 (ix)
 	push	hl
 	call	_moverAbajo
 	pop	af
-;src/entities/entities.c:47: flipSprite(ent,dir);
+;src/entities/entities.c:49: flipSprite(ent,dir);
 	ld	a,7 (ix)
 	push	af
 	inc	sp
@@ -184,17 +184,17 @@ _accion::
 	call	_flipSprite
 	pop	af
 	inc	sp
-;src/entities/entities.c:48: break;
+;src/entities/entities.c:50: break;
 	jr	00108$
-;src/entities/entities.c:49: case d_left:
+;src/entities/entities.c:51: case d_left:
 00104$:
-;src/entities/entities.c:50: moverIzquierda(ent);
+;src/entities/entities.c:52: moverIzquierda(ent);
 	ld	l,4 (ix)
 	ld	h,5 (ix)
 	push	hl
 	call	_moverIzquierda
 	pop	af
-;src/entities/entities.c:51: flipSprite(ent,dir);
+;src/entities/entities.c:53: flipSprite(ent,dir);
 	ld	a,7 (ix)
 	push	af
 	inc	sp
@@ -204,17 +204,17 @@ _accion::
 	call	_flipSprite
 	pop	af
 	inc	sp
-;src/entities/entities.c:52: break;
+;src/entities/entities.c:54: break;
 	jr	00108$
-;src/entities/entities.c:53: case d_right:
+;src/entities/entities.c:55: case d_right:
 00105$:
-;src/entities/entities.c:54: moverDerecha(ent);
+;src/entities/entities.c:56: moverDerecha(ent);
 	ld	l,4 (ix)
 	ld	h,5 (ix)
 	push	hl
 	call	_moverDerecha
 	pop	af
-;src/entities/entities.c:55: flipSprite(ent,dir);
+;src/entities/entities.c:57: flipSprite(ent,dir);
 	ld	a,7 (ix)
 	push	af
 	inc	sp
@@ -224,11 +224,11 @@ _accion::
 	call	_flipSprite
 	pop	af
 	inc	sp
-;src/entities/entities.c:60: }
+;src/entities/entities.c:62: }
 00108$:
 	pop	ix
 	ret
-;src/entities/entities.c:64: void flipSprite(TEntity* ent, TPlayerDirection dir){
+;src/entities/entities.c:66: void flipSprite(TEntity* ent, TPlayerDirection dir){
 ;	---------------------------------
 ; Function flipSprite
 ; ---------------------------------
@@ -237,7 +237,7 @@ _flipSprite::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src/entities/entities.c:65: if(ent->curr_dir != dir){
+;src/entities/entities.c:67: if(ent->curr_dir != dir){
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	hl,#0x0007
@@ -248,24 +248,24 @@ _flipSprite::
 	ld	a,6 (ix)
 	sub	a, -1 (ix)
 	jr	Z,00108$
-;src/entities/entities.c:66: switch(dir){
+;src/entities/entities.c:68: switch(dir){
 	ld	a,#0x03
 	sub	a, 6 (ix)
 	jr	C,00105$
-;src/entities/entities.c:68: ent->sprite = g_naves_0;
+;src/entities/entities.c:70: ent->sprite = g_naves_0;
 	inc	bc
 	inc	bc
 	inc	bc
 	inc	bc
 	inc	bc
-;src/entities/entities.c:66: switch(dir){
+;src/entities/entities.c:68: switch(dir){
 	push	de
 	ld	e,6 (ix)
 	ld	d,#0x00
 	ld	hl,#00119$
 	add	hl,de
 	add	hl,de
-;src/entities/entities.c:67: case d_up:
+;src/entities/entities.c:69: case d_up:
 	pop	de
 	jp	(hl)
 00119$:
@@ -274,52 +274,52 @@ _flipSprite::
 	jr	00104$
 	jr	00103$
 00101$:
-;src/entities/entities.c:68: ent->sprite = g_naves_0;
+;src/entities/entities.c:70: ent->sprite = g_naves_0;
 	ld	a,#<(_g_naves_0)
 	ld	(bc),a
 	inc	bc
 	ld	a,#>(_g_naves_0)
 	ld	(bc),a
-;src/entities/entities.c:70: break;
+;src/entities/entities.c:72: break;
 	jr	00105$
-;src/entities/entities.c:71: case d_down:
+;src/entities/entities.c:73: case d_down:
 00102$:
-;src/entities/entities.c:72: ent->sprite = g_naves_2;
+;src/entities/entities.c:74: ent->sprite = g_naves_2;
 	ld	a,#<(_g_naves_2)
 	ld	(bc),a
 	inc	bc
 	ld	a,#>(_g_naves_2)
 	ld	(bc),a
-;src/entities/entities.c:74: break;
+;src/entities/entities.c:76: break;
 	jr	00105$
-;src/entities/entities.c:75: case d_left:
+;src/entities/entities.c:77: case d_left:
 00103$:
-;src/entities/entities.c:76: ent->sprite = g_naves_3;
+;src/entities/entities.c:78: ent->sprite = g_naves_3;
 	ld	a,#<(_g_naves_3)
 	ld	(bc),a
 	inc	bc
 	ld	a,#>(_g_naves_3)
 	ld	(bc),a
-;src/entities/entities.c:77: break;
+;src/entities/entities.c:79: break;
 	jr	00105$
-;src/entities/entities.c:78: case d_right:
+;src/entities/entities.c:80: case d_right:
 00104$:
-;src/entities/entities.c:79: ent->sprite = g_naves_1;
+;src/entities/entities.c:81: ent->sprite = g_naves_1;
 	ld	a,#<(_g_naves_1)
 	ld	(bc),a
 	inc	bc
 	ld	a,#>(_g_naves_1)
 	ld	(bc),a
-;src/entities/entities.c:81: }
+;src/entities/entities.c:83: }
 00105$:
-;src/entities/entities.c:82: ent->curr_dir = dir; 
+;src/entities/entities.c:84: ent->curr_dir = dir; 
 	ld	a,6 (ix)
 	ld	(de),a
 00108$:
 	inc	sp
 	pop	ix
 	ret
-;src/entities/entities.c:102: void moverArriba(TEntity* ent){
+;src/entities/entities.c:104: void moverArriba(TEntity* ent){
 ;	---------------------------------
 ; Function moverArriba
 ; ---------------------------------
@@ -327,7 +327,7 @@ _moverArriba::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:103: if (ent->y > 0) {
+;src/entities/entities.c:105: if (ent->y > 0) {
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	e, c
@@ -336,26 +336,26 @@ _moverArriba::
 	ld	a,(de)
 	or	a, a
 	jr	Z,00106$
-;src/entities/entities.c:104: if(ent->y%2 == 0)
+;src/entities/entities.c:106: if(ent->y%2 == 0)
 	bit	0, a
 	jr	NZ,00102$
-;src/entities/entities.c:105: ent->y-=2;
+;src/entities/entities.c:107: ent->y-=2;
 	add	a,#0xFE
 	ld	(de),a
 	jr	00103$
 00102$:
-;src/entities/entities.c:107: ent->y--;
+;src/entities/entities.c:109: ent->y--;
 	add	a,#0xFF
 	ld	(de),a
 00103$:
-;src/entities/entities.c:109: ent->draw  = SI;
+;src/entities/entities.c:111: ent->draw  = SI;
 	ld	hl,#0x0004
 	add	hl,bc
 	ld	(hl),#0x01
 00106$:
 	pop	ix
 	ret
-;src/entities/entities.c:116: void moverAbajo(TEntity* ent){
+;src/entities/entities.c:118: void moverAbajo(TEntity* ent){
 ;	---------------------------------
 ; Function moverAbajo
 ; ---------------------------------
@@ -364,7 +364,7 @@ _moverAbajo::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;src/entities/entities.c:117: if (ent->y + G_NAVES_0_H < ALTO) {
+;src/entities/entities.c:119: if (ent->y + G_NAVES_0_H < ALTO) {
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	e, c
@@ -386,21 +386,21 @@ _moverAbajo::
 	rra
 	sbc	a, #0x80
 	jr	NC,00106$
-;src/entities/entities.c:118: if(ent->y%2 == 0)
+;src/entities/entities.c:120: if(ent->y%2 == 0)
 	bit	0, -1 (ix)
 	jr	NZ,00102$
-;src/entities/entities.c:119: ent->y+=2;
+;src/entities/entities.c:121: ent->y+=2;
 	ld	a,-1 (ix)
 	add	a, #0x02
 	ld	(de),a
 	jr	00103$
 00102$:
-;src/entities/entities.c:121: ent->y++;
+;src/entities/entities.c:123: ent->y++;
 	ld	a,-1 (ix)
 	inc	a
 	ld	(de),a
 00103$:
-;src/entities/entities.c:123: ent->draw  = SI;
+;src/entities/entities.c:125: ent->draw  = SI;
 	ld	hl,#0x0004
 	add	hl,bc
 	ld	(hl),#0x01
@@ -408,12 +408,12 @@ _moverAbajo::
 	inc	sp
 	pop	ix
 	ret
-;src/entities/entities.c:130: void moverIzquierda(TEntity* ent){
+;src/entities/entities.c:132: void moverIzquierda(TEntity* ent){
 ;	---------------------------------
 ; Function moverIzquierda
 ; ---------------------------------
 _moverIzquierda::
-;src/entities/entities.c:131: if (ent->x > 0) {
+;src/entities/entities.c:133: if (ent->x > 0) {
 	pop	de
 	pop	bc
 	push	bc
@@ -421,15 +421,15 @@ _moverIzquierda::
 	ld	a,(bc)
 	or	a, a
 	ret	Z
-;src/entities/entities.c:132: ent->x--;
+;src/entities/entities.c:134: ent->x--;
 	add	a,#0xFF
 	ld	(bc),a
-;src/entities/entities.c:133: ent->draw  = SI;
+;src/entities/entities.c:135: ent->draw  = SI;
 	ld	hl,#0x0004
 	add	hl,bc
 	ld	(hl),#0x01
 	ret
-;src/entities/entities.c:139: void moverDerecha(TEntity* ent){
+;src/entities/entities.c:141: void moverDerecha(TEntity* ent){
 ;	---------------------------------
 ; Function moverDerecha
 ; ---------------------------------
@@ -437,7 +437,7 @@ _moverDerecha::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:140: if (ent->x + G_NAVES_0_W < ANCHO) {
+;src/entities/entities.c:142: if (ent->x + G_NAVES_0_W < ANCHO) {
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	a,(bc)
@@ -456,33 +456,32 @@ _moverDerecha::
 	rra
 	sbc	a, #0x80
 	jr	NC,00103$
-;src/entities/entities.c:141: ent->x++;
+;src/entities/entities.c:143: ent->x++;
 	inc	e
 	ld	a,e
 	ld	(bc),a
-;src/entities/entities.c:142: ent->draw  = SI;
+;src/entities/entities.c:144: ent->draw  = SI;
 	ld	hl,#0x0004
 	add	hl,bc
 	ld	(hl),#0x01
 00103$:
 	pop	ix
 	ret
-;src/entities/entities.c:150: u8 updatePlayer(TEntity* player){
+;src/entities/entities.c:152: u8 updatePlayer(TEntity* player){
 ;	---------------------------------
 ; Function updatePlayer
 ; ---------------------------------
 _updatePlayer::
-;src/entities/entities.c:152: return 1;
+;src/entities/entities.c:154: return 1;
 	ld	l,#0x01
 	ret
-;src/entities/entities.c:155: void updateEntities(){
+;src/entities/entities.c:157: void updateEntities(){
 ;	---------------------------------
 ; Function updateEntities
 ; ---------------------------------
 _updateEntities::
-;src/entities/entities.c:157: }
 	ret
-;src/entities/entities.c:159: void redibujarEntity(TEntity* ent, u8 w, u8 h){
+;src/entities/entities.c:169: void redibujarEntity(TEntity* ent, u8 w, u8 h){
 ;	---------------------------------
 ; Function redibujarEntity
 ; ---------------------------------
@@ -490,7 +489,7 @@ _redibujarEntity::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:160: if (ent->draw) {
+;src/entities/entities.c:170: if (ent->draw) {
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	hl,#0x0004
@@ -499,7 +498,7 @@ _redibujarEntity::
 	ld	a,(de)
 	or	a, a
 	jr	Z,00103$
-;src/entities/entities.c:161: borrarEntity(ent);
+;src/entities/entities.c:171: borrarEntity(ent);
 	push	bc
 	push	de
 	push	bc
@@ -507,14 +506,14 @@ _redibujarEntity::
 	pop	af
 	pop	de
 	pop	bc
-;src/entities/entities.c:162: ent->px = ent->x;
+;src/entities/entities.c:172: ent->px = ent->x;
 	push	bc
 	pop	iy
 	inc	iy
 	inc	iy
 	ld	a,(bc)
 	ld	0 (iy), a
-;src/entities/entities.c:163: ent->py = ent->y;
+;src/entities/entities.c:173: ent->py = ent->y;
 	push	bc
 	pop	iy
 	inc	iy
@@ -525,7 +524,7 @@ _redibujarEntity::
 	inc	hl
 	ld	l,(hl)
 	ld	0 (iy), l
-;src/entities/entities.c:164: dibujarEntity(ent, w, h);
+;src/entities/entities.c:174: dibujarEntity(ent, w, h);
 	push	de
 	ld	h,7 (ix)
 	ld	l,6 (ix)
@@ -535,13 +534,13 @@ _redibujarEntity::
 	pop	af
 	pop	af
 	pop	de
-;src/entities/entities.c:165: ent->draw = NO;
+;src/entities/entities.c:175: ent->draw = NO;
 	xor	a, a
 	ld	(de),a
 00103$:
 	pop	ix
 	ret
-;src/entities/entities.c:169: void borrarEntity(TEntity* ent){
+;src/entities/entities.c:179: void borrarEntity(TEntity* ent){
 ;	---------------------------------
 ; Function borrarEntity
 ; ---------------------------------
@@ -549,7 +548,7 @@ _borrarEntity::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:170: u8 w = 4 + (ent->px & 1);
+;src/entities/entities.c:180: u8 w = 4 + (ent->px & 1);
 	ld	e,4 (ix)
 	ld	d,5 (ix)
 	ld	l, e
@@ -564,7 +563,7 @@ _borrarEntity::
 	inc	b
 	inc	b
 	inc	b
-;src/entities/entities.c:171: u8 h = 4 + (ent->py & 3 ? 1 : 0);
+;src/entities/entities.c:181: u8 h = 4 + (ent->py & 3 ? 1 : 0);
 	ex	de,hl
 	inc	hl
 	inc	hl
@@ -582,7 +581,7 @@ _borrarEntity::
 	inc	d
 	inc	d
 	inc	d
-;src/entities/entities.c:172: cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+;src/entities/entities.c:182: cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 	ld	hl,(_mapa)
 	srl	e
 	srl	e
@@ -606,7 +605,7 @@ _borrarEntity::
 	call	_cpct_etm_drawTileBox2x4
 	pop	ix
 	ret
-;src/entities/entities.c:175: void dibujarEntity(TEntity* ent, u8 w, u8 h){
+;src/entities/entities.c:185: void dibujarEntity(TEntity* ent, u8 w, u8 h){
 ;	---------------------------------
 ; Function dibujarEntity
 ; ---------------------------------
@@ -614,7 +613,7 @@ _dibujarEntity::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:176: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+;src/entities/entities.c:186: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 	ld	c,4 (ix)
 	ld	b,5 (ix)
 	ld	l, c
@@ -631,7 +630,7 @@ _dibujarEntity::
 	push	hl
 	call	_cpct_getScreenPtr
 	ex	de,hl
-;src/entities/entities.c:177: cpct_drawSpriteMaskedAlignedTable(ent->sprite,vmem,w,h, g_tablatrans);
+;src/entities/entities.c:187: cpct_drawSpriteMaskedAlignedTable(ent->sprite,vmem,w,h, g_tablatrans);
 	pop	hl
 	ld	bc, #0x0005
 	add	hl, bc
@@ -648,7 +647,7 @@ _dibujarEntity::
 	call	_cpct_drawSpriteMaskedAlignedTable
 	pop	ix
 	ret
-;src/entities/entities.c:180: void drawAll(TEntity* player){
+;src/entities/entities.c:190: void drawAll(TEntity* player){
 ;	---------------------------------
 ; Function drawAll
 ; ---------------------------------
@@ -656,7 +655,7 @@ _drawAll::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-;src/entities/entities.c:183: redibujarEntity(player, G_NAVES_0_W, G_NAVES_0_H);
+;src/entities/entities.c:193: redibujarEntity(player, G_NAVES_0_W, G_NAVES_0_H);
 	ld	hl,#0x1008
 	push	hl
 	ld	l,4 (ix)
@@ -665,10 +664,10 @@ _drawAll::
 	call	_redibujarEntity
 	pop	af
 	pop	af
-;src/entities/entities.c:186: for(i = 0; i < NUM_ENEMIGOS; i++){
+;src/entities/entities.c:196: for(i = 0; i < NUM_ENEMIGOS; i++){
 	ld	c,#0x00
 00102$:
-;src/entities/entities.c:187: redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
+;src/entities/entities.c:197: redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
 	ld	l,c
 	ld	h,#0x00
 	add	hl, hl
@@ -685,7 +684,7 @@ _drawAll::
 	pop	af
 	pop	af
 	pop	bc
-;src/entities/entities.c:186: for(i = 0; i < NUM_ENEMIGOS; i++){
+;src/entities/entities.c:196: for(i = 0; i < NUM_ENEMIGOS; i++){
 	inc	c
 	ld	a,c
 	sub	a, #0x02
