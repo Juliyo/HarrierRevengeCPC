@@ -8,24 +8,33 @@
 #define SI 1
 #define NO 0
 
+#define NUM_ENEMIGOS 2
+
+extern const TEntity enemigos[NUM_ENEMIGOS];
+
+
 void incializarEntities();
-void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir);
+
 
 //Acciones Entities
-void moverArriba(TPlayer* player);
-void moverAbajo(TPlayer* player);
-void moverIzquierda(TPlayer* player);
-void moverDerecha(TPlayer* player);
+void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir);
+void moverArriba(TEntity* ent);
+void moverAbajo(TEntity* ent);
+void moverIzquierda(TEntity* ent);
+void moverDerecha(TEntity* ent);
 
 //Operaciones con sprites
-void flipSprite(TPlayer* player, TPlayerDirection dir);
-
-u8 updatePlayer(TPlayer* player);
+void flipSprite(TEntity* ent, TPlayerDirection dir);
 
 
-void redibujarPlayer(TPlayer *player);
-void borrarPlayer(TPlayer *player);
-void dibujarPlayer(TPlayer* player);
-void drawAll(TPlayer* player);
+//Updates
+u8 updatePlayer(TEntity* player);
+void updateEntities();
+
+//Renders
+void redibujarEntity(TEntity* ent, u8 w, u8 h);
+void borrarEntity(TEntity* ent);
+void dibujarEntity(TEntity* ent, u8 w, u8 h);
+void drawAll(TEntity* player);
 
 #endif

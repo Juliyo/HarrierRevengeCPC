@@ -50,35 +50,35 @@
                              50 ;	---------------------------------
                              51 ; Function inicializar
                              52 ; ---------------------------------
-   4BD3                      53 _inicializar::
+   4BD6                      53 _inicializar::
                              54 ;src/main.c:24: cpct_disableFirmware();
-   4BD3 CD 7C 4D      [17]   55 	call	_cpct_disableFirmware
+   4BD6 CD 7F 4D      [17]   55 	call	_cpct_disableFirmware
                              56 ;src/main.c:25: cpct_setBorder(HW_BLACK);
-   4BD6 21 10 14      [10]   57 	ld	hl,#0x1410
-   4BD9 E5            [11]   58 	push	hl
-   4BDA CD 19 4C      [17]   59 	call	_cpct_setPALColour
+   4BD9 21 10 14      [10]   57 	ld	hl,#0x1410
+   4BDC E5            [11]   58 	push	hl
+   4BDD CD 1C 4C      [17]   59 	call	_cpct_setPALColour
                              60 ;src/main.c:26: cpct_setPalette(g_palette,16);
-   4BDD 21 10 00      [10]   61 	ld	hl,#0x0010
-   4BE0 E5            [11]   62 	push	hl
-   4BE1 21 E8 48      [10]   63 	ld	hl,#_g_palette
-   4BE4 E5            [11]   64 	push	hl
-   4BE5 CD F6 4B      [17]   65 	call	_cpct_setPalette
+   4BE0 21 10 00      [10]   61 	ld	hl,#0x0010
+   4BE3 E5            [11]   62 	push	hl
+   4BE4 21 E8 48      [10]   63 	ld	hl,#_g_palette
+   4BE7 E5            [11]   64 	push	hl
+   4BE8 CD F9 4B      [17]   65 	call	_cpct_setPalette
                              66 ;src/main.c:29: cpct_setVideoMode(0);
-   4BE8 2E 00         [ 7]   67 	ld	l,#0x00
-   4BEA CD 58 4D      [17]   68 	call	_cpct_setVideoMode
-   4BED C9            [10]   69 	ret
+   4BEB 2E 00         [ 7]   67 	ld	l,#0x00
+   4BED CD 5B 4D      [17]   68 	call	_cpct_setVideoMode
+   4BF0 C9            [10]   69 	ret
                              70 ;src/main.c:32: void main(void) {
                              71 ;	---------------------------------
                              72 ; Function main
                              73 ; ---------------------------------
-   4BEE                      74 _main::
+   4BF1                      74 _main::
                              75 ;src/main.c:34: inicializar();
-   4BEE CD D3 4B      [17]   76 	call	_inicializar
+   4BF1 CD D6 4B      [17]   76 	call	_inicializar
                              77 ;src/main.c:37: while (1){
-   4BF1                      78 00102$:
+   4BF4                      78 00102$:
                              79 ;src/main.c:38: play();
-   4BF1 CD 9B 4B      [17]   80 	call	_play
-   4BF4 18 FB         [12]   81 	jr	00102$
+   4BF4 CD 9B 4B      [17]   80 	call	_play
+   4BF7 18 FB         [12]   81 	jr	00102$
                              82 	.area _CODE
                              83 	.area _INITIALIZER
                              84 	.area _CABS (ABS)

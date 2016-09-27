@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 #include <cpctelera.h>
 #include "entities.h"
@@ -11,31 +13,48 @@
 
 cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
 
+const TEntity enemigos[NUM_ENEMIGOS] = {
+	{	50,
+		157,
+		20,
+		157,
+		1,
+		g_naves_0,
+		d_up	},
+	{	20,
+		50,
+		20,
+		50,
+		1,
+		g_naves_0,
+		d_up}
+};
+
 void incializarEntities(){
 	//Inicializar entities necesarias
 }
 
 //Este metodo habria que hacerlo compatible no solo con el player, sino con un tipo entity,
 //Asi ahorramos codigo cuando haya que mover enemigos
-void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
+void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir){
 	switch(action){
 		case es_mover:
 			switch(dir){
 				case d_up:
-					moverArriba(player);
-					flipSprite(player,dir);
+					moverArriba(ent);
+					flipSprite(ent,dir);
 				break;
 				case d_down:
-					moverAbajo(player);
-					flipSprite(player,dir);
+					moverAbajo(ent);
+					flipSprite(ent,dir);
 				break;
 				case d_left:
-					moverIzquierda(player);
-					flipSprite(player,dir);
+					moverIzquierda(ent);
+					flipSprite(ent,dir);
 				break;
 				case d_right:
-					moverDerecha(player);
-					flipSprite(player,dir);
+					moverDerecha(ent);
+					flipSprite(ent,dir);
 				break;
 			}
 		break;
@@ -44,30 +63,30 @@ void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
 }
 
 //Recibe al entity y la direccion hacia la que quiere girar, entonces se cambia de sprite
-void flipSprite(TPlayer* player, TPlayerDirection dir){
-	if(player->curr_dir != dir){
+void flipSprite(TEntity* ent, TPlayerDirection dir){
+	if(ent->curr_dir != dir){
 		switch(dir){
 			case d_up:
-				//player->sprite = g_naves_0;
-			flipByMolto();
+				ent->sprite = g_naves_0;
+				//flipByMolto();
 			break;
 			case d_down:
-				//player->sprite = g_naves_2;
-				flipByMolto();
+				ent->sprite = g_naves_2;
+				//flipByMolto();
 			break;
 			case d_left:
-				player->sprite = g_naves_3;
+				ent->sprite = g_naves_3;
 			break;
 			case d_right:
-				player->sprite = g_naves_1;
+				ent->sprite = g_naves_1;
 			break;
 		}
-		player->curr_dir = dir; 
+		ent->curr_dir = dir; 
 	}
 }
 
 
-void flipByMolto(){
+/*void flipByMolto(){
 
 	u8 i;
 	u8 j;
@@ -81,48 +100,48 @@ void flipByMolto(){
 			g_naves_0[(FILA-i-1)*(COLUMNA)+j] = aux[j];
 		}
 	}
-}
-void moverArriba(TPlayer* player){
-	if (player->y > 0) {
-		if(player->y%2 == 0)
-      		player->y-=2;
+}*/
+void moverArriba(TEntity* ent){
+	if (ent->y > 0) {
+		if(ent->y%2 == 0)
+      		ent->y-=2;
       	else
-      		player->y--;
+      		ent->y--;
 
-      player->draw  = SI;
+      ent->draw  = SI;
   	}else{
 
   		//Aqui yo haria scroll del mapa
   	}
 }
 
-void moverAbajo(TPlayer* player){
-	if (player->y + G_NAVES_0_H < ALTO) {
-		if(player->y%2 == 0)
-      		player->y+=2;
+void moverAbajo(TEntity* ent){
+	if (ent->y + G_NAVES_0_H < ALTO) {
+		if(ent->y%2 == 0)
+      		ent->y+=2;
       	else
-      		player->y++;
+      		ent->y++;
 
-      player->draw  = SI;
+      ent->draw  = SI;
   	}else{
 
   		//Aqui yo haria scroll del mapa
   	}
 }
 
-void moverIzquierda(TPlayer* player){
-	if (player->x > 0) {
-      player->x--;
-      player->draw  = SI;
+void moverIzquierda(TEntity* ent){
+	if (ent->x > 0) {
+      ent->x--;
+      ent->draw  = SI;
   	}else{
 
   		//Aqui yo haria scroll del mapa
   	}
 }
-void moverDerecha(TPlayer* player){
-	if (player->x + G_NAVES_0_W < ANCHO) {
-      player->x++;
-      player->draw  = SI;
+void moverDerecha(TEntity* ent){
+	if (ent->x + G_NAVES_0_W < ANCHO) {
+      ent->x++;
+      ent->draw  = SI;
   	}else{
 
   		//Aqui yo haria scroll del mapa
@@ -130,33 +149,51 @@ void moverDerecha(TPlayer* player){
 }
 
 
-u8 updatePlayer(TPlayer* player){
+u8 updatePlayer(TEntity* player){
 	
 	return 1;
 }
 
-void redibujarPlayer(TPlayer* player){
-	if (player->draw) {
-		borrarPlayer(player);
-		player->px = player->x;
-		player->py = player->y;
-		dibujarPlayer(player);
-		player->draw = NO;
+void updateEntities(){
+	u8 i;
+	u8 rand;
+
+	/*//Dibujamos los enemigos
+	for(i = 0; i < NUM_ENEMIGOS; i++){
+		srand(time(NULL));
+		rand = rand();  
+		accion(enemigos[i],rand,rand);
+	}*/
+}
+
+void redibujarEntity(TEntity* ent, u8 w, u8 h){
+	if (ent->draw) {
+		borrarEntity(ent);
+		ent->px = ent->x;
+		ent->py = ent->y;
+		dibujarEntity(ent, w, h);
+		ent->draw = NO;
 	}
 }
 
-void borrarPlayer(TPlayer* player){
-	u8 w = 4 + (player->px & 1);
-	u8 h = 4 + (player->py & 3 ? 1 : 0);
-	cpct_etm_drawTileBox2x4(player->px / 2, player->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+void borrarEntity(TEntity* ent){
+	u8 w = 4 + (ent->px & 1);
+	u8 h = 4 + (ent->py & 3 ? 1 : 0);
+	cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
 }
 
-void dibujarPlayer(TPlayer* player){
-	u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
-	cpct_drawSpriteMaskedAlignedTable(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H, g_tablatrans);
+void dibujarEntity(TEntity* ent, u8 w, u8 h){
+	u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+	cpct_drawSpriteMaskedAlignedTable(ent->sprite,vmem,w,h, g_tablatrans);
 }
 //Dibujamos todos los enemigos y el player
-void drawAll(TPlayer* player){
+void drawAll(TEntity* player){
+	u8 i;
 	//De momento se dibuja el player
-	redibujarPlayer(player);
+	redibujarEntity(player, G_NAVES_0_W, G_NAVES_0_H);
+
+	//Dibujamos los enemigos
+	for(i = 0; i < NUM_ENEMIGOS; i++){
+		redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
+	}
 }

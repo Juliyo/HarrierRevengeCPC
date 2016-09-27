@@ -7,28 +7,30 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
-  9 _accion                                                        0001 GR
-  9 _borrarPlayer                                                  027F GR
+  9 _accion                                                        0011 GR
+  9 _borrarEntity                                                  0224 GR
     _cpct_drawSpriteMaskedAlignedTable                             **** GX
     _cpct_etm_drawTileBox2x4                                       **** GX
     _cpct_getScreenPtr                                             **** GX
-  9 _dibujarPlayer                                                 02D0 GR
-  9 _drawAll                                                       0308 GR
+  9 _dibujarEntity                                                 0275 GR
+  9 _drawAll                                                       02B0 GR
   0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
-  9 _flipByMolto                                                   010B GR
-  9 _flipSprite                                                    00A4 GR
+  9 _enemigos                                                      0001 GR
+  9 _flipSprite                                                    00B4 GR
     _g_naves_0                                                     **** GX
     _g_naves_1                                                     **** GX
+    _g_naves_2                                                     **** GX
     _g_naves_3                                                     **** GX
   8 _g_tablatrans                                                  0100 GR
   9 _incializarEntities                                            0000 GR
     _mapa                                                          **** GX
-  9 _moverAbajo                                                    01AD GR
-  9 _moverArriba                                                   0183 GR
-  9 _moverDerecha                                                  0205 GR
-  9 _moverIzquierda                                                01F4 GR
-  9 _redibujarPlayer                                               0238 GR
-  9 _updatePlayer                                                  0235 GR
+  9 _moverAbajo                                                    0149 GR
+  9 _moverArriba                                                   011F GR
+  9 _moverDerecha                                                  01A1 GR
+  9 _moverIzquierda                                                0190 GR
+  9 _redibujarEntity                                               01D5 GR
+  9 _updateEntities                                                01D4 GR
+  9 _updatePlayer                                                  01D1 GR
 
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
@@ -45,7 +47,7 @@ Area Table
    6 _GSFINAL                                   size    0   flags    0
    7 _g_tablatrans_                             size    0   flags    8
    8 _g_tablatrans_0                            size  100   flags    8
-   9 _CSEG                                      size  312   flags    0
+   9 _CSEG                                      size  2EA   flags    0
    A _INITIALIZER                               size    0   flags    0
    B _CABS                                      size    0   flags    8
 

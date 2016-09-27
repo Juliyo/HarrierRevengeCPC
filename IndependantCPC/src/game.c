@@ -7,12 +7,12 @@
 #include "game.h"
 #include "entities/entities.h"
 
-const TPlayer player = {
+const TEntity player = {
 	20,
 	157,
 	player.x,
 	player.y,
-	1,
+	SI,
 	g_naves_0,
 	d_up
 };
@@ -64,7 +64,7 @@ void play(){
 	while(alive){
 		updateUser();	
 		alive = updatePlayer(&player);
-
+		updateEntities();
 		cpct_waitVSYNC();
 		drawAll(&player);
 	}

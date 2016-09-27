@@ -21,14 +21,14 @@ typedef enum{
 	d_left
 } TPlayerDirection;
 
-typedef struct Player
+typedef struct Entity
 {
 	u8 x,y;
 	u8 px, py;
 	u8 draw;
 	u8* sprite;
 	TPlayerDirection curr_dir;
-} TPlayer;
+}TEntity;
 
 extern const u8* mapa;
 

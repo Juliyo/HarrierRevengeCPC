@@ -8,10 +8,10 @@
                               8 ;--------------------------------------------------------
                               9 ; Public variables in this module
                              10 ;--------------------------------------------------------
-                             11 	.globl _flipByMolto
-                             12 	.globl _cpct_etm_drawTileBox2x4
-                             13 	.globl _cpct_getScreenPtr
-                             14 	.globl _cpct_drawSpriteMaskedAlignedTable
+                             11 	.globl _cpct_etm_drawTileBox2x4
+                             12 	.globl _cpct_getScreenPtr
+                             13 	.globl _cpct_drawSpriteMaskedAlignedTable
+                             14 	.globl _enemigos
                              15 	.globl _incializarEntities
                              16 	.globl _accion
                              17 	.globl _flipSprite
@@ -20,725 +20,710 @@
                              20 	.globl _moverIzquierda
                              21 	.globl _moverDerecha
                              22 	.globl _updatePlayer
-                             23 	.globl _redibujarPlayer
-                             24 	.globl _borrarPlayer
-                             25 	.globl _dibujarPlayer
-                             26 	.globl _drawAll
-                             27 ;--------------------------------------------------------
-                             28 ; special function registers
-                             29 ;--------------------------------------------------------
+                             23 	.globl _updateEntities
+                             24 	.globl _redibujarEntity
+                             25 	.globl _borrarEntity
+                             26 	.globl _dibujarEntity
+                             27 	.globl _drawAll
+                             28 ;--------------------------------------------------------
+                             29 ; special function registers
                              30 ;--------------------------------------------------------
-                             31 ; ram data
-                             32 ;--------------------------------------------------------
-                             33 	.area _DATA
-                             34 ;--------------------------------------------------------
-                             35 ; ram data
-                             36 ;--------------------------------------------------------
-                             37 	.area _INITIALIZED
-                             38 ;--------------------------------------------------------
-                             39 ; absolute external ram data
-                             40 ;--------------------------------------------------------
-                             41 	.area _DABS (ABS)
-                             42 ;--------------------------------------------------------
-                             43 ; global & static initialisations
-                             44 ;--------------------------------------------------------
-                             45 	.area _HOME
-                             46 	.area _GSINIT
-                             47 	.area _GSFINAL
-                             48 	.area _GSINIT
-                             49 ;--------------------------------------------------------
-                             50 ; Home
-                             51 ;--------------------------------------------------------
-                             52 	.area _HOME
+                             31 ;--------------------------------------------------------
+                             32 ; ram data
+                             33 ;--------------------------------------------------------
+                             34 	.area _DATA
+                             35 ;--------------------------------------------------------
+                             36 ; ram data
+                             37 ;--------------------------------------------------------
+                             38 	.area _INITIALIZED
+                             39 ;--------------------------------------------------------
+                             40 ; absolute external ram data
+                             41 ;--------------------------------------------------------
+                             42 	.area _DABS (ABS)
+                             43 ;--------------------------------------------------------
+                             44 ; global & static initialisations
+                             45 ;--------------------------------------------------------
+                             46 	.area _HOME
+                             47 	.area _GSINIT
+                             48 	.area _GSFINAL
+                             49 	.area _GSINIT
+                             50 ;--------------------------------------------------------
+                             51 ; Home
+                             52 ;--------------------------------------------------------
                              53 	.area _HOME
-                             54 ;--------------------------------------------------------
-                             55 ; code
-                             56 ;--------------------------------------------------------
-                             57 	.area _CODE
-                             58 ;src/entities/entities.c:12: cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
-                             59 ;	---------------------------------
-                             60 ; Function dummy_cpct_transparentMaskTable0M0_container
-                             61 ; ---------------------------------
-   4BF6                      62 _dummy_cpct_transparentMaskTable0M0_container::
-                             63 	.area _g_tablatrans_ (ABS) 
-   0100                      64 	.org 0x0100 
-   0100                      65 	 _g_tablatrans::
-   0100 FF AA 55 00 AA AA    66 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+                             54 	.area _HOME
+                             55 ;--------------------------------------------------------
+                             56 ; code
+                             57 ;--------------------------------------------------------
+                             58 	.area _CODE
+                             59 ;src/entities/entities.c:12: cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
+                             60 ;	---------------------------------
+                             61 ; Function dummy_cpct_transparentMaskTable0M0_container
+                             62 ; ---------------------------------
+   4BF9                      63 _dummy_cpct_transparentMaskTable0M0_container::
+                             64 	.area _g_tablatrans_ (ABS) 
+   0100                      65 	.org 0x0100 
+   0100                      66 	 _g_tablatrans::
+   0100 FF AA 55 00 AA AA    67 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   0108 55 00 55 00 00 00    67 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0108 55 00 55 00 00 00    68 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0110 AA AA 00 00 AA AA    68 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+   0110 AA AA 00 00 AA AA    69 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   0118 00 00 00 00 00 00    69 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0118 00 00 00 00 00 00    70 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0120 55 00 55 00 00 00    70 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0120 55 00 55 00 00 00    71 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0128 55 00 55 00 00 00    71 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0128 55 00 55 00 00 00    72 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0130 00 00 00 00 00 00    72 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0130 00 00 00 00 00 00    73 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0138 00 00 00 00 00 00    73 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0138 00 00 00 00 00 00    74 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0140 AA AA 00 00 AA AA    74 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+   0140 AA AA 00 00 AA AA    75 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   0148 00 00 00 00 00 00    75 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0148 00 00 00 00 00 00    76 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0150 AA AA 00 00 AA AA    76 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+   0150 AA AA 00 00 AA AA    77 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
         00 00
-   0158 00 00 00 00 00 00    77 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0158 00 00 00 00 00 00    78 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0160 00 00 00 00 00 00    78 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0160 00 00 00 00 00 00    79 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0168 00 00 00 00 00 00    79 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0168 00 00 00 00 00 00    80 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0170 00 00 00 00 00 00    80 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0170 00 00 00 00 00 00    81 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0178 00 00 00 00 00 00    81 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0178 00 00 00 00 00 00    82 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0180 55 00 55 00 00 00    82 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0180 55 00 55 00 00 00    83 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0188 55 00 55 00 00 00    83 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0188 55 00 55 00 00 00    84 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0190 00 00 00 00 00 00    84 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0190 00 00 00 00 00 00    85 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   0198 00 00 00 00 00 00    85 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   0198 00 00 00 00 00 00    86 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01A0 55 00 55 00 00 00    86 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01A0 55 00 55 00 00 00    87 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01A8 55 00 55 00 00 00    87 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01A8 55 00 55 00 00 00    88 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01B0 00 00 00 00 00 00    88 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01B0 00 00 00 00 00 00    89 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01B8 00 00 00 00 00 00    89 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01B8 00 00 00 00 00 00    90 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01C0 00 00 00 00 00 00    90 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01C0 00 00 00 00 00 00    91 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01C8 00 00 00 00 00 00    91 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01C8 00 00 00 00 00 00    92 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01D0 00 00 00 00 00 00    92 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01D0 00 00 00 00 00 00    93 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01D8 00 00 00 00 00 00    93 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01D8 00 00 00 00 00 00    94 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01E0 00 00 00 00 00 00    94 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01E0 00 00 00 00 00 00    95 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01E8 00 00 00 00 00 00    95 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01E8 00 00 00 00 00 00    96 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01F0 00 00 00 00 00 00    96 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01F0 00 00 00 00 00 00    97 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-   01F8 00 00 00 00 00 00    97 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+   01F8 00 00 00 00 00 00    98 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
         00 00
-                             98 	.area _CSEG (REL, CON) 
-                             99 ;src/entities/entities.c:14: void incializarEntities(){
-                            100 ;	---------------------------------
-                            101 ; Function incializarEntities
-                            102 ; ---------------------------------
-   4E0D                     103 _incializarEntities::
-                            104 ;src/entities/entities.c:16: }
-   4E0D C9            [10]  105 	ret
-                            106 ;src/entities/entities.c:20: void accion(TPlayer* player, TPlayerStatus action, TPlayerDirection dir){
-                            107 ;	---------------------------------
-                            108 ; Function accion
-                            109 ; ---------------------------------
-   4E0E                     110 _accion::
-   4E0E DD E5         [15]  111 	push	ix
-   4E10 DD 21 00 00   [14]  112 	ld	ix,#0
-   4E14 DD 39         [15]  113 	add	ix,sp
-                            114 ;src/entities/entities.c:21: switch(action){
-   4E16 DD 7E 06      [19]  115 	ld	a,6 (ix)
-   4E19 3D            [ 4]  116 	dec	a
-   4E1A C2 AE 4E      [10]  117 	jp	NZ,00108$
-                            118 ;src/entities/entities.c:23: switch(dir){
-   4E1D 3E 03         [ 7]  119 	ld	a,#0x03
-   4E1F DD 96 07      [19]  120 	sub	a, 7 (ix)
-   4E22 DA AE 4E      [10]  121 	jp	C,00108$
-   4E25 DD 5E 07      [19]  122 	ld	e,7 (ix)
-   4E28 16 00         [ 7]  123 	ld	d,#0x00
-   4E2A 21 30 4E      [10]  124 	ld	hl,#00120$
-   4E2D 19            [11]  125 	add	hl,de
-   4E2E 19            [11]  126 	add	hl,de
-                            127 ;src/entities/entities.c:24: case d_up:
-   4E2F E9            [ 4]  128 	jp	(hl)
-   4E30                     129 00120$:
-   4E30 18 06         [12]  130 	jr	00102$
-   4E32 18 22         [12]  131 	jr	00103$
-   4E34 18 5C         [12]  132 	jr	00105$
-   4E36 18 3C         [12]  133 	jr	00104$
-   4E38                     134 00102$:
-                            135 ;src/entities/entities.c:25: moverArriba(player);
-   4E38 DD 6E 04      [19]  136 	ld	l,4 (ix)
-   4E3B DD 66 05      [19]  137 	ld	h,5 (ix)
-   4E3E E5            [11]  138 	push	hl
-   4E3F CD 90 4F      [17]  139 	call	_moverArriba
-   4E42 F1            [10]  140 	pop	af
-                            141 ;src/entities/entities.c:26: flipSprite(player,dir);
-   4E43 DD 7E 07      [19]  142 	ld	a,7 (ix)
-   4E46 F5            [11]  143 	push	af
-   4E47 33            [ 6]  144 	inc	sp
-   4E48 DD 6E 04      [19]  145 	ld	l,4 (ix)
-   4E4B DD 66 05      [19]  146 	ld	h,5 (ix)
-   4E4E E5            [11]  147 	push	hl
-   4E4F CD B1 4E      [17]  148 	call	_flipSprite
-   4E52 F1            [10]  149 	pop	af
-   4E53 33            [ 6]  150 	inc	sp
-                            151 ;src/entities/entities.c:27: break;
-   4E54 18 58         [12]  152 	jr	00108$
-                            153 ;src/entities/entities.c:28: case d_down:
-   4E56                     154 00103$:
-                            155 ;src/entities/entities.c:29: moverAbajo(player);
-   4E56 DD 6E 04      [19]  156 	ld	l,4 (ix)
-   4E59 DD 66 05      [19]  157 	ld	h,5 (ix)
-   4E5C E5            [11]  158 	push	hl
-   4E5D CD BA 4F      [17]  159 	call	_moverAbajo
-   4E60 F1            [10]  160 	pop	af
-                            161 ;src/entities/entities.c:30: flipSprite(player,dir);
-   4E61 DD 7E 07      [19]  162 	ld	a,7 (ix)
-   4E64 F5            [11]  163 	push	af
-   4E65 33            [ 6]  164 	inc	sp
-   4E66 DD 6E 04      [19]  165 	ld	l,4 (ix)
-   4E69 DD 66 05      [19]  166 	ld	h,5 (ix)
-   4E6C E5            [11]  167 	push	hl
-   4E6D CD B1 4E      [17]  168 	call	_flipSprite
-   4E70 F1            [10]  169 	pop	af
-   4E71 33            [ 6]  170 	inc	sp
-                            171 ;src/entities/entities.c:31: break;
-   4E72 18 3A         [12]  172 	jr	00108$
-                            173 ;src/entities/entities.c:32: case d_left:
-   4E74                     174 00104$:
-                            175 ;src/entities/entities.c:33: moverIzquierda(player);
-   4E74 DD 6E 04      [19]  176 	ld	l,4 (ix)
-   4E77 DD 66 05      [19]  177 	ld	h,5 (ix)
-   4E7A E5            [11]  178 	push	hl
-   4E7B CD 01 50      [17]  179 	call	_moverIzquierda
-   4E7E F1            [10]  180 	pop	af
-                            181 ;src/entities/entities.c:34: flipSprite(player,dir);
-   4E7F DD 7E 07      [19]  182 	ld	a,7 (ix)
-   4E82 F5            [11]  183 	push	af
-   4E83 33            [ 6]  184 	inc	sp
-   4E84 DD 6E 04      [19]  185 	ld	l,4 (ix)
-   4E87 DD 66 05      [19]  186 	ld	h,5 (ix)
-   4E8A E5            [11]  187 	push	hl
-   4E8B CD B1 4E      [17]  188 	call	_flipSprite
-   4E8E F1            [10]  189 	pop	af
-   4E8F 33            [ 6]  190 	inc	sp
-                            191 ;src/entities/entities.c:35: break;
-   4E90 18 1C         [12]  192 	jr	00108$
-                            193 ;src/entities/entities.c:36: case d_right:
-   4E92                     194 00105$:
-                            195 ;src/entities/entities.c:37: moverDerecha(player);
-   4E92 DD 6E 04      [19]  196 	ld	l,4 (ix)
-   4E95 DD 66 05      [19]  197 	ld	h,5 (ix)
-   4E98 E5            [11]  198 	push	hl
-   4E99 CD 12 50      [17]  199 	call	_moverDerecha
-   4E9C F1            [10]  200 	pop	af
-                            201 ;src/entities/entities.c:38: flipSprite(player,dir);
-   4E9D DD 7E 07      [19]  202 	ld	a,7 (ix)
-   4EA0 F5            [11]  203 	push	af
-   4EA1 33            [ 6]  204 	inc	sp
-   4EA2 DD 6E 04      [19]  205 	ld	l,4 (ix)
-   4EA5 DD 66 05      [19]  206 	ld	h,5 (ix)
-   4EA8 E5            [11]  207 	push	hl
-   4EA9 CD B1 4E      [17]  208 	call	_flipSprite
-   4EAC F1            [10]  209 	pop	af
-   4EAD 33            [ 6]  210 	inc	sp
-                            211 ;src/entities/entities.c:43: }
-   4EAE                     212 00108$:
-   4EAE DD E1         [14]  213 	pop	ix
-   4EB0 C9            [10]  214 	ret
-                            215 ;src/entities/entities.c:47: void flipSprite(TPlayer* player, TPlayerDirection dir){
-                            216 ;	---------------------------------
-                            217 ; Function flipSprite
-                            218 ; ---------------------------------
-   4EB1                     219 _flipSprite::
-   4EB1 DD E5         [15]  220 	push	ix
-   4EB3 DD 21 00 00   [14]  221 	ld	ix,#0
-   4EB7 DD 39         [15]  222 	add	ix,sp
-   4EB9 3B            [ 6]  223 	dec	sp
-                            224 ;src/entities/entities.c:48: if(player->curr_dir != dir){
-   4EBA DD 4E 04      [19]  225 	ld	c,4 (ix)
-   4EBD DD 46 05      [19]  226 	ld	b,5 (ix)
-   4EC0 21 07 00      [10]  227 	ld	hl,#0x0007
-   4EC3 09            [11]  228 	add	hl,bc
-   4EC4 EB            [ 4]  229 	ex	de,hl
-   4EC5 1A            [ 7]  230 	ld	a,(de)
-   4EC6 DD 77 FF      [19]  231 	ld	-1 (ix),a
-   4EC9 DD 7E 06      [19]  232 	ld	a,6 (ix)
-   4ECC DD 96 FF      [19]  233 	sub	a, -1 (ix)
-   4ECF 28 43         [12]  234 	jr	Z,00108$
-                            235 ;src/entities/entities.c:49: switch(dir){
-   4ED1 3E 03         [ 7]  236 	ld	a,#0x03
-   4ED3 DD 96 06      [19]  237 	sub	a, 6 (ix)
-   4ED6 38 38         [12]  238 	jr	C,00105$
-                            239 ;src/entities/entities.c:59: player->sprite = g_naves_3;
-   4ED8 03            [ 6]  240 	inc	bc
-   4ED9 03            [ 6]  241 	inc	bc
-   4EDA 03            [ 6]  242 	inc	bc
-   4EDB 03            [ 6]  243 	inc	bc
-   4EDC 03            [ 6]  244 	inc	bc
-                            245 ;src/entities/entities.c:49: switch(dir){
-   4EDD D5            [11]  246 	push	de
-   4EDE DD 5E 06      [19]  247 	ld	e,6 (ix)
-   4EE1 16 00         [ 7]  248 	ld	d,#0x00
-   4EE3 21 EA 4E      [10]  249 	ld	hl,#00119$
-   4EE6 19            [11]  250 	add	hl,de
-   4EE7 19            [11]  251 	add	hl,de
-                            252 ;src/entities/entities.c:50: case d_up:
-   4EE8 D1            [10]  253 	pop	de
-   4EE9 E9            [ 4]  254 	jp	(hl)
-   4EEA                     255 00119$:
-   4EEA 18 06         [12]  256 	jr	00101$
-   4EEC 18 0B         [12]  257 	jr	00102$
-   4EEE 18 19         [12]  258 	jr	00104$
-   4EF0 18 0E         [12]  259 	jr	00103$
-   4EF2                     260 00101$:
-                            261 ;src/entities/entities.c:52: flipByMolto();
-   4EF2 D5            [11]  262 	push	de
-   4EF3 CD 18 4F      [17]  263 	call	_flipByMolto
-   4EF6 D1            [10]  264 	pop	de
-                            265 ;src/entities/entities.c:53: break;
-   4EF7 18 17         [12]  266 	jr	00105$
-                            267 ;src/entities/entities.c:54: case d_down:
-   4EF9                     268 00102$:
-                            269 ;src/entities/entities.c:56: flipByMolto();
-   4EF9 D5            [11]  270 	push	de
-   4EFA CD 18 4F      [17]  271 	call	_flipByMolto
-   4EFD D1            [10]  272 	pop	de
-                            273 ;src/entities/entities.c:57: break;
-   4EFE 18 10         [12]  274 	jr	00105$
-                            275 ;src/entities/entities.c:58: case d_left:
-   4F00                     276 00103$:
-                            277 ;src/entities/entities.c:59: player->sprite = g_naves_3;
-   4F00 3E 78         [ 7]  278 	ld	a,#<(_g_naves_3)
-   4F02 02            [ 7]  279 	ld	(bc),a
-   4F03 03            [ 6]  280 	inc	bc
-   4F04 3E 4A         [ 7]  281 	ld	a,#>(_g_naves_3)
-   4F06 02            [ 7]  282 	ld	(bc),a
-                            283 ;src/entities/entities.c:60: break;
-   4F07 18 07         [12]  284 	jr	00105$
-                            285 ;src/entities/entities.c:61: case d_right:
-   4F09                     286 00104$:
-                            287 ;src/entities/entities.c:62: player->sprite = g_naves_1;
-   4F09 3E 78         [ 7]  288 	ld	a,#<(_g_naves_1)
-   4F0B 02            [ 7]  289 	ld	(bc),a
-   4F0C 03            [ 6]  290 	inc	bc
-   4F0D 3E 49         [ 7]  291 	ld	a,#>(_g_naves_1)
-   4F0F 02            [ 7]  292 	ld	(bc),a
-                            293 ;src/entities/entities.c:64: }
-   4F10                     294 00105$:
-                            295 ;src/entities/entities.c:65: player->curr_dir = dir; 
-   4F10 DD 7E 06      [19]  296 	ld	a,6 (ix)
-   4F13 12            [ 7]  297 	ld	(de),a
-   4F14                     298 00108$:
-   4F14 33            [ 6]  299 	inc	sp
-   4F15 DD E1         [14]  300 	pop	ix
-   4F17 C9            [10]  301 	ret
-                            302 ;src/entities/entities.c:70: void flipByMolto(){
-                            303 ;	---------------------------------
-                            304 ; Function flipByMolto
-                            305 ; ---------------------------------
-   4F18                     306 _flipByMolto::
-   4F18 DD E5         [15]  307 	push	ix
-   4F1A DD 21 00 00   [14]  308 	ld	ix,#0
-   4F1E DD 39         [15]  309 	add	ix,sp
-   4F20 21 EA FF      [10]  310 	ld	hl,#-22
-   4F23 39            [11]  311 	add	hl,sp
-   4F24 F9            [ 6]  312 	ld	sp,hl
-                            313 ;src/entities/entities.c:77: for(i=0;i<FILA/2;i++){
-   4F25 21 00 00      [10]  314 	ld	hl,#0x0000
-   4F28 39            [11]  315 	add	hl,sp
-   4F29 DD 75 FE      [19]  316 	ld	-2 (ix),l
-   4F2C DD 74 FF      [19]  317 	ld	-1 (ix),h
-   4F2F 1E 00         [ 7]  318 	ld	e,#0x00
-                            319 ;src/entities/entities.c:78: for(j=0;j<COLUMNA;j++){
-   4F31                     320 00109$:
-   4F31 7B            [ 4]  321 	ld	a,e
-   4F32 07            [ 4]  322 	rlca
-   4F33 07            [ 4]  323 	rlca
-   4F34 07            [ 4]  324 	rlca
-   4F35 07            [ 4]  325 	rlca
-   4F36 E6 F0         [ 7]  326 	and	a,#0xF0
-   4F38 DD 77 FB      [19]  327 	ld	-5 (ix),a
-   4F3B 3E 0F         [ 7]  328 	ld	a,#0x0F
-   4F3D 93            [ 4]  329 	sub	a, e
-   4F3E 07            [ 4]  330 	rlca
-   4F3F 07            [ 4]  331 	rlca
-   4F40 07            [ 4]  332 	rlca
-   4F41 E6 F8         [ 7]  333 	and	a,#0xF8
-   4F43 DD 77 FA      [19]  334 	ld	-6 (ix),a
-   4F46 16 00         [ 7]  335 	ld	d,#0x00
-   4F48                     336 00103$:
-                            337 ;src/entities/entities.c:79: aux[j]=g_naves_0[i*FILA+j];
-   4F48 7A            [ 4]  338 	ld	a,d
-   4F49 DD 86 FE      [19]  339 	add	a, -2 (ix)
-   4F4C DD 77 FC      [19]  340 	ld	-4 (ix),a
-   4F4F 3E 00         [ 7]  341 	ld	a,#0x00
-   4F51 DD 8E FF      [19]  342 	adc	a, -1 (ix)
-   4F54 DD 77 FD      [19]  343 	ld	-3 (ix),a
-   4F57 DD 7E FB      [19]  344 	ld	a,-5 (ix)
-   4F5A 82            [ 4]  345 	add	a, d
-   4F5B 4F            [ 4]  346 	ld	c,a
-   4F5C FD 21 F8 48   [14]  347 	ld	iy,#_g_naves_0
-   4F60 06 00         [ 7]  348 	ld	b,#0x00
-   4F62 FD 09         [15]  349 	add	iy, bc
-   4F64 FD 4E 00      [19]  350 	ld	c, 0 (iy)
-   4F67 DD 6E FC      [19]  351 	ld	l,-4 (ix)
-   4F6A DD 66 FD      [19]  352 	ld	h,-3 (ix)
-   4F6D 71            [ 7]  353 	ld	(hl),c
-                            354 ;src/entities/entities.c:80: g_naves_0[i*FILA+j] = g_naves_0[(FILA-i-1)*(COLUMNA)+j];
-   4F6E DD 7E FA      [19]  355 	ld	a,-6 (ix)
-   4F71 82            [ 4]  356 	add	a, d
-   4F72 C6 F8         [ 7]  357 	add	a,#<(_g_naves_0)
-   4F74 6F            [ 4]  358 	ld	l,a
-   4F75 3E 48         [ 7]  359 	ld	a,#>(_g_naves_0)
-   4F77 CE 00         [ 7]  360 	adc	a, #0x00
-   4F79 67            [ 4]  361 	ld	h,a
-   4F7A 46            [ 7]  362 	ld	b,(hl)
-   4F7B FD 70 00      [19]  363 	ld	0 (iy), b
-                            364 ;src/entities/entities.c:81: g_naves_0[(FILA-i-1)*(COLUMNA)+j] = aux[j];
-   4F7E 71            [ 7]  365 	ld	(hl),c
-                            366 ;src/entities/entities.c:78: for(j=0;j<COLUMNA;j++){
-   4F7F 14            [ 4]  367 	inc	d
-   4F80 7A            [ 4]  368 	ld	a,d
-   4F81 D6 08         [ 7]  369 	sub	a, #0x08
-   4F83 38 C3         [12]  370 	jr	C,00103$
-                            371 ;src/entities/entities.c:77: for(i=0;i<FILA/2;i++){
-   4F85 1C            [ 4]  372 	inc	e
-   4F86 7B            [ 4]  373 	ld	a,e
-   4F87 D6 08         [ 7]  374 	sub	a, #0x08
-   4F89 38 A6         [12]  375 	jr	C,00109$
-   4F8B DD F9         [10]  376 	ld	sp, ix
-   4F8D DD E1         [14]  377 	pop	ix
-   4F8F C9            [10]  378 	ret
-                            379 ;src/entities/entities.c:85: void moverArriba(TPlayer* player){
-                            380 ;	---------------------------------
-                            381 ; Function moverArriba
-                            382 ; ---------------------------------
-   4F90                     383 _moverArriba::
-   4F90 DD E5         [15]  384 	push	ix
-   4F92 DD 21 00 00   [14]  385 	ld	ix,#0
-   4F96 DD 39         [15]  386 	add	ix,sp
-                            387 ;src/entities/entities.c:86: if (player->y > 0) {
-   4F98 DD 4E 04      [19]  388 	ld	c,4 (ix)
-   4F9B DD 46 05      [19]  389 	ld	b,5 (ix)
-   4F9E 59            [ 4]  390 	ld	e, c
-   4F9F 50            [ 4]  391 	ld	d, b
-   4FA0 13            [ 6]  392 	inc	de
-   4FA1 1A            [ 7]  393 	ld	a,(de)
-   4FA2 B7            [ 4]  394 	or	a, a
-   4FA3 28 12         [12]  395 	jr	Z,00106$
-                            396 ;src/entities/entities.c:87: if(player->y%2 == 0)
-   4FA5 CB 47         [ 8]  397 	bit	0, a
-   4FA7 20 05         [12]  398 	jr	NZ,00102$
-                            399 ;src/entities/entities.c:88: player->y-=2;
-   4FA9 C6 FE         [ 7]  400 	add	a,#0xFE
-   4FAB 12            [ 7]  401 	ld	(de),a
-   4FAC 18 03         [12]  402 	jr	00103$
-   4FAE                     403 00102$:
-                            404 ;src/entities/entities.c:90: player->y--;
-   4FAE C6 FF         [ 7]  405 	add	a,#0xFF
-   4FB0 12            [ 7]  406 	ld	(de),a
-   4FB1                     407 00103$:
-                            408 ;src/entities/entities.c:92: player->draw  = SI;
-   4FB1 21 04 00      [10]  409 	ld	hl,#0x0004
-   4FB4 09            [11]  410 	add	hl,bc
-   4FB5 36 01         [10]  411 	ld	(hl),#0x01
-   4FB7                     412 00106$:
-   4FB7 DD E1         [14]  413 	pop	ix
-   4FB9 C9            [10]  414 	ret
-                            415 ;src/entities/entities.c:99: void moverAbajo(TPlayer* player){
-                            416 ;	---------------------------------
-                            417 ; Function moverAbajo
-                            418 ; ---------------------------------
-   4FBA                     419 _moverAbajo::
-   4FBA DD E5         [15]  420 	push	ix
-   4FBC DD 21 00 00   [14]  421 	ld	ix,#0
-   4FC0 DD 39         [15]  422 	add	ix,sp
-   4FC2 3B            [ 6]  423 	dec	sp
-                            424 ;src/entities/entities.c:100: if (player->y + G_NAVES_0_H < ALTO) {
-   4FC3 DD 4E 04      [19]  425 	ld	c,4 (ix)
-   4FC6 DD 46 05      [19]  426 	ld	b,5 (ix)
-   4FC9 59            [ 4]  427 	ld	e, c
-   4FCA 50            [ 4]  428 	ld	d, b
-   4FCB 13            [ 6]  429 	inc	de
-   4FCC 1A            [ 7]  430 	ld	a,(de)
-   4FCD DD 77 FF      [19]  431 	ld	-1 (ix), a
-   4FD0 6F            [ 4]  432 	ld	l, a
-   4FD1 26 00         [ 7]  433 	ld	h,#0x00
-   4FD3 D5            [11]  434 	push	de
-   4FD4 11 10 00      [10]  435 	ld	de,#0x0010
-   4FD7 19            [11]  436 	add	hl, de
-   4FD8 D1            [10]  437 	pop	de
-   4FD9 7D            [ 4]  438 	ld	a,l
-   4FDA D6 C8         [ 7]  439 	sub	a, #0xC8
-   4FDC 7C            [ 4]  440 	ld	a,h
-   4FDD 17            [ 4]  441 	rla
-   4FDE 3F            [ 4]  442 	ccf
-   4FDF 1F            [ 4]  443 	rra
-   4FE0 DE 80         [ 7]  444 	sbc	a, #0x80
-   4FE2 30 19         [12]  445 	jr	NC,00106$
-                            446 ;src/entities/entities.c:101: if(player->y%2 == 0)
-   4FE4 DD CB FF 46   [20]  447 	bit	0, -1 (ix)
-   4FE8 20 08         [12]  448 	jr	NZ,00102$
-                            449 ;src/entities/entities.c:102: player->y+=2;
-   4FEA DD 7E FF      [19]  450 	ld	a,-1 (ix)
-   4FED C6 02         [ 7]  451 	add	a, #0x02
-   4FEF 12            [ 7]  452 	ld	(de),a
-   4FF0 18 05         [12]  453 	jr	00103$
-   4FF2                     454 00102$:
-                            455 ;src/entities/entities.c:104: player->y++;
-   4FF2 DD 7E FF      [19]  456 	ld	a,-1 (ix)
-   4FF5 3C            [ 4]  457 	inc	a
-   4FF6 12            [ 7]  458 	ld	(de),a
-   4FF7                     459 00103$:
-                            460 ;src/entities/entities.c:106: player->draw  = SI;
-   4FF7 21 04 00      [10]  461 	ld	hl,#0x0004
-   4FFA 09            [11]  462 	add	hl,bc
-   4FFB 36 01         [10]  463 	ld	(hl),#0x01
-   4FFD                     464 00106$:
-   4FFD 33            [ 6]  465 	inc	sp
-   4FFE DD E1         [14]  466 	pop	ix
-   5000 C9            [10]  467 	ret
-                            468 ;src/entities/entities.c:113: void moverIzquierda(TPlayer* player){
-                            469 ;	---------------------------------
-                            470 ; Function moverIzquierda
-                            471 ; ---------------------------------
-   5001                     472 _moverIzquierda::
-                            473 ;src/entities/entities.c:114: if (player->x > 0) {
-   5001 D1            [10]  474 	pop	de
-   5002 C1            [10]  475 	pop	bc
-   5003 C5            [11]  476 	push	bc
-   5004 D5            [11]  477 	push	de
-   5005 0A            [ 7]  478 	ld	a,(bc)
-   5006 B7            [ 4]  479 	or	a, a
-   5007 C8            [11]  480 	ret	Z
-                            481 ;src/entities/entities.c:115: player->x--;
-   5008 C6 FF         [ 7]  482 	add	a,#0xFF
-   500A 02            [ 7]  483 	ld	(bc),a
-                            484 ;src/entities/entities.c:116: player->draw  = SI;
-   500B 21 04 00      [10]  485 	ld	hl,#0x0004
-   500E 09            [11]  486 	add	hl,bc
-   500F 36 01         [10]  487 	ld	(hl),#0x01
-   5011 C9            [10]  488 	ret
-                            489 ;src/entities/entities.c:122: void moverDerecha(TPlayer* player){
-                            490 ;	---------------------------------
-                            491 ; Function moverDerecha
-                            492 ; ---------------------------------
-   5012                     493 _moverDerecha::
-   5012 DD E5         [15]  494 	push	ix
-   5014 DD 21 00 00   [14]  495 	ld	ix,#0
-   5018 DD 39         [15]  496 	add	ix,sp
-                            497 ;src/entities/entities.c:123: if (player->x + G_NAVES_0_W < ANCHO) {
-   501A DD 4E 04      [19]  498 	ld	c,4 (ix)
-   501D DD 46 05      [19]  499 	ld	b,5 (ix)
-   5020 0A            [ 7]  500 	ld	a,(bc)
-   5021 5F            [ 4]  501 	ld	e,a
-   5022 6B            [ 4]  502 	ld	l,e
-   5023 26 00         [ 7]  503 	ld	h,#0x00
-   5025 D5            [11]  504 	push	de
-   5026 11 08 00      [10]  505 	ld	de,#0x0008
-   5029 19            [11]  506 	add	hl, de
-   502A D1            [10]  507 	pop	de
-   502B 7D            [ 4]  508 	ld	a,l
-   502C D6 50         [ 7]  509 	sub	a, #0x50
-   502E 7C            [ 4]  510 	ld	a,h
-   502F 17            [ 4]  511 	rla
-   5030 3F            [ 4]  512 	ccf
-   5031 1F            [ 4]  513 	rra
-   5032 DE 80         [ 7]  514 	sbc	a, #0x80
-   5034 30 09         [12]  515 	jr	NC,00103$
-                            516 ;src/entities/entities.c:124: player->x++;
-   5036 1C            [ 4]  517 	inc	e
-   5037 7B            [ 4]  518 	ld	a,e
-   5038 02            [ 7]  519 	ld	(bc),a
-                            520 ;src/entities/entities.c:125: player->draw  = SI;
-   5039 21 04 00      [10]  521 	ld	hl,#0x0004
-   503C 09            [11]  522 	add	hl,bc
-   503D 36 01         [10]  523 	ld	(hl),#0x01
-   503F                     524 00103$:
-   503F DD E1         [14]  525 	pop	ix
-   5041 C9            [10]  526 	ret
-                            527 ;src/entities/entities.c:133: u8 updatePlayer(TPlayer* player){
-                            528 ;	---------------------------------
-                            529 ; Function updatePlayer
-                            530 ; ---------------------------------
-   5042                     531 _updatePlayer::
-                            532 ;src/entities/entities.c:135: return 1;
-   5042 2E 01         [ 7]  533 	ld	l,#0x01
-   5044 C9            [10]  534 	ret
-                            535 ;src/entities/entities.c:138: void redibujarPlayer(TPlayer* player){
-                            536 ;	---------------------------------
-                            537 ; Function redibujarPlayer
-                            538 ; ---------------------------------
-   5045                     539 _redibujarPlayer::
-   5045 DD E5         [15]  540 	push	ix
-   5047 DD 21 00 00   [14]  541 	ld	ix,#0
-   504B DD 39         [15]  542 	add	ix,sp
-                            543 ;src/entities/entities.c:139: if (player->draw) {
-   504D DD 4E 04      [19]  544 	ld	c,4 (ix)
-   5050 DD 46 05      [19]  545 	ld	b,5 (ix)
-   5053 21 04 00      [10]  546 	ld	hl,#0x0004
-   5056 09            [11]  547 	add	hl,bc
-   5057 EB            [ 4]  548 	ex	de,hl
-   5058 1A            [ 7]  549 	ld	a,(de)
-   5059 B7            [ 4]  550 	or	a, a
-   505A 28 2D         [12]  551 	jr	Z,00103$
-                            552 ;src/entities/entities.c:140: borrarPlayer(player);
-   505C C5            [11]  553 	push	bc
-   505D D5            [11]  554 	push	de
-   505E C5            [11]  555 	push	bc
-   505F CD 8C 50      [17]  556 	call	_borrarPlayer
-   5062 F1            [10]  557 	pop	af
-   5063 D1            [10]  558 	pop	de
-   5064 C1            [10]  559 	pop	bc
-                            560 ;src/entities/entities.c:141: player->px = player->x;
-   5065 C5            [11]  561 	push	bc
-   5066 FD E1         [14]  562 	pop	iy
-   5068 FD 23         [10]  563 	inc	iy
-   506A FD 23         [10]  564 	inc	iy
-   506C 0A            [ 7]  565 	ld	a,(bc)
-   506D FD 77 00      [19]  566 	ld	0 (iy), a
-                            567 ;src/entities/entities.c:142: player->py = player->y;
-   5070 C5            [11]  568 	push	bc
-   5071 FD E1         [14]  569 	pop	iy
-   5073 FD 23         [10]  570 	inc	iy
-   5075 FD 23         [10]  571 	inc	iy
-   5077 FD 23         [10]  572 	inc	iy
-   5079 69            [ 4]  573 	ld	l, c
-   507A 60            [ 4]  574 	ld	h, b
-   507B 23            [ 6]  575 	inc	hl
-   507C 6E            [ 7]  576 	ld	l,(hl)
-   507D FD 75 00      [19]  577 	ld	0 (iy), l
-                            578 ;src/entities/entities.c:143: dibujarPlayer(player);
-   5080 D5            [11]  579 	push	de
-   5081 C5            [11]  580 	push	bc
-   5082 CD DD 50      [17]  581 	call	_dibujarPlayer
-   5085 F1            [10]  582 	pop	af
-   5086 D1            [10]  583 	pop	de
-                            584 ;src/entities/entities.c:144: player->draw = NO;
-   5087 AF            [ 4]  585 	xor	a, a
-   5088 12            [ 7]  586 	ld	(de),a
-   5089                     587 00103$:
-   5089 DD E1         [14]  588 	pop	ix
-   508B C9            [10]  589 	ret
-                            590 ;src/entities/entities.c:148: void borrarPlayer(TPlayer* player){
-                            591 ;	---------------------------------
-                            592 ; Function borrarPlayer
-                            593 ; ---------------------------------
-   508C                     594 _borrarPlayer::
-   508C DD E5         [15]  595 	push	ix
-   508E DD 21 00 00   [14]  596 	ld	ix,#0
-   5092 DD 39         [15]  597 	add	ix,sp
-                            598 ;src/entities/entities.c:149: u8 w = 4 + (player->px & 1);
-   5094 DD 5E 04      [19]  599 	ld	e,4 (ix)
-   5097 DD 56 05      [19]  600 	ld	d,5 (ix)
-   509A 6B            [ 4]  601 	ld	l, e
-   509B 62            [ 4]  602 	ld	h, d
-   509C 23            [ 6]  603 	inc	hl
-   509D 23            [ 6]  604 	inc	hl
-   509E 4E            [ 7]  605 	ld	c,(hl)
-   509F 79            [ 4]  606 	ld	a,c
-   50A0 E6 01         [ 7]  607 	and	a, #0x01
-   50A2 47            [ 4]  608 	ld	b,a
-   50A3 04            [ 4]  609 	inc	b
-   50A4 04            [ 4]  610 	inc	b
-   50A5 04            [ 4]  611 	inc	b
-   50A6 04            [ 4]  612 	inc	b
-                            613 ;src/entities/entities.c:150: u8 h = 4 + (player->py & 3 ? 1 : 0);
-   50A7 EB            [ 4]  614 	ex	de,hl
-   50A8 23            [ 6]  615 	inc	hl
-   50A9 23            [ 6]  616 	inc	hl
-   50AA 23            [ 6]  617 	inc	hl
-   50AB 5E            [ 7]  618 	ld	e,(hl)
-   50AC 7B            [ 4]  619 	ld	a,e
-   50AD E6 03         [ 7]  620 	and	a, #0x03
-   50AF 28 04         [12]  621 	jr	Z,00103$
-   50B1 16 01         [ 7]  622 	ld	d,#0x01
-   50B3 18 02         [12]  623 	jr	00104$
-   50B5                     624 00103$:
-   50B5 16 00         [ 7]  625 	ld	d,#0x00
-   50B7                     626 00104$:
-   50B7 14            [ 4]  627 	inc	d
-   50B8 14            [ 4]  628 	inc	d
-   50B9 14            [ 4]  629 	inc	d
-   50BA 14            [ 4]  630 	inc	d
-                            631 ;src/entities/entities.c:151: cpct_etm_drawTileBox2x4(player->px / 2, player->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
-   50BB 2A 09 4E      [16]  632 	ld	hl,(_mapa)
-   50BE CB 3B         [ 8]  633 	srl	e
-   50C0 CB 3B         [ 8]  634 	srl	e
-   50C2 CB 39         [ 8]  635 	srl	c
-   50C4 E5            [11]  636 	push	hl
-   50C5 21 00 C0      [10]  637 	ld	hl,#0xC000
-   50C8 E5            [11]  638 	push	hl
-   50C9 3E 28         [ 7]  639 	ld	a,#0x28
-   50CB F5            [11]  640 	push	af
-   50CC 33            [ 6]  641 	inc	sp
-   50CD D5            [11]  642 	push	de
-   50CE 33            [ 6]  643 	inc	sp
-   50CF C5            [11]  644 	push	bc
-   50D0 33            [ 6]  645 	inc	sp
-   50D1 7B            [ 4]  646 	ld	a,e
-   50D2 F5            [11]  647 	push	af
-   50D3 33            [ 6]  648 	inc	sp
-   50D4 79            [ 4]  649 	ld	a,c
-   50D5 F5            [11]  650 	push	af
-   50D6 33            [ 6]  651 	inc	sp
-   50D7 CD 25 4C      [17]  652 	call	_cpct_etm_drawTileBox2x4
-   50DA DD E1         [14]  653 	pop	ix
-   50DC C9            [10]  654 	ret
-                            655 ;src/entities/entities.c:154: void dibujarPlayer(TPlayer* player){
-                            656 ;	---------------------------------
-                            657 ; Function dibujarPlayer
-                            658 ; ---------------------------------
-   50DD                     659 _dibujarPlayer::
-   50DD DD E5         [15]  660 	push	ix
-   50DF DD 21 00 00   [14]  661 	ld	ix,#0
-   50E3 DD 39         [15]  662 	add	ix,sp
-                            663 ;src/entities/entities.c:155: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,player->x, player->y);
-   50E5 DD 4E 04      [19]  664 	ld	c,4 (ix)
-   50E8 DD 46 05      [19]  665 	ld	b,5 (ix)
-   50EB 69            [ 4]  666 	ld	l, c
-   50EC 60            [ 4]  667 	ld	h, b
-   50ED 23            [ 6]  668 	inc	hl
-   50EE 56            [ 7]  669 	ld	d,(hl)
-   50EF 0A            [ 7]  670 	ld	a,(bc)
-   50F0 C5            [11]  671 	push	bc
-   50F1 D5            [11]  672 	push	de
-   50F2 33            [ 6]  673 	inc	sp
-   50F3 F5            [11]  674 	push	af
-   50F4 33            [ 6]  675 	inc	sp
-   50F5 21 00 C0      [10]  676 	ld	hl,#0xC000
-   50F8 E5            [11]  677 	push	hl
-   50F9 CD AE 4D      [17]  678 	call	_cpct_getScreenPtr
-   50FC EB            [ 4]  679 	ex	de,hl
-                            680 ;src/entities/entities.c:156: cpct_drawSpriteMaskedAlignedTable(player->sprite,vmem,G_NAVES_0_W,G_NAVES_0_H, g_tablatrans);
-   50FD E1            [10]  681 	pop	hl
-   50FE 01 05 00      [10]  682 	ld	bc, #0x0005
-   5101 09            [11]  683 	add	hl, bc
-   5102 4E            [ 7]  684 	ld	c,(hl)
-   5103 23            [ 6]  685 	inc	hl
-   5104 46            [ 7]  686 	ld	b,(hl)
-   5105 21 00 01      [10]  687 	ld	hl,#_g_tablatrans
-   5108 E5            [11]  688 	push	hl
-   5109 21 08 10      [10]  689 	ld	hl,#0x1008
-   510C E5            [11]  690 	push	hl
-   510D D5            [11]  691 	push	de
-   510E C5            [11]  692 	push	bc
-   510F CD CE 4D      [17]  693 	call	_cpct_drawSpriteMaskedAlignedTable
-   5112 DD E1         [14]  694 	pop	ix
-   5114 C9            [10]  695 	ret
-                            696 ;src/entities/entities.c:159: void drawAll(TPlayer* player){
-                            697 ;	---------------------------------
-                            698 ; Function drawAll
-                            699 ; ---------------------------------
-   5115                     700 _drawAll::
-                            701 ;src/entities/entities.c:161: redibujarPlayer(player);
-   5115 C1            [10]  702 	pop	bc
-   5116 E1            [10]  703 	pop	hl
-   5117 E5            [11]  704 	push	hl
-   5118 C5            [11]  705 	push	bc
-   5119 E5            [11]  706 	push	hl
-   511A CD 45 50      [17]  707 	call	_redibujarPlayer
-   511D F1            [10]  708 	pop	af
-   511E C9            [10]  709 	ret
-                            710 	.area _CODE
-                            711 	.area _INITIALIZER
-                            712 	.area _CABS (ABS)
+                             99 	.area _CSEG (REL, CON) 
+                            100 ;src/entities/entities.c:31: void incializarEntities(){
+                            101 ;	---------------------------------
+                            102 ; Function incializarEntities
+                            103 ; ---------------------------------
+   4E10                     104 _incializarEntities::
+                            105 ;src/entities/entities.c:33: }
+   4E10 C9            [10]  106 	ret
+   4E11                     107 _enemigos:
+   4E11 32                  108 	.db #0x32	; 50	'2'
+   4E12 9D                  109 	.db #0x9D	; 157
+   4E13 14                  110 	.db #0x14	; 20
+   4E14 9D                  111 	.db #0x9D	; 157
+   4E15 01                  112 	.db #0x01	; 1
+   4E16 F8 48               113 	.dw _g_naves_0
+   4E18 00                  114 	.db #0x00	; 0
+   4E19 14                  115 	.db #0x14	; 20
+   4E1A 32                  116 	.db #0x32	; 50	'2'
+   4E1B 14                  117 	.db #0x14	; 20
+   4E1C 32                  118 	.db #0x32	; 50	'2'
+   4E1D 01                  119 	.db #0x01	; 1
+   4E1E F8 48               120 	.dw _g_naves_0
+   4E20 00                  121 	.db #0x00	; 0
+                            122 ;src/entities/entities.c:37: void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir){
+                            123 ;	---------------------------------
+                            124 ; Function accion
+                            125 ; ---------------------------------
+   4E21                     126 _accion::
+   4E21 DD E5         [15]  127 	push	ix
+   4E23 DD 21 00 00   [14]  128 	ld	ix,#0
+   4E27 DD 39         [15]  129 	add	ix,sp
+                            130 ;src/entities/entities.c:38: switch(action){
+   4E29 DD 7E 06      [19]  131 	ld	a,6 (ix)
+   4E2C 3D            [ 4]  132 	dec	a
+   4E2D C2 C1 4E      [10]  133 	jp	NZ,00108$
+                            134 ;src/entities/entities.c:40: switch(dir){
+   4E30 3E 03         [ 7]  135 	ld	a,#0x03
+   4E32 DD 96 07      [19]  136 	sub	a, 7 (ix)
+   4E35 DA C1 4E      [10]  137 	jp	C,00108$
+   4E38 DD 5E 07      [19]  138 	ld	e,7 (ix)
+   4E3B 16 00         [ 7]  139 	ld	d,#0x00
+   4E3D 21 43 4E      [10]  140 	ld	hl,#00120$
+   4E40 19            [11]  141 	add	hl,de
+   4E41 19            [11]  142 	add	hl,de
+                            143 ;src/entities/entities.c:41: case d_up:
+   4E42 E9            [ 4]  144 	jp	(hl)
+   4E43                     145 00120$:
+   4E43 18 06         [12]  146 	jr	00102$
+   4E45 18 22         [12]  147 	jr	00103$
+   4E47 18 5C         [12]  148 	jr	00105$
+   4E49 18 3C         [12]  149 	jr	00104$
+   4E4B                     150 00102$:
+                            151 ;src/entities/entities.c:42: moverArriba(ent);
+   4E4B DD 6E 04      [19]  152 	ld	l,4 (ix)
+   4E4E DD 66 05      [19]  153 	ld	h,5 (ix)
+   4E51 E5            [11]  154 	push	hl
+   4E52 CD 2F 4F      [17]  155 	call	_moverArriba
+   4E55 F1            [10]  156 	pop	af
+                            157 ;src/entities/entities.c:43: flipSprite(ent,dir);
+   4E56 DD 7E 07      [19]  158 	ld	a,7 (ix)
+   4E59 F5            [11]  159 	push	af
+   4E5A 33            [ 6]  160 	inc	sp
+   4E5B DD 6E 04      [19]  161 	ld	l,4 (ix)
+   4E5E DD 66 05      [19]  162 	ld	h,5 (ix)
+   4E61 E5            [11]  163 	push	hl
+   4E62 CD C4 4E      [17]  164 	call	_flipSprite
+   4E65 F1            [10]  165 	pop	af
+   4E66 33            [ 6]  166 	inc	sp
+                            167 ;src/entities/entities.c:44: break;
+   4E67 18 58         [12]  168 	jr	00108$
+                            169 ;src/entities/entities.c:45: case d_down:
+   4E69                     170 00103$:
+                            171 ;src/entities/entities.c:46: moverAbajo(ent);
+   4E69 DD 6E 04      [19]  172 	ld	l,4 (ix)
+   4E6C DD 66 05      [19]  173 	ld	h,5 (ix)
+   4E6F E5            [11]  174 	push	hl
+   4E70 CD 59 4F      [17]  175 	call	_moverAbajo
+   4E73 F1            [10]  176 	pop	af
+                            177 ;src/entities/entities.c:47: flipSprite(ent,dir);
+   4E74 DD 7E 07      [19]  178 	ld	a,7 (ix)
+   4E77 F5            [11]  179 	push	af
+   4E78 33            [ 6]  180 	inc	sp
+   4E79 DD 6E 04      [19]  181 	ld	l,4 (ix)
+   4E7C DD 66 05      [19]  182 	ld	h,5 (ix)
+   4E7F E5            [11]  183 	push	hl
+   4E80 CD C4 4E      [17]  184 	call	_flipSprite
+   4E83 F1            [10]  185 	pop	af
+   4E84 33            [ 6]  186 	inc	sp
+                            187 ;src/entities/entities.c:48: break;
+   4E85 18 3A         [12]  188 	jr	00108$
+                            189 ;src/entities/entities.c:49: case d_left:
+   4E87                     190 00104$:
+                            191 ;src/entities/entities.c:50: moverIzquierda(ent);
+   4E87 DD 6E 04      [19]  192 	ld	l,4 (ix)
+   4E8A DD 66 05      [19]  193 	ld	h,5 (ix)
+   4E8D E5            [11]  194 	push	hl
+   4E8E CD A0 4F      [17]  195 	call	_moverIzquierda
+   4E91 F1            [10]  196 	pop	af
+                            197 ;src/entities/entities.c:51: flipSprite(ent,dir);
+   4E92 DD 7E 07      [19]  198 	ld	a,7 (ix)
+   4E95 F5            [11]  199 	push	af
+   4E96 33            [ 6]  200 	inc	sp
+   4E97 DD 6E 04      [19]  201 	ld	l,4 (ix)
+   4E9A DD 66 05      [19]  202 	ld	h,5 (ix)
+   4E9D E5            [11]  203 	push	hl
+   4E9E CD C4 4E      [17]  204 	call	_flipSprite
+   4EA1 F1            [10]  205 	pop	af
+   4EA2 33            [ 6]  206 	inc	sp
+                            207 ;src/entities/entities.c:52: break;
+   4EA3 18 1C         [12]  208 	jr	00108$
+                            209 ;src/entities/entities.c:53: case d_right:
+   4EA5                     210 00105$:
+                            211 ;src/entities/entities.c:54: moverDerecha(ent);
+   4EA5 DD 6E 04      [19]  212 	ld	l,4 (ix)
+   4EA8 DD 66 05      [19]  213 	ld	h,5 (ix)
+   4EAB E5            [11]  214 	push	hl
+   4EAC CD B1 4F      [17]  215 	call	_moverDerecha
+   4EAF F1            [10]  216 	pop	af
+                            217 ;src/entities/entities.c:55: flipSprite(ent,dir);
+   4EB0 DD 7E 07      [19]  218 	ld	a,7 (ix)
+   4EB3 F5            [11]  219 	push	af
+   4EB4 33            [ 6]  220 	inc	sp
+   4EB5 DD 6E 04      [19]  221 	ld	l,4 (ix)
+   4EB8 DD 66 05      [19]  222 	ld	h,5 (ix)
+   4EBB E5            [11]  223 	push	hl
+   4EBC CD C4 4E      [17]  224 	call	_flipSprite
+   4EBF F1            [10]  225 	pop	af
+   4EC0 33            [ 6]  226 	inc	sp
+                            227 ;src/entities/entities.c:60: }
+   4EC1                     228 00108$:
+   4EC1 DD E1         [14]  229 	pop	ix
+   4EC3 C9            [10]  230 	ret
+                            231 ;src/entities/entities.c:64: void flipSprite(TEntity* ent, TPlayerDirection dir){
+                            232 ;	---------------------------------
+                            233 ; Function flipSprite
+                            234 ; ---------------------------------
+   4EC4                     235 _flipSprite::
+   4EC4 DD E5         [15]  236 	push	ix
+   4EC6 DD 21 00 00   [14]  237 	ld	ix,#0
+   4ECA DD 39         [15]  238 	add	ix,sp
+   4ECC 3B            [ 6]  239 	dec	sp
+                            240 ;src/entities/entities.c:65: if(ent->curr_dir != dir){
+   4ECD DD 4E 04      [19]  241 	ld	c,4 (ix)
+   4ED0 DD 46 05      [19]  242 	ld	b,5 (ix)
+   4ED3 21 07 00      [10]  243 	ld	hl,#0x0007
+   4ED6 09            [11]  244 	add	hl,bc
+   4ED7 EB            [ 4]  245 	ex	de,hl
+   4ED8 1A            [ 7]  246 	ld	a,(de)
+   4ED9 DD 77 FF      [19]  247 	ld	-1 (ix),a
+   4EDC DD 7E 06      [19]  248 	ld	a,6 (ix)
+   4EDF DD 96 FF      [19]  249 	sub	a, -1 (ix)
+   4EE2 28 47         [12]  250 	jr	Z,00108$
+                            251 ;src/entities/entities.c:66: switch(dir){
+   4EE4 3E 03         [ 7]  252 	ld	a,#0x03
+   4EE6 DD 96 06      [19]  253 	sub	a, 6 (ix)
+   4EE9 38 3C         [12]  254 	jr	C,00105$
+                            255 ;src/entities/entities.c:68: ent->sprite = g_naves_0;
+   4EEB 03            [ 6]  256 	inc	bc
+   4EEC 03            [ 6]  257 	inc	bc
+   4EED 03            [ 6]  258 	inc	bc
+   4EEE 03            [ 6]  259 	inc	bc
+   4EEF 03            [ 6]  260 	inc	bc
+                            261 ;src/entities/entities.c:66: switch(dir){
+   4EF0 D5            [11]  262 	push	de
+   4EF1 DD 5E 06      [19]  263 	ld	e,6 (ix)
+   4EF4 16 00         [ 7]  264 	ld	d,#0x00
+   4EF6 21 FD 4E      [10]  265 	ld	hl,#00119$
+   4EF9 19            [11]  266 	add	hl,de
+   4EFA 19            [11]  267 	add	hl,de
+                            268 ;src/entities/entities.c:67: case d_up:
+   4EFB D1            [10]  269 	pop	de
+   4EFC E9            [ 4]  270 	jp	(hl)
+   4EFD                     271 00119$:
+   4EFD 18 06         [12]  272 	jr	00101$
+   4EFF 18 0D         [12]  273 	jr	00102$
+   4F01 18 1D         [12]  274 	jr	00104$
+   4F03 18 12         [12]  275 	jr	00103$
+   4F05                     276 00101$:
+                            277 ;src/entities/entities.c:68: ent->sprite = g_naves_0;
+   4F05 3E F8         [ 7]  278 	ld	a,#<(_g_naves_0)
+   4F07 02            [ 7]  279 	ld	(bc),a
+   4F08 03            [ 6]  280 	inc	bc
+   4F09 3E 48         [ 7]  281 	ld	a,#>(_g_naves_0)
+   4F0B 02            [ 7]  282 	ld	(bc),a
+                            283 ;src/entities/entities.c:70: break;
+   4F0C 18 19         [12]  284 	jr	00105$
+                            285 ;src/entities/entities.c:71: case d_down:
+   4F0E                     286 00102$:
+                            287 ;src/entities/entities.c:72: ent->sprite = g_naves_2;
+   4F0E 3E F8         [ 7]  288 	ld	a,#<(_g_naves_2)
+   4F10 02            [ 7]  289 	ld	(bc),a
+   4F11 03            [ 6]  290 	inc	bc
+   4F12 3E 49         [ 7]  291 	ld	a,#>(_g_naves_2)
+   4F14 02            [ 7]  292 	ld	(bc),a
+                            293 ;src/entities/entities.c:74: break;
+   4F15 18 10         [12]  294 	jr	00105$
+                            295 ;src/entities/entities.c:75: case d_left:
+   4F17                     296 00103$:
+                            297 ;src/entities/entities.c:76: ent->sprite = g_naves_3;
+   4F17 3E 78         [ 7]  298 	ld	a,#<(_g_naves_3)
+   4F19 02            [ 7]  299 	ld	(bc),a
+   4F1A 03            [ 6]  300 	inc	bc
+   4F1B 3E 4A         [ 7]  301 	ld	a,#>(_g_naves_3)
+   4F1D 02            [ 7]  302 	ld	(bc),a
+                            303 ;src/entities/entities.c:77: break;
+   4F1E 18 07         [12]  304 	jr	00105$
+                            305 ;src/entities/entities.c:78: case d_right:
+   4F20                     306 00104$:
+                            307 ;src/entities/entities.c:79: ent->sprite = g_naves_1;
+   4F20 3E 78         [ 7]  308 	ld	a,#<(_g_naves_1)
+   4F22 02            [ 7]  309 	ld	(bc),a
+   4F23 03            [ 6]  310 	inc	bc
+   4F24 3E 49         [ 7]  311 	ld	a,#>(_g_naves_1)
+   4F26 02            [ 7]  312 	ld	(bc),a
+                            313 ;src/entities/entities.c:81: }
+   4F27                     314 00105$:
+                            315 ;src/entities/entities.c:82: ent->curr_dir = dir; 
+   4F27 DD 7E 06      [19]  316 	ld	a,6 (ix)
+   4F2A 12            [ 7]  317 	ld	(de),a
+   4F2B                     318 00108$:
+   4F2B 33            [ 6]  319 	inc	sp
+   4F2C DD E1         [14]  320 	pop	ix
+   4F2E C9            [10]  321 	ret
+                            322 ;src/entities/entities.c:102: void moverArriba(TEntity* ent){
+                            323 ;	---------------------------------
+                            324 ; Function moverArriba
+                            325 ; ---------------------------------
+   4F2F                     326 _moverArriba::
+   4F2F DD E5         [15]  327 	push	ix
+   4F31 DD 21 00 00   [14]  328 	ld	ix,#0
+   4F35 DD 39         [15]  329 	add	ix,sp
+                            330 ;src/entities/entities.c:103: if (ent->y > 0) {
+   4F37 DD 4E 04      [19]  331 	ld	c,4 (ix)
+   4F3A DD 46 05      [19]  332 	ld	b,5 (ix)
+   4F3D 59            [ 4]  333 	ld	e, c
+   4F3E 50            [ 4]  334 	ld	d, b
+   4F3F 13            [ 6]  335 	inc	de
+   4F40 1A            [ 7]  336 	ld	a,(de)
+   4F41 B7            [ 4]  337 	or	a, a
+   4F42 28 12         [12]  338 	jr	Z,00106$
+                            339 ;src/entities/entities.c:104: if(ent->y%2 == 0)
+   4F44 CB 47         [ 8]  340 	bit	0, a
+   4F46 20 05         [12]  341 	jr	NZ,00102$
+                            342 ;src/entities/entities.c:105: ent->y-=2;
+   4F48 C6 FE         [ 7]  343 	add	a,#0xFE
+   4F4A 12            [ 7]  344 	ld	(de),a
+   4F4B 18 03         [12]  345 	jr	00103$
+   4F4D                     346 00102$:
+                            347 ;src/entities/entities.c:107: ent->y--;
+   4F4D C6 FF         [ 7]  348 	add	a,#0xFF
+   4F4F 12            [ 7]  349 	ld	(de),a
+   4F50                     350 00103$:
+                            351 ;src/entities/entities.c:109: ent->draw  = SI;
+   4F50 21 04 00      [10]  352 	ld	hl,#0x0004
+   4F53 09            [11]  353 	add	hl,bc
+   4F54 36 01         [10]  354 	ld	(hl),#0x01
+   4F56                     355 00106$:
+   4F56 DD E1         [14]  356 	pop	ix
+   4F58 C9            [10]  357 	ret
+                            358 ;src/entities/entities.c:116: void moverAbajo(TEntity* ent){
+                            359 ;	---------------------------------
+                            360 ; Function moverAbajo
+                            361 ; ---------------------------------
+   4F59                     362 _moverAbajo::
+   4F59 DD E5         [15]  363 	push	ix
+   4F5B DD 21 00 00   [14]  364 	ld	ix,#0
+   4F5F DD 39         [15]  365 	add	ix,sp
+   4F61 3B            [ 6]  366 	dec	sp
+                            367 ;src/entities/entities.c:117: if (ent->y + G_NAVES_0_H < ALTO) {
+   4F62 DD 4E 04      [19]  368 	ld	c,4 (ix)
+   4F65 DD 46 05      [19]  369 	ld	b,5 (ix)
+   4F68 59            [ 4]  370 	ld	e, c
+   4F69 50            [ 4]  371 	ld	d, b
+   4F6A 13            [ 6]  372 	inc	de
+   4F6B 1A            [ 7]  373 	ld	a,(de)
+   4F6C DD 77 FF      [19]  374 	ld	-1 (ix), a
+   4F6F 6F            [ 4]  375 	ld	l, a
+   4F70 26 00         [ 7]  376 	ld	h,#0x00
+   4F72 D5            [11]  377 	push	de
+   4F73 11 10 00      [10]  378 	ld	de,#0x0010
+   4F76 19            [11]  379 	add	hl, de
+   4F77 D1            [10]  380 	pop	de
+   4F78 7D            [ 4]  381 	ld	a,l
+   4F79 D6 C8         [ 7]  382 	sub	a, #0xC8
+   4F7B 7C            [ 4]  383 	ld	a,h
+   4F7C 17            [ 4]  384 	rla
+   4F7D 3F            [ 4]  385 	ccf
+   4F7E 1F            [ 4]  386 	rra
+   4F7F DE 80         [ 7]  387 	sbc	a, #0x80
+   4F81 30 19         [12]  388 	jr	NC,00106$
+                            389 ;src/entities/entities.c:118: if(ent->y%2 == 0)
+   4F83 DD CB FF 46   [20]  390 	bit	0, -1 (ix)
+   4F87 20 08         [12]  391 	jr	NZ,00102$
+                            392 ;src/entities/entities.c:119: ent->y+=2;
+   4F89 DD 7E FF      [19]  393 	ld	a,-1 (ix)
+   4F8C C6 02         [ 7]  394 	add	a, #0x02
+   4F8E 12            [ 7]  395 	ld	(de),a
+   4F8F 18 05         [12]  396 	jr	00103$
+   4F91                     397 00102$:
+                            398 ;src/entities/entities.c:121: ent->y++;
+   4F91 DD 7E FF      [19]  399 	ld	a,-1 (ix)
+   4F94 3C            [ 4]  400 	inc	a
+   4F95 12            [ 7]  401 	ld	(de),a
+   4F96                     402 00103$:
+                            403 ;src/entities/entities.c:123: ent->draw  = SI;
+   4F96 21 04 00      [10]  404 	ld	hl,#0x0004
+   4F99 09            [11]  405 	add	hl,bc
+   4F9A 36 01         [10]  406 	ld	(hl),#0x01
+   4F9C                     407 00106$:
+   4F9C 33            [ 6]  408 	inc	sp
+   4F9D DD E1         [14]  409 	pop	ix
+   4F9F C9            [10]  410 	ret
+                            411 ;src/entities/entities.c:130: void moverIzquierda(TEntity* ent){
+                            412 ;	---------------------------------
+                            413 ; Function moverIzquierda
+                            414 ; ---------------------------------
+   4FA0                     415 _moverIzquierda::
+                            416 ;src/entities/entities.c:131: if (ent->x > 0) {
+   4FA0 D1            [10]  417 	pop	de
+   4FA1 C1            [10]  418 	pop	bc
+   4FA2 C5            [11]  419 	push	bc
+   4FA3 D5            [11]  420 	push	de
+   4FA4 0A            [ 7]  421 	ld	a,(bc)
+   4FA5 B7            [ 4]  422 	or	a, a
+   4FA6 C8            [11]  423 	ret	Z
+                            424 ;src/entities/entities.c:132: ent->x--;
+   4FA7 C6 FF         [ 7]  425 	add	a,#0xFF
+   4FA9 02            [ 7]  426 	ld	(bc),a
+                            427 ;src/entities/entities.c:133: ent->draw  = SI;
+   4FAA 21 04 00      [10]  428 	ld	hl,#0x0004
+   4FAD 09            [11]  429 	add	hl,bc
+   4FAE 36 01         [10]  430 	ld	(hl),#0x01
+   4FB0 C9            [10]  431 	ret
+                            432 ;src/entities/entities.c:139: void moverDerecha(TEntity* ent){
+                            433 ;	---------------------------------
+                            434 ; Function moverDerecha
+                            435 ; ---------------------------------
+   4FB1                     436 _moverDerecha::
+   4FB1 DD E5         [15]  437 	push	ix
+   4FB3 DD 21 00 00   [14]  438 	ld	ix,#0
+   4FB7 DD 39         [15]  439 	add	ix,sp
+                            440 ;src/entities/entities.c:140: if (ent->x + G_NAVES_0_W < ANCHO) {
+   4FB9 DD 4E 04      [19]  441 	ld	c,4 (ix)
+   4FBC DD 46 05      [19]  442 	ld	b,5 (ix)
+   4FBF 0A            [ 7]  443 	ld	a,(bc)
+   4FC0 5F            [ 4]  444 	ld	e,a
+   4FC1 6B            [ 4]  445 	ld	l,e
+   4FC2 26 00         [ 7]  446 	ld	h,#0x00
+   4FC4 D5            [11]  447 	push	de
+   4FC5 11 08 00      [10]  448 	ld	de,#0x0008
+   4FC8 19            [11]  449 	add	hl, de
+   4FC9 D1            [10]  450 	pop	de
+   4FCA 7D            [ 4]  451 	ld	a,l
+   4FCB D6 50         [ 7]  452 	sub	a, #0x50
+   4FCD 7C            [ 4]  453 	ld	a,h
+   4FCE 17            [ 4]  454 	rla
+   4FCF 3F            [ 4]  455 	ccf
+   4FD0 1F            [ 4]  456 	rra
+   4FD1 DE 80         [ 7]  457 	sbc	a, #0x80
+   4FD3 30 09         [12]  458 	jr	NC,00103$
+                            459 ;src/entities/entities.c:141: ent->x++;
+   4FD5 1C            [ 4]  460 	inc	e
+   4FD6 7B            [ 4]  461 	ld	a,e
+   4FD7 02            [ 7]  462 	ld	(bc),a
+                            463 ;src/entities/entities.c:142: ent->draw  = SI;
+   4FD8 21 04 00      [10]  464 	ld	hl,#0x0004
+   4FDB 09            [11]  465 	add	hl,bc
+   4FDC 36 01         [10]  466 	ld	(hl),#0x01
+   4FDE                     467 00103$:
+   4FDE DD E1         [14]  468 	pop	ix
+   4FE0 C9            [10]  469 	ret
+                            470 ;src/entities/entities.c:150: u8 updatePlayer(TEntity* player){
+                            471 ;	---------------------------------
+                            472 ; Function updatePlayer
+                            473 ; ---------------------------------
+   4FE1                     474 _updatePlayer::
+                            475 ;src/entities/entities.c:152: return 1;
+   4FE1 2E 01         [ 7]  476 	ld	l,#0x01
+   4FE3 C9            [10]  477 	ret
+                            478 ;src/entities/entities.c:155: void updateEntities(){
+                            479 ;	---------------------------------
+                            480 ; Function updateEntities
+                            481 ; ---------------------------------
+   4FE4                     482 _updateEntities::
+                            483 ;src/entities/entities.c:157: }
+   4FE4 C9            [10]  484 	ret
+                            485 ;src/entities/entities.c:159: void redibujarEntity(TEntity* ent, u8 w, u8 h){
+                            486 ;	---------------------------------
+                            487 ; Function redibujarEntity
+                            488 ; ---------------------------------
+   4FE5                     489 _redibujarEntity::
+   4FE5 DD E5         [15]  490 	push	ix
+   4FE7 DD 21 00 00   [14]  491 	ld	ix,#0
+   4FEB DD 39         [15]  492 	add	ix,sp
+                            493 ;src/entities/entities.c:160: if (ent->draw) {
+   4FED DD 4E 04      [19]  494 	ld	c,4 (ix)
+   4FF0 DD 46 05      [19]  495 	ld	b,5 (ix)
+   4FF3 21 04 00      [10]  496 	ld	hl,#0x0004
+   4FF6 09            [11]  497 	add	hl,bc
+   4FF7 EB            [ 4]  498 	ex	de,hl
+   4FF8 1A            [ 7]  499 	ld	a,(de)
+   4FF9 B7            [ 4]  500 	or	a, a
+   4FFA 28 35         [12]  501 	jr	Z,00103$
+                            502 ;src/entities/entities.c:161: borrarEntity(ent);
+   4FFC C5            [11]  503 	push	bc
+   4FFD D5            [11]  504 	push	de
+   4FFE C5            [11]  505 	push	bc
+   4FFF CD 34 50      [17]  506 	call	_borrarEntity
+   5002 F1            [10]  507 	pop	af
+   5003 D1            [10]  508 	pop	de
+   5004 C1            [10]  509 	pop	bc
+                            510 ;src/entities/entities.c:162: ent->px = ent->x;
+   5005 C5            [11]  511 	push	bc
+   5006 FD E1         [14]  512 	pop	iy
+   5008 FD 23         [10]  513 	inc	iy
+   500A FD 23         [10]  514 	inc	iy
+   500C 0A            [ 7]  515 	ld	a,(bc)
+   500D FD 77 00      [19]  516 	ld	0 (iy), a
+                            517 ;src/entities/entities.c:163: ent->py = ent->y;
+   5010 C5            [11]  518 	push	bc
+   5011 FD E1         [14]  519 	pop	iy
+   5013 FD 23         [10]  520 	inc	iy
+   5015 FD 23         [10]  521 	inc	iy
+   5017 FD 23         [10]  522 	inc	iy
+   5019 69            [ 4]  523 	ld	l, c
+   501A 60            [ 4]  524 	ld	h, b
+   501B 23            [ 6]  525 	inc	hl
+   501C 6E            [ 7]  526 	ld	l,(hl)
+   501D FD 75 00      [19]  527 	ld	0 (iy), l
+                            528 ;src/entities/entities.c:164: dibujarEntity(ent, w, h);
+   5020 D5            [11]  529 	push	de
+   5021 DD 66 07      [19]  530 	ld	h,7 (ix)
+   5024 DD 6E 06      [19]  531 	ld	l,6 (ix)
+   5027 E5            [11]  532 	push	hl
+   5028 C5            [11]  533 	push	bc
+   5029 CD 85 50      [17]  534 	call	_dibujarEntity
+   502C F1            [10]  535 	pop	af
+   502D F1            [10]  536 	pop	af
+   502E D1            [10]  537 	pop	de
+                            538 ;src/entities/entities.c:165: ent->draw = NO;
+   502F AF            [ 4]  539 	xor	a, a
+   5030 12            [ 7]  540 	ld	(de),a
+   5031                     541 00103$:
+   5031 DD E1         [14]  542 	pop	ix
+   5033 C9            [10]  543 	ret
+                            544 ;src/entities/entities.c:169: void borrarEntity(TEntity* ent){
+                            545 ;	---------------------------------
+                            546 ; Function borrarEntity
+                            547 ; ---------------------------------
+   5034                     548 _borrarEntity::
+   5034 DD E5         [15]  549 	push	ix
+   5036 DD 21 00 00   [14]  550 	ld	ix,#0
+   503A DD 39         [15]  551 	add	ix,sp
+                            552 ;src/entities/entities.c:170: u8 w = 4 + (ent->px & 1);
+   503C DD 5E 04      [19]  553 	ld	e,4 (ix)
+   503F DD 56 05      [19]  554 	ld	d,5 (ix)
+   5042 6B            [ 4]  555 	ld	l, e
+   5043 62            [ 4]  556 	ld	h, d
+   5044 23            [ 6]  557 	inc	hl
+   5045 23            [ 6]  558 	inc	hl
+   5046 4E            [ 7]  559 	ld	c,(hl)
+   5047 79            [ 4]  560 	ld	a,c
+   5048 E6 01         [ 7]  561 	and	a, #0x01
+   504A 47            [ 4]  562 	ld	b,a
+   504B 04            [ 4]  563 	inc	b
+   504C 04            [ 4]  564 	inc	b
+   504D 04            [ 4]  565 	inc	b
+   504E 04            [ 4]  566 	inc	b
+                            567 ;src/entities/entities.c:171: u8 h = 4 + (ent->py & 3 ? 1 : 0);
+   504F EB            [ 4]  568 	ex	de,hl
+   5050 23            [ 6]  569 	inc	hl
+   5051 23            [ 6]  570 	inc	hl
+   5052 23            [ 6]  571 	inc	hl
+   5053 5E            [ 7]  572 	ld	e,(hl)
+   5054 7B            [ 4]  573 	ld	a,e
+   5055 E6 03         [ 7]  574 	and	a, #0x03
+   5057 28 04         [12]  575 	jr	Z,00103$
+   5059 16 01         [ 7]  576 	ld	d,#0x01
+   505B 18 02         [12]  577 	jr	00104$
+   505D                     578 00103$:
+   505D 16 00         [ 7]  579 	ld	d,#0x00
+   505F                     580 00104$:
+   505F 14            [ 4]  581 	inc	d
+   5060 14            [ 4]  582 	inc	d
+   5061 14            [ 4]  583 	inc	d
+   5062 14            [ 4]  584 	inc	d
+                            585 ;src/entities/entities.c:172: cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+   5063 2A 0C 4E      [16]  586 	ld	hl,(_mapa)
+   5066 CB 3B         [ 8]  587 	srl	e
+   5068 CB 3B         [ 8]  588 	srl	e
+   506A CB 39         [ 8]  589 	srl	c
+   506C E5            [11]  590 	push	hl
+   506D 21 00 C0      [10]  591 	ld	hl,#0xC000
+   5070 E5            [11]  592 	push	hl
+   5071 3E 28         [ 7]  593 	ld	a,#0x28
+   5073 F5            [11]  594 	push	af
+   5074 33            [ 6]  595 	inc	sp
+   5075 D5            [11]  596 	push	de
+   5076 33            [ 6]  597 	inc	sp
+   5077 C5            [11]  598 	push	bc
+   5078 33            [ 6]  599 	inc	sp
+   5079 7B            [ 4]  600 	ld	a,e
+   507A F5            [11]  601 	push	af
+   507B 33            [ 6]  602 	inc	sp
+   507C 79            [ 4]  603 	ld	a,c
+   507D F5            [11]  604 	push	af
+   507E 33            [ 6]  605 	inc	sp
+   507F CD 28 4C      [17]  606 	call	_cpct_etm_drawTileBox2x4
+   5082 DD E1         [14]  607 	pop	ix
+   5084 C9            [10]  608 	ret
+                            609 ;src/entities/entities.c:175: void dibujarEntity(TEntity* ent, u8 w, u8 h){
+                            610 ;	---------------------------------
+                            611 ; Function dibujarEntity
+                            612 ; ---------------------------------
+   5085                     613 _dibujarEntity::
+   5085 DD E5         [15]  614 	push	ix
+   5087 DD 21 00 00   [14]  615 	ld	ix,#0
+   508B DD 39         [15]  616 	add	ix,sp
+                            617 ;src/entities/entities.c:176: u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+   508D DD 4E 04      [19]  618 	ld	c,4 (ix)
+   5090 DD 46 05      [19]  619 	ld	b,5 (ix)
+   5093 69            [ 4]  620 	ld	l, c
+   5094 60            [ 4]  621 	ld	h, b
+   5095 23            [ 6]  622 	inc	hl
+   5096 56            [ 7]  623 	ld	d,(hl)
+   5097 0A            [ 7]  624 	ld	a,(bc)
+   5098 C5            [11]  625 	push	bc
+   5099 D5            [11]  626 	push	de
+   509A 33            [ 6]  627 	inc	sp
+   509B F5            [11]  628 	push	af
+   509C 33            [ 6]  629 	inc	sp
+   509D 21 00 C0      [10]  630 	ld	hl,#0xC000
+   50A0 E5            [11]  631 	push	hl
+   50A1 CD B1 4D      [17]  632 	call	_cpct_getScreenPtr
+   50A4 EB            [ 4]  633 	ex	de,hl
+                            634 ;src/entities/entities.c:177: cpct_drawSpriteMaskedAlignedTable(ent->sprite,vmem,w,h, g_tablatrans);
+   50A5 E1            [10]  635 	pop	hl
+   50A6 01 05 00      [10]  636 	ld	bc, #0x0005
+   50A9 09            [11]  637 	add	hl, bc
+   50AA 4E            [ 7]  638 	ld	c,(hl)
+   50AB 23            [ 6]  639 	inc	hl
+   50AC 46            [ 7]  640 	ld	b,(hl)
+   50AD 21 00 01      [10]  641 	ld	hl,#_g_tablatrans
+   50B0 E5            [11]  642 	push	hl
+   50B1 DD 66 07      [19]  643 	ld	h,7 (ix)
+   50B4 DD 6E 06      [19]  644 	ld	l,6 (ix)
+   50B7 E5            [11]  645 	push	hl
+   50B8 D5            [11]  646 	push	de
+   50B9 C5            [11]  647 	push	bc
+   50BA CD D1 4D      [17]  648 	call	_cpct_drawSpriteMaskedAlignedTable
+   50BD DD E1         [14]  649 	pop	ix
+   50BF C9            [10]  650 	ret
+                            651 ;src/entities/entities.c:180: void drawAll(TEntity* player){
+                            652 ;	---------------------------------
+                            653 ; Function drawAll
+                            654 ; ---------------------------------
+   50C0                     655 _drawAll::
+   50C0 DD E5         [15]  656 	push	ix
+   50C2 DD 21 00 00   [14]  657 	ld	ix,#0
+   50C6 DD 39         [15]  658 	add	ix,sp
+                            659 ;src/entities/entities.c:183: redibujarEntity(player, G_NAVES_0_W, G_NAVES_0_H);
+   50C8 21 08 10      [10]  660 	ld	hl,#0x1008
+   50CB E5            [11]  661 	push	hl
+   50CC DD 6E 04      [19]  662 	ld	l,4 (ix)
+   50CF DD 66 05      [19]  663 	ld	h,5 (ix)
+   50D2 E5            [11]  664 	push	hl
+   50D3 CD E5 4F      [17]  665 	call	_redibujarEntity
+   50D6 F1            [10]  666 	pop	af
+   50D7 F1            [10]  667 	pop	af
+                            668 ;src/entities/entities.c:186: for(i = 0; i < NUM_ENEMIGOS; i++){
+   50D8 0E 00         [ 7]  669 	ld	c,#0x00
+   50DA                     670 00102$:
+                            671 ;src/entities/entities.c:187: redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
+   50DA 69            [ 4]  672 	ld	l,c
+   50DB 26 00         [ 7]  673 	ld	h,#0x00
+   50DD 29            [11]  674 	add	hl, hl
+   50DE 29            [11]  675 	add	hl, hl
+   50DF 29            [11]  676 	add	hl, hl
+   50E0 11 11 4E      [10]  677 	ld	de,#_enemigos
+   50E3 19            [11]  678 	add	hl,de
+   50E4 EB            [ 4]  679 	ex	de,hl
+   50E5 C5            [11]  680 	push	bc
+   50E6 21 08 10      [10]  681 	ld	hl,#0x1008
+   50E9 E5            [11]  682 	push	hl
+   50EA D5            [11]  683 	push	de
+   50EB CD E5 4F      [17]  684 	call	_redibujarEntity
+   50EE F1            [10]  685 	pop	af
+   50EF F1            [10]  686 	pop	af
+   50F0 C1            [10]  687 	pop	bc
+                            688 ;src/entities/entities.c:186: for(i = 0; i < NUM_ENEMIGOS; i++){
+   50F1 0C            [ 4]  689 	inc	c
+   50F2 79            [ 4]  690 	ld	a,c
+   50F3 D6 02         [ 7]  691 	sub	a, #0x02
+   50F5 38 E3         [12]  692 	jr	C,00102$
+   50F7 DD E1         [14]  693 	pop	ix
+   50F9 C9            [10]  694 	ret
+                            695 	.area _CODE
+                            696 	.area _INITIALIZER
+                            697 	.area _CABS (ABS)
