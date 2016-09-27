@@ -64,7 +64,7 @@ void play(){
 	while(alive){
 		updateUser();	
 		alive = updatePlayer(&player);
-		//updateEntities();
+		updateEntities();
 		cpct_waitVSYNC();
 		drawAll(&player);
 	}

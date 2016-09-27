@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <time.h>
-#include <stdlib.h>
 
 #include <cpctelera.h>
 #include "entities.h"
@@ -10,6 +8,9 @@
 
 #define COLUMNA 8
 #define FILA 16
+
+// Total random numbers to show (up to 255)
+#define N_RND_NUMBERS   50
 
 cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
 
@@ -32,6 +33,7 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 
 void incializarEntities(){
 	//Inicializar entities necesarias
+
 }
 
 //Este metodo habria que hacerlo compatible no solo con el player, sino con un tipo entity,
@@ -158,12 +160,7 @@ void updateEntities(){
 	u8 i;
 	u8 rand;
 
-	/*//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; i++){
-		srand(time(NULL));
-		rand = rand();  
-		accion(enemigos[i],rand,rand);
-	}*/
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
