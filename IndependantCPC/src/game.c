@@ -79,12 +79,15 @@ void play(){
 	//Esto seria mientras estes vivo
 	while(alive){
 		cpct_waitVSYNC();
-		updateUser();	
+		updateUser();
 		alive = updatePlayer(&player);
 		updateEntities();
-
+		//cpct_setBorder(HW_RED);
+		calculaAllEntities(&player);
+		//cpct_setBorder(HW_RED);
 		cpct_waitVSYNC();
+		//cpct_setBorder(HW_GREEN);
 		drawAll(&player);
+		//cpct_setBorder(HW_GREEN);
 	}
-	
 }

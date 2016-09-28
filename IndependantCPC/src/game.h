@@ -28,6 +28,8 @@ typedef struct Entity
 	u8 px, py;
 	u8 draw;
 	u8* sprite;
+	u8 tw, th, tpx, tpy;
+	u8* vmem;
 	TPlayerDirection curr_dir;
 }TEntity;
 

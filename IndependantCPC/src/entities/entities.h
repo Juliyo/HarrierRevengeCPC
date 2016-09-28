@@ -42,5 +42,7 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h);
 void borrarEntity(TEntity* ent);
 void dibujarEntity(TEntity* ent, u8 w, u8 h);
 void drawAll(TPlayer* player);
+void calculaEntity(TEntity* ent);
+void calculaAllEntities(TPlayer* player);
 
 #endif
