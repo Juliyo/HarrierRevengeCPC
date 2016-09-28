@@ -14,7 +14,6 @@ extern const TEntity enemigos[NUM_ENEMIGOS];
 extern u32 seed;
 
 extern u8 count1;
-extern u8 count2;
 
 void incializarEntities();
 
@@ -26,18 +25,22 @@ void moverAbajo(TEntity* ent);
 void moverIzquierda(TEntity* ent);
 void moverDerecha(TEntity* ent);
 
+//Acciones Bullet
+void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
+void updateBullet(TBullet* bullet, TPlayerDirection dir);
+
 //Operaciones con sprites
 void flipSprite(TEntity* ent, TPlayerDirection dir);
 
 
 //Updates
-u8 updatePlayer(TEntity* player);
+u8 updatePlayer(TPlayer* player);
 void updateEntities();
 
 //Renders
 void redibujarEntity(TEntity* ent, u8 w, u8 h);
 void borrarEntity(TEntity* ent);
 void dibujarEntity(TEntity* ent, u8 w, u8 h);
-void drawAll(TEntity* player);
+void drawAll(TPlayer* player);
 
 #endif

@@ -11,7 +11,8 @@
 
 typedef enum {
    es_static, 
-   es_mover
+   es_mover,
+   es_disparar
 } TPlayerStatus;
 
 typedef enum{
@@ -30,7 +31,21 @@ typedef struct Entity
 	TPlayerDirection curr_dir;
 }TEntity;
 
+typedef struct Bullet
+{
+	//Otras cosas
+	TEntity ent;
+}TBullet;
+
+typedef struct Player
+{
+	TBullet bullet;
+	TEntity ent;
+}TPlayer;
+
 extern const u8* mapa;
+
+extern const TPlayer player;
 
 //Funciones
 void inicializarPantalla();

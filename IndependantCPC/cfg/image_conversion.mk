@@ -67,4 +67,5 @@ PALETTE={0 1 2 3 4 9 11 12 13 14 15 19 20 24 25 26}
 ##	  hardware colour values.
 
 $(eval $(call IMG2SPRITES,resources/naves.png,0,g,16,16,$(PALETTE),,src/sprites/,hwpalette))
+$(eval $(call IMG2SPRITES,resources/bala.png,0,g,4,4,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/tileset4x4.png,0,g,4,4,$(PALETTE),tileset,src/sprites/))

@@ -2,19 +2,35 @@
 #include <cpctelera.h>
 #include "sprites/naves.h"
 #include "sprites/tileset4x4.h"
+#include "sprites/bala.h"
 #include "mapas/mapa1.h"
 
 #include "game.h"
 #include "entities/entities.h"
 
-const TEntity player = {
-	20,
-	157,
-	player.x,
-	player.y,
-	SI,
-	g_naves_0,
-	d_up
+const TPlayer player = {
+	{
+		{
+			0,
+			0,
+			0,
+			0,
+			NO,
+			g_bala_0,
+			d_up
+		}
+	},
+	{
+		20,
+		157,
+		20,
+		157,
+		SI,
+		g_naves_0,
+		d_up
+	}
+
+	
 };
 
 const u8* mapa = NULL;
@@ -39,17 +55,17 @@ void updateUser(){
 	cpct_scanKeyboard_if();
 	if(cpct_isAnyKeyPressed()){
 		if(cpct_isKeyPressed(Key_CursorUp)){
-			accion(&player, es_mover, d_up);
+			accion(&player.ent, es_mover, d_up);
 		}else if(cpct_isKeyPressed(Key_CursorDown)){
-			accion(&player, es_mover, d_down);
+			accion(&player.ent, es_mover, d_down);
 		}else if(cpct_isKeyPressed(Key_CursorRight)){
-			accion(&player,es_mover,d_right);
+			accion(&player.ent,es_mover,d_right);
 		}else if(cpct_isKeyPressed(Key_CursorLeft)){
-			accion(&player,es_mover,d_left);
+			accion(&player.ent,es_mover,d_left);
+		}else if(cpct_isKeyPressed(Key_Space)){
+			disparar(&player.bullet, player.ent.x, player.ent.y, player.ent.curr_dir);
 		}
 	}
-   
-
 
 }
 
@@ -62,11 +78,11 @@ void play(){
 
 	//Esto seria mientras estes vivo
 	while(alive){
-		
-
+		cpct_waitVSYNC();
 		updateUser();	
 		alive = updatePlayer(&player);
 		updateEntities();
+
 		cpct_waitVSYNC();
 		drawAll(&player);
 	}

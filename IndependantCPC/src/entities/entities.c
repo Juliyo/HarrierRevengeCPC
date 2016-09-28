@@ -4,6 +4,7 @@
 #include "entities.h"
 #include "../mapas/mapa1.h"
 #include "../sprites/naves.h"
+#include "../sprites/bala.h"
 #include "../game.h"
 
 #define COLUMNA 8
@@ -21,14 +22,16 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 		157,
 		1,
 		g_naves_0,
-		d_up	},
+		d_up
+	},
 	{	20,
 		50,
 		20,
 		50,
 		1,
 		g_naves_0,
-		d_up}
+		d_up
+	}
 };
 
 u32 seed = 1;
@@ -155,9 +158,27 @@ void moverDerecha(TEntity* ent){
 }
 
 
-u8 updatePlayer(TEntity* player){
+u8 updatePlayer(TPlayer* player){
 	
+
+	//updateBullet(&player->bullet, player->ent.curr_dir);
+
 	return 1;
+}
+
+void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
+	bullet->ent.x = x;
+	bullet->ent.y = y;
+	bullet->ent.px = x;
+	bullet->ent.py = y;
+	bullet->ent.draw = SI;
+	bullet->ent.curr_dir = dir;
+}
+
+void updateBullet(TBullet* bullet, TPlayerDirection dir){
+	if(bullet->ent.draw == SI){
+		accion(&bullet->ent, es_mover, dir);
+	}
 }
 
 
@@ -204,23 +225,46 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h){
 }
 
 void borrarEntity(TEntity* ent){
-	u8 w = 4 + (ent->px & 1);
-	u8 h = 4 + (ent->py & 3 ? 1 : 0);
-	cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+	if(ent->draw){
+		u8 w = 4 + (ent->px & 1);
+		u8 h = 4 + (ent->py & 3 ? 1 : 0);
+		cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map1_W, ORIGEN_MAPA, mapa);
+	}
+	ent->px = ent->x;
+	ent->py = ent->y;
 }
 
 void dibujarEntity(TEntity* ent, u8 w, u8 h){
-	u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
-	cpct_drawSpriteMaskedAlignedTable(ent->sprite,vmem,w,h, g_tablatrans);
+	if (ent->draw) {
+		u8* vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+		cpct_drawSpriteMaskedAlignedTable(ent->sprite,vmem, w, h, g_tablatrans);
+	}
 }
 //Dibujamos todos los enemigos y el player
-void drawAll(TEntity* player){
+void drawAll(TPlayer* player){
+
 	u8 i;
 	//De momento se dibuja el player
-	redibujarEntity(player, G_NAVES_0_W, G_NAVES_0_H);
+	
+	borrarEntity(&player->ent);
 
+	for(i = 0; i < NUM_ENEMIGOS; i++){
+		borrarEntity(&enemigos[i]);
+
+	}
+
+	cpct_setBorder(HW_BLUE);
+	
+	dibujarEntity(&player->ent, G_NAVES_0_W, G_NAVES_0_H);
+
+	//redibujarEntity(&player->ent, G_NAVES_0_W, G_NAVES_0_H);
+	
+
+	//redibujarEntity(&player->bullet.ent, G_BALA_0_W, G_BALA_0_H);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; i++){
-		redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
+		//redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
+		dibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
 	}
+	cpct_setBorder(HW_WHITE);
 }
