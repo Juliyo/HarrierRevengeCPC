@@ -24,18 +24,22 @@ typedef enum{
 
 typedef struct Entity
 {
-	u8 x,y;
-	u8 px, py;
+	i16 x,y;
+	i16 px, py;
+	u8 vx, vy;
 	u8 draw;
 	u8* sprite;
+	u8 sw, sh;
+	TPlayerDirection curr_dir;
 	u8 tw, th, tpx, tpy;
 	u8* vmem;
-	TPlayerDirection curr_dir;
 }TEntity;
 
 typedef struct Bullet
 {
-	//Otras cosas
+	u8 frameCount;
+	u8 frameLimit;
+	u8 disparada;
 	TEntity ent;
 }TBullet;
 

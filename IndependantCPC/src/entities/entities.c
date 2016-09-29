@@ -13,30 +13,40 @@
 // Total random numbers to show (up to 255)
 #define N_RND_NUMBERS   50
 
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
+
 cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
 
 const TEntity enemigos[NUM_ENEMIGOS] = {
-	{	50,
-		157,
-		20,
-		157,
-		1,
-		g_naves_0,
-		d_up
+	{	50,				//x
+		157,			//y
+		20,				//px
+		157,			//py
+		1,				//vx
+		2,				//vy
+		1,				//draw
+		g_naves_0,		//sprite
+		G_BALA_0_W,
+		G_BALA_0_H,
+		d_up			//curr_dir
 	},
-	{	20,
-		50,
-		20,
-		50,
-		1,
-		g_naves_0,
-		d_up
+	{	20,				//x
+		50,				//y
+		20,				//px
+		50,				//py
+		1,				//vx
+		2,				//vy
+		1,				//draw
+		g_naves_0,		//sprite
+		G_BALA_0_W,
+		G_BALA_0_H,
+		d_up			//curr_dir
 	}
 };
 
 u32 seed = 1;
 u8 count1 = 0;
-u8 count2 = 0;
 
 void incializarEntities(){
 	//Inicializar entities necesarias
@@ -111,62 +121,53 @@ void flipSprite(TEntity* ent, TPlayerDirection dir){
 	}
 }*/
 void moverArriba(TEntity* ent){
-	if (ent->y > 0) {
-		if(ent->y%2 == 0)
-      		ent->y-=2;
-      	else
-      		ent->y--;
+	//Movemos y resolvemos colisiones con los bordes
+	ent->y -= ent->vy;
+	if(MAX(ORIGEN_MAPA_Y, ent->y) == ORIGEN_MAPA_Y){
+		ent->y = ORIGEN_MAPA_Y;
+		//Cambiar mapa
+	}
 
-      ent->draw  = SI;
-  	}else{
-
-  		//Aqui yo haria scroll del mapa
-  	}
+    ent->draw  = SI;
 }
 
 void moverAbajo(TEntity* ent){
-	if (ent->y + G_NAVES_0_H < ALTO) {
-		if(ent->y%2 == 0)
-      		ent->y+=2;
-      	else
-      		ent->y++;
-
-      ent->draw  = SI;
-  	}else{
-
-  		//Aqui yo haria scroll del mapa
-  	}
+	//Movemos y resolvemos colisiones con los bordes
+	ent->y += ent->vy;
+	if(MIN(ent->y, ALTO - ent->sh) != ent->y)
+		ent->y = ALTO - ent->sh;	
+	//else Cambiar de mapa
+    ent->draw  = SI;
 }
 
 void moverIzquierda(TEntity* ent){
-	if (ent->x > 0) {
-      ent->x--;
-      ent->draw  = SI;
-  	}else{
-
-  		//Aqui yo haria scroll del mapa
-  	}
+  	//Movemos y resolvemos colisiones con los bordes
+	ent->x -= ent->vx;
+	if(MAX(0, ent->x) == 0)
+		ent->x = 0;
+	//else Cambiar mapa
+	
+	ent->draw  = SI;
 }
 void moverDerecha(TEntity* ent){
-	if (ent->x + G_NAVES_0_W < ANCHO) {
-      ent->x++;
-      ent->draw  = SI;
-  	}else{
-
-  		//Aqui yo haria scroll del mapa
-  	}
+	//Movemos y resolvemos colisiones con los bordes
+	ent->x += ent->vx;
+	if(MIN(ent->x, ANCHO - ent->sw) != ent->x)
+		ent->x = ANCHO - ent->sw;	
+	//else Cambiar de mapa
+    ent->draw  = SI;
 }
 
 
 u8 updatePlayer(TPlayer* player){
 	
-
-	//updateBullet(&player->bullet, player->ent.curr_dir);
+	updateBullet(&player->bullet, player->ent.curr_dir);
 
 	return 1;
 }
 
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
+	bullet->disparada = SI;
 	bullet->ent.x = x;
 	bullet->ent.y = y;
 	bullet->ent.px = x;
@@ -176,8 +177,18 @@ void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 }
 
 void updateBullet(TBullet* bullet, TPlayerDirection dir){
-	if(bullet->ent.draw == SI){
-		accion(&bullet->ent, es_mover, dir);
+	//Solo updateamos la bala si ha sido disparada
+	if(bullet->disparada == SI){
+		//Actualizamos la bala cada 30 frames
+		if(bullet->frameCount > bullet->frameLimit){
+			
+			bullet->ent.draw = SI;
+			accion(&bullet->ent, es_mover, dir);
+			
+			bullet->frameCount = 0;
+		}else{
+			bullet->frameCount++;
+		}
 	}
 }
 
@@ -249,6 +260,7 @@ void calculaEntity(TEntity* ent){
 void calculaAllEntities(TPlayer* player){
 	u8 i;
 	calculaEntity(&player->ent);
+	calculaEntity(&player->bullet.ent);
 	for(i=0;i < NUM_ENEMIGOS;++i){
 		calculaEntity(&enemigos[i]);
 	}
@@ -258,7 +270,7 @@ void calculaAllEntities(TPlayer* player){
 void drawAll(TPlayer* player){
 	u8 i;
 	redibujarEntity(&player->ent, G_NAVES_0_W, G_NAVES_0_H);
-	//redibujarEntity(&player->bullet.ent, G_BALA_0_W, G_BALA_0_H);
+	redibujarEntity(&player->bullet.ent, G_BALA_0_W, G_BALA_0_H);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);

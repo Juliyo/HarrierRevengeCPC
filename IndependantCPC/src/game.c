@@ -9,25 +9,36 @@
 #include "entities/entities.h"
 
 const TPlayer player = {
-	{
+	{		
+		0,	
+		2,
+		NO,
 		{
-			0,
-			0,
-			0,
-			0,
-			NO,
-			g_bala_0,
-			d_up
+			0,				//x
+			0,				//y
+			0,				//px
+			0,				//py
+			6,				//vx
+			12,				//vy
+			NO,				//draw
+			g_bala_0,		//sprite
+			G_BALA_0_W,		//sw
+			G_BALA_0_H,		//sh
+			d_up			//curr_dir
 		}
 	},
 	{
-		20,
-		157,
-		20,
-		157,
-		SI,
-		g_naves_0,
-		d_up
+		20,				//x
+		157,			//y
+		20,				//px
+		157,			//py
+		1,				//vx
+		2,				//vy
+		SI,				//draw
+		g_naves_0,		//sprite
+		G_NAVES_0_W,	//sw
+		G_NAVES_0_H,	//sh
+		d_up			//curr_dir
 	}
 
 	
@@ -78,10 +89,9 @@ void play(){
 
 	//Esto seria mientras estes vivo
 	while(alive){
-		cpct_waitVSYNC();
 		updateUser();
 		alive = updatePlayer(&player);
-		updateEntities();
+		//updateEntities();
 		//cpct_setBorder(HW_RED);
 		calculaAllEntities(&player);
 		//cpct_setBorder(HW_RED);
