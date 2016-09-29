@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <cpctelera.h>
 #include "sprites/naves.h"
-#include "sprites/tileset4x4.h"
 #include "sprites/bala.h"
 #include "mapas/mapa1.h"
+#include "sprites/paletajulinho.h"
+#include "mapas/map11.h"
 
 #include "game.h"
 #include "entities/entities.h"
@@ -51,14 +52,14 @@ void inicializarPantalla(){
 	//Limpiar la pantalla
 	cpct_clearScreen(0);
 
-	mapa = g_map1;
+	mapa = g_map11;
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
 	//Aqui dibujariamos cosas de la pantalla 
 }
 
 void dibujarMapa(){
-	cpct_etm_drawTilemap2x4(g_map1_W, g_map1_H, ORIGEN_MAPA, mapa);
+	cpct_etm_drawTilemap2x4(g_map11_W, g_map11_H, ORIGEN_MAPA, mapa);
 }
 
 void updateUser(){

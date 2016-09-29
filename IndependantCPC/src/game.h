@@ -6,7 +6,7 @@
 #define ANCHO 80
 #define ALTO 200
 
-#define ORIGEN_MAPA_Y 0
+#define ORIGEN_MAPA_Y 40
 #define ORIGEN_MAPA cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
 typedef enum {

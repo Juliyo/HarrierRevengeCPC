@@ -63,4 +63,9 @@
 ## will contain 2 tile IDs.
 ##
 
-$(eval $(call TMX2C,resources/mapa1.tmx,g_map1,src/mapas/))
+$(eval $(call TMX2C,resources/map11.tmx,g_map11,src/mapas/))
+$(eval $(call TMX2C,resources/map12.tmx,g_map12,src/mapas/))
+$(eval $(call TMX2C,resources/map21.tmx,g_map21,src/mapas/))
+$(eval $(call TMX2C,resources/map22.tmx,g_map22,src/mapas/))
+$(eval $(call TMX2C,resources/map31.tmx,g_map31,src/mapas/))
+$(eval $(call TMX2C,resources/map32.tmx,g_map32,src/mapas/))

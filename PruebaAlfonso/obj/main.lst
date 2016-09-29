@@ -1,0 +1,461 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module main
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _main
+                             12 	.globl _inicializar
+                             13 	.globl _redibujarProta
+                             14 	.globl _borrarProta
+                             15 	.globl _comprobarTeclado
+                             16 	.globl _moverDerecha
+                             17 	.globl _moverIzquierda
+                             18 	.globl _dibujarMapa
+                             19 	.globl _dibujaRotulo
+                             20 	.globl _dibujarProta
+                             21 	.globl _interrupcion
+                             22 	.globl _cpct_etm_setTileset2x4
+                             23 	.globl _cpct_etm_drawTileBox2x4
+                             24 	.globl _cpct_getScreenPtr
+                             25 	.globl _cpct_setPALColour
+                             26 	.globl _cpct_setPalette
+                             27 	.globl _cpct_setVideoMode
+                             28 	.globl _cpct_drawSpriteMaskedAlignedTable
+                             29 	.globl _cpct_drawSprite
+                             30 	.globl _cpct_isAnyKeyPressed
+                             31 	.globl _cpct_isKeyPressed
+                             32 	.globl _cpct_scanKeyboard_if
+                             33 	.globl _cpct_setInterruptHandler
+                             34 	.globl _cpct_disableFirmware
+                             35 	.globl _mapa
+                             36 	.globl _prota
+                             37 ;--------------------------------------------------------
+                             38 ; special function registers
+                             39 ;--------------------------------------------------------
+                             40 ;--------------------------------------------------------
+                             41 ; ram data
+                             42 ;--------------------------------------------------------
+                             43 	.area _DATA
+   0000                      44 _prota::
+   0000                      45 	.ds 7
+   0007                      46 _mapa::
+   0007                      47 	.ds 2
+   0009                      48 _interrupcion_kk_1_77:
+   0009                      49 	.ds 1
+                             50 ;--------------------------------------------------------
+                             51 ; ram data
+                             52 ;--------------------------------------------------------
+                             53 	.area _INITIALIZED
+                             54 ;--------------------------------------------------------
+                             55 ; absolute external ram data
+                             56 ;--------------------------------------------------------
+                             57 	.area _DABS (ABS)
+                             58 ;--------------------------------------------------------
+                             59 ; global & static initialisations
+                             60 ;--------------------------------------------------------
+                             61 	.area _HOME
+                             62 	.area _GSINIT
+                             63 	.area _GSFINAL
+                             64 	.area _GSINIT
+                             65 ;--------------------------------------------------------
+                             66 ; Home
+                             67 ;--------------------------------------------------------
+                             68 	.area _HOME
+                             69 	.area _HOME
+                             70 ;--------------------------------------------------------
+                             71 ; code
+                             72 ;--------------------------------------------------------
+                             73 	.area _CODE
+                             74 ;src/main.c:36: cpctm_createTransparentMaskTable(g_tablatrans,0x0100, M0, 0);
+                             75 ;	---------------------------------
+                             76 ; Function dummy_cpct_transparentMaskTable0M0_container
+                             77 ; ---------------------------------
+   0000                      78 _dummy_cpct_transparentMaskTable0M0_container::
+                             79 	.area _g_tablatrans_ (ABS) 
+   0100                      80 	.org 0x0100 
+   0100                      81 	 _g_tablatrans::
+   0100 FF AA 55 00 AA AA    82 	.db 0xFF, 0xAA, 0x55, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+        00 00
+   0108 55 00 55 00 00 00    83 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0110 AA AA 00 00 AA AA    84 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+        00 00
+   0118 00 00 00 00 00 00    85 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0120 55 00 55 00 00 00    86 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0128 55 00 55 00 00 00    87 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0130 00 00 00 00 00 00    88 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0138 00 00 00 00 00 00    89 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0140 AA AA 00 00 AA AA    90 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+        00 00
+   0148 00 00 00 00 00 00    91 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0150 AA AA 00 00 AA AA    92 	.db 0xAA, 0xAA, 0x00, 0x00, 0xAA, 0xAA, 0x00, 0x00 
+        00 00
+   0158 00 00 00 00 00 00    93 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0160 00 00 00 00 00 00    94 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0168 00 00 00 00 00 00    95 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0170 00 00 00 00 00 00    96 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0178 00 00 00 00 00 00    97 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0180 55 00 55 00 00 00    98 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0188 55 00 55 00 00 00    99 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0190 00 00 00 00 00 00   100 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   0198 00 00 00 00 00 00   101 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01A0 55 00 55 00 00 00   102 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01A8 55 00 55 00 00 00   103 	.db 0x55, 0x00, 0x55, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01B0 00 00 00 00 00 00   104 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01B8 00 00 00 00 00 00   105 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01C0 00 00 00 00 00 00   106 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01C8 00 00 00 00 00 00   107 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01D0 00 00 00 00 00 00   108 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01D8 00 00 00 00 00 00   109 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01E0 00 00 00 00 00 00   110 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01E8 00 00 00 00 00 00   111 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01F0 00 00 00 00 00 00   112 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+   01F8 00 00 00 00 00 00   113 	.db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 
+        00 00
+                            114 	.area _CSEG (REL, CON) 
+                            115 ;src/main.c:51: void interrupcion() {
+                            116 ;	---------------------------------
+                            117 ; Function interrupcion
+                            118 ; ---------------------------------
+   0000                     119 _interrupcion::
+                            120 ;src/main.c:54: if (++kk == 5) {
+   0000 21r09r00      [10]  121 	ld	hl, #_interrupcion_kk_1_77+0
+   0003 34            [11]  122 	inc	(hl)
+   0004 3Ar09r00      [13]  123 	ld	a,(#_interrupcion_kk_1_77 + 0)
+   0007 D6 05         [ 7]  124 	sub	a, #0x05
+   0009 C0            [11]  125 	ret	NZ
+                            126 ;src/main.c:56: cpct_scanKeyboard_if();
+   000A CDr00r00      [17]  127 	call	_cpct_scanKeyboard_if
+                            128 ;src/main.c:57: kk = 0;
+   000D 21r09r00      [10]  129 	ld	hl,#_interrupcion_kk_1_77 + 0
+   0010 36 00         [10]  130 	ld	(hl), #0x00
+   0012 C9            [10]  131 	ret
+                            132 ;src/main.c:61: void dibujarProta(){
+                            133 ;	---------------------------------
+                            134 ; Function dibujarProta
+                            135 ; ---------------------------------
+   0013                     136 _dibujarProta::
+                            137 ;src/main.c:63: u8* pvmem	= cpct_getScreenPtr(CPCT_VMEM_START, prota.x, prota.y);
+   0013 21r01r00      [10]  138 	ld	hl, #_prota + 1
+   0016 56            [ 7]  139 	ld	d,(hl)
+   0017 21r00r00      [10]  140 	ld	hl, #_prota + 0
+   001A 46            [ 7]  141 	ld	b,(hl)
+   001B D5            [11]  142 	push	de
+   001C 33            [ 6]  143 	inc	sp
+   001D C5            [11]  144 	push	bc
+   001E 33            [ 6]  145 	inc	sp
+   001F 21 00 C0      [10]  146 	ld	hl,#0xC000
+   0022 E5            [11]  147 	push	hl
+   0023 CDr00r00      [17]  148 	call	_cpct_getScreenPtr
+   0026 EB            [ 4]  149 	ex	de,hl
+                            150 ;src/main.c:73: G_NAVE_0_H, g_tablatrans);
+                            151 ;src/main.c:72: cpct_drawSpriteMaskedAlignedTable (prota.sprite, pvmem, G_NAVE_0_W, 
+   0027 ED 4Br04r00   [20]  152 	ld	bc, (#_prota + 4)
+   002B 21r00r01      [10]  153 	ld	hl,#_g_tablatrans
+   002E E5            [11]  154 	push	hl
+   002F 21 08 10      [10]  155 	ld	hl,#0x1008
+   0032 E5            [11]  156 	push	hl
+   0033 D5            [11]  157 	push	de
+   0034 C5            [11]  158 	push	bc
+   0035 CDr00r00      [17]  159 	call	_cpct_drawSpriteMaskedAlignedTable
+   0038 C9            [10]  160 	ret
+                            161 ;src/main.c:78: void dibujaRotulo(){
+                            162 ;	---------------------------------
+                            163 ; Function dibujaRotulo
+                            164 ; ---------------------------------
+   0039                     165 _dibujaRotulo::
+                            166 ;src/main.c:79: cpct_drawSprite(g_retropolis_0, 
+   0039 21 28 42      [10]  167 	ld	hl,#0x4228
+   003C E5            [11]  168 	push	hl
+   003D 21 00 C0      [10]  169 	ld	hl,#0xC000
+   0040 E5            [11]  170 	push	hl
+   0041 21r00r00      [10]  171 	ld	hl,#_g_retropolis_0
+   0044 E5            [11]  172 	push	hl
+   0045 CDr00r00      [17]  173 	call	_cpct_drawSprite
+                            174 ;src/main.c:82: cpct_drawSprite(g_retropolis_1,
+   0048 21 28 42      [10]  175 	ld	hl,#0x4228
+   004B E5            [11]  176 	push	hl
+   004C 26 C0         [ 7]  177 	ld	h, #0xC0
+   004E E5            [11]  178 	push	hl
+   004F 21r00r00      [10]  179 	ld	hl,#_g_retropolis_1
+   0052 E5            [11]  180 	push	hl
+   0053 CDr00r00      [17]  181 	call	_cpct_drawSprite
+   0056 C9            [10]  182 	ret
+                            183 ;src/main.c:88: void dibujarMapa(){
+                            184 ;	---------------------------------
+                            185 ; Function dibujarMapa
+                            186 ; ---------------------------------
+   0057                     187 _dibujarMapa::
+                            188 ;src/main.c:89: cpct_etm_drawTilemap2x4(g_map1_W, g_map1_H, cpctm_screenPtr(CPCT_VMEM_START,0,68)
+   0057 2Ar07r00      [16]  189 	ld	hl,(_mapa)
+   005A E5            [11]  190 	push	hl
+   005B 21 80 E2      [10]  191 	ld	hl,#0xE280
+   005E E5            [11]  192 	push	hl
+   005F 21 21 28      [10]  193 	ld	hl,#0x2821
+   0062 E5            [11]  194 	push	hl
+   0063 2E 00         [ 7]  195 	ld	l, #0x00
+   0065 E5            [11]  196 	push	hl
+   0066 AF            [ 4]  197 	xor	a, a
+   0067 F5            [11]  198 	push	af
+   0068 33            [ 6]  199 	inc	sp
+   0069 CDr00r00      [17]  200 	call	_cpct_etm_drawTileBox2x4
+   006C C9            [10]  201 	ret
+                            202 ;src/main.c:96: void moverIzquierda(){
+                            203 ;	---------------------------------
+                            204 ; Function moverIzquierda
+                            205 ; ---------------------------------
+   006D                     206 _moverIzquierda::
+                            207 ;src/main.c:97: if(prota.x > 0 ){
+   006D 01r00r00      [10]  208 	ld	bc,#_prota+0
+   0070 0A            [ 7]  209 	ld	a,(bc)
+   0071 B7            [ 4]  210 	or	a, a
+   0072 C8            [11]  211 	ret	Z
+                            212 ;src/main.c:98: prota.x--;
+   0073 C6 FF         [ 7]  213 	add	a,#0xFF
+   0075 02            [ 7]  214 	ld	(bc),a
+                            215 ;src/main.c:99: prota.mover = SI;
+   0076 21r06r00      [10]  216 	ld	hl,#(_prota + 0x0006)
+   0079 36 01         [10]  217 	ld	(hl),#0x01
+   007B C9            [10]  218 	ret
+                            219 ;src/main.c:103: void moverDerecha(){
+                            220 ;	---------------------------------
+                            221 ; Function moverDerecha
+                            222 ; ---------------------------------
+   007C                     223 _moverDerecha::
+                            224 ;src/main.c:104: if(prota.x < LIMITE_DERECHO){
+   007C 21r00r00      [10]  225 	ld	hl,#_prota+0
+   007F 4E            [ 7]  226 	ld	c,(hl)
+   0080 79            [ 4]  227 	ld	a,c
+   0081 D6 48         [ 7]  228 	sub	a, #0x48
+   0083 D0            [11]  229 	ret	NC
+                            230 ;src/main.c:105: prota.x++;
+   0084 0C            [ 4]  231 	inc	c
+   0085 71            [ 7]  232 	ld	(hl),c
+                            233 ;src/main.c:106: prota.mover = SI;
+   0086 21r06r00      [10]  234 	ld	hl,#(_prota + 0x0006)
+   0089 36 01         [10]  235 	ld	(hl),#0x01
+   008B C9            [10]  236 	ret
+                            237 ;src/main.c:110: void comprobarTeclado(){
+                            238 ;	---------------------------------
+                            239 ; Function comprobarTeclado
+                            240 ; ---------------------------------
+   008C                     241 _comprobarTeclado::
+                            242 ;src/main.c:112: cpct_scanKeyboard_if();
+   008C CDr00r00      [17]  243 	call	_cpct_scanKeyboard_if
+                            244 ;src/main.c:113: if(cpct_isAnyKeyPressed()){
+   008F CDr00r00      [17]  245 	call	_cpct_isAnyKeyPressed
+   0092 7D            [ 4]  246 	ld	a,l
+   0093 B7            [ 4]  247 	or	a, a
+   0094 C8            [11]  248 	ret	Z
+                            249 ;src/main.c:114: if(cpct_isKeyPressed(Key_CursorLeft)){
+   0095 21 01 01      [10]  250 	ld	hl,#0x0101
+   0098 CDr00r00      [17]  251 	call	_cpct_isKeyPressed
+   009B 7D            [ 4]  252 	ld	a,l
+   009C B7            [ 4]  253 	or	a, a
+                            254 ;src/main.c:115: moverIzquierda();
+   009D C2r6Dr00      [10]  255 	jp	NZ,_moverIzquierda
+                            256 ;src/main.c:116: }else if(cpct_isKeyPressed(Key_CursorRight)){
+   00A0 21 00 02      [10]  257 	ld	hl,#0x0200
+   00A3 CDr00r00      [17]  258 	call	_cpct_isKeyPressed
+   00A6 7D            [ 4]  259 	ld	a,l
+   00A7 B7            [ 4]  260 	or	a, a
+   00A8 C8            [11]  261 	ret	Z
+                            262 ;src/main.c:117: moverDerecha();
+   00A9 C3r7Cr00      [10]  263 	jp  _moverDerecha
+                            264 ;src/main.c:128: void borrarProta(){
+                            265 ;	---------------------------------
+                            266 ; Function borrarProta
+                            267 ; ---------------------------------
+   00AC                     268 _borrarProta::
+   00AC DD E5         [15]  269 	push	ix
+   00AE DD 21 00 00   [14]  270 	ld	ix,#0
+   00B2 DD 39         [15]  271 	add	ix,sp
+   00B4 F5            [11]  272 	push	af
+   00B5 3B            [ 6]  273 	dec	sp
+                            274 ;src/main.c:130: u8 w = 2 + (prota.px & 1);
+   00B6 21r02r00      [10]  275 	ld	hl, #_prota + 2
+   00B9 4E            [ 7]  276 	ld	c,(hl)
+   00BA 79            [ 4]  277 	ld	a,c
+   00BB E6 01         [ 7]  278 	and	a, #0x01
+   00BD 47            [ 4]  279 	ld	b,a
+   00BE 04            [ 4]  280 	inc	b
+   00BF 04            [ 4]  281 	inc	b
+                            282 ;src/main.c:131: u8 h = 7 + (prota.py & 3 ? 1: 0);
+   00C0 21r03r00      [10]  283 	ld	hl, #_prota + 3
+   00C3 5E            [ 7]  284 	ld	e,(hl)
+   00C4 7B            [ 4]  285 	ld	a,e
+   00C5 E6 03         [ 7]  286 	and	a, #0x03
+   00C7 28 04         [12]  287 	jr	Z,00103$
+   00C9 3E 01         [ 7]  288 	ld	a,#0x01
+   00CB 18 02         [12]  289 	jr	00104$
+   00CD                     290 00103$:
+   00CD 3E 00         [ 7]  291 	ld	a,#0x00
+   00CF                     292 00104$:
+   00CF C6 07         [ 7]  293 	add	a, #0x07
+   00D1 DD 77 FD      [19]  294 	ld	-3 (ix),a
+                            295 ;src/main.c:132: cpct_etm_drawTileBox2x4 (prota.px/2, (prota.py - ORIGEN_MAPA_Y)/4,w, h,g_map1_W,ORIGEN_MAPA,mapa);
+   00D4 FD 2Ar07r00   [20]  296 	ld	iy,(_mapa)
+   00D8 16 00         [ 7]  297 	ld	d,#0x00
+   00DA 7B            [ 4]  298 	ld	a,e
+   00DB C6 BC         [ 7]  299 	add	a,#0xBC
+   00DD DD 77 FE      [19]  300 	ld	-2 (ix),a
+   00E0 7A            [ 4]  301 	ld	a,d
+   00E1 CE FF         [ 7]  302 	adc	a,#0xFF
+   00E3 DD 77 FF      [19]  303 	ld	-1 (ix),a
+   00E6 DD 6E FE      [19]  304 	ld	l,-2 (ix)
+   00E9 DD 66 FF      [19]  305 	ld	h,-1 (ix)
+   00EC DD CB FF 7E   [20]  306 	bit	7, -1 (ix)
+   00F0 28 04         [12]  307 	jr	Z,00105$
+   00F2 21 BF FF      [10]  308 	ld	hl,#0xFFBF
+   00F5 19            [11]  309 	add	hl,de
+   00F6                     310 00105$:
+   00F6 CB 2C         [ 8]  311 	sra	h
+   00F8 CB 1D         [ 8]  312 	rr	l
+   00FA CB 2C         [ 8]  313 	sra	h
+   00FC CB 1D         [ 8]  314 	rr	l
+   00FE 55            [ 4]  315 	ld	d,l
+   00FF CB 39         [ 8]  316 	srl	c
+   0101 FD E5         [15]  317 	push	iy
+   0103 21 80 E2      [10]  318 	ld	hl,#0xE280
+   0106 E5            [11]  319 	push	hl
+   0107 3E 28         [ 7]  320 	ld	a,#0x28
+   0109 F5            [11]  321 	push	af
+   010A 33            [ 6]  322 	inc	sp
+   010B DD 7E FD      [19]  323 	ld	a,-3 (ix)
+   010E F5            [11]  324 	push	af
+   010F 33            [ 6]  325 	inc	sp
+   0110 C5            [11]  326 	push	bc
+   0111 33            [ 6]  327 	inc	sp
+   0112 D5            [11]  328 	push	de
+   0113 33            [ 6]  329 	inc	sp
+   0114 79            [ 4]  330 	ld	a,c
+   0115 F5            [11]  331 	push	af
+   0116 33            [ 6]  332 	inc	sp
+   0117 CDr00r00      [17]  333 	call	_cpct_etm_drawTileBox2x4
+   011A DD F9         [10]  334 	ld	sp, ix
+   011C DD E1         [14]  335 	pop	ix
+   011E C9            [10]  336 	ret
+                            337 ;src/main.c:136: void redibujarProta(){
+                            338 ;	---------------------------------
+                            339 ; Function redibujarProta
+                            340 ; ---------------------------------
+   011F                     341 _redibujarProta::
+                            342 ;src/main.c:138: borrarProta();
+   011F CDrACr00      [17]  343 	call	_borrarProta
+                            344 ;src/main.c:139: prota.px = prota.x;
+   0122 01r02r00      [10]  345 	ld	bc,#_prota + 2
+   0125 3Ar00r00      [13]  346 	ld	a, (#_prota + 0)
+   0128 02            [ 7]  347 	ld	(bc),a
+                            348 ;src/main.c:140: prota.py = prota.y;
+   0129 01r03r00      [10]  349 	ld	bc,#_prota + 3
+   012C 3Ar01r00      [13]  350 	ld	a, (#_prota + 1)
+   012F 02            [ 7]  351 	ld	(bc),a
+                            352 ;src/main.c:141: dibujarProta();
+   0130 C3r13r00      [10]  353 	jp  _dibujarProta
+                            354 ;src/main.c:148: void inicializar(){
+                            355 ;	---------------------------------
+                            356 ; Function inicializar
+                            357 ; ---------------------------------
+   0133                     358 _inicializar::
+                            359 ;src/main.c:150: cpct_disableFirmware();
+   0133 CDr00r00      [17]  360 	call	_cpct_disableFirmware
+                            361 ;src/main.c:151: cpct_setVideoMode(0);
+   0136 2E 00         [ 7]  362 	ld	l,#0x00
+   0138 CDr00r00      [17]  363 	call	_cpct_setVideoMode
+                            364 ;src/main.c:152: cpct_setBorder(HW_BLACK);
+   013B 21 10 14      [10]  365 	ld	hl,#0x1410
+   013E E5            [11]  366 	push	hl
+   013F CDr00r00      [17]  367 	call	_cpct_setPALColour
+                            368 ;src/main.c:153: cpct_setPalette(g_palette, 16);
+   0142 21 10 00      [10]  369 	ld	hl,#0x0010
+   0145 E5            [11]  370 	push	hl
+   0146 21r00r00      [10]  371 	ld	hl,#_g_palette
+   0149 E5            [11]  372 	push	hl
+   014A CDr00r00      [17]  373 	call	_cpct_setPalette
+                            374 ;src/main.c:155: prota.x = prota.px = 20;
+   014D 21r02r00      [10]  375 	ld	hl,#(_prota + 0x0002)
+   0150 36 14         [10]  376 	ld	(hl),#0x14
+   0152 21r00r00      [10]  377 	ld	hl,#_prota
+   0155 36 14         [10]  378 	ld	(hl),#0x14
+                            379 ;src/main.c:156: prota.y = prota.py = 160;
+   0157 21r03r00      [10]  380 	ld	hl,#(_prota + 0x0003)
+   015A 36 A0         [10]  381 	ld	(hl),#0xA0
+   015C 21r01r00      [10]  382 	ld	hl,#(_prota + 0x0001)
+   015F 36 A0         [10]  383 	ld	(hl),#0xA0
+                            384 ;src/main.c:157: prota.mover = NO;
+   0161 21r06r00      [10]  385 	ld	hl,#(_prota + 0x0006)
+   0164 36 00         [10]  386 	ld	(hl),#0x00
+                            387 ;src/main.c:158: prota.sprite = g_nave_0;
+   0166 21r00r00      [10]  388 	ld	hl,#_g_nave_0
+   0169 22r04r00      [16]  389 	ld	((_prota + 0x0004)), hl
+                            390 ;src/main.c:160: dibujaRotulo();
+   016C CDr39r00      [17]  391 	call	_dibujaRotulo
+                            392 ;src/main.c:163: mapa = g_map1;
+   016F 21r00r00      [10]  393 	ld	hl,#_g_map1+0
+   0172 22r07r00      [16]  394 	ld	(_mapa),hl
+                            395 ;src/main.c:164: cpct_etm_setTileset2x4(g_tileset);
+   0175 21r00r00      [10]  396 	ld	hl,#_g_tileset
+   0178 CDr00r00      [17]  397 	call	_cpct_etm_setTileset2x4
+                            398 ;src/main.c:165: dibujarMapa();
+   017B CDr57r00      [17]  399 	call	_dibujarMapa
+                            400 ;src/main.c:167: dibujarProta();
+   017E CDr13r00      [17]  401 	call	_dibujarProta
+                            402 ;src/main.c:169: cpct_setInterruptHandler(interrupcion);
+   0181 21r00r00      [10]  403 	ld	hl,#_interrupcion
+   0184 CDr00r00      [17]  404 	call	_cpct_setInterruptHandler
+   0187 C9            [10]  405 	ret
+                            406 ;src/main.c:180: void main(void) {
+                            407 ;	---------------------------------
+                            408 ; Function main
+                            409 ; ---------------------------------
+   0188                     410 _main::
+                            411 ;src/main.c:182: inicializar();
+   0188 CDr33r01      [17]  412 	call	_inicializar
+                            413 ;src/main.c:186: while (1){
+   018B                     414 00104$:
+                            415 ;src/main.c:187: comprobarTeclado();
+   018B CDr8Cr00      [17]  416 	call	_comprobarTeclado
+                            417 ;src/main.c:188: if(prota.mover){
+   018E 3Ar06r00      [13]  418 	ld	a, (#(_prota + 0x0006) + 0)
+   0191 B7            [ 4]  419 	or	a, a
+   0192 28 F7         [12]  420 	jr	Z,00104$
+                            421 ;src/main.c:189: redibujarProta(); //es muy lento dibujarlo todo el rato
+   0194 CDr1Fr01      [17]  422 	call	_redibujarProta
+                            423 ;src/main.c:190: prota.mover = NO;
+   0197 21r06r00      [10]  424 	ld	hl,#(_prota + 0x0006)
+   019A 36 00         [10]  425 	ld	(hl),#0x00
+   019C 18 ED         [12]  426 	jr	00104$
+                            427 	.area _CODE
+                            428 	.area _INITIALIZER
+                            429 	.area _CABS (ABS)

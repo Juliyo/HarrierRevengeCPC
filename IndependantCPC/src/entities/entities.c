@@ -2,7 +2,7 @@
 
 #include <cpctelera.h>
 #include "entities.h"
-#include "../mapas/mapa1.h"
+#include "../mapas/map11.h"
 #include "../sprites/naves.h"
 #include "../sprites/bala.h"
 #include "../game.h"
