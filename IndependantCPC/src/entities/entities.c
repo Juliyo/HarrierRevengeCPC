@@ -108,7 +108,7 @@ void flipSprite(TEntity* ent, TPlayerDirection dir){
 	}
 }*/
 void moverArriba(TEntity* ent){
-	/*if (ent->y > 0) {
+	if (ent->y > 0) {
 		if(ent->y%2 == 0)
       		ent->y-=2;
       	else
@@ -118,9 +118,9 @@ void moverArriba(TEntity* ent){
   	}else{
 
   		//Aqui yo haria scroll del mapa
-  	}*/
+  	}
 
-  		ent->y--;
+  		
 }
 
 void moverAbajo(TEntity* ent){
@@ -208,7 +208,7 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h){
 void borrarEntity(TEntity* ent){
 	u8 w = 4 + (ent->px & 1);
 	u8 h = 4 + (ent->py & 3 ? 1 : 0);
-	cpct_etm_drawTileBox2x4(ent->px / 2, ent->py /4, w, h, g_map11_W, ORIGEN_MAPA, mapa);
+	cpct_etm_drawTileBox2x4(ent->px / 2, (ent->py - ORIGEN_MAPA_Y)/4, w, h, g_map11_W, ORIGEN_MAPA, mapa);
 }
 
 void dibujarEntity(TEntity* ent, u8 w, u8 h){
