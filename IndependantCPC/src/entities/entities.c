@@ -206,8 +206,8 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h){
 }
 
 void borrarEntity(TEntity* ent){
-	u8 w = 4 + (ent->px & 1);
-	u8 h = 4 + (ent->py & 3 ? 1 : 0);
+	u8 w = 2 + (ent->px & 1);
+	u8 h = 2 + (ent->py & 3 ? 1 : 0);
 	cpct_etm_drawTileBox2x4(ent->px / 2, (ent->py - ORIGEN_MAPA_Y)/4, w, h, g_map11_W, ORIGEN_MAPA, mapa);
 }
 
