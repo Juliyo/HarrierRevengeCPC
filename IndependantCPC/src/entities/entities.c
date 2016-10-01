@@ -187,14 +187,46 @@ u8 updatePlayer(TPlayer* player){
 
 	return 1;
 }
+//Ajusta la posicion de la bala a la posicion de la nave
+void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
+	switch(dir){
+		case d_up:
+			x+=1;
+			if(y >= ORIGEN_MAPA_Y + 7 )
+				y-=7;
+		break;
+		case d_right:
+			if(x + 5 <= ANCHO)
+				x+=5;
+			else
+				x = ANCHO - bullet->ent.sw;
+			y+=2;
 
+		break;
+		case d_left:
+			if(x > 6)
+				x-=5;
+			y+=2;
+
+		break;
+		case d_down:
+			if(y + 11 <= ALTO)
+				y +=11;
+			else
+				y = ALTO - bullet->ent.sh;
+			x +=1;
+		break;
+	}
+
+	bullet->ent.x = x;
+	bullet->ent.y = y;
+}
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 	if(!bullet->disparada){
 		bullet->disparada = SI;
-		bullet->ent.x = x;
-		bullet->ent.y = y;
-		bullet->ent.px = x;
-		bullet->ent.py = y;
+		corregirPosicion(bullet,x,y,dir);
+		bullet->ent.px = bullet->ent.x;
+		bullet->ent.py = bullet->ent.y;
 		bullet->ent.draw = SI;
 		bullet->ent.curr_dir = dir;
 	}
@@ -204,13 +236,16 @@ void updateBullet(TBullet* bullet){
 	//Solo updateamos la bala si ha sido disparada
 	if(bullet->disparada == SI){
 		//Actualizamos la bala cada 30 frames
-		if(bullet->frameCount > bullet->frameLimit){
+		if(bullet->frameCount >= bullet->frameLimit){
 			
 			bullet->ent.draw = SI;
 			//Se mueve la bala y si se devuelve el valor d_nothing es porque no hay colision con el borde
 			//En caso contrario habra colision y se podra volver a disparar
 			if(accion(&bullet->ent, es_mover, bullet->ent.curr_dir) != d_nothing){
 				bullet->disparada = NO;
+				calculaEntity(&bullet->ent);
+				borrarEntity(&bullet->ent);
+				bullet->ent.draw = NO;
 			}
 			
 			bullet->frameCount = 0;

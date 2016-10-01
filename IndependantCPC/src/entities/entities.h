@@ -28,6 +28,7 @@ TPlayerDirection moverDerecha(TEntity* ent);
 //Acciones Bullet
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
 void updateBullet(TBullet* bullet);
+void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
 
 //Operaciones con sprites
 void flipSprite(TEntity* ent, TPlayerDirection dir);

@@ -11,15 +11,15 @@
 const TPlayer player = {
 	{		
 		0,	
-		2,
+		1,
 		NO,
 		{
 			0,				//x
 			0,				//y
 			0,				//px
 			0,				//py
-			6,				//vx
-			12,				//vy
+			3,				//vx
+			6,				//vy
 			NO,				//draw
 			{				//sprites
 				g_bala_0,
@@ -78,7 +78,7 @@ void updateUser(){
 		if(cpct_isKeyPressed(Key_Space)){
 			disparar(&player.bullet, player.ent.x, player.ent.y, player.ent.curr_dir);
 		}
-		
+
 		if(cpct_isKeyPressed(Key_CursorUp)){
 			accion(&player.ent, es_mover, d_up);
 		}else if(cpct_isKeyPressed(Key_CursorDown)){
