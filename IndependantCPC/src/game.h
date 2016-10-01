@@ -17,9 +17,10 @@ typedef enum {
 
 typedef enum{
 	d_up,
-	d_down,
 	d_right,
-	d_left
+	d_down,
+	d_left,
+	d_nothing	//Usado para detectae colision con los bordes del mapa
 } TPlayerDirection;
 
 typedef struct Entity
@@ -28,7 +29,7 @@ typedef struct Entity
 	i16 px, py;
 	u8 vx, vy;
 	u8 draw;
-	u8* sprite;
+	u8* sprites[4];
 	u8 sw, sh;
 	TPlayerDirection curr_dir;
 	u8 tw, th, tpx, tpy;

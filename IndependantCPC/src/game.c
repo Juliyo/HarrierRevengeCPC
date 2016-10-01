@@ -2,7 +2,6 @@
 #include <cpctelera.h>
 #include "sprites/naves.h"
 #include "sprites/bala.h"
-#include "mapas/mapa1.h"
 #include "sprites/paletajulinho.h"
 #include "mapas/map11.h"
 
@@ -22,7 +21,12 @@ const TPlayer player = {
 			6,				//vx
 			12,				//vy
 			NO,				//draw
-			g_bala_0,		//sprite
+			{				//sprites
+				g_bala_0,
+				g_bala_1,
+				g_bala_2,
+				g_bala_3,
+			},		
 			G_BALA_0_W,		//sw
 			G_BALA_0_H,		//sh
 			d_up			//curr_dir
@@ -36,7 +40,12 @@ const TPlayer player = {
 		1,				//vx
 		2,				//vy
 		SI,				//draw
-		g_naves_0,		//sprite
+		{				//sprites
+			g_naves_0,
+			g_naves_1,
+			g_naves_2,
+			g_naves_3,
+		},	
 		G_NAVES_0_W,	//sw
 		G_NAVES_0_H,	//sh
 		d_up			//curr_dir
@@ -66,6 +75,10 @@ void updateUser(){
 	// Scan Keyboard
 	cpct_scanKeyboard_if();
 	if(cpct_isAnyKeyPressed()){
+		if(cpct_isKeyPressed(Key_Space)){
+			disparar(&player.bullet, player.ent.x, player.ent.y, player.ent.curr_dir);
+		}
+		
 		if(cpct_isKeyPressed(Key_CursorUp)){
 			accion(&player.ent, es_mover, d_up);
 		}else if(cpct_isKeyPressed(Key_CursorDown)){
@@ -74,8 +87,6 @@ void updateUser(){
 			accion(&player.ent,es_mover,d_right);
 		}else if(cpct_isKeyPressed(Key_CursorLeft)){
 			accion(&player.ent,es_mover,d_left);
-		}else if(cpct_isKeyPressed(Key_Space)){
-			disparar(&player.bullet, player.ent.x, player.ent.y, player.ent.curr_dir);
 		}
 	}
 

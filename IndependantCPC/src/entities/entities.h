@@ -19,15 +19,15 @@ void incializarEntities();
 
 
 //Acciones Entities
-void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir);
-void moverArriba(TEntity* ent);
-void moverAbajo(TEntity* ent);
-void moverIzquierda(TEntity* ent);
-void moverDerecha(TEntity* ent);
+TPlayerDirection accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir);
+TPlayerDirection moverArriba(TEntity* ent);
+TPlayerDirection moverAbajo(TEntity* ent);
+TPlayerDirection moverIzquierda(TEntity* ent);
+TPlayerDirection moverDerecha(TEntity* ent);
 
 //Acciones Bullet
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
-void updateBullet(TBullet* bullet, TPlayerDirection dir);
+void updateBullet(TBullet* bullet);
 
 //Operaciones con sprites
 void flipSprite(TEntity* ent, TPlayerDirection dir);

@@ -26,9 +26,14 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 		1,				//vx
 		2,				//vy
 		1,				//draw
-		g_naves_0,		//sprite
-		G_BALA_0_W,
-		G_BALA_0_H,
+		{				//sprites
+			g_naves_0,
+			g_naves_1,
+			g_naves_2,
+			g_naves_3,
+		},	
+		G_NAVES_0_W,
+		G_NAVES_0_H,
 		d_up			//curr_dir
 	},
 	{	20,				//x
@@ -38,9 +43,14 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 		1,				//vx
 		2,				//vy
 		1,				//draw
-		g_naves_0,		//sprite
-		G_BALA_0_W,
-		G_BALA_0_H,
+		{				//sprites
+			g_naves_0,
+			g_naves_1,
+			g_naves_2,
+			g_naves_3,
+		},	
+		G_NAVES_0_W,
+		G_NAVES_0_H,
 		d_up			//curr_dir
 	}
 };
@@ -53,53 +63,38 @@ void incializarEntities(){
 
 }
 
-//Este metodo habria que hacerlo compatible no solo con el player, sino con un tipo entity,
-//Asi ahorramos codigo cuando haya que mover enemigos
-void accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir){
+//Devuelve un TPlayerDirection que indica si ha habido colision con el borde y la direccion en la que se ha producido
+TPlayerDirection accion(TEntity* ent, TPlayerStatus action, TPlayerDirection dir){
+	TPlayerDirection collision;
 	switch(action){
 		case es_mover:
 			switch(dir){
 				case d_up:
-					moverArriba(ent);
-					//flipSprite(ent,dir);
+					collision = moverArriba(ent);
+					flipSprite(ent,dir);
 				break;
 				case d_down:
-					moverAbajo(ent);
-					//flipSprite(ent,dir);
+					collision = moverAbajo(ent);
+					flipSprite(ent,dir);
 				break;
 				case d_left:
-					moverIzquierda(ent);
-					//flipSprite(ent,dir);
+					collision = moverIzquierda(ent);
+					flipSprite(ent,dir);
 				break;
 				case d_right:
-					moverDerecha(ent);
-					//flipSprite(ent,dir);
+					collision = moverDerecha(ent);
+					flipSprite(ent,dir);
 				break;
 			}
 		break;
 
 	}
+	return collision;
 }
 
 //Recibe al entity y la direccion hacia la que quiere girar, entonces se cambia de sprite
 void flipSprite(TEntity* ent, TPlayerDirection dir){
 	if(ent->curr_dir != dir){
-		switch(dir){
-			case d_up:
-				ent->sprite = g_naves_0;
-				//flipByMolto();
-			break;
-			case d_down:
-				ent->sprite = g_naves_2;
-				//flipByMolto();
-			break;
-			case d_left:
-				ent->sprite = g_naves_3;
-			break;
-			case d_right:
-				ent->sprite = g_naves_1;
-			break;
-		}
 		ent->curr_dir = dir; 
 	}
 }
@@ -120,70 +115,103 @@ void flipSprite(TEntity* ent, TPlayerDirection dir){
 		}
 	}
 }*/
-void moverArriba(TEntity* ent){
+TPlayerDirection moverArriba(TEntity* ent){
+	TPlayerDirection collision;
 	//Movemos y resolvemos colisiones con los bordes
 	ent->y -= ent->vy;
 	if(MAX(ORIGEN_MAPA_Y, ent->y) == ORIGEN_MAPA_Y){
 		ent->y = ORIGEN_MAPA_Y;
 		//Cambiar mapa
+		collision = d_up;
+	}else{
+		collision = d_nothing;
 	}
 
     ent->draw  = SI;
+
+    return collision;
 }
 
-void moverAbajo(TEntity* ent){
+TPlayerDirection moverAbajo(TEntity* ent){
+	TPlayerDirection collision;
 	//Movemos y resolvemos colisiones con los bordes
 	ent->y += ent->vy;
-	if(MIN(ent->y, ALTO - ent->sh) != ent->y)
-		ent->y = ALTO - ent->sh;	
-	//else Cambiar de mapa
+	if(MIN(ent->y, ALTO - ent->sh) != ent->y){
+		ent->y = ALTO - ent->sh;
+		collision =  d_down;
+	}else{//else Cambiar de mapa
+		collision = d_nothing;
+	}
+	
     ent->draw  = SI;
+
+    return collision;
 }
 
-void moverIzquierda(TEntity* ent){
+TPlayerDirection moverIzquierda(TEntity* ent){
+	TPlayerDirection collision;
   	//Movemos y resolvemos colisiones con los bordes
 	ent->x -= ent->vx;
-	if(MAX(0, ent->x) == 0)
+	if(MAX(0, ent->x) == 0){
 		ent->x = 0;
-	//else Cambiar mapa
-	
+		// Cambiar mapa
+		collision = d_left;
+	}else{
+		collision = d_nothing;
+	}
 	ent->draw  = SI;
+
+	return collision;
 }
-void moverDerecha(TEntity* ent){
+TPlayerDirection moverDerecha(TEntity* ent){
+	TPlayerDirection collision;
 	//Movemos y resolvemos colisiones con los bordes
 	ent->x += ent->vx;
-	if(MIN(ent->x, ANCHO - ent->sw) != ent->x)
-		ent->x = ANCHO - ent->sw;	
-	//else Cambiar de mapa
+	if(MIN(ent->x, ANCHO - ent->sw) != ent->x){
+		// Cambiar de mapa
+		ent->x = ANCHO - ent->sw;
+		collision = d_right;
+	}else{
+		collision = d_nothing;
+	}
+	
     ent->draw  = SI;
+
+    return collision;
 }
 
 
 u8 updatePlayer(TPlayer* player){
 	
-	updateBullet(&player->bullet, player->ent.curr_dir);
+	updateBullet(&player->bullet);
 
 	return 1;
 }
 
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
-	bullet->disparada = SI;
-	bullet->ent.x = x;
-	bullet->ent.y = y;
-	bullet->ent.px = x;
-	bullet->ent.py = y;
-	bullet->ent.draw = SI;
-	bullet->ent.curr_dir = dir;
+	if(!bullet->disparada){
+		bullet->disparada = SI;
+		bullet->ent.x = x;
+		bullet->ent.y = y;
+		bullet->ent.px = x;
+		bullet->ent.py = y;
+		bullet->ent.draw = SI;
+		bullet->ent.curr_dir = dir;
+	}
 }
 
-void updateBullet(TBullet* bullet, TPlayerDirection dir){
+void updateBullet(TBullet* bullet){
 	//Solo updateamos la bala si ha sido disparada
 	if(bullet->disparada == SI){
 		//Actualizamos la bala cada 30 frames
 		if(bullet->frameCount > bullet->frameLimit){
 			
 			bullet->ent.draw = SI;
-			accion(&bullet->ent, es_mover, dir);
+			//Se mueve la bala y si se devuelve el valor d_nothing es porque no hay colision con el borde
+			//En caso contrario habra colision y se podra volver a disparar
+			if(accion(&bullet->ent, es_mover, bullet->ent.curr_dir) != d_nothing){
+				bullet->disparada = NO;
+			}
 			
 			bullet->frameCount = 0;
 		}else{
@@ -209,7 +237,7 @@ void updateEntities(){
 
 	cpct_srand(seed);
 
-	//Dibujamos los enemigos
+	
 	for(i = 0; i < NUM_ENEMIGOS; i++){
 		ent = &enemigos[i];
 		accion(&enemigos[i],es_mover,enemigos[i].curr_dir);
@@ -237,22 +265,22 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h){
 
 void borrarEntity(TEntity* ent){
 	if(ent->draw){
-		cpct_etm_drawTileBox2x4(ent->tpx, ent->tpy, ent->tw, ent->th, g_map1_W, ORIGEN_MAPA, mapa);
+		cpct_etm_drawTileBox2x4(ent->tpx, ent->tpy, ent->tw, ent->th, g_map11_W, ORIGEN_MAPA, mapa);
 	}
 }
 
 void dibujarEntity(TEntity* ent, u8 w, u8 h){
 	if (ent->draw) {
-		cpct_drawSpriteMaskedAlignedTable(ent->sprite,ent->vmem, w, h, g_tablatrans);
+		cpct_drawSpriteMaskedAlignedTable(ent->sprites[ent->curr_dir],ent->vmem, w, h, g_tablatrans);
 	}
 }
 
 //Calculamos lo que vamos a dibujar
 void calculaEntity(TEntity* ent){
-	ent->tw = 4 + (ent->px & 1);
-	ent->th = 4 + (ent->py & 3 ? 1 : 0);
+	ent->tw = ent->sw/2 + (ent->px & 1);
+	ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
 	ent->tpx = ent->px / 2;
-	ent->tpy = ent->py / 4;
+	ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
 	ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 }
 
@@ -269,10 +297,10 @@ void calculaAllEntities(TPlayer* player){
 //Dibujamos todos los enemigos y el player
 void drawAll(TPlayer* player){
 	u8 i;
-	redibujarEntity(&player->ent, G_NAVES_0_W, G_NAVES_0_H);
-	redibujarEntity(&player->bullet.ent, G_BALA_0_W, G_BALA_0_H);
+	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
+	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		redibujarEntity(&enemigos[i], G_NAVES_0_W, G_NAVES_0_H);
+		redibujarEntity(&enemigos[i], enemigos[i].sw, enemigos[i].sh);
 	}
 }
