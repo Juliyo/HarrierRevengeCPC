@@ -101,22 +101,6 @@ void flipSprite(TEntity* ent, TPlayerDirection dir){
 	}
 }
 
-
-/*void flipByMolto(){
-
-	u8 i;
-	u8 j;
-
-	u8 aux[FILA];
-
-	for(i=0;i<FILA/2;i++){
-		for(j=0;j<COLUMNA;j++){
-			aux[j]=g_naves_0[i*FILA+j];
-			g_naves_0[i*FILA+j] = g_naves_0[(FILA-i-1)*(COLUMNA)+j];
-			g_naves_0[(FILA-i-1)*(COLUMNA)+j] = aux[j];
-		}
-	}
-}*/
 TPlayerDirection moverArriba(TEntity* ent){
 	TPlayerDirection collision;
 	//Movemos y resolvemos colisiones con los bordes
@@ -207,16 +191,16 @@ u8 updatePlayer(TPlayer* player){
 void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 	switch(dir){
 		case d_up:
-			x+=1;
+			x+=2;
 			if(y >= ORIGEN_MAPA_Y + 7 )
 				y-=7;
 		break;
 		case d_right:
-			if(x + 5 <= ANCHO)
-				x+=5;
+			if(x + 7 <= ANCHO)
+				x+=7;
 			else
 				x = ANCHO - bullet->ent.sw;
-			y+=2;
+			y+=3;
 
 		break;
 		case d_left:
@@ -226,11 +210,11 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 
 		break;
 		case d_down:
-			if(y + 11 <= ALTO)
-				y +=11;
+			if(y + 15 <= ALTO)
+				y +=15;
 			else
 				y = ALTO - bullet->ent.sh;
-			x +=1;
+			x +=2;
 		break;
 	}
 

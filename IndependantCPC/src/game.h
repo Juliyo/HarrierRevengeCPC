@@ -11,8 +11,6 @@
 
 #define NUM_MAPAS 6
 
-
-
 typedef enum {
    es_static, 
    es_mover,
@@ -53,6 +51,8 @@ typedef struct Player
 	TBullet bullet;
 	TEntity ent;
 }TPlayer;
+
+
 
 extern const u8* mapa;
 
