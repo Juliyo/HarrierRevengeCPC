@@ -6,8 +6,12 @@
 #define ANCHO 80
 #define ALTO 200
 
-#define ORIGEN_MAPA_Y 0
+#define ORIGEN_MAPA_Y 40
 #define ORIGEN_MAPA cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
+
+#define NUM_MAPAS 6
+
+
 
 typedef enum {
    es_static, 
@@ -17,25 +21,30 @@ typedef enum {
 
 typedef enum{
 	d_up,
-	d_down,
 	d_right,
-	d_left
+	d_down,
+	d_left,
+	d_nothing	//Usado para detectae colision con los bordes del mapa
 } TPlayerDirection;
 
 typedef struct Entity
 {
-	u8 x,y;
-	u8 px, py;
+	i16 x,y;
+	i16 px, py;
+	u8 vx, vy;
 	u8 draw;
-	u8* sprite;
+	u8* sprites[4];
+	u8 sw, sh;
+	TPlayerDirection curr_dir;
 	u8 tw, th, tpx, tpy;
 	u8* vmem;
-	TPlayerDirection curr_dir;
 }TEntity;
 
 typedef struct Bullet
 {
-	//Otras cosas
+	u8 frameCount;
+	u8 frameLimit;
+	u8 disparada;
 	TEntity ent;
 }TBullet;
 
@@ -54,5 +63,9 @@ void inicializarPantalla();
 void dibujarMapa();
 void updateUser();
 void play();
+
+//Funciones mapa
+u8 cambiarMapa(u8 suma, u8 cantidad); //suma: 1 suma, 0 resta. 
+void cambiarDerecha(TEntity* ent);
 
 #endif

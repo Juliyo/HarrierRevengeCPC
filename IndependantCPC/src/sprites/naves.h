@@ -5,17 +5,17 @@
 #include <types.h>
 extern const u8 g_palette[16];
 
-#define G_NAVES_0_W 8
-#define G_NAVES_0_H 16
-extern const u8 g_naves_0[8 * 16];
-#define G_NAVES_1_W 8
-#define G_NAVES_1_H 16
-extern const u8 g_naves_1[8 * 16];
-#define G_NAVES_2_W 8
-#define G_NAVES_2_H 16
-extern const u8 g_naves_2[8 * 16];
-#define G_NAVES_3_W 8
-#define G_NAVES_3_H 16
-extern const u8 g_naves_3[8 * 16];
+#define G_NAVES_0_W 6
+#define G_NAVES_0_H 12
+extern const u8 g_naves_0[6 * 12];
+#define G_NAVES_1_W 6
+#define G_NAVES_1_H 12
+extern const u8 g_naves_1[6 * 12];
+#define G_NAVES_2_W 6
+#define G_NAVES_2_H 12
+extern const u8 g_naves_2[6 * 12];
+#define G_NAVES_3_W 6
+#define G_NAVES_3_H 12
+extern const u8 g_naves_3[6 * 12];
 
 #endif
