@@ -97,6 +97,29 @@ void cambiarDerecha(TEntity* ent){
 		ent->x = 0; //esto es para cambiar la posision del player cuando cambia de mapa.
 	}
 }
+
+void cambiarIzquierda(TEntity* ent){
+	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 != 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son impares
+		mapaActual = cambiarMapa(0,1);
+		ent->x = 74;//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
+	}
+}
+
+void cambiarArriba(TEntity* ent){
+	if(mapaActual >= 0 && mapaActual < 4){//desde los 4 primeros mapas puedo subir
+		mapaActual = cambiarMapa(1,2);
+		ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
+	}
+		
+}
+
+void cambiarAbajo(TEntity* ent){
+	if(mapaActual > 1 && mapaActual < 6){ //desde los 4 ultimos mapas puedo bajar
+		mapaActual = cambiarMapa(0,2);
+		ent->y = 40;//en 40 comienza el mapa a pintarse
+	}		
+}
+
 void updateUser(){
 	// Scan Keyboard
 	cpct_scanKeyboard_if();
@@ -106,14 +129,21 @@ void updateUser(){
 		}
 
 		if(cpct_isKeyPressed(Key_CursorUp)){
-			accion(&player.ent, es_mover, d_up);
+			if(accion(&player.ent, es_mover, d_up) == d_up){
+				cambiarArriba(&player.ent);
+			}
 		}else if(cpct_isKeyPressed(Key_CursorDown)){
-			accion(&player.ent, es_mover, d_down);
+			if(accion(&player.ent, es_mover, d_down) == d_down){
+				cambiarAbajo(&player.ent);
+			}
 		}else if(cpct_isKeyPressed(Key_CursorRight)){
-			if(accion(&player.ent,es_mover,d_right) == d_right)
+			if(accion(&player.ent,es_mover,d_right) == d_right){
 				cambiarDerecha(&player.ent);
+			}
 		}else if(cpct_isKeyPressed(Key_CursorLeft)){
-			accion(&player.ent,es_mover,d_left);
+			if(accion(&player.ent,es_mover,d_left) == d_left){
+				cambiarIzquierda(&player.ent);
+			}
 		}
 	}
 
