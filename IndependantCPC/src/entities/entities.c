@@ -186,12 +186,6 @@ TPlayerDirection moverDerecha(TEntity* ent){
 	if(MIN(ent->x, ANCHO - ent->sw) != ent->x){
 		// Cambiar de mapa
 		ent->x = ANCHO - ent->sw;
-		if(mapaPlayer >= 0 && mapaPlayer < 6 && mapaPlayer % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
-			mapaPlayer = cambiarMapa(1,1);
-			ent->x = 0; //esto es para cambiar la posision del player cuando cambia de mapa.
-		}
-
-		
 		collision = d_right;
 	}else{
 		collision = d_nothing;

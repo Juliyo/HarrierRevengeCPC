@@ -91,6 +91,12 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 	return mapaActual;
 }	
 
+void cambiarDerecha(TEntity* ent){
+	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
+		mapaActual = cambiarMapa(1,1);
+		ent->x = 0; //esto es para cambiar la posision del player cuando cambia de mapa.
+	}
+}
 void updateUser(){
 	// Scan Keyboard
 	cpct_scanKeyboard_if();
@@ -104,7 +110,8 @@ void updateUser(){
 		}else if(cpct_isKeyPressed(Key_CursorDown)){
 			accion(&player.ent, es_mover, d_down);
 		}else if(cpct_isKeyPressed(Key_CursorRight)){
-			accion(&player.ent,es_mover,d_right);
+			if(accion(&player.ent,es_mover,d_right) == d_right)
+				cambiarDerecha(&player.ent);
 		}else if(cpct_isKeyPressed(Key_CursorLeft)){
 			accion(&player.ent,es_mover,d_left);
 		}

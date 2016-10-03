@@ -63,6 +63,9 @@ void inicializarPantalla();
 void dibujarMapa();
 void updateUser();
 void play();
+
+//Funciones mapa
 u8 cambiarMapa(u8 suma, u8 cantidad); //suma: 1 suma, 0 resta. 
+void cambiarDerecha(TEntity* ent);
 
 #endif
