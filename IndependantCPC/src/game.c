@@ -4,6 +4,11 @@
 #include "sprites/bala.h"
 #include "sprites/paletajulinho.h"
 #include "mapas/map11.h"
+#include "mapas/map12.h"
+#include "mapas/map21.h"
+#include "mapas/map22.h"
+#include "mapas/map31.h"
+#include "mapas/map32.h"
 
 #include "game.h"
 #include "entities/entities.h"
@@ -56,6 +61,8 @@ const TPlayer player = {
 
 const u8* mapa = NULL;
 
+u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_map32 };
+u8 mapaActual = 0;
 
 void inicializarPantalla(){
 	//Limpiar la pantalla
@@ -70,6 +77,19 @@ void inicializarPantalla(){
 void dibujarMapa(){
 	cpct_etm_drawTilemap2x4(g_map11_W, g_map11_H, ORIGEN_MAPA, mapa);
 }
+
+u8 cambiarMapa(u8 suma, u8 cantidad){
+	if(suma % 2 != 0){ //tengo que sumar
+		mapaActual = mapaActual + cantidad;
+		mapa = mapas[mapaActual];
+		dibujarMapa();
+	}else{//tengo que restar
+		mapaActual = mapaActual - cantidad;
+		mapa = mapas[mapaActual];
+		dibujarMapa();
+	}
+	return mapaActual;
+}	
 
 void updateUser(){
 	// Scan Keyboard

@@ -9,6 +9,10 @@
 #define ORIGEN_MAPA_Y 40
 #define ORIGEN_MAPA cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
+#define NUM_MAPAS 6
+
+
+
 typedef enum {
    es_static, 
    es_mover,
@@ -59,5 +63,6 @@ void inicializarPantalla();
 void dibujarMapa();
 void updateUser();
 void play();
+u8 cambiarMapa(u8 suma, u8 cantidad); //suma: 1 suma, 0 resta. 
 
 #endif
