@@ -122,12 +122,13 @@ TPlayerDirection moverArriba(TEntity* ent){
 	//Movemos y resolvemos colisiones con los bordes
 	ent->y -= ent->vy;
 	if(MAX(ORIGEN_MAPA_Y, ent->y) == ORIGEN_MAPA_Y){
-		
-		//Cambiar mapa
-		if(mapaPlayer >= 0 && mapaPlayer < 4){ //pongo a mano el numero de mapas que hay en total
-			mapaPlayer = cambiarMapa(1,2);
-		}
 		ent->y = ORIGEN_MAPA_Y;
+		//Cambiar mapa
+		if(mapaPlayer >= 0 && mapaPlayer < 4){//desde los 4 primeros mapas puedo subir
+			mapaPlayer = cambiarMapa(1,2);
+			ent->y = 188;
+		}
+		
 		collision = d_up;
 	}else{
 		collision = d_nothing;
@@ -143,10 +144,12 @@ TPlayerDirection moverAbajo(TEntity* ent){
 	//Movemos y resolvemos colisiones con los bordes
 	ent->y += ent->vy;
 	if(MIN(ent->y, ALTO - ent->sh) != ent->y){
-		if(mapaPlayer > 1 && mapaPlayer < 6){ //pongo a mano el numero de mapas que hay en total
-			mapaPlayer = cambiarMapa(0,2);
-		}		
 		ent->y = ALTO - ent->sh;
+		if(mapaPlayer > 1 && mapaPlayer < 6){ //desde los 4 ultimos mapas puedo bajar
+			mapaPlayer = cambiarMapa(0,2);
+			ent->y = 40;//en 40 comienza el mapa a pintarse
+		}		
+		
 		collision =  d_down;
 	}else{//else Cambiar de mapa
 		collision = d_nothing;
@@ -164,9 +167,9 @@ TPlayerDirection moverIzquierda(TEntity* ent){
 	if(MAX(0, ent->x) == 0){
 		ent->x = 0;
 		// Cambiar mapa
-		if(mapaPlayer >= 0 && mapaPlayer < 6 && mapaPlayer % 2 != 0){ //pongo a mano el numero de mapas que hay en total
+		if(mapaPlayer >= 0 && mapaPlayer < 6 && mapaPlayer % 2 != 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son impares
 			mapaPlayer = cambiarMapa(0,1);
-
+			ent->x = 74;//80-12 == ancho del mapa - ancho sprite, poner en variables
 		}
 		collision = d_left;
 	}else{
@@ -183,9 +186,9 @@ TPlayerDirection moverDerecha(TEntity* ent){
 	if(MIN(ent->x, ANCHO - ent->sw) != ent->x){
 		// Cambiar de mapa
 		ent->x = ANCHO - ent->sw;
-		if(mapaPlayer >= 0 && mapaPlayer < 6 && mapaPlayer % 2 == 0){ //pongo a mano el numero de mapas que hay en total
+		if(mapaPlayer >= 0 && mapaPlayer < 6 && mapaPlayer % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
 			mapaPlayer = cambiarMapa(1,1);
-			//ent->x = 120; esto es para cambiar la posision del player cuando cambia de mapa.
+			ent->x = 0; //esto es para cambiar la posision del player cuando cambia de mapa.
 		}
 
 		
