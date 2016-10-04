@@ -174,17 +174,34 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 	}else{
 		collide = 0;
 	}
-	sprintf(str,"%d",collide);
-	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);
+	/*sprintf(str,"%d",collide);
+	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);*/
 	return collide;
 }
 
 void calculaColisiones(){
 	TEnemy *enemigos;
-	u8 collide;
-
+	u8 collide,i;
 	enemigos = getEnemies();
-	collide = checkCollision(&player.ent.coll, &enemigos[0].ent.coll);
+
+	//PLAYER - ENEMIES
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
+		if(collide){
+			cpct_setBorder(HW_RED);
+			break;
+		}
+	}
+	
+	//BALA - ENEMIGO
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
+		if(collide){
+			cpct_setBorder(HW_BLUE);
+			break;
+		}
+	}
+	
 	
 	//sprintf(str,"%d",collide);
 	//cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,10,10), 1, 0);
