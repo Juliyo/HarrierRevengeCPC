@@ -69,6 +69,10 @@ typedef struct Player
 	TEntity ent;
 }TPlayer;
 
+typedef struct Enemy{
+	TBullet bullet;
+	TEntity ent;
+}TEnemy;
 
 
 extern const u8* mapa;

@@ -164,7 +164,7 @@ void updateUser(){
 
 u8 checkCollision(TCollision *col1, TCollision *col2){
 	u8 collide;
-	
+	u8 str[1];
 	if (col1->x < col2->x + col2->w &&
 	   col1->x + col1->w > col2->x &&
 	   col1->y < col2->y + col2->h &&
@@ -174,15 +174,20 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 	}else{
 		collide = 0;
 	}
-
+	sprintf(str,"%d",collide);
+	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);
 	return collide;
 }
 
 void calculaColisiones(){
-	TEntity *enemigos;
+	TEnemy *enemigos;
 	u8 collide;
+
 	enemigos = getEnemies();
-	//collide = checkCollision(&player.coll, enemigos[0]->coll);
+	collide = checkCollision(&player.ent.coll, &enemigos[0].ent.coll);
+	
+	//sprintf(str,"%d",collide);
+	//cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,10,10), 1, 0);
 }
 
 void play(){

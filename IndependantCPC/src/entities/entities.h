@@ -10,7 +10,7 @@
 
 #define NUM_ENEMIGOS 1
 
-extern const TEntity enemigos[NUM_ENEMIGOS];
+extern const TEnemy enemigos[NUM_ENEMIGOS];
 extern u32 seed;
 
 extern u8 count1;
@@ -45,6 +45,6 @@ void drawAll(TPlayer* player);
 void calculaEntity(TEntity* ent);
 void calculaAllEntities(TPlayer* player);
 
-TEntity* getEnemies();
+TEnemy* getEnemies();
 
 #endif

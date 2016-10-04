@@ -19,53 +19,117 @@
 
 cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
 
-const TEntity enemigos[NUM_ENEMIGOS] = {
-	{	50,				//x
-		157,			//y
-		20,				//px
-		157,			//py
-		1,				//vx
-		2,				//vy
-		1,				//draw
-		{				//sprites
-			g_naves_0,
-			g_naves_1,
-			g_naves_2,
-			g_naves_3,
-		},	
-		G_NAVES_0_W,
-		G_NAVES_0_H,
-		d_up,			//curr_dir
-		e_enemy,
-		{
-			50,
-			157,
+const TEnemy enemigos[NUM_ENEMIGOS] = {
+	{
+		{					//Bullet
+			0,				//frameCount
+			1,				//FrameLimit	
+			es_static,		//state
+			{
+				0,				//x
+				0,				//y
+				0,				//px
+				0,				//py
+				3,				//vx
+				6,				//vy
+				NO,				//draw
+				{				//sprites
+					g_bala_0,
+					g_bala_1,
+					g_bala_2,
+					g_bala_3,
+				},		
+				G_BALA_0_W,		//sw
+				G_BALA_0_H,		//sh
+				d_up,			//curr_dir
+				e_bullet,		//Bullet
+				{
+					0,
+					0,
+					G_BALA_0_W,
+					G_BALA_0_H
+				}
+			}
+		},
+		{	50,				//x
+			157,			//y
+			20,				//px
+			157,			//py
+			1,				//vx
+			2,				//vy
+			1,				//draw
+			{				//sprites
+				g_naves_0,
+				g_naves_1,
+				g_naves_2,
+				g_naves_3,
+			},	
 			G_NAVES_0_W,
-			G_NAVES_0_H
+			G_NAVES_0_H,
+			d_up,			//curr_dir
+			e_enemy,
+			{
+				50,
+				157,
+				G_NAVES_0_W,
+				G_NAVES_0_H
+			}
 		}
 	},
-	{	20,				//x
-		50,				//y
-		20,				//px
-		50,				//py
-		1,				//vx
-		2,				//vy
-		1,				//draw
-		{				//sprites
-			g_naves_0,
-			g_naves_1,
-			g_naves_2,
-			g_naves_3,
-		},	
-		G_NAVES_0_W,
-		G_NAVES_0_H,
-		d_up,			//curr_dir
-		e_enemy,
-		{
-			20,
-			50,
+	{
+		{					//Bullet
+			0,				//frameCount
+			1,				//FrameLimit	
+			es_static,		//state
+			{
+				0,				//x
+				0,				//y
+				0,				//px
+				0,				//py
+				3,				//vx
+				6,				//vy
+				NO,				//draw
+				{				//sprites
+					g_bala_0,
+					g_bala_1,
+					g_bala_2,
+					g_bala_3,
+				},		
+				G_BALA_0_W,		//sw
+				G_BALA_0_H,		//sh
+				d_up,			//curr_dir
+				e_bullet,		//Bullet
+				{
+					0,
+					0,
+					G_BALA_0_W,
+					G_BALA_0_H
+				}
+			}
+		},
+		{	20,				//x
+			50,				//y
+			20,				//px
+			50,				//py
+			1,				//vx
+			2,				//vy
+			1,				//draw
+			{				//sprites
+				g_naves_0,
+				g_naves_1,
+				g_naves_2,
+				g_naves_3,
+			},	
 			G_NAVES_0_W,
-			G_NAVES_0_H
+			G_NAVES_0_H,
+			d_up,			//curr_dir
+			e_enemy,
+			{
+				20,
+				50,
+				G_NAVES_0_W,
+				G_NAVES_0_H
+			}
 		}
 	}
 };
@@ -271,7 +335,7 @@ void updateBullet(TBullet* bullet){
 
 void updateEntities(){
 	
-	u8 random_number;
+	/*u8 random_number;
 	u8 i;
 
 	TEntity* ent;
@@ -296,7 +360,7 @@ void updateEntities(){
 
 		count1++;
 	}
-
+*/
 	
 }
 
@@ -328,6 +392,8 @@ void calculaEntity(TEntity* ent){
 	ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
 	ent->tpx = ent->px / 2;
 	ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+	ent->coll.x = ent->x;
+	ent->coll.y = ent->y;
 	ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 }
 
@@ -340,7 +406,7 @@ void calculaAllEntities(TPlayer* player){
 	calculaEntity(&player->bullet.ent);
 	calculaEntity(&exp->ent);
 	for(i=0;i < NUM_ENEMIGOS;++i){
-		calculaEntity(&enemigos[i]);
+		calculaEntity(&enemigos[i].ent);
 	}
 }
 
@@ -354,10 +420,10 @@ void drawAll(TPlayer* player){
 	redibujarEntity(&exp->ent,4,8);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		redibujarEntity(&enemigos[i], enemigos[i].sw, enemigos[i].sh);
+		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
 	}
 }
 
-TEntity* getEnemies(){
+TEnemy* getEnemies(){
 	return enemigos;
 }
