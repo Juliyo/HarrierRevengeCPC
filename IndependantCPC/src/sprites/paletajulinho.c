@@ -469,10 +469,10 @@ const u8 g_paletajulinho_57[2 * 4] = {
 
 // Tile g_paletajulinho_58: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_58[2 * 4] = {
-	0x12, 0x75,
-	0x12, 0x75,
-	0x12, 0x75,
-	0x12, 0x75
+	0x12, 0x30,
+	0x12, 0x30,
+	0x12, 0x30,
+	0x12, 0x30
 };
 
 // Tile g_paletajulinho_59: 4x4 pixels, 2x4 bytes.
