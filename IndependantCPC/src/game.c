@@ -14,10 +14,10 @@
 #include "entities/entities.h"
 
 const TPlayer player = {
-	{		
-		0,	
-		1,
-		NO,
+	{					//Bullet
+		0,				//frameCount
+		1,				//FrameLimit	
+		es_static,		//state
 		{
 			0,				//x
 			0,				//y
@@ -37,7 +37,7 @@ const TPlayer player = {
 			d_up			//curr_dir
 		}
 	},
-	{
+	{	
 		20,				//x
 		157,			//y
 		20,				//px

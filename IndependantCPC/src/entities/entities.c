@@ -6,6 +6,7 @@
 #include "../sprites/naves.h"
 #include "../sprites/bala.h"
 #include "../game.h"
+#include "../animation/animation.h"
 
 #define COLUMNA 8
 #define FILA 16
@@ -171,6 +172,11 @@ u8 updatePlayer(TPlayer* player){
 	
 	updateBullet(&player->bullet);
 
+	/*if(player->bullet.ent.x > 50){
+		explosionBala(&player->bullet);
+		//updateExplosion();
+	}*/
+
 	return 1;
 }
 //Ajusta la posicion de la bala a la posicion de la nave
@@ -208,8 +214,8 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 	bullet->ent.y = y;
 }
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
-	if(!bullet->disparada){
-		bullet->disparada = SI;
+	if(bullet->state != es_disparado){
+		bullet->state = es_disparado;
 		corregirPosicion(bullet,x,y,dir);
 		bullet->ent.px = bullet->ent.x;
 		bullet->ent.py = bullet->ent.y;
@@ -219,25 +225,31 @@ void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 }
 
 void updateBullet(TBullet* bullet){
-	//Solo updateamos la bala si ha sido disparada
-	if(bullet->disparada == SI){
-		//Actualizamos la bala cada 30 frames
-		if(bullet->frameCount >= bullet->frameLimit){
-			
-			bullet->ent.draw = SI;
-			//Se mueve la bala y si se devuelve el valor d_nothing es porque no hay colision con el borde
-			//En caso contrario habra colision y se podra volver a disparar
-			if(accion(&bullet->ent, es_mover, bullet->ent.curr_dir) != d_nothing){
-				bullet->disparada = NO;
-				calculaEntity(&bullet->ent);
-				borrarEntity(&bullet->ent);
-				bullet->ent.draw = NO;
+
+	switch(bullet->state){
+		case es_disparado:	//Solo updateamos la bala si ha sido disparada
+			//Actualizamos la bala cada 30 frames
+			if(bullet->frameCount >= bullet->frameLimit){
+				
+				bullet->ent.draw = SI;
+				//Se mueve la bala y si se devuelve el valor d_nothing es porque no hay colision con el borde
+				//En caso contrario habra colision y se podra volver a disparar
+				if(accion(&bullet->ent, es_mover, bullet->ent.curr_dir) != d_nothing){
+					bullet->state = es_static;
+					calculaEntity(&bullet->ent);
+					borrarEntity(&bullet->ent);
+					bullet->ent.draw = NO;
+				}
+				
+				bullet->frameCount = 0;
+			}else{
+				bullet->frameCount++;
 			}
-			
-			bullet->frameCount = 0;
-		}else{
-			bullet->frameCount++;
-		}
+		break;
+
+		case es_explotando:
+
+		break;
 	}
 }
 
@@ -308,8 +320,11 @@ void calculaEntity(TEntity* ent){
 //Calculamos TODAS las entities
 void calculaAllEntities(TPlayer* player){
 	u8 i;
+	TStaticAnimation* exp;
+	exp = getExplosion();
 	calculaEntity(&player->ent);
 	calculaEntity(&player->bullet.ent);
+	calculaEntity(&exp->ent);
 	for(i=0;i < NUM_ENEMIGOS;++i){
 		calculaEntity(&enemigos[i]);
 	}
@@ -318,8 +333,11 @@ void calculaAllEntities(TPlayer* player){
 //Dibujamos todos los enemigos y el player
 void drawAll(TPlayer* player){
 	u8 i;
+	TStaticAnimation* exp;
+	exp = getExplosion();
 	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
+	redibujarEntity(&exp->ent,4,8);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		redibujarEntity(&enemigos[i], enemigos[i].sw, enemigos[i].sh);

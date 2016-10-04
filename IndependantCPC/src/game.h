@@ -14,7 +14,8 @@
 typedef enum {
    es_static, 
    es_mover,
-   es_disparar
+   es_disparado,
+   es_explotando
 } TPlayerStatus;
 
 typedef enum{
@@ -42,7 +43,7 @@ typedef struct Bullet
 {
 	u8 frameCount;
 	u8 frameLimit;
-	u8 disparada;
+	TPlayerStatus state;
 	TEntity ent;
 }TBullet;
 
