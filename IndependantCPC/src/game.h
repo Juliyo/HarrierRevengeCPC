@@ -11,12 +11,11 @@
 
 #define NUM_MAPAS 6
 
-
-
 typedef enum {
    es_static, 
    es_mover,
-   es_disparar
+   es_disparado,
+   es_explotando
 } TPlayerStatus;
 
 typedef enum{
@@ -44,7 +43,7 @@ typedef struct Bullet
 {
 	u8 frameCount;
 	u8 frameLimit;
-	u8 disparada;
+	TPlayerStatus state;
 	TEntity ent;
 }TBullet;
 
@@ -53,6 +52,8 @@ typedef struct Player
 	TBullet bullet;
 	TEntity ent;
 }TPlayer;
+
+
 
 extern const u8* mapa;
 
