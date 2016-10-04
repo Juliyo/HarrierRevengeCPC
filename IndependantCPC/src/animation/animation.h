@@ -6,17 +6,16 @@
 #define EXPLOSION_FRAMES 12
 
 typedef struct{
-	u8 nFrames;
+	u8 n_frames;
 	TEntity ent;
 }TStaticAnimation;
 
-extern const TStaticAnimation explosion;
 
-extern const u8* g_frames[EXPLOSION_FRAMES];
+extern const TStaticAnimation explosion;
 
 //Funciones explosion
 void explosionBala(TBullet* bullet);
-void updateExplosion();
+void updateExplosion(TBullet* bullet);
 
 TStaticAnimation* getExplosion();
 
