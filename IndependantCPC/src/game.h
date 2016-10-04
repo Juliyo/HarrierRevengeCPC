@@ -15,7 +15,8 @@ typedef enum {
    es_static, 
    es_mover,
    es_disparado,
-   es_explotando
+   es_explotando,
+   es_muerto
 } TPlayerStatus;
 
 typedef enum{
@@ -26,17 +27,32 @@ typedef enum{
 	d_nothing	//Usado para detectae colision con los bordes del mapa
 } TPlayerDirection;
 
+//Tipos de entityes que tenemos en el juego
+typedef enum{
+	e_enemy,
+	e_player,
+	e_bullet
+} TEntityType;
+
+typedef struct {
+   u8    x, y;
+   u8    w, h;
+} TCollision;
+
 typedef struct Entity
 {
-	i16 x,y;
-	i16 px, py;
-	u8 vx, vy;
+	i16 x,y; //Posicion
+	i16 px, py; //Posicion previa
+	u8 vx, vy; //Velocidad
 	u8 draw;
 	u8* sprites[4];
-	u8 sw, sh;
+	u8 sw, sh; //SpriteWidth, SpriteHeight
 	TPlayerDirection curr_dir;
-	u8 tw, th, tpx, tpy;
+	TEntityType type;
+	TCollision coll;
+	u8 tw, th, tpx, tpy; //TileWidth, TileHeight, PositionX, PositionY
 	u8* vmem;
+	
 }TEntity;
 
 typedef struct Bullet
@@ -71,5 +87,8 @@ void cambiarDerecha(TEntity* ent);
 void cambiarIzquierda(TEntity* ent);
 void cambiarArriba(TEntity* ent);
 void cambiarAbajo(TEntity* ent);
+
+void calculaColisiones();
+u8 checkCollision(TCollision *col1, TCollision *col2);
 
 #endif

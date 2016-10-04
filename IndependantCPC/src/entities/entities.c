@@ -35,7 +35,14 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 		},	
 		G_NAVES_0_W,
 		G_NAVES_0_H,
-		d_up			//curr_dir
+		d_up,			//curr_dir
+		e_enemy,
+		{
+			50,
+			157,
+			G_NAVES_0_W,
+			G_NAVES_0_H
+		}
 	},
 	{	20,				//x
 		50,				//y
@@ -52,7 +59,14 @@ const TEntity enemigos[NUM_ENEMIGOS] = {
 		},	
 		G_NAVES_0_W,
 		G_NAVES_0_H,
-		d_up			//curr_dir
+		d_up,			//curr_dir
+		e_enemy,
+		{
+			20,
+			50,
+			G_NAVES_0_W,
+			G_NAVES_0_H
+		}
 	}
 };
 
@@ -342,4 +356,8 @@ void drawAll(TPlayer* player){
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		redibujarEntity(&enemigos[i], enemigos[i].sw, enemigos[i].sh);
 	}
+}
+
+TEntity* getEnemies(){
+	return enemigos;
 }

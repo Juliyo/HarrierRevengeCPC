@@ -8,7 +8,7 @@
 #define SI 1
 #define NO 0
 
-#define NUM_ENEMIGOS 0
+#define NUM_ENEMIGOS 1
 
 extern const TEntity enemigos[NUM_ENEMIGOS];
 extern u32 seed;
@@ -44,5 +44,7 @@ void dibujarEntity(TEntity* ent, u8 w, u8 h);
 void drawAll(TPlayer* player);
 void calculaEntity(TEntity* ent);
 void calculaAllEntities(TPlayer* player);
+
+TEntity* getEnemies();
 
 #endif

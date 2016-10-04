@@ -34,7 +34,14 @@ const TPlayer player = {
 			},		
 			G_BALA_0_W,		//sw
 			G_BALA_0_H,		//sh
-			d_up			//curr_dir
+			d_up,			//curr_dir
+			e_bullet,		//Bullet
+			{
+				0,
+				0,
+				G_BALA_0_W,
+				G_BALA_0_H
+			}
 		}
 	},
 	{	
@@ -53,10 +60,16 @@ const TPlayer player = {
 		},	
 		G_NAVES_0_W,	//sw
 		G_NAVES_0_H,	//sh
-		d_up			//curr_dir
+		d_up,			//curr_dir
+		e_player,		//Player Entity
+		{
+			20,
+			157,
+			G_NAVES_0_W,
+			G_NAVES_0_H
+		}
 	}
 
-	
 };
 
 const u8* mapa = NULL;
@@ -149,6 +162,29 @@ void updateUser(){
 
 }
 
+u8 checkCollision(TCollision *col1, TCollision *col2){
+	u8 collide;
+	
+	if (col1->x < col2->x + col2->w &&
+	   col1->x + col1->w > col2->x &&
+	   col1->y < col2->y + col2->h &&
+	   col1->h + col1->y > col2->y) {
+   		// collision detected!
+   		collide = 1;
+	}else{
+		collide = 0;
+	}
+
+	return collide;
+}
+
+void calculaColisiones(){
+	TEntity *enemigos;
+	u8 collide;
+	enemigos = getEnemies();
+	//collide = checkCollision(&player.coll, enemigos[0]->coll);
+}
+
 void play(){
 
 	u8 alive = 1;
@@ -162,6 +198,7 @@ void play(){
 		alive = updatePlayer(&player);
 		//updateEntities();
 		//cpct_setBorder(HW_RED);
+		calculaColisiones();
 		calculaAllEntities(&player);
 		//cpct_setBorder(HW_RED);
 		cpct_waitVSYNC();
