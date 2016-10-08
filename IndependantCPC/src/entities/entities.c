@@ -250,11 +250,11 @@ u8 updatePlayer(TPlayer* player){
 	
 	updateBullet(&player->bullet);
 
-	/*if(player->bullet.ent.x > 50){
+	if(player->bullet.ent.x > 50){
 		explosionBala(&player->bullet);
-		//updateExplosion();
-	}*/
-
+		
+	}
+	
 	return 1;
 }
 //Ajusta la posicion de la bala a la posicion de la nave
@@ -292,7 +292,7 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 	bullet->ent.y = y;
 }
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
-	if(bullet->state != es_disparado){
+	if(bullet->state == es_static){
 		bullet->state = es_disparado;
 		corregirPosicion(bullet,x,y,dir);
 		bullet->ent.px = bullet->ent.x;
@@ -308,7 +308,6 @@ void updateBullet(TBullet* bullet){
 		case es_disparado:	//Solo updateamos la bala si ha sido disparada
 			//Actualizamos la bala cada 30 frames
 			if(bullet->frameCount >= bullet->frameLimit){
-				
 				bullet->ent.draw = SI;
 				//Se mueve la bala y si se devuelve el valor d_nothing es porque no hay colision con el borde
 				//En caso contrario habra colision y se podra volver a disparar
@@ -326,7 +325,9 @@ void updateBullet(TBullet* bullet){
 		break;
 
 		case es_explotando:
-
+			cpct_setBorder(HW_BLUE);
+			updateExplosion(bullet);
+			cpct_setBorder(HW_RED);
 		break;
 	}
 }

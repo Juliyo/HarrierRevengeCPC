@@ -12,7 +12,7 @@
 #define NUM_MAPAS 6
 
 typedef enum {
-   es_static, 
+   es_static = 0, 
    es_mover,
    es_disparado,
    es_explotando,
@@ -20,7 +20,7 @@ typedef enum {
 } TPlayerStatus;
 
 typedef enum{
-	d_up,
+	d_up = 0,
 	d_right,
 	d_down,
 	d_left,
