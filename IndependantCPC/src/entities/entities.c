@@ -246,16 +246,10 @@ TPlayerDirection moverDerecha(TEntity* ent){
 }
 
 
-u8 updatePlayer(TPlayer* player){
+void updatePlayer(TPlayer* player){
 	
 	updateBullet(&player->bullet);
-
-	if(player->bullet.ent.x > 50){
-		explosionBala(&player->bullet);
 		
-	}
-	
-	return 1;
 }
 //Ajusta la posicion de la bala a la posicion de la nave
 void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
@@ -325,9 +319,7 @@ void updateBullet(TBullet* bullet){
 		break;
 
 		case es_explotando:
-			cpct_setBorder(HW_BLUE);
 			updateExplosion(bullet);
-			cpct_setBorder(HW_RED);
 		break;
 	}
 }

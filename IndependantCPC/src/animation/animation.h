@@ -17,6 +17,9 @@ extern const TStaticAnimation explosion;
 void explosionBala(TBullet* bullet);
 void updateExplosion(TBullet* bullet);
 
+
+void updateXY(TEntity* ent1, i16 x, i16 y);
+
 TStaticAnimation* getExplosion();
 
 #endif

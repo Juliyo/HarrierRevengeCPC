@@ -34,7 +34,7 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
 void flipSprite(TEntity* ent, TPlayerDirection dir);
 
 //Updates
-u8 updatePlayer(TPlayer* player);
+void updatePlayer(TPlayer* player);
 void updateEntities();
 
 //Renders

@@ -38,7 +38,7 @@ const TStaticAnimation explosion = {
 };
 
 TStaticAnimation* getExplosion(){
-	return explosion;
+	return &explosion;
 }
 //Esta función activará una animación de explosión en la posición de la bala que le pasan por parámetro
 void explosionBala(TBullet* bullet){
@@ -48,36 +48,38 @@ void explosionBala(TBullet* bullet){
 		exp = getExplosion();
 		exp->n_frames = 0;
 		exp->ent.draw = SI;
-		exp->ent.x = bullet->ent.x;
-		exp->ent.y = bullet->ent.y;
 
-		exp->ent.px = bullet->ent.px;
-		exp->ent.py = bullet->ent.py;
+		updateXY(&exp->ent, bullet->ent.x, bullet->ent.y);
 
 		exp->ent.sprites[0] = g_frames[0];
-
+		exp->ent.curr_dir = 0;
 		bullet->ent.draw = NO;
 		bullet->state = es_explotando;	//Cambiamos a la bala estado explotando
 		
 	}
 	
-	
+}
+
+void updateXY(TEntity* ent1, i16 x, i16 y){
+	ent1->x = x;
+	ent1->y = y;
+	ent1->px = x;
+	ent1->py = y;
 }
 //Esta función se encarga de updatear la explosión de la bala
 void updateExplosion(TBullet* bullet){
 	if(bullet->state == es_explotando){	//Solo se updatea si está en estado de explosión	
 			TStaticAnimation* exp;
 			exp = getExplosion();
+			//Primera posicion de los sprites cambia por el frame que toca de la explosion
 			exp->ent.sprites[0] = g_frames[exp->n_frames];
 			exp->n_frames = exp->n_frames + 1;
 			if(exp->n_frames == EXPLOSION_FRAMES - 1){
 				exp->ent.draw = NO;
-				//bullet->state = es_static;
+				bullet->state = es_static;
 				exp->n_frames = 0;
+				//Movemos la bala a la 0, 0 para que no vuelva a detectar colision
+				updateXY(&bullet->ent, 0, 0);
 			}
-			//cpct_setBorder(HW_BLUE);
-			
 	}
-
-	
 }

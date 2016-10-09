@@ -67,6 +67,7 @@ typedef struct Player
 {
 	TBullet bullet;
 	TEntity ent;
+	u8 vida;
 }TPlayer;
 
 typedef struct Enemy{
@@ -83,6 +84,7 @@ extern const TPlayer player;
 void inicializarPantalla();
 void dibujarMapa();
 void updateUser();
+void drawHUD();
 void play();
 
 //Funciones mapa

@@ -12,6 +12,9 @@
 
 #include "game.h"
 #include "entities/entities.h"
+#include "animation/animation.h"
+
+#define VIDA_STRING_MEM cpct_getScreenPtr(CPCT_VMEM_START,10,10)
 
 const TPlayer player = {
 	{					//Bullet
@@ -68,7 +71,8 @@ const TPlayer player = {
 			G_NAVES_0_W,
 			G_NAVES_0_H
 		}
-	}
+	},
+	3	//vida
 
 };
 
@@ -85,6 +89,8 @@ void inicializarPantalla(){
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
 	//Aqui dibujariamos cosas de la pantalla 
+
+	//cpct_drawStringM0("Vidas: ", VIDA_STRING_MEM , 1, 1);
 }
 
 void dibujarMapa(){
@@ -197,7 +203,9 @@ void calculaColisiones(){
 	for(i=0;i<NUM_ENEMIGOS;++i){
 		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
 		if(collide){
-			cpct_setBorder(HW_BLUE);
+			//Hacemos la bala explotar(cuando la animacion funcione :D)
+			cpct_setBorder(HW_RED);
+			explosionBala(&player.bullet);
 			break;
 		}
 	}
@@ -207,17 +215,22 @@ void calculaColisiones(){
 	//cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,10,10), 1, 0);
 }
 
-void play(){
+void drawHUD(){
+	u8  str[6];
+	
+	//sprintf(str, "%5u", player.vida);
+	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);
+}
 
-	u8 alive = 1;
+void play(){
 
 	inicializarPantalla();
 	incializarEntities();
 
 	//Esto seria mientras estes vivo
-	while(alive){
+	while(player.vida>0){
 		updateUser();
-		alive = updatePlayer(&player);
+		updatePlayer(&player);
 		//updateEntities();
 		//cpct_setBorder(HW_RED);
 		calculaColisiones();
@@ -226,6 +239,7 @@ void play(){
 		cpct_waitVSYNC();
 		//cpct_setBorder(HW_GREEN);
 		drawAll(&player);
+		//drawHUD();
 		//cpct_setBorder(HW_GREEN);
 	}
 }
