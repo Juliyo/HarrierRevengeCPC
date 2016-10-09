@@ -3,6 +3,7 @@
 #include "sprites/naves.h"
 #include "sprites/bala.h"
 #include "sprites/paletajulinho.h"
+#include "sprites/hearth.h"
 #include "mapas/map11.h"
 #include "mapas/map12.h"
 #include "mapas/map21.h"
@@ -14,7 +15,7 @@
 #include "entities/entities.h"
 #include "animation/animation.h"
 
-#define VIDA_STRING_MEM cpct_getScreenPtr(CPCT_VMEM_START,10,10)
+#define VIDA_SPRITE_MEM cpct_getScreenPtr(CPCT_VMEM_START,2,10)
 
 const TPlayer player = {
 	{					//Bullet
@@ -72,8 +73,28 @@ const TPlayer player = {
 			G_NAVES_0_H
 		}
 	},
-	3	//vida
+	3,	//vida
+	4	//pvida
 
+};
+
+const TEntity hearth = {
+	2,				//x
+	10,			//y
+	2,				//px
+	10,			//py
+	1,				//vx
+	1,				//vy
+	SI,				//draw
+	{				//sprites
+		g_hearth,
+		NULL,
+		NULL,
+		NULL,
+	},	
+	G_HEARTH_W,	//sw
+	G_HEARTH_H,	//sh
+	d_up,			//curr_dir
 };
 
 const u8* mapa = NULL;
@@ -82,15 +103,18 @@ u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_ma
 u8 mapaActual = 0;
 
 void inicializarPantalla(){
+	//u8  str[5];
 	//Limpiar la pantalla
 	cpct_clearScreen(0);
+	
 
 	mapa = g_map11;
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
-	//Aqui dibujariamos cosas de la pantalla 
 
-	//cpct_drawStringM0("Vidas: ", VIDA_STRING_MEM , 1, 1);
+	//calculaEntity(&hearth, NO);
+	//Aqui dibujariamos cosas de la pantalla 
+	//cpct_drawStringM0("Vidas: ", VIDA_STRING_MEM, 2, 0);
 }
 
 void dibujarMapa(){
@@ -194,7 +218,7 @@ void calculaColisiones(){
 	for(i=0;i<NUM_ENEMIGOS;++i){
 		collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
 		if(collide){
-			cpct_setBorder(HW_RED);
+			playerHerido(&player);
 			break;
 		}
 	}
@@ -204,7 +228,7 @@ void calculaColisiones(){
 		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
 		if(collide){
 			//Hacemos la bala explotar(cuando la animacion funcione :D)
-			cpct_setBorder(HW_RED);
+			//cpct_setBorder(HW_RED);
 			explosionBala(&player.bullet);
 			break;
 		}
@@ -216,14 +240,32 @@ void calculaColisiones(){
 }
 
 void drawHUD(){
-	u8  str[6];
-	
-	//sprintf(str, "%5u", player.vida);
-	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);
+	u8 i;
+	TPlayer* p = &player;
+	TEntity* ent = &hearth;
+	if(player.vida != player.pvida){
+
+		//Borramos una vida
+		cpct_drawSolidBox(
+			cpct_getScreenPtr(CPCT_VMEM_START,2 + 10*(player.vida),ent->y)
+			,0
+			,ent->sw
+			,ent->sh
+			);
+
+		for(i = 0; i < player.vida; ++i){
+			ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+			dibujarEntity(ent,ent->sw,ent->sh);
+			ent->x+=10;
+		}
+		
+		
+		ent->x = 2;
+		p->pvida = p->vida;
+	}
 }
 
 void play(){
-
 	inicializarPantalla();
 	incializarEntities();
 
@@ -239,7 +281,7 @@ void play(){
 		cpct_waitVSYNC();
 		//cpct_setBorder(HW_GREEN);
 		drawAll(&player);
-		//drawHUD();
+		drawHUD();
 		//cpct_setBorder(HW_GREEN);
 	}
 }

@@ -307,7 +307,7 @@ void updateBullet(TBullet* bullet){
 				//En caso contrario habra colision y se podra volver a disparar
 				if(accion(&bullet->ent, es_mover, bullet->ent.curr_dir) != d_nothing){
 					bullet->state = es_static;
-					calculaEntity(&bullet->ent);
+					calculaEntity(&bullet->ent, SI);
 					borrarEntity(&bullet->ent);
 					bullet->ent.draw = NO;
 				}
@@ -325,6 +325,11 @@ void updateBullet(TBullet* bullet){
 }
 
 
+void playerHerido(TPlayer* player){
+	player->vida--;
+	player->ent.x = 20;
+	player->ent.y = 157;
+}
 
 void updateEntities(){
 	
@@ -380,11 +385,14 @@ void dibujarEntity(TEntity* ent, u8 w, u8 h){
 }
 
 //Calculamos lo que vamos a dibujar
-void calculaEntity(TEntity* ent){
+void calculaEntity(TEntity* ent, u8 origen){
 	ent->tw = ent->sw/2 + (ent->px & 1);
 	ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
 	ent->tpx = ent->px / 2;
-	ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+	if(origen == SI)
+		ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+	else
+		ent->tpy = (ent->py) / 4;
 	ent->coll.x = ent->x;
 	ent->coll.y = ent->y;
 	ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
@@ -395,11 +403,11 @@ void calculaAllEntities(TPlayer* player){
 	u8 i;
 	TStaticAnimation* exp;
 	exp = getExplosion();
-	calculaEntity(&player->ent);
-	calculaEntity(&player->bullet.ent);
-	calculaEntity(&exp->ent);
+	calculaEntity(&player->ent, SI);
+	calculaEntity(&player->bullet.ent, SI);
+	calculaEntity(&exp->ent, SI);
 	for(i=0;i < NUM_ENEMIGOS;++i){
-		calculaEntity(&enemigos[i].ent);
+		calculaEntity(&enemigos[i].ent, SI);
 	}
 }
 
@@ -416,6 +424,7 @@ void drawAll(TPlayer* player){
 		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
 	}
 }
+
 
 TEnemy* getEnemies(){
 	return enemigos;

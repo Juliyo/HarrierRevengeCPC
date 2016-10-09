@@ -25,6 +25,8 @@ TPlayerDirection moverAbajo(TEntity* ent);
 TPlayerDirection moverIzquierda(TEntity* ent);
 TPlayerDirection moverDerecha(TEntity* ent);
 
+void playerHerido(TPlayer* player);
+
 //Acciones Bullet
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
 void updateBullet(TBullet* bullet);
@@ -42,7 +44,7 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h);
 void borrarEntity(TEntity* ent);
 void dibujarEntity(TEntity* ent, u8 w, u8 h);
 void drawAll(TPlayer* player);
-void calculaEntity(TEntity* ent);
+void calculaEntity(TEntity* ent, u8 origen);
 void calculaAllEntities(TPlayer* player);
 
 TEnemy* getEnemies();
