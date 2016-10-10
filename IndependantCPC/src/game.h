@@ -50,6 +50,7 @@ typedef struct Entity
 	TPlayerDirection curr_dir;
 	TEntityType type;
 	TCollision coll;
+	u8 vivo;
 	u8 tw, th, tpx, tpy; //TileWidth, TileHeight, PositionX, PositionY
 	u8* vmem;
 	
@@ -69,6 +70,8 @@ typedef struct Player
 	TEntity ent;
 	u8 vida;
 	u8 pvida;
+	i16 puntuacion;
+	i16 puntuacionPrev;
 }TPlayer;
 
 typedef struct Enemy{
