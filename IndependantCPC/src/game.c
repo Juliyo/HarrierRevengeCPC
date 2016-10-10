@@ -101,6 +101,7 @@ const u8* mapa = NULL;
 
 u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_map32 };
 u8 mapaActual = 0;
+u8 salirMenu = 0;
 
 void inicializarPantalla(){
 	//u8  str[5];
@@ -187,6 +188,9 @@ void updateUser(){
 			if(accion(&player.ent,es_mover,d_left) == d_left){
 				cambiarIzquierda(&player.ent);
 			}
+		}else if(cpct_isKeyPressed(Key_Esc)){
+			salirMenu = 1;
+			//cpct_setBorder(HW_RED);
 		}
 	}
 
@@ -266,8 +270,15 @@ void drawHUD(){
 }
 
 void play(){
+	/*
+	TPlayer* p = &player;
+	p->pvida = 4;
+	p->vida = 3;
+	*/
+	salirMenu = 0;
+
 	inicializarPantalla();
-	incializarEntities();
+	incializarEntities(&player);
 
 	//Esto seria mientras estes vivo
 	while(player.vida>0){
@@ -283,5 +294,13 @@ void play(){
 		drawAll(&player);
 		drawHUD();
 		//cpct_setBorder(HW_GREEN);
+		if(salirMenu % 2 == 1){
+
+			return;
+		}
+
 	}
+	/*if(player.vida == 0){
+		cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
+	}*/
 }

@@ -100,4 +100,5 @@ void cambiarAbajo(TEntity* ent);
 void calculaColisiones();
 u8 checkCollision(TCollision *col1, TCollision *col2);
 
+
 #endif

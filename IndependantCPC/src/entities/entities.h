@@ -15,7 +15,7 @@ extern u32 seed;
 
 extern u8 count1;
 
-void incializarEntities();
+void incializarEntities(TPlayer* player);
 
 
 //Acciones Entities
