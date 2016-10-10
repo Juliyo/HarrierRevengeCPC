@@ -8,7 +8,7 @@
 #define SI 1
 #define NO 0
 
-#define NUM_ENEMIGOS 1
+#define NUM_ENEMIGOS 3
 
 extern const TEnemy enemigos[NUM_ENEMIGOS];
 extern u32 seed;

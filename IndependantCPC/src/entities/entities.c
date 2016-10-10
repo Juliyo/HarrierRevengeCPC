@@ -5,6 +5,9 @@
 #include "../mapas/map11.h"
 #include "../sprites/naves.h"
 #include "../sprites/bala.h"
+#include "../sprites/naveEnemiga1.h"
+#include "../sprites/naveEnemiga2.h"
+#include "../sprites/naveEnemiga3.h"
 #include "../game.h"
 #include "../animation/animation.h"
 
@@ -62,23 +65,23 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			2,				//vy
 			1,				//draw
 			{				//sprites
-				g_naves_0,
-				g_naves_1,
-				g_naves_2,
-				g_naves_3,
+				g_naveEnemiga1_0,
+				g_naveEnemiga1_1,
+				g_naveEnemiga1_2,
+				g_naveEnemiga1_3,
 			},	
-			G_NAVES_0_W,
-			G_NAVES_0_H,
+			G_NAVEENEMIGA1_0_W,
+			G_NAVEENEMIGA1_0_H,
 			d_up,			//curr_dir
 			e_enemy,
 			{
 				50,
 				157,
-				G_NAVES_0_W,
-				G_NAVES_0_H
+				G_NAVEENEMIGA1_0_W,
+				G_NAVEENEMIGA1_0_H
 			},
 			1,
-			2
+			2				//cuadrante
 		}
 	},
 	{
@@ -120,23 +123,81 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			2,				//vy
 			1,				//draw
 			{				//sprites
-				g_naves_0,
-				g_naves_1,
-				g_naves_2,
-				g_naves_3,
+				g_naveEnemiga2_0,
+				g_naveEnemiga2_1,
+				g_naveEnemiga2_2,
+				g_naveEnemiga2_3,
 			},	
-			G_NAVES_0_W,
-			G_NAVES_0_H,
+			G_NAVEENEMIGA2_0_W,
+			G_NAVEENEMIGA2_0_H,
 			d_up,			//curr_dir
 			e_enemy,
 			{
 				20,
 				50,
-				G_NAVES_0_W,
-				G_NAVES_0_H
+				G_NAVEENEMIGA2_0_W,
+				G_NAVEENEMIGA2_0_H
 			},
 			1,
-			3
+			4				//cuadrante
+		}
+	},
+	{
+		{					//Bullet
+			0,				//frameCount
+			1,				//FrameLimit	
+			es_static,		//state
+			{
+				0,				//x
+				0,				//y
+				0,				//px
+				0,				//py
+				3,				//vx
+				6,				//vy
+				NO,				//draw
+				{				//sprites
+					g_bala_0,
+					g_bala_1,
+					g_bala_2,
+					g_bala_3,
+				},		
+				G_BALA_0_W,		//sw
+				G_BALA_0_H,		//sh
+				d_up,			//curr_dir
+				e_bullet,		//Bullet
+				{
+					0,
+					0,
+					G_BALA_0_W,
+					G_BALA_0_H
+				}
+			}
+		},
+		{	35,				//x
+			120,			//y
+			35,				//px
+			120,			//py
+			1,				//vx
+			2,				//vy
+			1,				//draw
+			{				//sprites
+				g_naveEnemiga3_0,
+				g_naveEnemiga3_1,
+				g_naveEnemiga3_2,
+				g_naveEnemiga3_3,
+			},	
+			G_NAVEENEMIGA3_0_W,
+			G_NAVEENEMIGA3_0_H,
+			d_up,			//curr_dir
+			e_enemy,
+			{
+				35,
+				120,
+				G_NAVEENEMIGA3_0_W,
+				G_NAVEENEMIGA3_0_H
+			},
+			1,
+			1				//cuadrante
 		}
 	}
 };

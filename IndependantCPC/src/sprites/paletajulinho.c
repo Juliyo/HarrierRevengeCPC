@@ -1,7 +1,7 @@
 #include "paletajulinho.h"
 // Data created with Img2CPC - (c) Retroworks - 2007-2015
-u8* const g_tileset[64] = { 
-	g_paletajulinho_00, g_paletajulinho_01, g_paletajulinho_02, g_paletajulinho_03, g_paletajulinho_04, g_paletajulinho_05, g_paletajulinho_06, g_paletajulinho_07, g_paletajulinho_08, g_paletajulinho_09, g_paletajulinho_10, g_paletajulinho_11, g_paletajulinho_12, g_paletajulinho_13, g_paletajulinho_14, g_paletajulinho_15, g_paletajulinho_16, g_paletajulinho_17, g_paletajulinho_18, g_paletajulinho_19, g_paletajulinho_20, g_paletajulinho_21, g_paletajulinho_22, g_paletajulinho_23, g_paletajulinho_24, g_paletajulinho_25, g_paletajulinho_26, g_paletajulinho_27, g_paletajulinho_28, g_paletajulinho_29, g_paletajulinho_30, g_paletajulinho_31, g_paletajulinho_32, g_paletajulinho_33, g_paletajulinho_34, g_paletajulinho_35, g_paletajulinho_36, g_paletajulinho_37, g_paletajulinho_38, g_paletajulinho_39, g_paletajulinho_40, g_paletajulinho_41, g_paletajulinho_42, g_paletajulinho_43, g_paletajulinho_44, g_paletajulinho_45, g_paletajulinho_46, g_paletajulinho_47, g_paletajulinho_48, g_paletajulinho_49, g_paletajulinho_50, g_paletajulinho_51, g_paletajulinho_52, g_paletajulinho_53, g_paletajulinho_54, g_paletajulinho_55, g_paletajulinho_56, g_paletajulinho_57, g_paletajulinho_58, g_paletajulinho_59, g_paletajulinho_60, g_paletajulinho_61, g_paletajulinho_62, g_paletajulinho_63
+u8* const g_tileset[72] = { 
+	g_paletajulinho_00, g_paletajulinho_01, g_paletajulinho_02, g_paletajulinho_03, g_paletajulinho_04, g_paletajulinho_05, g_paletajulinho_06, g_paletajulinho_07, g_paletajulinho_08, g_paletajulinho_09, g_paletajulinho_10, g_paletajulinho_11, g_paletajulinho_12, g_paletajulinho_13, g_paletajulinho_14, g_paletajulinho_15, g_paletajulinho_16, g_paletajulinho_17, g_paletajulinho_18, g_paletajulinho_19, g_paletajulinho_20, g_paletajulinho_21, g_paletajulinho_22, g_paletajulinho_23, g_paletajulinho_24, g_paletajulinho_25, g_paletajulinho_26, g_paletajulinho_27, g_paletajulinho_28, g_paletajulinho_29, g_paletajulinho_30, g_paletajulinho_31, g_paletajulinho_32, g_paletajulinho_33, g_paletajulinho_34, g_paletajulinho_35, g_paletajulinho_36, g_paletajulinho_37, g_paletajulinho_38, g_paletajulinho_39, g_paletajulinho_40, g_paletajulinho_41, g_paletajulinho_42, g_paletajulinho_43, g_paletajulinho_44, g_paletajulinho_45, g_paletajulinho_46, g_paletajulinho_47, g_paletajulinho_48, g_paletajulinho_49, g_paletajulinho_50, g_paletajulinho_51, g_paletajulinho_52, g_paletajulinho_53, g_paletajulinho_54, g_paletajulinho_55, g_paletajulinho_56, g_paletajulinho_57, g_paletajulinho_58, g_paletajulinho_59, g_paletajulinho_60, g_paletajulinho_61, g_paletajulinho_62, g_paletajulinho_63, g_paletajulinho_64, g_paletajulinho_65, g_paletajulinho_66, g_paletajulinho_67, g_paletajulinho_68, g_paletajulinho_69, g_paletajulinho_70, g_paletajulinho_71
 };
 // Tile g_paletajulinho_00: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_00[2 * 4] = {
@@ -477,31 +477,31 @@ const u8 g_paletajulinho_58[2 * 4] = {
 
 // Tile g_paletajulinho_59: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_59[2 * 4] = {
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff
+	0xcf, 0xcf,
+	0xcf, 0xcf,
+	0xcf, 0xcf,
+	0xcf, 0xcf
 };
 
 // Tile g_paletajulinho_60: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_60[2 * 4] = {
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff
+	0xf0, 0xf0,
+	0xf0, 0xf0,
+	0xf0, 0xf5,
+	0xf0, 0xfa
 };
 
 // Tile g_paletajulinho_61: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_61[2 * 4] = {
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff
+	0xf0, 0xf0,
+	0xf0, 0xf0,
+	0xfa, 0xf0,
+	0xf5, 0xf0
 };
 
 // Tile g_paletajulinho_62: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_62[2 * 4] = {
-	0xff, 0xff,
+	0xff, 0xef,
 	0xff, 0xff,
 	0xff, 0xff,
 	0xff, 0xff
@@ -509,6 +509,70 @@ const u8 g_paletajulinho_62[2 * 4] = {
 
 // Tile g_paletajulinho_63: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_63[2 * 4] = {
+	0xcf, 0xcf,
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff
+};
+
+// Tile g_paletajulinho_64: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_64[2 * 4] = {
+	0xf0, 0xfa,
+	0xf0, 0xff,
+	0xf0, 0xfa,
+	0xf0, 0xfa
+};
+
+// Tile g_paletajulinho_65: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_65[2 * 4] = {
+	0xf5, 0xf0,
+	0xff, 0xf0,
+	0xf5, 0xf0,
+	0xf5, 0xf0
+};
+
+// Tile g_paletajulinho_66: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_66[2 * 4] = {
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff
+};
+
+// Tile g_paletajulinho_67: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_67[2 * 4] = {
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff
+};
+
+// Tile g_paletajulinho_68: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_68[2 * 4] = {
+	0xf0, 0xfa,
+	0xf0, 0xf0,
+	0xf0, 0xf0,
+	0xf0, 0xf0
+};
+
+// Tile g_paletajulinho_69: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_69[2 * 4] = {
+	0xf5, 0xf0,
+	0xf0, 0xf0,
+	0xf0, 0xf0,
+	0xf0, 0xf0
+};
+
+// Tile g_paletajulinho_70: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_70[2 * 4] = {
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff,
+	0xff, 0xff
+};
+
+// Tile g_paletajulinho_71: 4x4 pixels, 2x4 bytes.
+const u8 g_paletajulinho_71[2 * 4] = {
 	0xff, 0xff,
 	0xff, 0xff,
 	0xff, 0xff,

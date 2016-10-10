@@ -3,7 +3,7 @@
 #define _RESOURCES_PALETAJULINHO_H_
 
 #include <types.h>
-extern u8* const g_tileset[64];
+extern u8* const g_tileset[72];
 
 #define G_PALETAJULINHO_00_W 2
 #define G_PALETAJULINHO_00_H 4
@@ -197,5 +197,29 @@ extern const u8 g_paletajulinho_62[2 * 4];
 #define G_PALETAJULINHO_63_W 2
 #define G_PALETAJULINHO_63_H 4
 extern const u8 g_paletajulinho_63[2 * 4];
+#define G_PALETAJULINHO_64_W 2
+#define G_PALETAJULINHO_64_H 4
+extern const u8 g_paletajulinho_64[2 * 4];
+#define G_PALETAJULINHO_65_W 2
+#define G_PALETAJULINHO_65_H 4
+extern const u8 g_paletajulinho_65[2 * 4];
+#define G_PALETAJULINHO_66_W 2
+#define G_PALETAJULINHO_66_H 4
+extern const u8 g_paletajulinho_66[2 * 4];
+#define G_PALETAJULINHO_67_W 2
+#define G_PALETAJULINHO_67_H 4
+extern const u8 g_paletajulinho_67[2 * 4];
+#define G_PALETAJULINHO_68_W 2
+#define G_PALETAJULINHO_68_H 4
+extern const u8 g_paletajulinho_68[2 * 4];
+#define G_PALETAJULINHO_69_W 2
+#define G_PALETAJULINHO_69_H 4
+extern const u8 g_paletajulinho_69[2 * 4];
+#define G_PALETAJULINHO_70_W 2
+#define G_PALETAJULINHO_70_H 4
+extern const u8 g_paletajulinho_70[2 * 4];
+#define G_PALETAJULINHO_71_W 2
+#define G_PALETAJULINHO_71_H 4
+extern const u8 g_paletajulinho_71[2 * 4];
 
 #endif
