@@ -14,55 +14,145 @@
 // Total random numbers to show (up to 255)
 #define N_RND_NUMBERS   50
 
+
+
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 cpctm_createTransparentMaskTable(g_tablatrans,0x0100,M0,0);
 
-const TEntity enemigos[NUM_ENEMIGOS] = {
-	{	50,				//x
-		157,			//y
-		20,				//px
-		157,			//py
-		1,				//vx
-		2,				//vy
-		1,				//draw
-		{				//sprites
-			g_naves_0,
-			g_naves_1,
-			g_naves_2,
-			g_naves_3,
-		},	
-		G_NAVES_0_W,
-		G_NAVES_0_H,
-		d_up			//curr_dir
+const TEnemy enemigos[NUM_ENEMIGOS] = {
+	{
+		{					//Bullet
+			0,				//frameCount
+			1,				//FrameLimit	
+			es_static,		//state
+			{
+				0,				//x
+				0,				//y
+				0,				//px
+				0,				//py
+				3,				//vx
+				6,				//vy
+				NO,				//draw
+				{				//sprites
+					g_bala_0,
+					g_bala_1,
+					g_bala_2,
+					g_bala_3,
+				},		
+				G_BALA_0_W,		//sw
+				G_BALA_0_H,		//sh
+				d_up,			//curr_dir
+				e_bullet,		//Bullet
+				{
+					0,
+					0,
+					G_BALA_0_W,
+					G_BALA_0_H
+				},
+				1
+			}
+		},
+		{	50,				//x
+			157,			//y
+			20,				//px
+			157,			//py
+			1,				//vx
+			2,				//vy
+			1,				//draw
+			{				//sprites
+				g_naves_0,
+				g_naves_1,
+				g_naves_2,
+				g_naves_3,
+			},	
+			G_NAVES_0_W,
+			G_NAVES_0_H,
+			d_up,			//curr_dir
+			e_enemy,
+			{
+				50,
+				157,
+				G_NAVES_0_W,
+				G_NAVES_0_H
+			},
+			1,
+			2
+		}
 	},
-	{	20,				//x
-		50,				//y
-		20,				//px
-		50,				//py
-		1,				//vx
-		2,				//vy
-		1,				//draw
-		{				//sprites
-			g_naves_0,
-			g_naves_1,
-			g_naves_2,
-			g_naves_3,
-		},	
-		G_NAVES_0_W,
-		G_NAVES_0_H,
-		d_up			//curr_dir
+	{
+		{					//Bullet
+			0,				//frameCount
+			1,				//FrameLimit	
+			es_static,		//state
+			{
+				0,				//x
+				0,				//y
+				0,				//px
+				0,				//py
+				3,				//vx
+				6,				//vy
+				NO,				//draw
+				{				//sprites
+					g_bala_0,
+					g_bala_1,
+					g_bala_2,
+					g_bala_3,
+				},		
+				G_BALA_0_W,		//sw
+				G_BALA_0_H,		//sh
+				d_up,			//curr_dir
+				e_bullet,		//Bullet
+				{
+					0,
+					0,
+					G_BALA_0_W,
+					G_BALA_0_H
+				}
+			}
+		},
+		{	20,				//x
+			50,				//y
+			20,				//px
+			50,				//py
+			1,				//vx
+			2,				//vy
+			1,				//draw
+			{				//sprites
+				g_naves_0,
+				g_naves_1,
+				g_naves_2,
+				g_naves_3,
+			},	
+			G_NAVES_0_W,
+			G_NAVES_0_H,
+			d_up,			//curr_dir
+			e_enemy,
+			{
+				20,
+				50,
+				G_NAVES_0_W,
+				G_NAVES_0_H
+			},
+			1,
+			3
+		}
 	}
 };
 
 u32 seed = 1;
 u8 count1 = 0;
-u8 mapaPlayer = 0; //para saber en que mapa esta el player
 
 
-void incializarEntities(){
+
+void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
+	p->vida = 3;
+	p->pvida = 4;
+	//p->ent.x = 20;
+	//
+	p->ent.y = 157;
 
 }
 
@@ -168,16 +258,10 @@ TPlayerDirection moverDerecha(TEntity* ent){
 }
 
 
-u8 updatePlayer(TPlayer* player){
+void updatePlayer(TPlayer* player){
 	
 	updateBullet(&player->bullet);
-
-	/*if(player->bullet.ent.x > 50){
-		explosionBala(&player->bullet);
-		//updateExplosion();
-	}*/
-
-	return 1;
+		
 }
 //Ajusta la posicion de la bala a la posicion de la nave
 void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
@@ -214,7 +298,7 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 	bullet->ent.y = y;
 }
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
-	if(bullet->state != es_disparado){
+	if(bullet->state == es_static){
 		bullet->state = es_disparado;
 		corregirPosicion(bullet,x,y,dir);
 		bullet->ent.px = bullet->ent.x;
@@ -230,13 +314,12 @@ void updateBullet(TBullet* bullet){
 		case es_disparado:	//Solo updateamos la bala si ha sido disparada
 			//Actualizamos la bala cada 30 frames
 			if(bullet->frameCount >= bullet->frameLimit){
-				
 				bullet->ent.draw = SI;
 				//Se mueve la bala y si se devuelve el valor d_nothing es porque no hay colision con el borde
 				//En caso contrario habra colision y se podra volver a disparar
 				if(accion(&bullet->ent, es_mover, bullet->ent.curr_dir) != d_nothing){
 					bullet->state = es_static;
-					calculaEntity(&bullet->ent);
+					calculaEntity(&bullet->ent, SI);
 					borrarEntity(&bullet->ent);
 					bullet->ent.draw = NO;
 				}
@@ -248,16 +331,25 @@ void updateBullet(TBullet* bullet){
 		break;
 
 		case es_explotando:
-
+			updateExplosion(bullet);
 		break;
 	}
 }
 
 
+void playerHerido(TPlayer* player){
+	player->vida--;
+	player->ent.x = px_spawn;
+	player->ent.y = py_spawn;
+	mapaActual = 0;
+	player->ent.cuadrante = 0;
+	mapa = mapas[0];
+	dibujarMapa();
+}
 
 void updateEntities(){
 	
-	u8 random_number;
+	/*u8 random_number;
 	u8 i;
 
 	TEntity* ent;
@@ -282,17 +374,17 @@ void updateEntities(){
 
 		count1++;
 	}
-
+*/
 	
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
-	if (ent->draw) {
-		borrarEntity(ent);
-		ent->px = ent->x;
-		ent->py = ent->y;
-		dibujarEntity(ent, w, h);
-		ent->draw = NO;
+	if (ent->draw && ent->cuadrante == mapaActual) {
+			borrarEntity(ent);
+			ent->px = ent->x;
+			ent->py = ent->y;
+			dibujarEntity(ent, w, h);
+			ent->draw = NO;
 	}
 }
 
@@ -309,11 +401,16 @@ void dibujarEntity(TEntity* ent, u8 w, u8 h){
 }
 
 //Calculamos lo que vamos a dibujar
-void calculaEntity(TEntity* ent){
+void calculaEntity(TEntity* ent, u8 origen){
 	ent->tw = ent->sw/2 + (ent->px & 1);
 	ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
 	ent->tpx = ent->px / 2;
-	ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+	if(origen == SI)
+		ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+	else
+		ent->tpy = (ent->py) / 4;
+	ent->coll.x = ent->x;
+	ent->coll.y = ent->y;
 	ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 }
 
@@ -322,11 +419,11 @@ void calculaAllEntities(TPlayer* player){
 	u8 i;
 	TStaticAnimation* exp;
 	exp = getExplosion();
-	calculaEntity(&player->ent);
-	calculaEntity(&player->bullet.ent);
-	calculaEntity(&exp->ent);
+	calculaEntity(&player->ent, SI);
+	calculaEntity(&player->bullet.ent, SI);
+	calculaEntity(&exp->ent, SI);
 	for(i=0;i < NUM_ENEMIGOS;++i){
-		calculaEntity(&enemigos[i]);
+		calculaEntity(&enemigos[i].ent, SI);
 	}
 }
 
@@ -335,11 +432,16 @@ void drawAll(TPlayer* player){
 	u8 i;
 	TStaticAnimation* exp;
 	exp = getExplosion();
-	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
-	redibujarEntity(&exp->ent,4,8);
+	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
+	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		redibujarEntity(&enemigos[i], enemigos[i].sw, enemigos[i].sh);
+		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
 	}
+}
+
+
+TEnemy* getEnemies(){
+	return enemigos;
 }

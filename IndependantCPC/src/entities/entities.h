@@ -8,14 +8,14 @@
 #define SI 1
 #define NO 0
 
-#define NUM_ENEMIGOS 0
+#define NUM_ENEMIGOS 1
 
-extern const TEntity enemigos[NUM_ENEMIGOS];
+extern const TEnemy enemigos[NUM_ENEMIGOS];
 extern u32 seed;
 
 extern u8 count1;
 
-void incializarEntities();
+void incializarEntities(TPlayer* player);
 
 
 //Acciones Entities
@@ -24,6 +24,8 @@ TPlayerDirection moverArriba(TEntity* ent);
 TPlayerDirection moverAbajo(TEntity* ent);
 TPlayerDirection moverIzquierda(TEntity* ent);
 TPlayerDirection moverDerecha(TEntity* ent);
+
+void playerHerido(TPlayer* player);
 
 //Acciones Bullet
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
@@ -34,7 +36,7 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir);
 void flipSprite(TEntity* ent, TPlayerDirection dir);
 
 //Updates
-u8 updatePlayer(TPlayer* player);
+void updatePlayer(TPlayer* player);
 void updateEntities();
 
 //Renders
@@ -42,7 +44,9 @@ void redibujarEntity(TEntity* ent, u8 w, u8 h);
 void borrarEntity(TEntity* ent);
 void dibujarEntity(TEntity* ent, u8 w, u8 h);
 void drawAll(TPlayer* player);
-void calculaEntity(TEntity* ent);
+void calculaEntity(TEntity* ent, u8 origen);
 void calculaAllEntities(TPlayer* player);
+
+TEnemy* getEnemies();
 
 #endif
