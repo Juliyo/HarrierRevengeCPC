@@ -9,6 +9,9 @@
 #define ORIGEN_MAPA_Y 40
 #define ORIGEN_MAPA cpctm_screenPtr(CPCT_VMEM_START, 0, ORIGEN_MAPA_Y)
 
+#define px_spawn 10
+#define py_spawn 170
+
 #define NUM_MAPAS 6
 
 typedef enum {
@@ -51,6 +54,7 @@ typedef struct Entity
 	TEntityType type;
 	TCollision coll;
 	u8 vivo;
+	u8 cuadrante;
 	u8 tw, th, tpx, tpy; //TileWidth, TileHeight, PositionX, PositionY
 	u8* vmem;
 	
@@ -82,9 +86,15 @@ typedef struct Enemy{
 
 extern const u8* mapa;
 
+extern u8 mapaActual;
+
 extern const TPlayer player;
 
 extern const TEntity hearth;
+
+extern u8 cuadrantePlayer;
+
+extern u8* const mapas[NUM_MAPAS];
 
 //Funciones
 void inicializarPantalla();
@@ -102,5 +112,8 @@ void cambiarAbajo(TEntity* ent);
 
 void calculaColisiones();
 u8 checkCollision(TCollision *col1, TCollision *col2);
+
+void resetearDrawEnemigos();
+
 
 #endif

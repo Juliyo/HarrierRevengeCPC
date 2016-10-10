@@ -14,6 +14,8 @@
 // Total random numbers to show (up to 255)
 #define N_RND_NUMBERS   50
 
+
+
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
@@ -75,7 +77,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVES_0_W,
 				G_NAVES_0_H
 			},
-			1
+			1,
+			2
 		}
 	},
 	{
@@ -132,18 +135,24 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVES_0_W,
 				G_NAVES_0_H
 			},
-			1
+			1,
+			3
 		}
 	}
 };
 
 u32 seed = 1;
 u8 count1 = 0;
-u8 mapaPlayer = 0; //para saber en que mapa esta el player
 
 
-void incializarEntities(){
+
+void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
+	p->vida = 3;
+	p->pvida = 4;
+	//p->ent.x = 20;
+	//
+	p->ent.y = 157;
 
 }
 
@@ -330,8 +339,12 @@ void updateBullet(TBullet* bullet){
 
 void playerHerido(TPlayer* player){
 	player->vida--;
-	player->ent.x = 20;
-	player->ent.y = 157;
+	player->ent.x = px_spawn;
+	player->ent.y = py_spawn;
+	mapaActual = 0;
+	player->ent.cuadrante = 0;
+	mapa = mapas[0];
+	dibujarMapa();
 }
 
 void updateEntities(){
@@ -366,12 +379,12 @@ void updateEntities(){
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
-	if (ent->draw) {
-		borrarEntity(ent);
-		ent->px = ent->x;
-		ent->py = ent->y;
-		dibujarEntity(ent, w, h);
-		ent->draw = NO;
+	if (ent->draw && ent->cuadrante == mapaActual) {
+			borrarEntity(ent);
+			ent->px = ent->x;
+			ent->py = ent->y;
+			dibujarEntity(ent, w, h);
+			ent->draw = NO;
 	}
 }
 
@@ -419,9 +432,9 @@ void drawAll(TPlayer* player){
 	u8 i;
 	TStaticAnimation* exp;
 	exp = getExplosion();
-	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
-	redibujarEntity(&exp->ent,4,8);
+	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
+	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);

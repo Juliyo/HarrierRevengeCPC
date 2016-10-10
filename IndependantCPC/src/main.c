@@ -18,7 +18,10 @@
 //prueba de commit
 #include <cpctelera.h>
 #include "sprites/naves.h"
+#include "sprites/portada.h"
 #include "game.h"
+
+u8 mostrarMenu = 1;
 
 void inicializar(){
 	cpct_disableFirmware();
@@ -29,12 +32,39 @@ void inicializar(){
 	cpct_setVideoMode(0);
 }
 
+void menu(){
+	u8* pvideomem;
+	pvideomem = CPCT_VMEM_START;
+	cpct_clearScreen(0);
+	cpct_drawSprite (g_portada_0,
+					 cpctm_screenPtr(CPCT_VMEM_START, 0, 0)
+					,G_PORTADA_0_W, G_PORTADA_0_H);	
+	cpct_drawSprite (g_portada_1,
+					 cpctm_screenPtr(CPCT_VMEM_START, G_PORTADA_0_W, 0)
+					,G_PORTADA_0_W, G_PORTADA_0_H);	
+
+	cpct_drawStringM0("PULSA INTRO", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
+	if(player.vida == 0){
+		cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
+	}
+	do{
+		cpct_scanKeyboard_f();
+	}while(!cpct_isKeyPressed(Key_Enter));
+	mostrarMenu = 0;
+
+}
+
+
 void main(void) {
 
 	inicializar();
 
    // Loop forever
    while (1){
+   	if(mostrarMenu % 2 == 0){
+   		menu();
+   	}
    	play();
+   	//mostrarMenu = 1;
    }
 }
