@@ -154,8 +154,14 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 		dibujarMapa();
 	}
 	resetearDrawEnemigos();
+	resetearBala();
 	return mapaActual;
 }	
+void resetearBala(){
+	explosionBala(&player.bullet);
+	calculaEntity(&player.bullet.ent,SI);
+	borrarEntity(&player.bullet.ent);
+}
 
 void cambiarDerecha(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
@@ -299,11 +305,11 @@ void drawHUD(){
 			,ent->sh
 			);
 
-		for(i = 0; i < player.vida; ++i){
+		/*for(i = 0; i < player.vida; ++i){
 			ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 			dibujarEntity(ent,ent->sw,ent->sh);
 			ent->x+=10;
-		}
+		}*/
 		
 		
 		ent->x = 2;
@@ -337,9 +343,8 @@ void play(){
 	p->vida = 3;
 	*/
 	salirMenu = 0;
-
-	inicializarPantalla();
 	incializarEntities(&player);
+	inicializarPantalla();
 
 	//Esto seria mientras estes vivo
 	while(player.vida>0){
