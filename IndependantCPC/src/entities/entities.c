@@ -67,8 +67,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				g_naves_2,
 				g_naves_3,
 			},	
-			G_NAVES_0_W,
-			G_NAVES_0_H,
+			G_NAVES_0_W,	//sw
+			G_NAVES_0_H,	//sh
 			d_up,			//curr_dir
 			e_enemy,
 			{
@@ -149,7 +149,7 @@ u8 count1 = 0;
 void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
 	p->vida = 3;
-	p->pvida = 4;
+	p->pvida = 3;
 	p->ent.x = px_spawn;
 	p->ent.y = py_spawn;
 	p->ent.draw = SI;
