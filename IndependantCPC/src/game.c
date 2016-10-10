@@ -265,7 +265,7 @@ void calculaColisiones(){
 	}
 	
 	//BALA - ENEMIGO
-	for(i=0;i<NUM_ENEMIGOS;++i){º
+	for(i=0;i<NUM_ENEMIGOS;++i){
 		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
 		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
 			//Hacemos la bala explotar(cuando la animacion funcione :D)
@@ -274,6 +274,7 @@ void calculaColisiones(){
 			
 			p->puntuacion = p->puntuacion + 100;
 			enemigos[i].ent.vivo = 0;
+			enemigos[i].ent.draw = NO;
 			break;
 		}
 	}
