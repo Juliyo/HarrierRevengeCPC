@@ -112,4 +112,5 @@ u8 checkCollision(TCollision *col1, TCollision *col2);
 
 void resetearDrawEnemigos();
 
+
 #endif

@@ -142,9 +142,15 @@ u32 seed = 1;
 u8 count1 = 0;
 
 
-void incializarEntities(TPlayer* player){
+
+void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
-	//accion(&player->ent, es_mover, d_up);	//Muevo el player para que se dibuje al principio
+	p->vida = 3;
+	p->pvida = 4;
+	//p->ent.x = 20;
+	//
+	p->ent.y = 157;
+
 }
 
 //Devuelve un TPlayerDirection que indica si ha habido colision con el borde y la direccion en la que se ha producido
