@@ -48,7 +48,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					0,
 					G_BALA_0_W,
 					G_BALA_0_H
-				}
+				},
+				1
 			}
 		},
 		{	50,				//x
@@ -73,7 +74,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				157,
 				G_NAVES_0_W,
 				G_NAVES_0_H
-			}
+			},
+			1
 		}
 	},
 	{
@@ -129,7 +131,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				50,
 				G_NAVES_0_W,
 				G_NAVES_0_H
-			}
+			},
+			1
 		}
 	}
 };
