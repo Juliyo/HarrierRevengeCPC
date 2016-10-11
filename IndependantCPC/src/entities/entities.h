@@ -4,14 +4,12 @@
 #include <types.h>
 
 #include "../game.h"
+#include "wavemanager.h"
 
 #define SI 1
 #define NO 0
 
-#define NUM_ENEMIGOS 3
-
 extern const TEnemy enemigos[NUM_ENEMIGOS];
-extern u32 seed;
 
 extern u8 count1;
 
@@ -38,6 +36,8 @@ void flipSprite(TEntity* ent, TPlayerDirection dir);
 //Updates
 void updatePlayer(TPlayer* player);
 void updateEntities();
+void updateX(TEntity* ent, i16 x);
+void updateY(TEntity* ent, i16 y);
 
 //Renders
 void redibujarEntity(TEntity* ent, u8 w, u8 h);

@@ -104,6 +104,7 @@ const u8* mapa = NULL;
 
 u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_map32 };
 u8 mapaActual = 0;
+u8 previousMap = 0;
 u8 salirMenu = 0;
 
 void inicializarPantalla(){
@@ -113,7 +114,7 @@ void inicializarPantalla(){
 	//Limpiar la pantalla
 	cpct_clearScreen(0);
 	mapaActual = 0;
-
+	previousMap = 0;
 	mapa = g_map11;
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
@@ -168,7 +169,7 @@ void cambiarDerecha(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
 		mapaActual = cambiarMapa(1,1);
 		ent->cuadrante = mapaActual;
-		ent->x = 0; //esto es para cambiar la posision del player cuando cambia de mapa.
+		updateX(ent,0); //esto es para cambiar la posision del player cuando cambia de mapa.
 	}
 }
 
@@ -176,7 +177,7 @@ void cambiarIzquierda(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 != 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son impares
 		mapaActual = cambiarMapa(0,1);
 		ent->cuadrante = mapaActual;
-		ent->x = 74;//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
+		updateX(ent,74);//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
 	}
 }
 
@@ -184,7 +185,7 @@ void cambiarArriba(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 4){//desde los 4 primeros mapas puedo subir
 		mapaActual = cambiarMapa(1,2);
 		ent->cuadrante = mapaActual;
-		ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
+		updateY(ent, 188);ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
 	}
 
 }
@@ -193,7 +194,7 @@ void cambiarAbajo(TEntity* ent){
 	if(mapaActual > 1 && mapaActual < 6){ //desde los 4 ultimos mapas puedo bajar
 		mapaActual = cambiarMapa(0,2);
 		ent->cuadrante = mapaActual;
-		ent->y = 40;//en 40 comienza el mapa a pintarse
+		updateY(ent, 40); //en 40 comienza el mapa a pintarse
 	}		
 }
 
@@ -232,10 +233,8 @@ void updateUser(){
 	}
 
 }
-
 u8 checkCollision(TCollision *col1, TCollision *col2){
 	u8 collide;
-	u8 str[1];
 	if (col1->x < col2->x + col2->w &&
 		col1->x + col1->w > col2->x &&
 		col1->y < col2->y + col2->h &&
@@ -249,8 +248,6 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);*/
 return collide;
 }
-
-
 
 void calculaColisiones(){
 	TEnemy *enemigos;
@@ -273,7 +270,7 @@ void calculaColisiones(){
 		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
 			//Hacemos la bala explotar(cuando la animacion funcione :D)
 			explosionBala(&player.bullet);
-			
+			restarEnemigo();
 			p->puntuacion = p->puntuacion + 100;
 			enemigos[i].ent.vivo = 0;
 			enemigos[i].ent.draw = NO;
@@ -300,13 +297,6 @@ void drawHUD(){
 			,ent->sw
 			,ent->sh
 			);
-
-		/*for(i = 0; i < player.vida; ++i){
-			ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
-			dibujarEntity(ent,ent->sw,ent->sh);
-			ent->x+=10;
-		}*/
-		
 		
 		ent->x = 2;
 		p->pvida = p->vida;
@@ -333,11 +323,7 @@ void dibujarPuntos(){
 }
 
 void play(){
-	/*
-	TPlayer* p = &player;
-	p->pvida = 4;
-	p->vida = 3;
-	*/
+
 	salirMenu = 0;
 	incializarEntities(&player);
 	inicializarPantalla();

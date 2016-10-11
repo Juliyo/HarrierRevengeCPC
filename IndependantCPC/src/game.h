@@ -88,6 +88,8 @@ extern const u8* mapa;
 
 extern u8 mapaActual;
 
+extern u8 previousMap;
+
 extern const TPlayer player;
 
 extern const TEntity hearth;
