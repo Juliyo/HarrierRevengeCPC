@@ -45,7 +45,7 @@ void explosionBala(TBullet* bullet){
 	//Solo si la bala estaba en el estado de disparado
 	if(bullet->state == es_disparado){
 		TStaticAnimation* exp;
-		exp = getExplosion();
+		exp = &explosion;
 		exp->n_frames = 0;
 		exp->ent.draw = SI;
 
@@ -53,6 +53,7 @@ void explosionBala(TBullet* bullet){
 
 		exp->ent.sprites[0] = g_frames[0];
 		exp->ent.curr_dir = 0;
+		exp->ent.cuadrante = mapaActual;
 		bullet->ent.draw = NO;
 		bullet->state = es_explotando;	//Cambiamos a la bala estado explotando
 		
@@ -68,18 +69,21 @@ void updateXY(TEntity* ent1, i16 x, i16 y){
 }
 //Esta función se encarga de updatear la explosión de la bala
 void updateExplosion(TBullet* bullet){
+	TStaticAnimation* exp;
 	if(bullet->state == es_explotando){	//Solo se updatea si está en estado de explosión	
-			TStaticAnimation* exp;
-			exp = getExplosion();
+			exp = &explosion;
+			exp->ent.draw = SI;
+			exp->ent.cuadrante = mapaActual;
 			//Primera posicion de los sprites cambia por el frame que toca de la explosion
 			exp->ent.sprites[0] = g_frames[exp->n_frames];
 			exp->n_frames = exp->n_frames + 1;
 			if(exp->n_frames == EXPLOSION_FRAMES - 1){
+				calculaEntity(&exp->ent,SI);
+				borrarEntity(&exp->ent);
 				exp->ent.draw = NO;
 				bullet->state = es_static;
 				exp->n_frames = 0;
-				//Movemos la bala a la 0, 0 para que no vuelva a detectar colision
-				updateXY(&bullet->ent, 0, 0);
 			}
+			
 	}
 }
