@@ -10,6 +10,7 @@
 #include "../sprites/naveEnemiga3.h"
 #include "../game.h"
 #include "../animation/animation.h"
+#include "../entities/wavemanager.h"
 
 #define COLUMNA 8
 #define FILA 16
@@ -59,7 +60,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		},
 		{	50,				//x
 			157,			//y
-			20,				//px
+			50,				//px
 			157,			//py
 			1,				//vx
 			2,				//vy
@@ -81,7 +82,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA1_0_H
 			},
 			1,
-			2				//cuadrante
+			0				//cuadrante
 		}
 	},
 	{
@@ -139,7 +140,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA2_0_H
 			},
 			1,
-			4				//cuadrante
+			3				//cuadrante
 		}
 	},
 	{
@@ -202,7 +203,6 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 	}
 };
 
-u32 seed = 1;
 u8 count1 = 0;
 
 
@@ -214,6 +214,8 @@ void incializarEntities(TPlayer* p){
 	p->ent.x = px_spawn;
 	p->ent.y = py_spawn;
 	p->ent.draw = SI;
+
+	inicializarWaveManager();
 }
 
 //Devuelve un TPlayerDirection que indica si ha habido colision con el borde y la direccion en la que se ha producido
@@ -319,6 +321,13 @@ TPlayerDirection moverDerecha(TEntity* ent){
 
 
 void updatePlayer(TPlayer* player){
+	if(previousMap == mapaActual){
+		//Tiempo que lleva el player sin cambiar de mapa
+		updateTiempoEnMapa();
+	}else{
+		previousMap = mapaActual;
+		resetearTimepoEnMapa();
+	}
 	
 	updateBullet(&player->bullet);
 		
@@ -356,6 +365,14 @@ void corregirPosicion(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 
 	bullet->ent.x = x;
 	bullet->ent.y = y;
+}
+void updateX(TEntity* ent, i16 x){
+	ent->x = x;
+	ent->coll.x = x;
+}
+void updateY(TEntity* ent, i16 y){
+	ent->y = y;
+	ent->coll.y = y;
 }
 void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 	if(bullet->state == es_static){
@@ -408,7 +425,7 @@ void playerHerido(TPlayer* player){
 }
 
 void updateEntities(){
-	
+
 	/*u8 random_number;
 	u8 i;
 
