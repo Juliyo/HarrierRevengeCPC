@@ -3,7 +3,7 @@
 
 #include "../game.h"
 
-#define EXPLOSION_FRAMES 12
+#define EXPLOSION_FRAMES 14
 
 typedef struct{
 	u8 n_frames;
