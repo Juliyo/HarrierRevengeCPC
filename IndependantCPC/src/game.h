@@ -37,6 +37,12 @@ typedef enum{
 	e_bullet
 } TEntityType;
 
+typedef enum{
+	s_mover,
+	s_disparar,
+	s_capturar
+} TStatusIA;
+
 typedef struct {
    u8    x, y;
    u8    w, h;
@@ -81,6 +87,7 @@ typedef struct Player
 typedef struct Enemy{
 	TBullet bullet;
 	TEntity ent;
+	TStatusIA statusIA;
 }TEnemy;
 
 

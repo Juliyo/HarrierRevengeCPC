@@ -81,7 +81,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA1_0_H
 			},
 			1,
-			2				//cuadrante
+			2,				//cuadrante
+			s_mover
 		}
 	},
 	{
@@ -139,7 +140,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA2_0_H
 			},
 			1,
-			4				//cuadrante
+			4,				//cuadrante
+			s_mover
 		}
 	},
 	{
@@ -197,7 +199,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA3_0_H
 			},
 			1,
-			1				//cuadrante
+			1,				//cuadrante
+			s_mover
 		}
 	}
 };
