@@ -213,11 +213,10 @@ u8 count1 = 0;
 void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
 	p->vida = 3;
-	p->pvida = 4;
-	//p->ent.x = 20;
-	//
-	p->ent.y = 157;
-
+	p->pvida = 3;
+	p->ent.x = px_spawn;
+	p->ent.y = py_spawn;
+	p->ent.draw = SI;
 }
 
 //Devuelve un TPlayerDirection que indica si ha habido colision con el borde y la direccion en la que se ha producido

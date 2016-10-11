@@ -140,7 +140,8 @@ void resetearDrawEnemigos(){
 	u8 i;
 	enemigos = getEnemies();
 	for(i=0;i<NUM_ENEMIGOS;++i){
-		enemigos[i].ent.draw = SI;
+		if(enemigos[i].ent.vivo == 1)
+			enemigos[i].ent.draw = SI;
 	}
 }
 u8 cambiarMapa(u8 suma, u8 cantidad){
@@ -154,14 +155,19 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 		dibujarMapa();
 	}
 	resetearDrawEnemigos();
+	resetearBala();
 	return mapaActual;
 }	
+void resetearBala(){
+	explosionBala(&player.bullet);
+	calculaEntity(&player.bullet.ent,SI);
+	borrarEntity(&player.bullet.ent);
+}
 
 void cambiarDerecha(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
 		mapaActual = cambiarMapa(1,1);
 		ent->cuadrante = mapaActual;
-		//p->bullet.ent.cuadrante = mapaActual;
 		ent->x = 0; //esto es para cambiar la posision del player cuando cambia de mapa.
 	}
 }
@@ -170,7 +176,6 @@ void cambiarIzquierda(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 != 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son impares
 		mapaActual = cambiarMapa(0,1);
 		ent->cuadrante = mapaActual;
-		//p->bullet.ent.cuadrante = mapaActual;
 		ent->x = 74;//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
 	}
 }
@@ -179,7 +184,6 @@ void cambiarArriba(TEntity* ent){
 	if(mapaActual >= 0 && mapaActual < 4){//desde los 4 primeros mapas puedo subir
 		mapaActual = cambiarMapa(1,2);
 		ent->cuadrante = mapaActual;
-		//p->bullet.ent.cuadrante = mapaActual;
 		ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
 	}
 
@@ -189,7 +193,6 @@ void cambiarAbajo(TEntity* ent){
 	if(mapaActual > 1 && mapaActual < 6){ //desde los 4 ultimos mapas puedo bajar
 		mapaActual = cambiarMapa(0,2);
 		ent->cuadrante = mapaActual;
-		//p->bullet.ent.cuadrante = mapaActual;
 		ent->y = 40;//en 40 comienza el mapa a pintarse
 	}		
 }
@@ -258,7 +261,7 @@ void calculaColisiones(){
 	//PLAYER - ENEMIES
 	for(i=0;i<NUM_ENEMIGOS;++i){
 		collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
-		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo ){
+		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo ==1){
 			playerHerido(&player);
 			break;
 		}
@@ -269,7 +272,6 @@ void calculaColisiones(){
 		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
 		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
 			//Hacemos la bala explotar(cuando la animacion funcione :D)
-			//cpct_setBorder(HW_RED);
 			explosionBala(&player.bullet);
 			
 			p->puntuacion = p->puntuacion + 100;
@@ -299,11 +301,11 @@ void drawHUD(){
 			,ent->sh
 			);
 
-		for(i = 0; i < player.vida; ++i){
+		/*for(i = 0; i < player.vida; ++i){
 			ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 			dibujarEntity(ent,ent->sw,ent->sh);
 			ent->x+=10;
-		}
+		}*/
 		
 		
 		ent->x = 2;
@@ -337,9 +339,8 @@ void play(){
 	p->vida = 3;
 	*/
 	salirMenu = 0;
-
-	inicializarPantalla();
 	incializarEntities(&player);
+	inicializarPantalla();
 
 	//Esto seria mientras estes vivo
 	while(player.vida>0){
