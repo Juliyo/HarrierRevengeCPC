@@ -335,7 +335,7 @@ void play(){
 	while(player.vida>0){
 		updateUser();
 		updatePlayer(&player);
-		//updateEntities();
+		updateEntities();
 		//cpct_setBorder(HW_RED);
 		calculaColisiones();
 		calculaAllEntities(&player);

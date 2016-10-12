@@ -429,7 +429,7 @@ void playerHerido(TPlayer* player){
 
 void updateEntities(){
 
-	/*u8 random_number;
+	u8 random_number;
 	u8 i;
 
 	TEntity* ent;
@@ -444,17 +444,22 @@ void updateEntities(){
 
 	
 	for(i = 0; i < NUM_ENEMIGOS; i++){
-		ent = &enemigos[i];
-		accion(&enemigos[i],es_mover,enemigos[i].curr_dir);
+		
+			ent = &enemigos[i].ent;
+			if(ent->vivo == 1){
+		accion(ent,es_mover,ent->curr_dir);
+		}
 		random_number = cpct_rand()%4;
 		if(count1 > 60){
 			count1 = 0;
 			ent->curr_dir = random_number;
 		}
 
+		
+		
 		count1++;
 	}
-*/
+
 	
 }
 
