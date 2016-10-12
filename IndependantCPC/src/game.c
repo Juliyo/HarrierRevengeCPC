@@ -271,6 +271,9 @@ void calculaColisiones(){
 			//Hacemos la bala explotar(cuando la animacion funcione :D)
 			explosionBala(&player.bullet);
 			restarEnemigo();
+			calculaEntity(&enemigos[i].ent,SI);
+			enemigos[i].ent.draw = SI;
+			borrarEntity(&enemigos[i].ent);
 			p->puntuacion = p->puntuacion + 100;
 			enemigos[i].ent.vivo = 0;
 			enemigos[i].ent.draw = NO;
@@ -332,7 +335,7 @@ void play(){
 	while(player.vida>0){
 		updateUser();
 		updatePlayer(&player);
-		//updateEntities();
+		updateEntities();
 		//cpct_setBorder(HW_RED);
 		calculaColisiones();
 		calculaAllEntities(&player);

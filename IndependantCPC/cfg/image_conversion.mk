@@ -67,11 +67,11 @@ PALETTE={0 1 2 3 6 9 11 12 13 14 15 19 20 24 25 26}
 ##	  hardware colour values.
 
 $(eval $(call IMG2SPRITES,resources/naves.png,0,g,12,12,$(PALETTE),,src/sprites/,hwpalette))
-$(eval $(call IMG2SPRITES,resources/naveEnemiga1.png,0,g,8,8,$(PALETTE),,src/sprites/))
-$(eval $(call IMG2SPRITES,resources/naveEnemiga2.png,0,g,8,8,$(PALETTE),,src/sprites/))
-$(eval $(call IMG2SPRITES,resources/naveEnemiga3.png,0,g,8,8,$(PALETTE),,src/sprites/))
+$(eval $(call IMG2SPRITES,resources/naveEnemiga1.png,0,g,10,10,$(PALETTE),,src/sprites/))
+$(eval $(call IMG2SPRITES,resources/naveEnemiga2.png,0,g,10,10,$(PALETTE),,src/sprites/))
+$(eval $(call IMG2SPRITES,resources/naveEnemiga3.png,0,g,10,10,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/bala.png,0,g,4,4,$(PALETTE),,src/sprites/))
-$(eval $(call IMG2SPRITES,resources/explosion.png,0,g,8,8,$(PALETTE),,src/sprites/))
+$(eval $(call IMG2SPRITES,resources/explosion.png,0,g,12,12,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/hearth.png,0,g,18,18,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/portada.png,0,g,80,66,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/paletajulinho.png,0,g,4,4,$(PALETTE),tileset,src/sprites/))
