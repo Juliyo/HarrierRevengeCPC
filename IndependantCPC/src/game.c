@@ -263,23 +263,25 @@ void calculaColisiones(){
 			break;
 		}
 	}
-	
-	//BALA - ENEMIGO
-	for(i=0;i<NUM_ENEMIGOS;++i){
-		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
-		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
-			//Hacemos la bala explotar(cuando la animacion funcione :D)
-			explosionBala(&player.bullet);
-			restarEnemigo();
-			calculaEntity(&enemigos[i].ent,SI);
-			enemigos[i].ent.draw = SI;
-			borrarEntity(&enemigos[i].ent);
-			p->puntuacion = p->puntuacion + 100;
-			enemigos[i].ent.vivo = 0;
-			enemigos[i].ent.draw = NO;
-			break;
+	if(player.bullet.ent.vivo == SI){
+		//BALA - ENEMIGO
+		for(i=0;i<NUM_ENEMIGOS;++i){
+			collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
+			if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+				//Hacemos la bala explotar(cuando la animacion funcione :D)
+				explosionBala(&player.bullet);
+				restarEnemigo();
+				calculaEntity(&enemigos[i].ent,SI);
+				enemigos[i].ent.draw = SI;
+				borrarEntity(&enemigos[i].ent);
+				p->puntuacion = p->puntuacion + 100;
+				enemigos[i].ent.vivo = 0;
+				enemigos[i].ent.draw = NO;
+				break;
+			}
 		}
 	}
+	
 	
 	
 	//sprintf(str,"%d",collide);

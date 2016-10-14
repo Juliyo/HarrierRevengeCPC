@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 #include <cpctelera.h>
 #include "entities.h"
@@ -208,7 +209,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 
 u8 count1 = 0;
 
-
+u8 turno = 0;
 
 void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
@@ -384,6 +385,7 @@ void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 		bullet->ent.px = bullet->ent.x;
 		bullet->ent.py = bullet->ent.y;
 		bullet->ent.draw = SI;
+		bullet->ent.vivo = SI;
 		bullet->ent.curr_dir = dir;
 	}
 }
@@ -402,6 +404,7 @@ void updateBullet(TBullet* bullet){
 					calculaEntity(&bullet->ent, SI);
 					borrarEntity(&bullet->ent);
 					bullet->ent.draw = NO;
+					bullet->ent.vivo = NO;
 				}
 				
 				bullet->frameCount = 0;
@@ -431,10 +434,11 @@ void updateEntities(){
 
 	u8 random_number;
 	u8 i;
-
 	TEntity* ent;
 
-	//seed = 1;
+	if(turno >= 3){
+		turno = 0;
+	}
 
 	seed++;
 	if(seed > 15000)
@@ -445,19 +449,25 @@ void updateEntities(){
 	
 	for(i = 0; i < NUM_ENEMIGOS; i++){
 		
-			ent = &enemigos[i].ent;
-			if(ent->vivo == 1){
-		accion(ent,es_mover,ent->curr_dir);
-		}
+		ent = &enemigos[i].ent;
+		
 		random_number = cpct_rand()%4;
 		if(count1 > 60){
 			count1 = 0;
 			ent->curr_dir = random_number;
 		}
-
-		
-		
 		count1++;
+
+		if(ent->vivo == 1){
+			if(turno == i){
+				accion(ent,es_mover,ent->curr_dir);
+				turno++;
+				break;
+			}
+
+		}else{
+			turno++;
+		}
 	}
 
 	
@@ -487,11 +497,18 @@ void dibujarEntity(TEntity* ent, u8 w, u8 h){
 
 //Calculamos lo que vamos a dibujar
 void calculaEntity(TEntity* ent, u8 origen){
-	ent->tw = ent->sw/2 + (ent->px & 1);
-	ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
+	if(ent->sw%2 != 0)
+		ent->tw = ent->sw/2 + (ent->px & 1) + 1;
+	else
+		ent->tw = ent->sw/2 + (ent->px & 1);
+	if(ent->sh%4 != 0)
+		ent->th = ent->sh/4 + 1 + (ent->py & 3 ? 1 : 0);
+	else
+		ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
+	
 	ent->tpx = ent->px / 2;
 	if(origen == SI)
-		ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+		ent->tpy = (ent->py - ORIGEN_MAPA_Y) / 4;
 	else
 		ent->tpy = (ent->py) / 4;
 	ent->coll.x = ent->x;
@@ -522,7 +539,8 @@ void drawAll(TPlayer* player){
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+		//if(turno == i - 1)
+			redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
 	}
 }
 

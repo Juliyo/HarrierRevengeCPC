@@ -55,6 +55,7 @@ void explosionBala(TBullet* bullet){
 		exp->ent.curr_dir = 0;
 		exp->ent.cuadrante = mapaActual;
 		bullet->ent.draw = NO;
+		bullet->ent.vivo = NO;
 		bullet->state = es_explotando;	//Cambiamos a la bala estado explotando
 		
 	}
