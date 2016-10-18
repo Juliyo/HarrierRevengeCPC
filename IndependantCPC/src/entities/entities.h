@@ -9,6 +9,12 @@
 #define SI 1
 #define NO 0
 
+typedef struct{
+	u8 x,y;
+}TCoord;
+
+extern const TCoord puntos[4];
+
 extern const TEnemy enemigos[NUM_ENEMIGOS];
 
 extern u8 count1;
@@ -35,9 +41,18 @@ void flipSprite(TEntity* ent, TPlayerDirection dir);
 
 //Updates
 void updatePlayer(TPlayer* player);
-void updateEntities();
 void updateX(TEntity* ent, i16 x);
 void updateY(TEntity* ent, i16 y);
+
+//IA
+void updateIAState(TEnemy* ene);
+void updateIA();
+u8 contarEnemigos();
+u8 moverHaciaPuntoDeControl(TEnemy* ene);
+TPlayerDirection comprobarEjeX(TEnemy* ene);
+TPlayerDirection comprobarEjeY(TEnemy* ene);
+
+i16 abs(i16 num);
 
 //Renders
 void redibujarEntity(TEntity* ent, u8 w, u8 h);

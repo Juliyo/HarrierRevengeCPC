@@ -85,7 +85,12 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			1,
 			2,				//cuadrante
 			s_mover
-		}
+		},
+		s_mover,	//statusIA
+		0,			//cycles
+		10,			//wait_cycles
+		0			//puntoControl
+
 	},
 	{
 		{					//Bullet
@@ -144,7 +149,11 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			1,
 			4,				//cuadrante
 			s_mover
-		}
+		},
+		s_mover,	//statusIA
+		0,			//cycles
+		10,			//wait_cycles
+		0			//puntoControl
 	},
 	{
 		{					//Bullet
@@ -203,8 +212,19 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			1,
 			0,				//cuadrante
 			s_mover
-		}
+		},
+		s_mover,	//statusIA
+		0,			//cycles
+		10,			//wait_cycles
+		0			//puntoControl
 	}
+};
+// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
+const TCoord puntos[4] = {
+	{ 40, ORIGEN_MAPA_Y + 20 },		//Arriba por el centro
+	{ 40, ALTO - 15 	     },		//Abajo por el centro
+	{ 65, ORIGEN_MAPA_Y + 60 },		//Derecha por el centro
+	{ 10, ORIGEN_MAPA_Y + 60 }		//Izquierda por el centro
 };
 
 u8 count1 = 0;
@@ -431,7 +451,7 @@ void playerHerido(TPlayer* player){
 }
 
 void updateEntities(){
-
+/*
 	u8 random_number;
 	u8 i;
 	TEntity* ent;
@@ -470,7 +490,106 @@ void updateEntities(){
 		}
 	}
 
-	
+	*/
+}
+u8 contarEnemigos(){
+	u8 i;
+	u8 cuenta = 0;
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		if(enemigos[i].ent.cuadrante == mapaActual){
+			cuenta++;
+		}
+	}
+}
+
+void updateIA(){
+	u8 i;
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		//Solo updateamos la IA si ese enemigo esta en el cuadrante del player
+		if(enemigos[i].ent.cuadrante == mapaActual){
+			//updateIAState(&enemigos[i]);
+		}
+	}
+}
+TPlayerDirection comprobarEjeX(TEnemy* ene){
+	TPlayerDirection dir;
+	//Comprobamos hacia donde moverse
+	if(ene->ent.x > puntos[ene->puntoDeControl].x){	//Si se cumple movemos hacia la izquierda
+		dir = d_left;
+	}else{
+		dir = d_right;
+	}
+
+	return dir;
+}
+TPlayerDirection comprobarEjeY(TEnemy* ene){
+	TPlayerDirection dir;
+	//Comprobamos hacia donde moverse
+	if(ene->ent.y > puntos[ene->puntoDeControl].y){	//Si se cumple movemos hacia la derecha
+		dir = d_up;
+	}else{
+		dir = d_down;
+	}
+
+	return dir;
+}
+u8 moverHaciaPuntoDeControl(TEnemy* ene){
+	TPlayerDirection dir;
+	i16 diff;
+	u8 llego = NO;
+	if(++ene->cycles >= ene->wait_cycles){
+		dir = comprobarEjeX(ene);
+		//Calculamos el valor absoluto de la diferencia de eje X
+		diff = abs(ene->ent.x - puntos[ene->puntoDeControl].x);	
+		if(diff >= 2){
+			dir = comprobarEjeY(ene);
+			diff = abs(ene->ent.y - puntos[ene->puntoDeControl].y);	
+			if(diff >= 2){
+				llego = SI;
+			}
+		}
+		ene->cycles = 0; //Reseteamos el ciclo actual de espera
+	}
+
+	return llego;
+}
+i16 abs(i16 num){
+ i16 i;
+ i16 numPositivo=0;
+ if(num<0){
+  for(i=num;i<0;i++){
+   numPositivo++;
+  }
+ }else{
+  numPositivo=num;
+ }
+
+ return numPositivo;
+}
+
+
+void updateIAState(TEnemy* ene){
+		switch(ene->statusIA){
+			case s_mover:
+				//Hay que comprobar si hay 5 o mas bases capturadas
+				//Y si el enemigo esta solo, entonces huye
+				if(basesCapturadas >= 5 && contarEnemigos() == 1){
+					ene->statusIA = s_huir;
+					break;		//Salimos
+				}
+				cpct_setBorder(HW_RED);
+				// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
+				if(moverHaciaPuntoDeControl(ene))	//si devuelve true es que ha llegado al siguiente
+					ene->puntoDeControl++;			//punto de control por lo que ahora cambia de destino
+			break;
+			case s_disparar:
+			break;
+			case s_capturar:
+			break;
+			case s_huir:
+				//Huir
+			break;
+		}
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){

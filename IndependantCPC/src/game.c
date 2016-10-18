@@ -106,6 +106,7 @@ u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_ma
 u8 mapaActual = 0;
 u8 previousMap = 0;
 u8 salirMenu = 0;
+u8 basesCapturadas = 0;
 
 void inicializarPantalla(){
 	u8 i;
