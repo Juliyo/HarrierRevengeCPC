@@ -197,7 +197,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA3_0_H
 			},
 			1,
-			1				//cuadrante
+			0				//cuadrante
 		}
 	}
 };

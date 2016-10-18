@@ -14,6 +14,7 @@
 #include "game.h"
 #include "entities/entities.h"
 #include "animation/animation.h"
+#include <time.h>
 
 #define VIDA_SPRITE_MEM cpct_getScreenPtr(CPCT_VMEM_START,2,10)
 
@@ -242,12 +243,12 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 		col1->h + col1->y > col2->y) {
    		// collision detected!
 		collide = 1;
-}else{
-	collide = 0;
-}
+	}else{
+		collide = 0;
+	}
 	/*sprintf(str,"%d",collide);
 	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);*/
-return collide;
+	return collide;
 }
 
 

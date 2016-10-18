@@ -83,6 +83,11 @@ typedef struct Enemy{
 	TEntity ent;
 }TEnemy;
 
+typedef struct Base{
+	TEntity ent;
+	u8 whom;
+	u8 percentCaptured;
+}TBase;
 
 extern const u8* mapa;
 
@@ -116,5 +121,6 @@ u8 checkCollision(TCollision *col1, TCollision *col2);
 void resetearDrawEnemigos();
 void resetearBala();
 
+void capturaBase(TBase *base);
 
 #endif
