@@ -51,6 +51,7 @@ u8 contarEnemigos();
 u8 moverHaciaPuntoDeControl(TEnemy* ene);
 TPlayerDirection comprobarEjeX(TEnemy* ene);
 TPlayerDirection comprobarEjeY(TEnemy* ene);
+void comprobarSiDisparo(TEnemy* ene, TPlayer* p);
 
 i16 abs(i16 num);
 

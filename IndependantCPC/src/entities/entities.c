@@ -88,7 +88,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		},
 		s_mover,	//statusIA
 		0,			//cycles
-		10,			//wait_cycles
+		1,			//wait_cycles
 		0			//puntoControl
 
 	},
@@ -152,7 +152,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		},
 		s_mover,	//statusIA
 		0,			//cycles
-		10,			//wait_cycles
+		1,			//wait_cycles
 		0			//puntoControl
 	},
 	{
@@ -215,7 +215,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		},
 		s_mover,	//statusIA
 		0,			//cycles
-		10,			//wait_cycles
+		1,			//wait_cycles
 		0			//puntoControl
 	}
 };
@@ -491,6 +491,12 @@ void updateEntities(){
 	}
 
 	*/
+	u8 i;
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		updateBullet(&enemigos[i].bullet);
+	}
+	
+	updateIA();
 }
 u8 contarEnemigos(){
 	u8 i;
@@ -500,14 +506,26 @@ u8 contarEnemigos(){
 			cuenta++;
 		}
 	}
+	return cuenta;
 }
 
 void updateIA(){
 	u8 i;
+	if(turno >= 3){
+		turno = 0;
+	}
+
 	for(i=0;i<NUM_ENEMIGOS;++i){
 		//Solo updateamos la IA si ese enemigo esta en el cuadrante del player
-		if(enemigos[i].ent.cuadrante == mapaActual){
-			//updateIAState(&enemigos[i]);
+		//Y es su turno
+		if(enemigos[i].ent.cuadrante == mapaActual && enemigos[i].ent.vivo){
+			if(turno == i){
+				updateIAState(&enemigos[i]);
+				turno++;
+			}
+			
+		}else{
+			turno++;
 		}
 	}
 }
@@ -541,34 +559,37 @@ u8 moverHaciaPuntoDeControl(TEnemy* ene){
 		dir = comprobarEjeX(ene);
 		//Calculamos el valor absoluto de la diferencia de eje X
 		diff = abs(ene->ent.x - puntos[ene->puntoDeControl].x);	
-		if(diff >= 2){
+		if(diff <= 2){
 			dir = comprobarEjeY(ene);
 			diff = abs(ene->ent.y - puntos[ene->puntoDeControl].y);	
-			if(diff >= 2){
+			if(diff <= 2){
 				llego = SI;
 			}
 		}
+		ene->ent.curr_dir = dir;
 		ene->cycles = 0; //Reseteamos el ciclo actual de espera
 	}
+	
+	accion(&ene->ent, es_mover, ene->ent.curr_dir);
 
 	return llego;
 }
 i16 abs(i16 num){
- i16 i;
- i16 numPositivo=0;
- if(num<0){
-  for(i=num;i<0;i++){
-   numPositivo++;
-  }
- }else{
-  numPositivo=num;
- }
+	i16 i;
+	i16 numPositivo=0;
+	if(num<0){
+		numPositivo -= num;
+	}else{
+		numPositivo=num;
+	}
 
- return numPositivo;
+	return numPositivo;
 }
 
 
 void updateIAState(TEnemy* ene){
+		TPlayer* p = &player;
+		TCoord* c = &puntos[0];
 		switch(ene->statusIA){
 			case s_mover:
 				//Hay que comprobar si hay 5 o mas bases capturadas
@@ -577,12 +598,19 @@ void updateIAState(TEnemy* ene){
 					ene->statusIA = s_huir;
 					break;		//Salimos
 				}
-				cpct_setBorder(HW_RED);
 				// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 				if(moverHaciaPuntoDeControl(ene))	//si devuelve true es que ha llegado al siguiente
 					ene->puntoDeControl++;			//punto de control por lo que ahora cambia de destino
+				if(ene->puntoDeControl > 3){
+					//Cambiamos una posicion del punto de control a la posicion del enemigo actualmente
+					c->x = p->ent.x;
+					c->y = p->ent.y;
+					ene->puntoDeControl = 0;
+				}
+				comprobarSiDisparo(ene, p);
 			break;
 			case s_disparar:
+
 			break;
 			case s_capturar:
 			break;
@@ -590,6 +618,21 @@ void updateIAState(TEnemy* ene){
 				//Huir
 			break;
 		}
+}
+void comprobarSiDisparo(TEnemy* ene, TPlayer* p){
+	TPlayerDirection dir;
+	i16 diff;
+	if(ene->ent.x > p->ent.x){	//Si se cumple movemos hacia la izquierda
+		dir = d_left;
+	}else{
+		dir = d_right;
+	}
+	diff = abs(ene->ent.x - puntos[ene->puntoDeControl].x);	
+	if(diff <= 2){//Disparo en direccion dir
+		ene->ent.curr_dir = dir;
+		disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+	}
+		
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
@@ -645,6 +688,7 @@ void calculaAllEntities(TPlayer* player){
 	calculaEntity(&exp->ent, SI);
 	for(i=0;i < NUM_ENEMIGOS;++i){
 		calculaEntity(&enemigos[i].ent, SI);
+		calculaEntity(&enemigos[i].bullet.ent, SI);
 	}
 }
 
@@ -660,6 +704,7 @@ void drawAll(TPlayer* player){
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		//if(turno == i - 1)
 			redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+			redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
 	}
 }
 
