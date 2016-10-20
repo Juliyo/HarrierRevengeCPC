@@ -4,6 +4,7 @@
 #include "sprites/bala.h"
 #include "sprites/paletajulinho.h"
 #include "sprites/hearth.h"
+#include "sprites/captutada.h"
 #include "mapas/map11.h"
 #include "mapas/map12.h"
 #include "mapas/map21.h"
@@ -255,10 +256,12 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 
 void calculaColisiones(){
 	TEnemy *enemigos;
+	TBase *bases;
 	u8 collide,i;
 	TPlayer *p;
 	p = &player;
 	enemigos = getEnemies();
+	bases = getBases();
 	//PLAYER - ENEMIES
 	for(i=0;i<NUM_ENEMIGOS;++i){
 		collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
@@ -283,11 +286,26 @@ void calculaColisiones(){
 	}
 
 	//PLAYER - BASES
+	for(i=0;i<NUM_BASES;++i){
+		collide = checkCollision(&player.ent.coll, &bases[i].ent.coll);
 
+		if(collide && mapaActual == bases[i].ent.cuadrante){
+			cpct_setBorder(HW_RED);
+			//El player esta sobre una base.
+			//Compruebo si la base es del player o no
+			if(bases[i].whom == 1){
+				//La base es del enemigo. La capturo
+				bases[i].cycles++;
+				if(bases[i].cycles >= bases[i].waitCycles){
+					//He capturado la base
+					bases[i].whom = 0;
+					bases[i].ent.sprites[0] = g_captutada_0;
+				}
+			}
+		}
+	}
 
 	//ENEMIGOS - BASES
-
-
 	
 }
 
@@ -336,6 +354,10 @@ void dibujarPuntos(){
 	}
 }
 
+void capturaBase(TBase *base, TEntity *who){
+	
+}
+
 void play(){
 	/*
 	TPlayer* p = &player;
@@ -371,6 +393,3 @@ void play(){
 	}*/
 }
 
-void capturaBase(TBase *base, TEntity *who){
-
-}
