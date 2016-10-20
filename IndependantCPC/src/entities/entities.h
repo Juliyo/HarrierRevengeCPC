@@ -8,9 +8,11 @@
 #define SI 1
 #define NO 0
 
-#define NUM_ENEMIGOS 3
+#define NUM_ENEMIGOS 	3
+#define NUM_BASES 		6
 
 extern const TEnemy enemigos[NUM_ENEMIGOS];
+extern const TBase bases[NUM_BASES];
 extern u32 seed;
 
 extern u8 count1;
@@ -48,5 +50,6 @@ void calculaEntity(TEntity* ent, u8 origen);
 void calculaAllEntities(TPlayer* player);
 
 TEnemy* getEnemies();
+TBase* 	getBases();
 
 #endif

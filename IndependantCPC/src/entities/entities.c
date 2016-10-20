@@ -10,6 +10,7 @@
 #include "../sprites/naveEnemiga3.h"
 #include "../game.h"
 #include "../animation/animation.h"
+#include "../sprites/captutada.h"
 
 #define COLUMNA 8
 #define FILA 16
@@ -198,6 +199,189 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			},
 			1,
 			0				//cuadrante
+		}
+	}
+};
+
+const TBase bases[NUM_BASES] = {
+	{								//Base del primer mapa (11)
+		1,							//Base enemiga (1) al principio
+		100,						//Porcentaje capturado (100 para el enemigo)
+		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		0,							//Ciclos que han pasado
+		{							//Entity
+			30, 23,					//Posicion
+			30, 23,					//Posicion Prev
+			0, 0,					//Velocidad
+			SI,						//DRAW
+			{						//SPRITES
+				NULL,
+				NULL,
+				NULL,
+				NULL
+			},
+			G_CAPTUTADA_0_W,
+			G_CAPTUTADA_0_H,
+			d_up,
+			e_base,
+			{
+				30,
+				23,
+				G_CAPTUTADA_0_W,
+				G_CAPTUTADA_0_H
+			},
+			1,
+			0
+		}
+	},
+	{
+		1,							//Base enemiga (1) al principio
+		100,						//Porcentaje capturado (100 para el enemigo)
+		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		0,							//Ciclos que han pasado
+		{							//Entity
+			16, 24,					//Posicion
+			16, 24,					//Posicion Prev
+			0, 0,					//Velocidad
+			SI,						//DRAW
+			{						//SPRITES
+				NULL,
+				NULL,
+				NULL,
+				NULL
+			},
+			G_CAPTUTADA_0_W,
+			G_CAPTUTADA_0_H,
+			d_up,
+			e_base,
+			{
+				30,
+				23,
+				G_CAPTUTADA_0_W,
+				G_CAPTUTADA_0_H
+			},
+			1,
+			1
+		}
+	},
+	{
+		1,							//Base enemiga (1) al principio
+		100,						//Porcentaje capturado (100 para el enemigo)
+		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		0,							//Ciclos que han pasado
+		{							//Entity
+			19, 3,					//Posicion
+			19, 3,					//Posicion Prev
+			0, 0,					//Velocidad
+			SI,						//DRAW
+			{						//SPRITES
+				NULL,
+				NULL,
+				NULL,
+				NULL
+			},
+			G_CAPTUTADA_0_W,
+			G_CAPTUTADA_0_H,
+			d_up,
+			e_base,
+			{
+				30,
+				23,
+				G_CAPTUTADA_0_W,
+				G_CAPTUTADA_0_H
+			},
+			1,
+			2
+		}
+	},
+	{
+		1,							//Base enemiga (1) al principio
+		100,						//Porcentaje capturado (100 para el enemigo)
+		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		0,							//Ciclos que han pasado
+		{							//Entity
+			25, 35,					//Posicion
+			25, 35,					//Posicion Prev
+			0, 0,					//Velocidad
+			SI,						//DRAW
+			{						//SPRITES
+				NULL,
+				NULL,
+				NULL,
+				NULL
+			},
+			G_CAPTUTADA_0_W,
+			G_CAPTUTADA_0_H,
+			d_up,
+			e_base,
+			{
+				30,
+				23,
+				G_CAPTUTADA_0_W,
+				G_CAPTUTADA_0_H
+			},
+			1,
+			3
+		}
+	},
+	{
+		1,							//Base enemiga (1) al principio
+		100,						//Porcentaje capturado (100 para el enemigo)
+		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		0,							//Ciclos que han pasado
+		{							//Entity
+			8, 3,					//Posicion
+			8, 3,					//Posicion Prev
+			0, 0,					//Velocidad
+			SI,						//DRAW
+			{						//SPRITES
+				NULL,
+				NULL,
+				NULL,
+				NULL
+			},
+			G_CAPTUTADA_0_W,
+			G_CAPTUTADA_0_H,
+			d_up,
+			e_base,
+			{
+				30,
+				23,
+				G_CAPTUTADA_0_W,
+				G_CAPTUTADA_0_H
+			},
+			1,
+			4
+		}
+	},
+	{
+		1,							//Base enemiga (1) al principio
+		100,						//Porcentaje capturado (100 para el enemigo)
+		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		0,							//Ciclos que han pasado
+		{							//Entity
+			17, 35,					//Posicion
+			17, 35,					//Posicion Prev
+			0, 0,					//Velocidad
+			SI,						//DRAW
+			{						//SPRITES
+				NULL,
+				NULL,
+				NULL,
+				NULL
+			},
+			G_CAPTUTADA_0_W,
+			G_CAPTUTADA_0_H,
+			d_up,
+			e_base,
+			{
+				30,
+				23,
+				G_CAPTUTADA_0_W,
+				G_CAPTUTADA_0_H
+			},
+			1,
+			5
 		}
 	}
 };
@@ -504,4 +688,8 @@ void drawAll(TPlayer* player){
 
 TEnemy* getEnemies(){
 	return enemigos;
+}
+
+TBase* getBases(){
+	return bases;
 }

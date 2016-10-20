@@ -281,10 +281,14 @@ void calculaColisiones(){
 			break;
 		}
 	}
+
+	//PLAYER - BASES
+
+
+	//ENEMIGOS - BASES
+
+
 	
-	
-	//sprintf(str,"%d",collide);
-	//cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,10,10), 1, 0);
 }
 
 void drawHUD(){
@@ -329,7 +333,6 @@ void dibujarPuntos(){
 		sprintf(strPts,"%d",p->puntuacion);
 		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,62,23),2,0);
 		p->puntuacionPrev = p->puntuacion;
-
 	}
 }
 
@@ -366,4 +369,8 @@ void play(){
 	/*if(player.vida == 0){
 		cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
 	}*/
+}
+
+void capturaBase(TBase *base, TEntity *who){
+
 }

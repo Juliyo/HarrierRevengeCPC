@@ -12,7 +12,6 @@ typedef struct{
 
 
 extern const TStaticAnimation explosion;
-void dummy();
 //Funciones explosion
 void explosionBala(TBullet* bullet);
 void updateExplosion(TBullet* bullet);
