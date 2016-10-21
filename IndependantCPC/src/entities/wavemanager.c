@@ -24,7 +24,7 @@ void inicializarWaveManager(){
 //Para contar el tiempo que lleva el jugador en el mismo mapa
 void updateTiempoEnMapa(){
 	if(++s_samemap >= d_samemap){
-		if(enemigos_actual <= NUM_ENEMIGOS)
+		if(contarEnemigos() == 0)
 			respawnearEnemigoPorBorde();
 		s_samemap = 0;
 	}
@@ -48,6 +48,7 @@ void respawnearEnemigoPorBorde(){
 	for(i = 0; i < NUM_ENEMIGOS;++i){
 		if(enemies[i].ent.vivo == NO){
 			posicionAleatoriaBorde(&enemies[i]);
+			break;
 		}
 	}
 	
@@ -125,6 +126,7 @@ void revivirEnemigo(TEnemy* enemy, i16 x, i16 y, TPlayerDirection dir){
 	enemy->ent.py = y;
 	enemy->ent.cuadrante = mapaActual;
 	enemy->ent.curr_dir = dir;
+	enemy->bullet.ent.cuadrante = mapaActual;
 }
 
 

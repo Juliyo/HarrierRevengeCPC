@@ -20,7 +20,7 @@
 const TPlayer player = {
 	{					//Bullet
 		0,				//frameCount
-		1,				//FrameLimit	
+		2,				//FrameLimit	
 		es_static,		//state
 		{
 			0,				//x
@@ -157,13 +157,16 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 		dibujarMapa();
 	}
 	resetearDrawEnemigos();
-	resetearBala();
+	resetearBala(&player.bullet);
 	return mapaActual;
 }	
-void resetearBala(){
-	explosionBala(&player.bullet);
-	calculaEntity(&player.bullet.ent,SI);
-	borrarEntity(&player.bullet.ent);
+void resetearBala(TBullet* bullet){
+	//explosionBala(&player.bullet);
+	//calculaEntity(&player.bullet.ent,SI);
+	//borrarEntity(&player.bullet.ent);
+	bullet->ent.draw = NO;
+	bullet->ent.vivo = NO;
+	bullet->state = es_static;
 }
 
 void cambiarDerecha(TEntity* ent){

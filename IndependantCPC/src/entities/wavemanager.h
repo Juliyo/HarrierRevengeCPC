@@ -4,7 +4,7 @@
 #include <time.h>
 #include "../game.h"
 
-#define NUM_ENEMIGOS 3
+#define NUM_ENEMIGOS 2
 
 extern u16 s_samemap;	//frame actual del tiempo en el mismo mapa
 extern u16 d_samemap;	//frame mazimo de tiempo en el mismo mapa

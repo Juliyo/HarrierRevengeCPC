@@ -30,7 +30,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 	{
 		{					//Bullet
 			0,				//frameCount
-			1,				//FrameLimit	
+			0,				//FrameLimit	
 			es_static,		//state
 			{
 				0,				//x
@@ -56,7 +56,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					G_BALA_0_W,
 					G_BALA_0_H
 				},
-				1
+				0,				//vivo
+				2,				//cuadrante
 			}
 		},
 		{	50,				//x
@@ -95,7 +96,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 	{
 		{					//Bullet
 			0,				//frameCount
-			1,				//FrameLimit	
+			0,				//FrameLimit	
 			es_static,		//state
 			{
 				0,				//x
@@ -120,7 +121,9 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					0,
 					G_BALA_0_W,
 					G_BALA_0_H
-				}
+				},
+				0,				//vivo
+				4				//cuadrante
 			}
 		},
 		{	20,				//x
@@ -158,7 +161,7 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 	{
 		{					//Bullet
 			0,				//frameCount
-			1,				//FrameLimit	
+			0,				//FrameLimit	
 			es_static,		//state
 			{
 				0,				//x
@@ -183,7 +186,9 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					0,
 					G_BALA_0_W,
 					G_BALA_0_H
-				}
+				},
+				0,
+				0
 			}
 		},
 		{	35,				//x
@@ -229,7 +234,10 @@ const TCoord puntos[4] = {
 
 u8 count1 = 0;
 
-u8 turno = 0;
+u8 turno = 0;		//Para controlar el updateado de las naves enemigas (1a por update)
+
+u8 bulletsTurno = 0;     //Para controlar el updateado de las balas enemigas (1a por update)
+
 
 void incializarEntities(TPlayer* p){
 	//Inicializar entities necesarias
@@ -451,49 +459,21 @@ void playerHerido(TPlayer* player){
 }
 
 void updateEntities(){
-/*
-	u8 random_number;
 	u8 i;
-	TEntity* ent;
-
-	if(turno >= 3){
-		turno = 0;
+	if(bulletsTurno >= NUM_ENEMIGOS){
+		bulletsTurno = 0;
 	}
-
-	seed++;
-	if(seed > 15000)
-		seed = 1;
-
-	cpct_srand(seed);
 
 	
-	for(i = 0; i < NUM_ENEMIGOS; i++){
-		
-		ent = &enemigos[i].ent;
-		
-		random_number = cpct_rand()%4;
-		if(count1 > 60){
-			count1 = 0;
-			ent->curr_dir = random_number;
-		}
-		count1++;
-
-		if(ent->vivo == 1){
-			if(turno == i){
-				accion(ent,es_mover,ent->curr_dir);
-				turno++;
-				break;
-			}
-
-		}else{
-			turno++;
-		}
-	}
-
-	*/
-	u8 i;
 	for(i=0;i<NUM_ENEMIGOS;++i){
-		updateBullet(&enemigos[i].bullet);
+		if(enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
+			if(bulletsTurno == i){
+				updateBullet(&enemigos[i].bullet);
+			}
+		}else{
+			bulletsTurno++;
+		}
+
 	}
 	
 	updateIA();
@@ -511,7 +491,7 @@ u8 contarEnemigos(){
 
 void updateIA(){
 	u8 i;
-	if(turno >= 3){
+	if(turno >= NUM_ENEMIGOS){
 		turno = 0;
 	}
 
@@ -622,15 +602,27 @@ void updateIAState(TEnemy* ene){
 void comprobarSiDisparo(TEnemy* ene, TPlayer* p){
 	TPlayerDirection dir;
 	i16 diff;
-	if(ene->ent.x > p->ent.x){	//Si se cumple movemos hacia la izquierda
-		dir = d_left;
-	}else{
-		dir = d_right;
-	}
-	diff = abs(ene->ent.x - puntos[ene->puntoDeControl].x);	
+	
+	diff = abs(ene->ent.x - p->ent.x);	
 	if(diff <= 2){//Disparo en direccion dir
+		if(ene->ent.y > p->ent.y){	//Si se cumple sabemos dir de disparo
+			dir = d_up;
+		}else{
+			dir = d_down;
+		}
 		ene->ent.curr_dir = dir;
 		disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+	}else{
+		diff = abs(ene->ent.y - p->ent.y);	
+		if(diff <= 2){
+			if(ene->ent.x > p->ent.x){	//Si se cumple sabemos dir de disparo
+				dir = d_left;
+			}else{
+				dir = d_right;
+			}
+			ene->ent.curr_dir = dir;
+			disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+		}
 	}
 		
 }
@@ -659,13 +651,13 @@ void dibujarEntity(TEntity* ent, u8 w, u8 h){
 
 //Calculamos lo que vamos a dibujar
 void calculaEntity(TEntity* ent, u8 origen){
-	if(ent->sw%2 != 0)
+	/*if(ent->sw%2 != 0)
 		ent->tw = ent->sw/2 + (ent->px & 1) + 1;
-	else
+	else*/
 		ent->tw = ent->sw/2 + (ent->px & 1);
-	if(ent->sh%4 != 0)
+	/*if(ent->sh%4 != 0)
 		ent->th = ent->sh/4 + 1 + (ent->py & 3 ? 1 : 0);
-	else
+	else*/
 		ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
 	
 	ent->tpx = ent->px / 2;
