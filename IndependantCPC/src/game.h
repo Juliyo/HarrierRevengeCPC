@@ -40,8 +40,10 @@ typedef enum{
 typedef enum{
 	s_mover,
 	s_disparar,
-	s_capturar
+	s_capturar,
+	s_huir
 } TStatusIA;
+
 
 typedef struct {
    u8    x, y;
@@ -88,8 +90,20 @@ typedef struct Enemy{
 	TBullet bullet;
 	TEntity ent;
 	TStatusIA statusIA;
+	u8 cycles;
+	u8 wait_cycles;
+	u8 shot_cycles;
+	u8 wshot_cycles;
+	u8 puntoDeControl;	// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 }TEnemy;
 
+typedef struct Base{
+ TEntity ent;
+ u8 whom;
+ u8 percentCaptured;
+}TBase;
+
+extern u8 basesCapturadas;
 
 extern const u8* mapa;
 
@@ -104,6 +118,8 @@ extern const TEntity hearth;
 extern u8 cuadrantePlayer;
 
 extern u8* const mapas[NUM_MAPAS];
+
+
 
 //Funciones
 void inicializarPantalla();
@@ -123,7 +139,7 @@ void calculaColisiones();
 u8 checkCollision(TCollision *col1, TCollision *col2);
 
 void resetearDrawEnemigos();
-void resetearBala();
+void resetearBala(TBullet* bullet);
 
 
 #endif
