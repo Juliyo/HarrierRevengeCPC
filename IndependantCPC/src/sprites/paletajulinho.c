@@ -502,9 +502,9 @@ const u8 g_paletajulinho_61[2 * 4] = {
 // Tile g_paletajulinho_62: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_62[2 * 4] = {
 	0xff, 0xef,
-	0xff, 0xff,
-	0xff, 0xff,
-	0xff, 0xff
+	0x3c, 0xff,
+	0x3c, 0xff,
+	0x3c, 0xff
 };
 
 // Tile g_paletajulinho_63: 4x4 pixels, 2x4 bytes.
@@ -533,7 +533,7 @@ const u8 g_paletajulinho_65[2 * 4] = {
 
 // Tile g_paletajulinho_66: 4x4 pixels, 2x4 bytes.
 const u8 g_paletajulinho_66[2 * 4] = {
-	0xff, 0xff,
+	0x7d, 0xff,
 	0xff, 0xff,
 	0xff, 0xff,
 	0xff, 0xff
