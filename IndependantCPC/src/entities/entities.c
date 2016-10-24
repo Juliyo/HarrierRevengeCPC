@@ -207,11 +207,11 @@ const TBase bases[NUM_BASES] = {
 	{								//Base del primer mapa (11)
 		1,							//Base enemiga (1) al principio
 		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		200,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			30, 23,					//Posicion
-			30, 23,					//Posicion Prev
+			48, 156,					//Posicion
+			48, 156,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -220,15 +220,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTUTADA_W,
+			G_CAPTUTADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				48,
+				156,
+				G_CAPTUTADA_W,
+				G_CAPTUTADA_H
 			},
 			1,
 			0
@@ -250,15 +250,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTUTADA_W,
+			G_CAPTUTADA_H,
 			d_up,
 			e_base,
 			{
 				30,
 				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				G_CAPTUTADA_W,
+				G_CAPTUTADA_H
 			},
 			1,
 			1
@@ -280,15 +280,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTUTADA_W,
+			G_CAPTUTADA_H,
 			d_up,
 			e_base,
 			{
 				30,
 				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				G_CAPTUTADA_W,
+				G_CAPTUTADA_H
 			},
 			1,
 			2
@@ -310,15 +310,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTUTADA_W,
+			G_CAPTUTADA_H,
 			d_up,
 			e_base,
 			{
 				30,
 				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				G_CAPTUTADA_W,
+				G_CAPTUTADA_H
 			},
 			1,
 			3
@@ -340,15 +340,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTUTADA_W,
+			G_CAPTUTADA_H,
 			d_up,
 			e_base,
 			{
 				30,
 				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				G_CAPTUTADA_W,
+				G_CAPTUTADA_H
 			},
 			1,
 			4
@@ -370,15 +370,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTUTADA_W,
+			G_CAPTUTADA_H,
 			d_up,
 			e_base,
 			{
 				30,
 				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				G_CAPTUTADA_W,
+				G_CAPTUTADA_H
 			},
 			1,
 			5
@@ -669,19 +669,31 @@ void calculaAllEntities(TPlayer* player){
 	for(i=0;i < NUM_ENEMIGOS;++i){
 		calculaEntity(&enemigos[i].ent, SI);
 	}
+	for(i=0;i < NUM_BASES; ++i){
+		calculaEntity(&bases[i].ent, SI);
+	}
 }
 
 //Dibujamos todos los enemigos y el player
 void drawAll(TPlayer* player){
 	u8 i;
+	TBase *bases;
 	TStaticAnimation* exp;
 	exp = getExplosion();
+	bases = getBases();
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
 	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+	}
+	for(i=0;i < NUM_BASES; ++i){
+		if(bases[i].ent.sprites[0] != NULL){
+			bases[i].ent.draw = SI;
+			redibujarEntity(&bases[i].ent, bases[i].ent.sw, bases[i].ent.sh);
+			bases[i].ent.draw = SI;
+		}
 	}
 }
 
