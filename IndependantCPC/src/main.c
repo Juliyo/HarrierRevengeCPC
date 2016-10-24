@@ -19,6 +19,8 @@
 #include <cpctelera.h>
 #include "sprites/naves.h"
 #include "sprites/portada.h"
+#include "sprites/flores1.h"
+#include "sprites/flores2.h"
 #include "game.h"
 
 u8 mostrarMenu = 1;
@@ -36,11 +38,25 @@ void menu(){
 	u8* pvideomem;
 	pvideomem = CPCT_VMEM_START;
 	cpct_clearScreen(0);
-	cpct_drawSprite (g_portada_0,
+	cpct_drawSprite (g_flores1_0,
 					 cpctm_screenPtr(CPCT_VMEM_START, 0, 0)
+					,G_FLORES1_0_W, G_FLORES1_0_H);	
+	cpct_drawSprite (g_flores1_1,
+					 cpctm_screenPtr(CPCT_VMEM_START, G_FLORES1_0_W, 0)
+					,G_FLORES1_0_W, G_FLORES1_0_H);	
+
+	cpct_drawSprite (g_flores2_0,
+					 cpctm_screenPtr(CPCT_VMEM_START, 0, 180)
+					,G_FLORES2_0_W, G_FLORES2_0_H);	
+	cpct_drawSprite (g_flores2_1,
+					 cpctm_screenPtr(CPCT_VMEM_START, G_FLORES2_0_W, 180)
+					,G_FLORES2_0_W, G_FLORES2_0_H);	
+
+	cpct_drawSprite (g_portada_0,
+					 cpctm_screenPtr(CPCT_VMEM_START, 0, 10)
 					,G_PORTADA_0_W, G_PORTADA_0_H);	
 	cpct_drawSprite (g_portada_1,
-					 cpctm_screenPtr(CPCT_VMEM_START, G_PORTADA_0_W, 0)
+					 cpctm_screenPtr(CPCT_VMEM_START, G_PORTADA_0_W, 10)
 					,G_PORTADA_0_W, G_PORTADA_0_H);	
 
 	cpct_drawStringM0("PULSA INTRO", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
