@@ -15,6 +15,23 @@ u8 enemigos_actual = NUM_ENEMIGOS;
 
 u8 mapaPrev;
 
+void aparecerEnemigo(){
+	TEnemy* enemies;
+	u8 random_number;
+	//Si no hay ningun enemigo
+	//Y ademas hay al menos 6 bases capturadas
+	if(contarEnemigos() == 0 && basesCapturadas >= 2){
+		random_number = getRandomUniform(seed)%3;
+		enemies = getEnemies();
+		random_number = getRandomUniform(seed)%2 + 1;
+		if(random_number)
+			respawnearEnemigo(&enemies[random_number]);
+	}
+}
+void respawnearEnemigo(TEnemy* enemy){
+	revivirEnemigo(enemy, getRandomUniform(seed)%70 + 5, getRandomUniform(seed)%141 + 50, getRandomUniform(seed)%3);
+}
+
 void inicializarWaveManager(){
 	seed = 1;
 	s_samemap = 0;
@@ -39,18 +56,18 @@ void resetearTimepoEnMapa(){
 //Spawnea un enemigo saliendo por un borde, se llama cuando el player lleva mucho tiempo en un mapa
 void respawnearEnemigoPorBorde(){
 	TEnemy* enemies;
-	u8 i;
+	u8 random_number;
 	//i16 x,y;
-	
+	random_number = getRandomUniform(seed)%3;
 	enemies = getEnemies();
 
 	
-	for(i = 0; i < NUM_ENEMIGOS;++i){
-		if(enemies[i].ent.vivo == NO){
-			posicionAleatoriaBorde(&enemies[i]);
-			break;
-		}
-	}
+	/*for(i = 0; i < NUM_ENEMIGOS;++i){
+		if(enemies[i].ent.vivo == NO){*/
+			posicionAleatoriaBorde(&enemies[random_number]);
+			//break;
+		/*}
+	}*/
 	
 }
 
@@ -125,8 +142,10 @@ void revivirEnemigo(TEnemy* enemy, i16 x, i16 y, TPlayerDirection dir){
 	enemy->ent.px = x;
 	enemy->ent.py = y;
 	enemy->ent.cuadrante = mapaActual;
+	enemy->statusIA = s_mover;
 	enemy->ent.curr_dir = dir;
 	enemy->bullet.ent.cuadrante = mapaActual;
+
 }
 
 

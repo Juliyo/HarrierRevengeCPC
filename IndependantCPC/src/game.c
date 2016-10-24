@@ -20,7 +20,7 @@
 const TPlayer player = {
 	{					//Bullet
 		0,				//frameCount
-		2,				//FrameLimit	
+		1,				//FrameLimit	
 		es_static,		//state
 		{
 			0,				//x
@@ -106,7 +106,7 @@ u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_ma
 u8 mapaActual = 0;
 u8 previousMap = 0;
 u8 salirMenu = 0;
-u8 basesCapturadas = 0;
+u8 basesCapturadas = 6;
 
 void inicializarPantalla(){
 	u8 i;
@@ -158,6 +158,7 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 	}
 	resetearDrawEnemigos();
 	resetearBala(&player.bullet);
+
 	return mapaActual;
 }	
 void resetearBala(TBullet* bullet){
@@ -174,6 +175,7 @@ void cambiarDerecha(TEntity* ent){
 		mapaActual = cambiarMapa(1,1);
 		ent->cuadrante = mapaActual;
 		updateX(ent,0); //esto es para cambiar la posision del player cuando cambia de mapa.
+		aparecerEnemigo();
 	}
 }
 
@@ -182,6 +184,7 @@ void cambiarIzquierda(TEntity* ent){
 		mapaActual = cambiarMapa(0,1);
 		ent->cuadrante = mapaActual;
 		updateX(ent,74);//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
+		aparecerEnemigo();
 	}
 }
 
@@ -190,6 +193,7 @@ void cambiarArriba(TEntity* ent){
 		mapaActual = cambiarMapa(1,2);
 		ent->cuadrante = mapaActual;
 		updateY(ent, 188);ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
+		aparecerEnemigo();
 	}
 
 }
@@ -199,6 +203,7 @@ void cambiarAbajo(TEntity* ent){
 		mapaActual = cambiarMapa(0,2);
 		ent->cuadrante = mapaActual;
 		updateY(ent, 40); //en 40 comienza el mapa a pintarse
+		aparecerEnemigo();
 	}		
 }
 
@@ -233,6 +238,8 @@ void updateUser(){
 		}else if(cpct_isKeyPressed(Key_Esc)){
 			salirMenu = 1;
 			//cpct_setBorder(HW_RED);
+		}else if(cpct_isKeyPressed(Key_M)){
+			basesCapturadas++;
 		}
 	}
 
@@ -266,13 +273,19 @@ void calculaColisiones(){
 			playerHerido(&player);
 			break;
 		}
+		//Comprobamos enemigos bala con player
+		collide = checkCollision(&enemigos[i].bullet.ent.coll, &player.ent.coll);
+		if(collide && enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual){
+			playerHerido(&player);
+			break;
+		}
 	}
 	if(player.bullet.ent.vivo == SI){
 		//BALA - ENEMIGO
 		for(i=0;i<NUM_ENEMIGOS;++i){
 			collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
 			if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
-				//Hacemos la bala explotar(cuando la animacion funcione :D)
+				//Hacemos la bala explotar
 				explosionBala(&player.bullet);
 				restarEnemigo();
 				calculaEntity(&enemigos[i].ent,SI);
@@ -281,6 +294,8 @@ void calculaColisiones(){
 				p->puntuacion = p->puntuacion + 100;
 				enemigos[i].ent.vivo = 0;
 				enemigos[i].ent.draw = NO;
+				//Si un enemigo muere restablecemos el tiempo de respawn
+				resetearTimepoEnMapa();
 				break;
 			}
 		}

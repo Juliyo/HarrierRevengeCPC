@@ -6,6 +6,7 @@
 #include "../mapas/map11.h"
 #include "../sprites/naves.h"
 #include "../sprites/bala.h"
+#include "../sprites/bala_enemiga.h"
 #include "../sprites/naveEnemiga1.h"
 #include "../sprites/naveEnemiga2.h"
 #include "../sprites/naveEnemiga3.h"
@@ -30,24 +31,24 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 	{
 		{					//Bullet
 			0,				//frameCount
-			0,				//FrameLimit	
+			1,				//FrameLimit	
 			es_static,		//state
 			{
 				0,				//x
 				0,				//y
 				0,				//px
 				0,				//py
-				3,				//vx
-				6,				//vy
+				2,				//vx
+				4,				//vy
 				NO,				//draw
 				{				//sprites
-					g_bala_0,
-					g_bala_1,
-					g_bala_2,
-					g_bala_3,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
 				},		
-				G_BALA_0_W,		//sw
-				G_BALA_0_H,		//sh
+				G_BALA_ENEMIGA_W,		//sw
+				G_BALA_ENEMIGA_H,		//sh
 				d_up,			//curr_dir
 				e_bullet,		//Bullet
 				{
@@ -90,30 +91,32 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		s_mover,	//statusIA
 		0,			//cycles
 		1,			//wait_cycles
+		0,
+		30,
 		0			//puntoControl
 
 	},
 	{
 		{					//Bullet
 			0,				//frameCount
-			0,				//FrameLimit	
+			1,				//FrameLimit	
 			es_static,		//state
 			{
 				0,				//x
 				0,				//y
 				0,				//px
 				0,				//py
-				3,				//vx
-				6,				//vy
+				2,				//vx
+				4,				//vy
 				NO,				//draw
 				{				//sprites
-					g_bala_0,
-					g_bala_1,
-					g_bala_2,
-					g_bala_3,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
 				},		
-				G_BALA_0_W,		//sw
-				G_BALA_0_H,		//sh
+				G_BALA_ENEMIGA_W,		//sw
+				G_BALA_ENEMIGA_H,		//sh
 				d_up,			//curr_dir
 				e_bullet,		//Bullet
 				{
@@ -156,29 +159,31 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		s_mover,	//statusIA
 		0,			//cycles
 		1,			//wait_cycles
+		0,
+		30,
 		0			//puntoControl
 	},
 	{
 		{					//Bullet
 			0,				//frameCount
-			0,				//FrameLimit	
+			1,				//FrameLimit	
 			es_static,		//state
 			{
 				0,				//x
 				0,				//y
 				0,				//px
 				0,				//py
-				3,				//vx
-				6,				//vy
+				2,				//vx
+				4,				//vy
 				NO,				//draw
 				{				//sprites
-					g_bala_0,
-					g_bala_1,
-					g_bala_2,
-					g_bala_3,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
 				},		
-				G_BALA_0_W,		//sw
-				G_BALA_0_H,		//sh
+				G_BALA_ENEMIGA_W,		//sw
+				G_BALA_ENEMIGA_H,		//sh
 				d_up,			//curr_dir
 				e_bullet,		//Bullet
 				{
@@ -214,13 +219,15 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA3_0_W,
 				G_NAVEENEMIGA3_0_H
 			},
-			1,
+			1,				//vivo
 			0,				//cuadrante
 			s_mover
 		},
 		s_mover,	//statusIA
 		0,			//cycles
 		1,			//wait_cycles
+		0,
+		30,
 		0			//puntoControl
 	}
 };
@@ -460,19 +467,19 @@ void playerHerido(TPlayer* player){
 
 void updateEntities(){
 	u8 i;
-	if(bulletsTurno >= NUM_ENEMIGOS){
+	/*if(bulletsTurno >= NUM_ENEMIGOS){
 		bulletsTurno = 0;
-	}
+	}*/
 
 	
 	for(i=0;i<NUM_ENEMIGOS;++i){
-		if(enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
-			if(bulletsTurno == i){
+		/*if(enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
+			if(bulletsTurno == i){*/
 				updateBullet(&enemigos[i].bullet);
-			}
+			/*}
 		}else{
 			bulletsTurno++;
-		}
+		}*/
 
 	}
 	
@@ -482,7 +489,7 @@ u8 contarEnemigos(){
 	u8 i;
 	u8 cuenta = 0;
 	for(i=0;i<NUM_ENEMIGOS;++i){
-		if(enemigos[i].ent.cuadrante == mapaActual){
+		if(enemigos[i].ent.cuadrante == mapaActual && enemigos[i].ent.vivo == 1){
 			cuenta++;
 		}
 	}
@@ -491,22 +498,22 @@ u8 contarEnemigos(){
 
 void updateIA(){
 	u8 i;
-	if(turno >= NUM_ENEMIGOS){
+	/*if(turno >= NUM_ENEMIGOS){
 		turno = 0;
-	}
+	}*/
 
 	for(i=0;i<NUM_ENEMIGOS;++i){
 		//Solo updateamos la IA si ese enemigo esta en el cuadrante del player
 		//Y es su turno
 		if(enemigos[i].ent.cuadrante == mapaActual && enemigos[i].ent.vivo){
-			if(turno == i){
+			//if(turno == i){
 				updateIAState(&enemigos[i]);
-				turno++;
-			}
+				/*turno++;
+			}*/
 			
-		}else{
+		}/*else{
 			turno++;
-		}
+		}*/
 	}
 }
 TPlayerDirection comprobarEjeX(TEnemy* ene){
@@ -574,10 +581,10 @@ void updateIAState(TEnemy* ene){
 			case s_mover:
 				//Hay que comprobar si hay 5 o mas bases capturadas
 				//Y si el enemigo esta solo, entonces huye
-				if(basesCapturadas >= 5 && contarEnemigos() == 1){
+				/*if(basesCapturadas >= 5 && contarEnemigos() == 1){
 					ene->statusIA = s_huir;
 					break;		//Salimos
-				}
+				}*/
 				// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 				if(moverHaciaPuntoDeControl(ene))	//si devuelve true es que ha llegado al siguiente
 					ene->puntoDeControl++;			//punto de control por lo que ahora cambia de destino
@@ -589,41 +596,45 @@ void updateIAState(TEnemy* ene){
 				}
 				comprobarSiDisparo(ene, p);
 			break;
-			case s_disparar:
-
-			break;
 			case s_capturar:
 			break;
 			case s_huir:
 				//Huir
+				/*random_number = getRandomUniform(seed)%2 + 1;
+				if(random_number)
+					respawnearEnemigo(&enemies[random_number]);*/
 			break;
 		}
 }
 void comprobarSiDisparo(TEnemy* ene, TPlayer* p){
 	TPlayerDirection dir;
 	i16 diff;
-	
-	diff = abs(ene->ent.x - p->ent.x);	
-	if(diff <= 2){//Disparo en direccion dir
-		if(ene->ent.y > p->ent.y){	//Si se cumple sabemos dir de disparo
-			dir = d_up;
-		}else{
-			dir = d_down;
-		}
-		ene->ent.curr_dir = dir;
-		disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
-	}else{
-		diff = abs(ene->ent.y - p->ent.y);	
-		if(diff <= 2){
-			if(ene->ent.x > p->ent.x){	//Si se cumple sabemos dir de disparo
-				dir = d_left;
+	if(++ene->shot_cycles >= ene->wshot_cycles){
+		diff = abs(ene->ent.x - p->ent.x);	
+		if(diff <= 2){//Disparo en direccion dir
+			if(ene->ent.y > p->ent.y){	//Si se cumple sabemos dir de disparo
+				dir = d_up;
 			}else{
-				dir = d_right;
+				dir = d_down;
 			}
 			ene->ent.curr_dir = dir;
 			disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+		}else{
+			diff = abs(ene->ent.y - p->ent.y);	
+			if(diff <= 2){
+				if(ene->ent.x > p->ent.x){	//Si se cumple sabemos dir de disparo
+					dir = d_left;
+				}else{
+					dir = d_right;
+				}
+				ene->ent.curr_dir = dir;
+				disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+			}
 		}
+		//reinicio la cuenta
+		ene->shot_cycles = 0;
 	}
+	
 		
 }
 

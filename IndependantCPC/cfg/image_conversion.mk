@@ -71,6 +71,7 @@ $(eval $(call IMG2SPRITES,resources/naveEnemiga1.png,0,g,8,8,$(PALETTE),,src/spr
 $(eval $(call IMG2SPRITES,resources/naveEnemiga2.png,0,g,8,8,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/naveEnemiga3.png,0,g,8,8,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/bala.png,0,g,4,4,$(PALETTE),,src/sprites/))
+$(eval $(call IMG2SPRITES,resources/bala_enemiga.png,0,g,4,4,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/explosion.png,0,g,8,8,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/hearth.png,0,g,18,18,$(PALETTE),,src/sprites/))
 $(eval $(call IMG2SPRITES,resources/portada.png,0,g,80,66,$(PALETTE),,src/sprites/))

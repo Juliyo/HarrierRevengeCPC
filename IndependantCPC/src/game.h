@@ -92,6 +92,8 @@ typedef struct Enemy{
 	TStatusIA statusIA;
 	u8 cycles;
 	u8 wait_cycles;
+	u8 shot_cycles;
+	u8 wshot_cycles;
 	u8 puntoDeControl;	// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 }TEnemy;
 
