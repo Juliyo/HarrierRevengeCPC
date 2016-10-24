@@ -290,7 +290,7 @@ void calculaColisiones(){
 		collide = checkCollision(&player.ent.coll, &bases[i].ent.coll);
 
 		if(collide && mapaActual == bases[i].ent.cuadrante){
-			
+			bases[i].ent.draw = SI;
 			//El player esta sobre una base.
 			//Compruebo si la base es del player o no
 			if(bases[i].whom == 1){
@@ -301,9 +301,8 @@ void calculaColisiones(){
 					
 					bases[i].whom = 0;
 					bases[i].ent.sprites[0] = g_captutada;
-
 					bases[i].ent.draw = SI;
-					
+
 				}
 			}
 		}
