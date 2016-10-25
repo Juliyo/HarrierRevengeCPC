@@ -878,9 +878,7 @@ void calculaAllEntities(TPlayer* player){
 		calculaEntity(&enemigos[i].ent, SI);
 		calculaEntity(&enemigos[i].bullet.ent, SI);
 	}
-	for(i=0;i < NUM_BASES; ++i){
-		calculaEntity(&bases[i].ent, SI);
-	}
+	calculaEntity(&bases[mapaActual].ent, SI);
 }
 
 //Dibujamos todos los enemigos y el player
@@ -891,20 +889,22 @@ void drawAll(TPlayer* player){
 	exp = getExplosion();
 	bases = getBases();
 
-	for(i=0;i < NUM_BASES; ++i){
+	/*for(i=0;i < NUM_BASES; ++i){
 		if(bases[i].ent.sprites[0] != NULL){
 			redibujarEntity(&bases[i].ent, bases[i].ent.sw, bases[i].ent.sh);
 		}
-	}
+	}*/
+	if(bases[mapaActual].ent.sprites[0] != NULL){
+			redibujarEntity(&bases[mapaActual].ent, bases[mapaActual].ent.sw, bases[mapaActual].ent.sh);
+		}
 
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
 	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		//if(turno == i - 1)
-			redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
-			redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
+		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+		redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
 	}
 	
 }

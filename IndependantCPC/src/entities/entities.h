@@ -18,7 +18,6 @@ typedef struct{
 extern const TCoord puntos[4];
 extern const TEnemy enemigos[NUM_ENEMIGOS];
 extern const TBase bases[NUM_BASES];
-extern u32 seed;
 
 extern u8 count1;
 

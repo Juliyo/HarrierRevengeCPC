@@ -273,64 +273,73 @@ void calculaColisiones(){
 	bases = getBases();
 	//PLAYER - ENEMIES
 	for(i=0;i<NUM_ENEMIGOS;++i){
-		collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
-		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo ==1){
-			playerHerido(&player);
-			break;
+		if(mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+			collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
+			if(collide){
+				playerHerido(&player);
+				break;
+			}
 		}
-		//Comprobamos enemigos bala con player
-		collide = checkCollision(&enemigos[i].bullet.ent.coll, &player.ent.coll);
-		if(collide && enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual){
-			playerHerido(&player);
-			break;
+		if(enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual){
+			//Comprobamos enemigos bala con player
+			collide = checkCollision(&enemigos[i].bullet.ent.coll, &player.ent.coll);
+			if(collide){
+				playerHerido(&player);
+				break;
+			}
 		}
+		
 	}
 
 	if(player.bullet.ent.vivo == SI){
 		//BALA - ENEMIGO
 		for(i=0;i<NUM_ENEMIGOS;++i){
-			collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
-			if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
-				//Hacemos la bala explotar
-				explosionBala(&player.bullet);
-				restarEnemigo();
-				calculaEntity(&enemigos[i].ent,SI);
-				enemigos[i].ent.draw = SI;
-				borrarEntity(&enemigos[i].ent);
-				p->puntuacion = p->puntuacion + 100;
-				enemigos[i].ent.vivo = 0;
-				enemigos[i].ent.draw = NO;
-				//Si un enemigo muere restablecemos el tiempo de respawn
-				resetearTimepoEnMapa();
-				break;
+			if(mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+				collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
+				if(collide){
+					//Hacemos la bala explotar
+					explosionBala(&player.bullet);
+					restarEnemigo();
+					calculaEntity(&enemigos[i].ent,SI);
+					enemigos[i].ent.draw = SI;
+					borrarEntity(&enemigos[i].ent);
+					p->puntuacion = p->puntuacion + 100;
+					enemigos[i].ent.vivo = 0;
+					enemigos[i].ent.draw = NO;
+					//Si un enemigo muere restablecemos el tiempo de respawn
+					resetearTimepoEnMapa();
+					break;
+				}
 			}
+			
 		}
 	}
 
 
 	//PLAYER - BASES
-	for(i=0;i<NUM_BASES;++i){
-		collide = checkCollision(&player.ent.coll, &bases[i].ent.coll);
+	collide = checkCollision(&player.ent.coll, &bases[mapaActual].ent.coll);
 
-		if(collide && mapaActual == bases[i].ent.cuadrante){
-			bases[i].ent.draw = SI;
-			p->ent.draw = SI;
-			//El player esta sobre una base.
-			//Compruebo si la base es del player o no
-			if(bases[i].whom == 1){
-				//La base es del enemigo. La capturo
-				bases[i].cycles++;
-				if(bases[i].cycles >= bases[i].waitCycles){
-					//He capturado la base
-					
-					bases[i].whom = 0;
-					bases[i].ent.sprites[0] = g_capturada;
-					bases[i].ent.draw = SI;
+	if(collide){
+		bases[mapaActual].ent.draw = SI;
+		p->ent.draw = SI;
+				//El player esta sobre una base.
+				//Compruebo si la base es del player o no
+		if(bases[mapaActual].whom == 1){
+					//La base es del enemigo. La capturo
+			bases[mapaActual].cycles++;
+			if(bases[mapaActual].cycles >= bases[mapaActual].waitCycles){
+						//He capturado la base
 
-				}
+				bases[mapaActual].whom = 0;
+				bases[mapaActual].ent.sprites[0] = g_capturada;
+				bases[mapaActual].ent.draw = SI;
+
 			}
 		}
 	}
+
+		
+	
 	
 
 	//ENEMIGOS - BASES
