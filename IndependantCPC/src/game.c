@@ -4,7 +4,7 @@
 #include "sprites/bala.h"
 #include "sprites/paletajulinho.h"
 #include "sprites/hearth.h"
-#include "sprites/captutada.h"
+#include "sprites/capturada.h"
 #include "mapas/map11.h"
 #include "mapas/map12.h"
 #include "mapas/map21.h"
@@ -257,6 +257,7 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 void calculaColisiones(){
 	TEnemy *enemigos;
 	TBase *bases;
+
 	u8 collide,i;
 	TPlayer *p;
 	p = &player;
@@ -291,6 +292,7 @@ void calculaColisiones(){
 
 		if(collide && mapaActual == bases[i].ent.cuadrante){
 			bases[i].ent.draw = SI;
+			p->ent.draw = SI;
 			//El player esta sobre una base.
 			//Compruebo si la base es del player o no
 			if(bases[i].whom == 1){
@@ -300,7 +302,7 @@ void calculaColisiones(){
 					//He capturado la base
 					
 					bases[i].whom = 0;
-					bases[i].ent.sprites[0] = g_captutada;
+					bases[i].ent.sprites[0] = g_capturada;
 					bases[i].ent.draw = SI;
 
 				}

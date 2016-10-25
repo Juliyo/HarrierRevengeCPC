@@ -10,7 +10,7 @@
 #include "../sprites/naveEnemiga3.h"
 #include "../game.h"
 #include "../animation/animation.h"
-#include "../sprites/captutada.h"
+#include "../sprites/capturada.h"
 
 #define COLUMNA 8
 #define FILA 16
@@ -220,15 +220,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_W,
-			G_CAPTUTADA_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
 				48,
 				156,
-				G_CAPTUTADA_W,
-				G_CAPTUTADA_H
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			0
@@ -250,15 +250,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_W,
-			G_CAPTUTADA_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
 				46,
 				100,
-				G_CAPTUTADA_W,
-				G_CAPTUTADA_H
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			1
@@ -280,15 +280,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_W,
-			G_CAPTUTADA_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
 				4,
 				112,
-				G_CAPTUTADA_W,
-				G_CAPTUTADA_H
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			2
@@ -310,15 +310,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_W,
-			G_CAPTUTADA_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
 				272,
 				160,
-				G_CAPTUTADA_W,
-				G_CAPTUTADA_H
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			3
@@ -340,15 +340,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_W,
-			G_CAPTUTADA_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
 				8,
 				68,
-				G_CAPTUTADA_W,
-				G_CAPTUTADA_H
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			4
@@ -370,15 +370,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_W,
-			G_CAPTUTADA_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
 				136,
 				104,
-				G_CAPTUTADA_W,
-				G_CAPTUTADA_H
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			5
@@ -681,6 +681,13 @@ void drawAll(TPlayer* player){
 	TStaticAnimation* exp;
 	exp = getExplosion();
 	bases = getBases();
+
+	for(i=0;i < NUM_BASES; ++i){
+		if(bases[i].ent.sprites[0] != NULL){
+			redibujarEntity(&bases[i].ent, bases[i].ent.sw, bases[i].ent.sh);
+		}
+	}
+
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
 	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
@@ -688,11 +695,7 @@ void drawAll(TPlayer* player){
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
 		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
 	}
-	for(i=0;i < NUM_BASES; ++i){
-		if(bases[i].ent.sprites[0] != NULL){
-			redibujarEntity(&bases[i].ent, bases[i].ent.sw, bases[i].ent.sh);
-		}
-	}
+	
 }
 
 
