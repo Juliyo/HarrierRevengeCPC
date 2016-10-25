@@ -94,7 +94,6 @@ typedef struct Enemy{
 	u8 cycles;
 	u8 wait_cycles;
 	u8 shot_cycles;
-	u8 wshot_cycles;
 	u8 puntoDeControl;	// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 }TEnemy;
 
@@ -106,7 +105,10 @@ typedef struct Base{
 	TEntity ent;			//Entity
 }TBase;
 
+extern u8 wshot_cycles;
+
 extern u8 basesCapturadas;
+extern u8 prev_basesCapturadas;
 
 extern const u8* mapa;
 
@@ -131,6 +133,8 @@ void updateUser();
 void drawHUD();
 void play();
 
+void dibujarBase();
+
 //Funciones mapa
 u8 cambiarMapa(u8 suma, u8 cantidad); //suma: 1 suma, 0 resta. 
 void cambiarDerecha(TEntity* ent);
@@ -144,6 +148,5 @@ u8 checkCollision(TCollision *col1, TCollision *col2);
 void resetearDrawEnemigos();
 void resetearBala(TBullet* bullet);
 
-void capturaBase(TBase *base, TEntity *who);
 
 #endif

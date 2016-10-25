@@ -94,7 +94,6 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		0,			//cycles
 		1,			//wait_cycles
 		0,
-		30,
 		0			//puntoControl
 
 	},
@@ -162,7 +161,6 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		0,			//cycles
 		1,			//wait_cycles
 		0,
-		30,
 		0			//puntoControl
 	},
 	{
@@ -229,192 +227,191 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 		0,			//cycles
 		1,			//wait_cycles
 		0,
-		30,
 		0			//puntoControl
 	}
 };
 
 const TBase bases[NUM_BASES] = {
-	{								//Base del primer mapa (11)
-		1,							//Base enemiga (1) al principio
-		100,						//Porcentaje capturado (100 para el enemigo)
-		200,						//Tiempo (ciclos) necesarios para capturar la base
-		0,							//Ciclos que han pasado
-		{							//Entity
-			48, 156,					//Posicion
-			48, 156,					//Posicion Prev
-			0, 0,					//Velocidad
-			SI,						//DRAW
-			{						//SPRITES
-				NULL,
-				NULL,
-				NULL,
-				NULL
-			},
-			G_CAPTURADA_W,
-			G_CAPTURADA_H,
-			d_up,
-			e_base,
-			{
-				48,
-				156,
-				G_CAPTURADA_W,
-				G_CAPTURADA_H
-			},
-			1,
-			0
-		}
-	},
-	{
-		1,							//Base enemiga (1) al principio
-		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
-		0,							//Ciclos que han pasado
-		{							//Entity
-			46, 100,					//Posicion
-			46, 100,					//Posicion Prev
-			0, 0,					//Velocidad
-			SI,						//DRAW
-			{						//SPRITES
-				NULL,
-				NULL,
-				NULL,
-				NULL
-			},
-			G_CAPTURADA_W,
-			G_CAPTURADA_H,
-			d_up,
-			e_base,
-			{
-				46,
-				100,
-				G_CAPTURADA_W,
-				G_CAPTURADA_H
-			},
-			1,
-			1
-		}
-	},
-	{
-		1,							//Base enemiga (1) al principio
-		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
-		0,							//Ciclos que han pasado
-		{							//Entity
-			4, 112,					//Posicion
-			4, 112,					//Posicion Prev
-			0, 0,					//Velocidad
-			SI,						//DRAW
-			{						//SPRITES
-				NULL,
-				NULL,
-				NULL,
-				NULL
-			},
-			G_CAPTURADA_W,
-			G_CAPTURADA_H,
-			d_up,
-			e_base,
-			{
-				4,
-				112,
-				G_CAPTURADA_W,
-				G_CAPTURADA_H
-			},
-			1,
-			2
-		}
-	},
-	{
-		1,							//Base enemiga (1) al principio
-		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
-		0,							//Ciclos que han pasado
-		{							//Entity
-			272, 160,					//Posicion
-			272, 160,					//Posicion Prev
-			0, 0,					//Velocidad
-			SI,						//DRAW
-			{						//SPRITES
-				NULL,
-				NULL,
-				NULL,
-				NULL
-			},
-			G_CAPTURADA_W,
-			G_CAPTURADA_H,
-			d_up,
-			e_base,
-			{
-				272,
-				160,
-				G_CAPTURADA_W,
-				G_CAPTURADA_H
-			},
-			1,
-			3
-		}
-	},
-	{
-		1,							//Base enemiga (1) al principio
-		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
-		0,							//Ciclos que han pasado
-		{							//Entity
-			8, 68,					//Posicion
-			8, 68,					//Posicion Prev
-			0, 0,					//Velocidad
-			SI,						//DRAW
-			{						//SPRITES
-				NULL,
-				NULL,
-				NULL,
-				NULL
-			},
-			G_CAPTURADA_W,
-			G_CAPTURADA_H,
-			d_up,
-			e_base,
-			{
-				8,
-				68,
-				G_CAPTURADA_W,
-				G_CAPTURADA_H
-			},
-			1,
-			4
-		}
-	},
-	{
-		1,							//Base enemiga (1) al principio
-		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
-		0,							//Ciclos que han pasado
-		{							//Entity
-			136, 104,					//Posicion
-			136, 104,					//Posicion Prev
-			0, 0,					//Velocidad
-			SI,						//DRAW
-			{						//SPRITES
-				NULL,
-				NULL,
-				NULL,
-				NULL
-			},
-			G_CAPTURADA_W,
-			G_CAPTURADA_H,
-			d_up,
-			e_base,
-			{
-				136,
-				104,
-				G_CAPTURADA_W,
-				G_CAPTURADA_H
-			},
-			1,
-			5
-		}
-	}
+ {        //Base del primer mapa (11)
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  200,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   48, 156,     //Posicion
+   48, 156,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    48,
+    156,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   0
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   46, 100,     //Posicion
+   46, 100,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    46,
+    100,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   1
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   4, 112,     //Posicion
+   4, 112,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    4,
+    112,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   2
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   68, 136,     //Posicion
+   136, 136,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    68,
+    136,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   3
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   4, 68,     //Posicion
+   4, 68,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    4,
+    68,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   4
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   68, 104,     //Posicion
+   68, 104,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    68,
+    104,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   5
+  }
+ }
 };
 // 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 const TCoord puntos[4] = {
@@ -423,6 +420,8 @@ const TCoord puntos[4] = {
 	{ 65, ORIGEN_MAPA_Y + 60 },		//Derecha por el centro
 	{ 10, ORIGEN_MAPA_Y + 60 }		//Izquierda por el centro
 };
+
+
 
 u8 count1 = 0;
 
@@ -438,6 +437,10 @@ void incializarEntities(TPlayer* p){
 	p->ent.x = px_spawn;
 	p->ent.y = py_spawn;
 	p->ent.draw = SI;
+
+	wshot_cycles = 30;
+	basesCapturadas = 0;
+	prev_basesCapturadas = 0;
 
 	inicializarWaveManager();
 }
@@ -794,7 +797,7 @@ void updateIAState(TEnemy* ene){
 void comprobarSiDisparo(TEnemy* ene, TPlayer* p){
 	TPlayerDirection dir;
 	i16 diff;
-	if(++ene->shot_cycles >= ene->wshot_cycles){
+	if(++ene->shot_cycles >= wshot_cycles){
 		diff = abs(ene->ent.x - p->ent.x);	
 		if(diff <= 2){//Disparo en direccion dir
 			if(ene->ent.y > p->ent.y){	//Si se cumple sabemos dir de disparo
@@ -875,8 +878,11 @@ void calculaAllEntities(TPlayer* player){
 	calculaEntity(&player->bullet.ent, SI);
 	calculaEntity(&exp->ent, SI);
 	for(i=0;i < NUM_ENEMIGOS;++i){
-		calculaEntity(&enemigos[i].ent, SI);
-		calculaEntity(&enemigos[i].bullet.ent, SI);
+		if(enemigos[i].ent.cuadrante == mapaActual){
+			calculaEntity(&enemigos[i].ent, SI);
+			calculaEntity(&enemigos[i].bullet.ent, SI);
+		}
+		
 	}
 	calculaEntity(&bases[mapaActual].ent, SI);
 }
@@ -903,8 +909,10 @@ void drawAll(TPlayer* player){
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
-		redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
+		if(enemigos[i].ent.cuadrante == mapaActual){
+			redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+			redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
+		}
 	}
 	
 }

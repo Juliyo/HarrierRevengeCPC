@@ -108,7 +108,9 @@ u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_ma
 u8 mapaActual = 0;
 u8 previousMap = 0;
 u8 salirMenu = 0;
-u8 basesCapturadas = 6;
+u8 basesCapturadas = 0;
+u8 prev_basesCapturadas = 0;
+u8 wshot_cycles = 30;
 
 void inicializarPantalla(){
 	u8 i;
@@ -122,7 +124,7 @@ void inicializarPantalla(){
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
 	cpct_drawStringM0("Score: 000",cpct_getScreenPtr(CPCT_VMEM_START,36,23),2,0);
-
+	cpct_drawStringM0("Bases:   0",cpct_getScreenPtr(CPCT_VMEM_START,36,5),2,0);
 	for(i = 0; i < player.vida; ++i){
 		ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 		dibujarEntity(ent,ent->sw,ent->sh);
@@ -149,6 +151,7 @@ void resetearDrawEnemigos(){
 	}
 }
 u8 cambiarMapa(u8 suma, u8 cantidad){
+	TBase* base;
 	if(suma % 2 != 0){ //tengo que sumar
 		mapaActual = mapaActual + cantidad;
 		mapa = mapas[mapaActual];
@@ -160,6 +163,8 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 	}
 	resetearDrawEnemigos();
 	resetearBala(&player.bullet);
+	base = &bases[mapaActual];
+	base->ent.draw = SI;
 
 	return mapaActual;
 }	
@@ -240,8 +245,6 @@ void updateUser(){
 		}else if(cpct_isKeyPressed(Key_Esc)){
 			salirMenu = 1;
 			//cpct_setBorder(HW_RED);
-		}else if(cpct_isKeyPressed(Key_M)){
-			basesCapturadas++;
 		}
 	}
 
@@ -329,7 +332,12 @@ void calculaColisiones(){
 			bases[mapaActual].cycles++;
 			if(bases[mapaActual].cycles >= bases[mapaActual].waitCycles){
 						//He capturado la base
-
+				basesCapturadas++; //Aumentamos la cuenta de bases capturadas
+				//Aumentamos la cadencia de disparo de los enemigos
+				if(wshot_cycles >= 5)
+					wshot_cycles -= 4;
+				d_samemap -= 20;
+				p->puntuacion = p->puntuacion + 500;
 				bases[mapaActual].whom = 0;
 				bases[mapaActual].ent.sprites[0] = g_capturada;
 				bases[mapaActual].ent.draw = SI;
@@ -366,6 +374,22 @@ void drawHUD(){
 		p->pvida = p->vida;
 	}
 	dibujarPuntos();
+	dibujarBase();
+}
+void dibujarBase(){
+	char strPts[4];
+	if(basesCapturadas != prev_basesCapturadas){
+		//Borramos la de antes
+		cpct_drawSolidBox(
+			cpct_getScreenPtr(CPCT_VMEM_START,71,5)
+			,0
+			,6
+			,8
+			);
+		sprintf(strPts,"%d",basesCapturadas);
+		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,71,5),2,0);
+		prev_basesCapturadas = basesCapturadas;
+	}
 }
 void dibujarPuntos(){
 	TPlayer* p = &player;
@@ -374,19 +398,15 @@ void dibujarPuntos(){
 		//Borramos la de antes
 
 		cpct_drawSolidBox(
-			cpct_getScreenPtr(CPCT_VMEM_START,62,23)
+			cpct_getScreenPtr(CPCT_VMEM_START,63,23)
 			,0
 			,20
 			,8
 			);
 		sprintf(strPts,"%d",p->puntuacion);
-		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,62,23),2,0);
+		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,63,23),2,0);
 		p->puntuacionPrev = p->puntuacion;
 	}
-}
-
-void capturaBase(TBase *base, TEntity *who){
-	
 }
 
 void play(){

@@ -6,7 +6,7 @@
 #include "../random/random.h"
 
 u16 s_samemap = 0;
-u16 d_samemap = 500;
+u16 d_samemap = 180;
 
 //Semilla
 u8 seed = 1;
@@ -20,12 +20,12 @@ void aparecerEnemigo(){
 	u8 random_number;
 	//Si no hay ningun enemigo
 	//Y ademas hay al menos 6 bases capturadas
-	if(contarEnemigos() == 0 && basesCapturadas >= 2){
-		random_number = getRandomUniform(seed)%3;
+	if(contarEnemigos() == 0 && basesCapturadas >= 3){
 		enemies = getEnemies();
-		random_number = getRandomUniform(seed)%2 + 1;
-		if(random_number)
+		
+			random_number = getRandomUniform(seed)%3;
 			respawnearEnemigo(&enemies[random_number]);
+		
 	}
 }
 void respawnearEnemigo(TEnemy* enemy){
@@ -46,7 +46,7 @@ void updateTiempoEnMapa(){
 		s_samemap = 0;
 	}
 	seed++;
-	if(seed > 15000)
+	if(seed > 256)
 		seed = 1;
 }
 void resetearTimepoEnMapa(){
@@ -78,7 +78,7 @@ void posicionAleatoriaBorde(TEnemy* enemy){
 	switch(mapaActual){
 		//Primer cuadrante Borde Izquierda - Abajo
 		case 0:
-			random_number = getRandomUniform(seed)%2 + 1;											//Aleatorio 0 o 1
+			random_number = getRandomUniform(seed)%2 ;											//Aleatorio 0 o 1
 			if(random_number == 1){														//Reaparece por arriba
 				revivirEnemigo(enemy, getRandomUniform(seed)%70 + 5, ORIGEN_MAPA_Y, d_down);
 			}else{																		//Reaparece por derecha
@@ -86,7 +86,7 @@ void posicionAleatoriaBorde(TEnemy* enemy){
 			}
 		break;
 		case 1:
-			random_number = getRandomUniform(seed)%2 + 1;											//Aleatorio 0 o 1
+			random_number = getRandomUniform(seed)%2;											//Aleatorio 0 o 1
 			if(random_number == 1){														//Reaparece por arriba
 				revivirEnemigo(enemy, getRandomUniform(seed)%70 + 5, ORIGEN_MAPA_Y, d_down);
 			}else{																		//Reaparece por izquierda
@@ -114,7 +114,7 @@ void posicionAleatoriaBorde(TEnemy* enemy){
 			}
 		break;
 		case 4:
-			random_number = getRandomUniform(seed)%2 + 1;											//Aleatorio 0 o 1
+			random_number = getRandomUniform(seed)%2;											//Aleatorio 0 o 1
 			if(random_number == 1){														//Reaparece por abajo
 				revivirEnemigo(enemy, getRandomUniform(seed)%70 + 5, ALTO - enemy->ent.sh, d_up);
 			}else{																		//Reaparece por derecha
@@ -122,7 +122,7 @@ void posicionAleatoriaBorde(TEnemy* enemy){
 			}
 		break;
 		case 5:
-			random_number = getRandomUniform(seed)%2 + 1;											//Aleatorio 0 o 1
+			random_number = getRandomUniform(seed)%2;											//Aleatorio 0 o 1
 			if(random_number == 1){														//Reaparece por izquierda
 				revivirEnemigo(enemy, 0, getRandomUniform(seed)%141 + 50, d_right);	
 			}else{																		//Reaparece por abajo
