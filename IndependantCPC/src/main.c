@@ -21,10 +21,39 @@
 #include "sprites/portada.h"
 #include "sprites/flores1.h"
 #include "sprites/flores2.h"
+#include "music/fondo.h"
 #include "game.h"
 
 u8 mostrarMenu = 1;
 
+
+void playmusic() {
+   __asm 
+      exx
+      .db #0x08
+      push af
+      push bc
+      push de
+      push hl
+      call _cpct_akp_musicPlay
+      pop hl
+      pop de
+      pop bc
+      pop af
+      .db #0x08
+      exx
+   __endasm;
+}
+
+void interrupcion() {
+   static u8 kk;
+
+   if (++kk == 5) {
+      playmusic();
+      cpct_scanKeyboard_if();
+      kk = 0;
+   }
+}
 void inicializar(){
 	cpct_disableFirmware();
 	cpct_setBorder(HW_BLACK);
@@ -32,6 +61,9 @@ void inicializar(){
 
 	//Mode 0 (160x200, 16 colours)
 	cpct_setVideoMode(0);
+
+	//cpct_akp_musicInit(g_mysong);    // Initialize the music
+   	//cpct_setInterruptHandler(interrupcion);
 }
 
 void menu(){
@@ -77,6 +109,7 @@ void main(void) {
 
    // Loop forever
    while (1){
+   	//cpct_akp_musicPlay();
    	if(mostrarMenu % 2 == 0){
    		menu();
    	}
