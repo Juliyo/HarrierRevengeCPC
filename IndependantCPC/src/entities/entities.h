@@ -8,14 +8,17 @@
 
 #define SI 1
 #define NO 0
+#define NUM_BASES 		6
+
 
 typedef struct{
 	u8 x,y;
 }TCoord;
 
 extern const TCoord puntos[4];
-
 extern const TEnemy enemigos[NUM_ENEMIGOS];
+extern const TBase bases[NUM_BASES];
+extern u32 seed;
 
 extern u8 count1;
 
@@ -64,5 +67,6 @@ void calculaEntity(TEntity* ent, u8 origen);
 void calculaAllEntities(TPlayer* player);
 
 TEnemy* getEnemies();
+TBase* 	getBases();
 
 #endif

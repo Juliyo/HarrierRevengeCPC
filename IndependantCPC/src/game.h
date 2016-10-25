@@ -34,7 +34,8 @@ typedef enum{
 typedef enum{
 	e_enemy,
 	e_player,
-	e_bullet
+	e_bullet,
+	e_base
 } TEntityType;
 
 typedef enum{
@@ -98,9 +99,11 @@ typedef struct Enemy{
 }TEnemy;
 
 typedef struct Base{
- TEntity ent;
- u8 whom;
- u8 percentCaptured;
+	u8 whom;				//De quien es la base 0: Aliada; 1: Enemiga
+	u8 percentCaptured;		//Porcentaje capturado
+	u8 waitCycles;			//Ciclos a esperar
+	u8 cycles;				//Ciclos que han pasado
+	TEntity ent;			//Entity
 }TBase;
 
 extern u8 basesCapturadas;
@@ -141,5 +144,6 @@ u8 checkCollision(TCollision *col1, TCollision *col2);
 void resetearDrawEnemigos();
 void resetearBala(TBullet* bullet);
 
+void capturaBase(TBase *base, TEntity *who);
 
 #endif
