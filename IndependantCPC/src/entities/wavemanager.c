@@ -6,7 +6,7 @@
 #include "../random/random.h"
 
 u16 s_samemap = 0;
-u16 d_samemap = 180;
+u16 d_samemap = 150;
 
 //Semilla
 u8 seed = 1;
@@ -35,7 +35,7 @@ void respawnearEnemigo(TEnemy* enemy){
 void inicializarWaveManager(){
 	seed = 1;
 	s_samemap = 0;
-	d_samemap = 500;
+	d_samemap = 150;
 	enemigos_actual = NUM_ENEMIGOS;
 }
 //Para contar el tiempo que lleva el jugador en el mismo mapa
@@ -77,13 +77,9 @@ void posicionAleatoriaBorde(TEnemy* enemy){
 	//random_number = cpct_rand()%70 + 1;
 	switch(mapaActual){
 		//Primer cuadrante Borde Izquierda - Abajo
-		case 0:
-			random_number = getRandomUniform(seed)%2 ;											//Aleatorio 0 o 1
-			if(random_number == 1){														//Reaparece por arriba
-				revivirEnemigo(enemy, getRandomUniform(seed)%70 + 5, ORIGEN_MAPA_Y, d_down);
-			}else{																		//Reaparece por derecha
-				revivirEnemigo(enemy, ANCHO - enemy->ent.sw, getRandomUniform(seed)%141 + 50, d_left);	
-			}
+		case 0:													//Reaparece por arriba
+			//revivirEnemigo(enemy, getRandomUniform(seed)%70 + 5, ORIGEN_MAPA_Y, d_down);
+			
 		break;
 		case 1:
 			random_number = getRandomUniform(seed)%2;											//Aleatorio 0 o 1

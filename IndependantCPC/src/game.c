@@ -111,6 +111,7 @@ u8 salirMenu = 0;
 u8 basesCapturadas = 0;
 u8 prev_basesCapturadas = 0;
 u8 wshot_cycles = 30;
+u8 count = 0;
 
 void inicializarPantalla(){
 	u8 i;
@@ -131,7 +132,7 @@ void inicializarPantalla(){
 		ent->x+=10;
 	}
 
-
+	count = 0;
 	ent->x = 2;
 	//calculaEntity(&hearth, NO);
 	//Aqui dibujariamos cosas de la pantalla 
@@ -283,7 +284,7 @@ void calculaColisiones(){
 				break;
 			}
 		}
-		if(enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual){
+		if(enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
 			//Comprobamos enemigos bala con player
 			collide = checkCollision(&enemigos[i].bullet.ent.coll, &player.ent.coll);
 			if(collide){
@@ -309,6 +310,8 @@ void calculaColisiones(){
 					p->puntuacion = p->puntuacion + 100;
 					enemigos[i].ent.vivo = 0;
 					enemigos[i].ent.draw = NO;
+					enemigos[i].bullet.ent.vivo = NO;
+					enemigos[i].bullet.ent.draw = NO;
 					//Si un enemigo muere restablecemos el tiempo de respawn
 					resetearTimepoEnMapa();
 					break;
@@ -335,13 +338,14 @@ void calculaColisiones(){
 				basesCapturadas++; //Aumentamos la cuenta de bases capturadas
 				//Aumentamos la cadencia de disparo de los enemigos
 				if(wshot_cycles >= 5)
-					wshot_cycles -= 4;
-				d_samemap -= 20;
+					wshot_cycles -= 7;
 				p->puntuacion = p->puntuacion + 500;
 				bases[mapaActual].whom = 0;
 				bases[mapaActual].ent.sprites[0] = g_capturada;
 				bases[mapaActual].ent.draw = SI;
-
+				if(p->vida + 1 <= 3){
+					p->vida++;
+				}
 			}
 		}
 	}
@@ -361,17 +365,24 @@ void drawHUD(){
 	TEntity* ent = &hearth;
 	
 	if(player.vida != player.pvida){
-
-		//Borramos una vida
-		cpct_drawSolidBox(
-			cpct_getScreenPtr(CPCT_VMEM_START,2 + 10*(player.vida),ent->y)
-			,0
-			,ent->sw
-			,ent->sh
-			);
-		
+		if(player.vida > player.pvida){
+			for(i = 0; i < player.vida; ++i){
+				ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+				dibujarEntity(ent,ent->sw,ent->sh);
+				ent->x+=10;
+			}
+		}else{
+			//Borramos una vida
+			cpct_drawSolidBox(
+				cpct_getScreenPtr(CPCT_VMEM_START,2 + 10*(player.vida),ent->y)
+				,0
+				,ent->sw
+				,ent->sh
+				);
+		}
 		ent->x = 2;
 		p->pvida = p->vida;
+		
 	}
 	dibujarPuntos();
 	dibujarBase();

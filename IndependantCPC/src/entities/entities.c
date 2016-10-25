@@ -431,13 +431,30 @@ u8 bulletsTurno = 0;     //Para controlar el updateado de las balas enemigas (1a
 
 
 void incializarEntities(TPlayer* p){
+	TBase* bases = getBases();
+	TEnemy* enes = getEnemies();
+	u8 i = 0;
 	//Inicializar entities necesarias
 	p->vida = 3;
 	p->pvida = 3;
 	p->ent.x = px_spawn;
 	p->ent.y = py_spawn;
 	p->ent.draw = SI;
+	p->puntuacion = 0;
+	p->puntuacionPrev = 0;
 
+	for(i = 0; i < NUM_BASES; ++i){
+		bases[i].whom = 1;
+		bases[i].ent.sprites[0] = NULL;
+		bases[i].cycles = 0;
+	}
+	for(i = 0; i< NUM_ENEMIGOS; ++i){
+		if(enes[i].ent.cuadrante == 0){
+			enes[i].ent.vivo = 0;
+			enes[i].bullet.ent.vivo = 0;
+			enes[i].ent.draw = NO;
+		}
+	}
 	wshot_cycles = 30;
 	basesCapturadas = 0;
 	prev_basesCapturadas = 0;
@@ -644,12 +661,15 @@ void updateBullet(TBullet* bullet){
 
 
 void playerHerido(TPlayer* player){
+	TBase* bases = getBases();
 	player->vida--;
 	player->ent.x = px_spawn;
 	player->ent.y = py_spawn;
+	player->ent.draw = SI;
 	mapaActual = 0;
 	player->ent.cuadrante = 0;
 	mapa = mapas[0];
+	bases[mapaActual].ent.draw = SI;
 	dibujarMapa();
 }
 
@@ -761,18 +781,45 @@ i16 abs(i16 num){
 	return numPositivo;
 }
 
+TPlayerDirection calculaDireccion(){
+	TPlayerDirection dir;
+	switch(mapaActual){
+		case 0:
+			dir = d_right;
+		break;
+		case 1:
+			dir = d_up;
+		break;
+		case 2:
+			dir = d_right;
+		break;
+		case 3:
+			dir = d_up;
+		break;
+		case 4:
+			dir = d_down;
+		break;
+		case 5:
+			dir = d_down;
+		break;
+	}
+	return dir;
+}
 
 void updateIAState(TEnemy* ene){
 		TPlayer* p = &player;
 		TCoord* c = &puntos[0];
+		TBase* bases = getBases();
+		u8 i = 0;
 		switch(ene->statusIA){
 			case s_mover:
 				//Hay que comprobar si hay 5 o mas bases capturadas
 				//Y si el enemigo esta solo, entonces huye
-				/*if(basesCapturadas >= 5 && contarEnemigos() == 1){
+				if(basesCapturadas >= 5 && contarEnemigos() == 1 && count == 0){
 					ene->statusIA = s_huir;
+					count++;
 					break;		//Salimos
-				}*/
+				}
 				// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 				if(moverHaciaPuntoDeControl(ene))	//si devuelve true es que ha llegado al siguiente
 					ene->puntoDeControl++;			//punto de control por lo que ahora cambia de destino
@@ -784,9 +831,24 @@ void updateIAState(TEnemy* ene){
 				}
 				comprobarSiDisparo(ene, p);
 			break;
-			case s_capturar:
-			break;
 			case s_huir:
+			ene->ent.curr_dir = calculaDireccion();
+			if(accion(&ene->ent, es_mover, ene->ent.curr_dir) != d_nothing){
+				calculaEntity(&ene->ent, SI);
+				borrarEntity(&ene->ent);
+				ene->ent.cuadrante++;
+				if(ene->ent.cuadrante > 5)
+					ene->ent.cuadrante = 0;
+				for(i = 0; i<NUM_BASES; i++){
+					if(bases[i].whom == 0 && bases[i].ent.cuadrante != mapaActual){
+						bases[i].whom = 1;
+						bases[i].cycles = 0;
+						bases[i].ent.sprites[0] = NULL;
+						basesCapturadas--;
+						break;
+					}
+				}
+			}
 				//Huir
 				/*random_number = getRandomUniform(seed)%2 + 1;
 				if(random_number)

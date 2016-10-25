@@ -105,6 +105,8 @@ typedef struct Base{
 	TEntity ent;			//Entity
 }TBase;
 
+extern u8 count;
+
 extern u8 wshot_cycles;
 
 extern u8 basesCapturadas;
