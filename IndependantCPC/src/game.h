@@ -34,7 +34,8 @@ typedef enum{
 typedef enum{
 	e_enemy,
 	e_player,
-	e_bullet
+	e_bullet,
+	e_base
 } TEntityType;
 
 typedef enum{
@@ -93,17 +94,23 @@ typedef struct Enemy{
 	u8 cycles;
 	u8 wait_cycles;
 	u8 shot_cycles;
-	u8 wshot_cycles;
 	u8 puntoDeControl;	// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
 }TEnemy;
 
 typedef struct Base{
- TEntity ent;
- u8 whom;
- u8 percentCaptured;
+	u8 whom;				//De quien es la base 0: Aliada; 1: Enemiga
+	u8 percentCaptured;		//Porcentaje capturado
+	u8 waitCycles;			//Ciclos a esperar
+	u8 cycles;				//Ciclos que han pasado
+	TEntity ent;			//Entity
 }TBase;
 
+extern u8 count;
+
+extern u8 wshot_cycles;
+
 extern u8 basesCapturadas;
+extern u8 prev_basesCapturadas;
 
 extern const u8* mapa;
 
@@ -127,6 +134,8 @@ void dibujarMapa();
 void updateUser();
 void drawHUD();
 void play();
+
+void dibujarBase();
 
 //Funciones mapa
 u8 cambiarMapa(u8 suma, u8 cantidad); //suma: 1 suma, 0 resta. 
