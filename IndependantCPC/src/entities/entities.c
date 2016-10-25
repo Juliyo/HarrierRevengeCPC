@@ -12,11 +12,9 @@
 #include "../sprites/naveEnemiga3.h"
 #include "../game.h"
 #include "../animation/animation.h"
-<<<<<<< HEAD
 #include "../entities/wavemanager.h"
-=======
 #include "../sprites/captutada.h"
->>>>>>> refs/remotes/origin/CaptureObjectives
+#include "../sprites/capturada.h"
 
 #define COLUMNA 8
 #define FILA 16
@@ -240,11 +238,11 @@ const TBase bases[NUM_BASES] = {
 	{								//Base del primer mapa (11)
 		1,							//Base enemiga (1) al principio
 		100,						//Porcentaje capturado (100 para el enemigo)
-		1000,						//Tiempo (ciclos) necesarios para capturar la base
+		200,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			30, 23,					//Posicion
-			30, 23,					//Posicion Prev
+			48, 156,					//Posicion
+			48, 156,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -253,15 +251,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				48,
+				156,
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			0
@@ -273,8 +271,8 @@ const TBase bases[NUM_BASES] = {
 		1000,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			16, 24,					//Posicion
-			16, 24,					//Posicion Prev
+			46, 100,					//Posicion
+			46, 100,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -283,15 +281,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				46,
+				100,
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			1
@@ -303,8 +301,8 @@ const TBase bases[NUM_BASES] = {
 		1000,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			19, 3,					//Posicion
-			19, 3,					//Posicion Prev
+			4, 112,					//Posicion
+			4, 112,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -313,15 +311,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				4,
+				112,
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			2
@@ -333,8 +331,8 @@ const TBase bases[NUM_BASES] = {
 		1000,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			25, 35,					//Posicion
-			25, 35,					//Posicion Prev
+			272, 160,					//Posicion
+			272, 160,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -343,15 +341,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				272,
+				160,
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			3
@@ -363,8 +361,8 @@ const TBase bases[NUM_BASES] = {
 		1000,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			8, 3,					//Posicion
-			8, 3,					//Posicion Prev
+			8, 68,					//Posicion
+			8, 68,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -373,15 +371,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				8,
+				68,
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			4
@@ -393,8 +391,8 @@ const TBase bases[NUM_BASES] = {
 		1000,						//Tiempo (ciclos) necesarios para capturar la base
 		0,							//Ciclos que han pasado
 		{							//Entity
-			17, 35,					//Posicion
-			17, 35,					//Posicion Prev
+			136, 104,					//Posicion
+			136, 104,					//Posicion Prev
 			0, 0,					//Velocidad
 			SI,						//DRAW
 			{						//SPRITES
@@ -403,15 +401,15 @@ const TBase bases[NUM_BASES] = {
 				NULL,
 				NULL
 			},
-			G_CAPTUTADA_0_W,
-			G_CAPTUTADA_0_H,
+			G_CAPTURADA_W,
+			G_CAPTURADA_H,
 			d_up,
 			e_base,
 			{
-				30,
-				23,
-				G_CAPTUTADA_0_W,
-				G_CAPTUTADA_0_H
+				136,
+				104,
+				G_CAPTURADA_W,
+				G_CAPTURADA_H
 			},
 			1,
 			5
@@ -880,13 +878,25 @@ void calculaAllEntities(TPlayer* player){
 		calculaEntity(&enemigos[i].ent, SI);
 		calculaEntity(&enemigos[i].bullet.ent, SI);
 	}
+	for(i=0;i < NUM_BASES; ++i){
+		calculaEntity(&bases[i].ent, SI);
+	}
 }
 
 //Dibujamos todos los enemigos y el player
 void drawAll(TPlayer* player){
 	u8 i;
+	TBase *bases;
 	TStaticAnimation* exp;
 	exp = getExplosion();
+	bases = getBases();
+
+	for(i=0;i < NUM_BASES; ++i){
+		if(bases[i].ent.sprites[0] != NULL){
+			redibujarEntity(&bases[i].ent, bases[i].ent.sw, bases[i].ent.sh);
+		}
+	}
+
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
 	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
@@ -896,6 +906,7 @@ void drawAll(TPlayer* player){
 			redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
 			redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
 	}
+	
 }
 
 

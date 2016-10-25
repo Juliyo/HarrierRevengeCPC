@@ -1,5 +1,5 @@
 //
-// File resources/map12.tmx converted to csv using cpct_tmx2csv [20161020 18:30:11 DST]
+// File resources/map12.tmx converted to csv using cpct_tmx2csv [20161025 11:51:28 DST]
 //   * Width:  40 columns (40 bytes, 8 bits per column)
 //   * Height: 40 rows
 //   * Bytes:  1600 bytes (40 x 40)
