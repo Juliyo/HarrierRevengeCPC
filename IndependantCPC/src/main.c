@@ -62,8 +62,8 @@ void inicializar(){
 	//Mode 0 (160x200, 16 colours)
 	cpct_setVideoMode(0);
 
-	//cpct_akp_musicInit(g_mysong);    // Initialize the music
-   	//cpct_setInterruptHandler(interrupcion);
+	cpct_akp_musicInit(g_mysong);    // Initialize the music
+   	cpct_setInterruptHandler(interrupcion);
 }
 
 void menu(){
@@ -112,7 +112,7 @@ void main(void) {
 
    // Loop forever
    while (1){
-   	//cpct_akp_musicPlay();
+   	cpct_akp_musicPlay();
    	if(mostrarMenu % 2 == 0){
    		menu();
    	}
