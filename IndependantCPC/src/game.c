@@ -4,6 +4,7 @@
 #include "sprites/bala.h"
 #include "sprites/paletajulinho.h"
 #include "sprites/hearth.h"
+#include "sprites/capturada.h"
 #include "mapas/map11.h"
 #include "mapas/map12.h"
 #include "mapas/map21.h"
@@ -14,6 +15,7 @@
 #include "game.h"
 #include "entities/entities.h"
 #include "animation/animation.h"
+#include <time.h>
 
 #define VIDA_SPRITE_MEM cpct_getScreenPtr(CPCT_VMEM_START,2,10)
 
@@ -106,6 +108,10 @@ u8* const mapas[NUM_MAPAS] = { g_map11, g_map12, g_map21, g_map22, g_map31, g_ma
 u8 mapaActual = 0;
 u8 previousMap = 0;
 u8 salirMenu = 0;
+u8 basesCapturadas = 0;
+u8 prev_basesCapturadas = 0;
+u8 wshot_cycles = 30;
+u8 count = 0;
 
 void inicializarPantalla(){
 	u8 i;
@@ -119,14 +125,14 @@ void inicializarPantalla(){
 	cpct_etm_setTileset2x4(g_tileset);
 	dibujarMapa();
 	cpct_drawStringM0("Score: 000",cpct_getScreenPtr(CPCT_VMEM_START,36,23),2,0);
-
+	cpct_drawStringM0("Bases:   0",cpct_getScreenPtr(CPCT_VMEM_START,36,5),2,0);
 	for(i = 0; i < player.vida; ++i){
 		ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
 		dibujarEntity(ent,ent->sw,ent->sh);
 		ent->x+=10;
 	}
 
-
+	count = 0;
 	ent->x = 2;
 	//calculaEntity(&hearth, NO);
 	//Aqui dibujariamos cosas de la pantalla 
@@ -146,6 +152,7 @@ void resetearDrawEnemigos(){
 	}
 }
 u8 cambiarMapa(u8 suma, u8 cantidad){
+	TBase* base;
 	if(suma % 2 != 0){ //tengo que sumar
 		mapaActual = mapaActual + cantidad;
 		mapa = mapas[mapaActual];
@@ -156,13 +163,19 @@ u8 cambiarMapa(u8 suma, u8 cantidad){
 		dibujarMapa();
 	}
 	resetearDrawEnemigos();
-	resetearBala();
+	resetearBala(&player.bullet);
+	base = &bases[mapaActual];
+	base->ent.draw = SI;
+
 	return mapaActual;
 }	
-void resetearBala(){
-	explosionBala(&player.bullet);
-	calculaEntity(&player.bullet.ent,SI);
-	borrarEntity(&player.bullet.ent);
+void resetearBala(TBullet* bullet){
+	//explosionBala(&player.bullet);
+	//calculaEntity(&player.bullet.ent,SI);
+	//borrarEntity(&player.bullet.ent);
+	bullet->ent.draw = NO;
+	bullet->ent.vivo = NO;
+	bullet->state = es_static;
 }
 
 void cambiarDerecha(TEntity* ent){
@@ -170,6 +183,7 @@ void cambiarDerecha(TEntity* ent){
 		mapaActual = cambiarMapa(1,1);
 		ent->cuadrante = mapaActual;
 		updateX(ent,0); //esto es para cambiar la posision del player cuando cambia de mapa.
+		aparecerEnemigo();
 	}
 }
 
@@ -178,6 +192,7 @@ void cambiarIzquierda(TEntity* ent){
 		mapaActual = cambiarMapa(0,1);
 		ent->cuadrante = mapaActual;
 		updateX(ent,74);//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
+		aparecerEnemigo();
 	}
 }
 
@@ -186,6 +201,7 @@ void cambiarArriba(TEntity* ent){
 		mapaActual = cambiarMapa(1,2);
 		ent->cuadrante = mapaActual;
 		updateY(ent, 188);ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
+		aparecerEnemigo();
 	}
 
 }
@@ -195,6 +211,7 @@ void cambiarAbajo(TEntity* ent){
 		mapaActual = cambiarMapa(0,2);
 		ent->cuadrante = mapaActual;
 		updateY(ent, 40); //en 40 comienza el mapa a pintarse
+		aparecerEnemigo();
 	}		
 }
 
@@ -241,49 +258,105 @@ u8 checkCollision(TCollision *col1, TCollision *col2){
 		col1->h + col1->y > col2->y) {
    		// collision detected!
 		collide = 1;
-}else{
-	collide = 0;
-}
+	}else{
+		collide = 0;
+	}
 	/*sprintf(str,"%d",collide);
 	cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,20,10), 1, 0);*/
-return collide;
+	return collide;
 }
 
 void calculaColisiones(){
 	TEnemy *enemigos;
+	TBase *bases;
+
 	u8 collide,i;
 	TPlayer *p;
 	p = &player;
 	enemigos = getEnemies();
+	bases = getBases();
 	//PLAYER - ENEMIES
 	for(i=0;i<NUM_ENEMIGOS;++i){
-		collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
-		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo ==1){
-			playerHerido(&player);
-			break;
+		if(mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+			collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
+			if(collide){
+				playerHerido(&player);
+				break;
+			}
+		}
+		if(enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
+			//Comprobamos enemigos bala con player
+			collide = checkCollision(&enemigos[i].bullet.ent.coll, &player.ent.coll);
+			if(collide){
+				playerHerido(&player);
+				break;
+			}
+		}
+		
+	}
+
+	if(player.bullet.ent.vivo == SI){
+		//BALA - ENEMIGO
+		for(i=0;i<NUM_ENEMIGOS;++i){
+			if(mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+				collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
+				if(collide){
+					//Hacemos la bala explotar
+					explosionBala(&player.bullet);
+					restarEnemigo();
+					calculaEntity(&enemigos[i].ent,SI);
+					enemigos[i].ent.draw = SI;
+					borrarEntity(&enemigos[i].ent);
+					p->puntuacion = p->puntuacion + 100;
+					enemigos[i].ent.vivo = 0;
+					enemigos[i].ent.draw = NO;
+					enemigos[i].bullet.ent.vivo = NO;
+					enemigos[i].bullet.ent.draw = NO;
+					//Si un enemigo muere restablecemos el tiempo de respawn
+					resetearTimepoEnMapa();
+					break;
+				}
+			}
+			
 		}
 	}
-	
-	//BALA - ENEMIGO
-	for(i=0;i<NUM_ENEMIGOS;++i){
-		collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
-		if(collide && mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
-			//Hacemos la bala explotar(cuando la animacion funcione :D)
-			explosionBala(&player.bullet);
-			restarEnemigo();
-			calculaEntity(&enemigos[i].ent,SI);
-			enemigos[i].ent.draw = SI;
-			borrarEntity(&enemigos[i].ent);
-			p->puntuacion = p->puntuacion + 100;
-			enemigos[i].ent.vivo = 0;
-			enemigos[i].ent.draw = NO;
-			break;
+
+
+	//PLAYER - BASES
+	collide = checkCollision(&player.ent.coll, &bases[mapaActual].ent.coll);
+
+	if(collide){
+		bases[mapaActual].ent.draw = SI;
+		p->ent.draw = SI;
+				//El player esta sobre una base.
+				//Compruebo si la base es del player o no
+		if(bases[mapaActual].whom == 1){
+					//La base es del enemigo. La capturo
+			bases[mapaActual].cycles++;
+			if(bases[mapaActual].cycles >= bases[mapaActual].waitCycles){
+						//He capturado la base
+				basesCapturadas++; //Aumentamos la cuenta de bases capturadas
+				//Aumentamos la cadencia de disparo de los enemigos
+				if(wshot_cycles >= 5)
+					wshot_cycles -= 7;
+				p->puntuacion = p->puntuacion + 500;
+				bases[mapaActual].whom = 0;
+				bases[mapaActual].ent.sprites[0] = g_capturada;
+				bases[mapaActual].ent.draw = SI;
+				if(p->vida + 1 <= 3){
+					p->vida++;
+				}
+			}
 		}
 	}
+
+		
 	
 	
-	//sprintf(str,"%d",collide);
-	//cpct_drawStringM0(str, cpct_getScreenPtr(CPCT_VMEM_START,10,10), 1, 0);
+
+	//ENEMIGOS - BASES
+
+	
 }
 
 void drawHUD(){
@@ -292,19 +365,42 @@ void drawHUD(){
 	TEntity* ent = &hearth;
 	
 	if(player.vida != player.pvida){
-
-		//Borramos una vida
-		cpct_drawSolidBox(
-			cpct_getScreenPtr(CPCT_VMEM_START,2 + 10*(player.vida),ent->y)
-			,0
-			,ent->sw
-			,ent->sh
-			);
-		
+		if(player.vida > player.pvida){
+			for(i = 0; i < player.vida; ++i){
+				ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+				dibujarEntity(ent,ent->sw,ent->sh);
+				ent->x+=10;
+			}
+		}else{
+			//Borramos una vida
+			cpct_drawSolidBox(
+				cpct_getScreenPtr(CPCT_VMEM_START,2 + 10*(player.vida),ent->y)
+				,0
+				,ent->sw
+				,ent->sh
+				);
+		}
 		ent->x = 2;
 		p->pvida = p->vida;
+		
 	}
 	dibujarPuntos();
+	dibujarBase();
+}
+void dibujarBase(){
+	char strPts[4];
+	if(basesCapturadas != prev_basesCapturadas){
+		//Borramos la de antes
+		cpct_drawSolidBox(
+			cpct_getScreenPtr(CPCT_VMEM_START,71,5)
+			,0
+			,6
+			,8
+			);
+		sprintf(strPts,"%d",basesCapturadas);
+		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,71,5),2,0);
+		prev_basesCapturadas = basesCapturadas;
+	}
 }
 void dibujarPuntos(){
 	TPlayer* p = &player;
@@ -313,15 +409,14 @@ void dibujarPuntos(){
 		//Borramos la de antes
 
 		cpct_drawSolidBox(
-			cpct_getScreenPtr(CPCT_VMEM_START,62,23)
+			cpct_getScreenPtr(CPCT_VMEM_START,63,23)
 			,0
 			,20
 			,8
 			);
 		sprintf(strPts,"%d",p->puntuacion);
-		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,62,23),2,0);
+		cpct_drawStringM0(strPts,cpct_getScreenPtr(CPCT_VMEM_START,63,23),2,0);
 		p->puntuacionPrev = p->puntuacion;
-
 	}
 }
 
@@ -349,9 +444,14 @@ void play(){
 
 			return;
 		}
+		if(basesCapturadas == 6){
+			salirMenu = 1;
+			return;
+		}
 
 	}
 	/*if(player.vida == 0){
 		cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
 	}*/
 }
+

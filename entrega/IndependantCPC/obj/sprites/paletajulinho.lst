@@ -1,0 +1,838 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module paletajulinho
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _g_paletajulinho_71
+                             12 	.globl _g_paletajulinho_70
+                             13 	.globl _g_paletajulinho_69
+                             14 	.globl _g_paletajulinho_68
+                             15 	.globl _g_paletajulinho_67
+                             16 	.globl _g_paletajulinho_66
+                             17 	.globl _g_paletajulinho_65
+                             18 	.globl _g_paletajulinho_64
+                             19 	.globl _g_paletajulinho_63
+                             20 	.globl _g_paletajulinho_62
+                             21 	.globl _g_paletajulinho_61
+                             22 	.globl _g_paletajulinho_60
+                             23 	.globl _g_paletajulinho_59
+                             24 	.globl _g_paletajulinho_58
+                             25 	.globl _g_paletajulinho_57
+                             26 	.globl _g_paletajulinho_56
+                             27 	.globl _g_paletajulinho_55
+                             28 	.globl _g_paletajulinho_54
+                             29 	.globl _g_paletajulinho_53
+                             30 	.globl _g_paletajulinho_52
+                             31 	.globl _g_paletajulinho_51
+                             32 	.globl _g_paletajulinho_50
+                             33 	.globl _g_paletajulinho_49
+                             34 	.globl _g_paletajulinho_48
+                             35 	.globl _g_paletajulinho_47
+                             36 	.globl _g_paletajulinho_46
+                             37 	.globl _g_paletajulinho_45
+                             38 	.globl _g_paletajulinho_44
+                             39 	.globl _g_paletajulinho_43
+                             40 	.globl _g_paletajulinho_42
+                             41 	.globl _g_paletajulinho_41
+                             42 	.globl _g_paletajulinho_40
+                             43 	.globl _g_paletajulinho_39
+                             44 	.globl _g_paletajulinho_38
+                             45 	.globl _g_paletajulinho_37
+                             46 	.globl _g_paletajulinho_36
+                             47 	.globl _g_paletajulinho_35
+                             48 	.globl _g_paletajulinho_34
+                             49 	.globl _g_paletajulinho_33
+                             50 	.globl _g_paletajulinho_32
+                             51 	.globl _g_paletajulinho_31
+                             52 	.globl _g_paletajulinho_30
+                             53 	.globl _g_paletajulinho_29
+                             54 	.globl _g_paletajulinho_28
+                             55 	.globl _g_paletajulinho_27
+                             56 	.globl _g_paletajulinho_26
+                             57 	.globl _g_paletajulinho_25
+                             58 	.globl _g_paletajulinho_24
+                             59 	.globl _g_paletajulinho_23
+                             60 	.globl _g_paletajulinho_22
+                             61 	.globl _g_paletajulinho_21
+                             62 	.globl _g_paletajulinho_20
+                             63 	.globl _g_paletajulinho_19
+                             64 	.globl _g_paletajulinho_18
+                             65 	.globl _g_paletajulinho_17
+                             66 	.globl _g_paletajulinho_16
+                             67 	.globl _g_paletajulinho_15
+                             68 	.globl _g_paletajulinho_14
+                             69 	.globl _g_paletajulinho_13
+                             70 	.globl _g_paletajulinho_12
+                             71 	.globl _g_paletajulinho_11
+                             72 	.globl _g_paletajulinho_10
+                             73 	.globl _g_paletajulinho_09
+                             74 	.globl _g_paletajulinho_08
+                             75 	.globl _g_paletajulinho_07
+                             76 	.globl _g_paletajulinho_06
+                             77 	.globl _g_paletajulinho_05
+                             78 	.globl _g_paletajulinho_04
+                             79 	.globl _g_paletajulinho_03
+                             80 	.globl _g_paletajulinho_02
+                             81 	.globl _g_paletajulinho_01
+                             82 	.globl _g_paletajulinho_00
+                             83 	.globl _g_tileset
+                             84 ;--------------------------------------------------------
+                             85 ; special function registers
+                             86 ;--------------------------------------------------------
+                             87 ;--------------------------------------------------------
+                             88 ; ram data
+                             89 ;--------------------------------------------------------
+                             90 	.area _DATA
+                             91 ;--------------------------------------------------------
+                             92 ; ram data
+                             93 ;--------------------------------------------------------
+                             94 	.area _INITIALIZED
+                             95 ;--------------------------------------------------------
+                             96 ; absolute external ram data
+                             97 ;--------------------------------------------------------
+                             98 	.area _DABS (ABS)
+                             99 ;--------------------------------------------------------
+                            100 ; global & static initialisations
+                            101 ;--------------------------------------------------------
+                            102 	.area _HOME
+                            103 	.area _GSINIT
+                            104 	.area _GSFINAL
+                            105 	.area _GSINIT
+                            106 ;--------------------------------------------------------
+                            107 ; Home
+                            108 ;--------------------------------------------------------
+                            109 	.area _HOME
+                            110 	.area _HOME
+                            111 ;--------------------------------------------------------
+                            112 ; code
+                            113 ;--------------------------------------------------------
+                            114 	.area _CODE
+                            115 	.area _CODE
+   0000                     116 _g_tileset:
+   0000r90r00               117 	.dw _g_paletajulinho_00
+   0002r98r00               118 	.dw _g_paletajulinho_01
+   0004rA0r00               119 	.dw _g_paletajulinho_02
+   0006rA8r00               120 	.dw _g_paletajulinho_03
+   0008rB0r00               121 	.dw _g_paletajulinho_04
+   000ArB8r00               122 	.dw _g_paletajulinho_05
+   000CrC0r00               123 	.dw _g_paletajulinho_06
+   000ErC8r00               124 	.dw _g_paletajulinho_07
+   0010rD0r00               125 	.dw _g_paletajulinho_08
+   0012rD8r00               126 	.dw _g_paletajulinho_09
+   0014rE0r00               127 	.dw _g_paletajulinho_10
+   0016rE8r00               128 	.dw _g_paletajulinho_11
+   0018rF0r00               129 	.dw _g_paletajulinho_12
+   001ArF8r00               130 	.dw _g_paletajulinho_13
+   001Cr00r01               131 	.dw _g_paletajulinho_14
+   001Er08r01               132 	.dw _g_paletajulinho_15
+   0020r10r01               133 	.dw _g_paletajulinho_16
+   0022r18r01               134 	.dw _g_paletajulinho_17
+   0024r20r01               135 	.dw _g_paletajulinho_18
+   0026r28r01               136 	.dw _g_paletajulinho_19
+   0028r30r01               137 	.dw _g_paletajulinho_20
+   002Ar38r01               138 	.dw _g_paletajulinho_21
+   002Cr40r01               139 	.dw _g_paletajulinho_22
+   002Er48r01               140 	.dw _g_paletajulinho_23
+   0030r50r01               141 	.dw _g_paletajulinho_24
+   0032r58r01               142 	.dw _g_paletajulinho_25
+   0034r60r01               143 	.dw _g_paletajulinho_26
+   0036r68r01               144 	.dw _g_paletajulinho_27
+   0038r70r01               145 	.dw _g_paletajulinho_28
+   003Ar78r01               146 	.dw _g_paletajulinho_29
+   003Cr80r01               147 	.dw _g_paletajulinho_30
+   003Er88r01               148 	.dw _g_paletajulinho_31
+   0040r90r01               149 	.dw _g_paletajulinho_32
+   0042r98r01               150 	.dw _g_paletajulinho_33
+   0044rA0r01               151 	.dw _g_paletajulinho_34
+   0046rA8r01               152 	.dw _g_paletajulinho_35
+   0048rB0r01               153 	.dw _g_paletajulinho_36
+   004ArB8r01               154 	.dw _g_paletajulinho_37
+   004CrC0r01               155 	.dw _g_paletajulinho_38
+   004ErC8r01               156 	.dw _g_paletajulinho_39
+   0050rD0r01               157 	.dw _g_paletajulinho_40
+   0052rD8r01               158 	.dw _g_paletajulinho_41
+   0054rE0r01               159 	.dw _g_paletajulinho_42
+   0056rE8r01               160 	.dw _g_paletajulinho_43
+   0058rF0r01               161 	.dw _g_paletajulinho_44
+   005ArF8r01               162 	.dw _g_paletajulinho_45
+   005Cr00r02               163 	.dw _g_paletajulinho_46
+   005Er08r02               164 	.dw _g_paletajulinho_47
+   0060r10r02               165 	.dw _g_paletajulinho_48
+   0062r18r02               166 	.dw _g_paletajulinho_49
+   0064r20r02               167 	.dw _g_paletajulinho_50
+   0066r28r02               168 	.dw _g_paletajulinho_51
+   0068r30r02               169 	.dw _g_paletajulinho_52
+   006Ar38r02               170 	.dw _g_paletajulinho_53
+   006Cr40r02               171 	.dw _g_paletajulinho_54
+   006Er48r02               172 	.dw _g_paletajulinho_55
+   0070r50r02               173 	.dw _g_paletajulinho_56
+   0072r58r02               174 	.dw _g_paletajulinho_57
+   0074r60r02               175 	.dw _g_paletajulinho_58
+   0076r68r02               176 	.dw _g_paletajulinho_59
+   0078r70r02               177 	.dw _g_paletajulinho_60
+   007Ar78r02               178 	.dw _g_paletajulinho_61
+   007Cr80r02               179 	.dw _g_paletajulinho_62
+   007Er88r02               180 	.dw _g_paletajulinho_63
+   0080r90r02               181 	.dw _g_paletajulinho_64
+   0082r98r02               182 	.dw _g_paletajulinho_65
+   0084rA0r02               183 	.dw _g_paletajulinho_66
+   0086rA8r02               184 	.dw _g_paletajulinho_67
+   0088rB0r02               185 	.dw _g_paletajulinho_68
+   008ArB8r02               186 	.dw _g_paletajulinho_69
+   008CrC0r02               187 	.dw _g_paletajulinho_70
+   008ErC8r02               188 	.dw _g_paletajulinho_71
+   0090                     189 _g_paletajulinho_00:
+   0090 00                  190 	.db #0x00	; 0
+   0091 00                  191 	.db #0x00	; 0
+   0092 00                  192 	.db #0x00	; 0
+   0093 00                  193 	.db #0x00	; 0
+   0094 00                  194 	.db #0x00	; 0
+   0095 00                  195 	.db #0x00	; 0
+   0096 00                  196 	.db #0x00	; 0
+   0097 00                  197 	.db #0x00	; 0
+   0098                     198 _g_paletajulinho_01:
+   0098 C0                  199 	.db #0xC0	; 192
+   0099 C0                  200 	.db #0xC0	; 192
+   009A C0                  201 	.db #0xC0	; 192
+   009B C0                  202 	.db #0xC0	; 192
+   009C C0                  203 	.db #0xC0	; 192
+   009D C0                  204 	.db #0xC0	; 192
+   009E C0                  205 	.db #0xC0	; 192
+   009F C0                  206 	.db #0xC0	; 192
+   00A0                     207 _g_paletajulinho_02:
+   00A0 0C                  208 	.db #0x0C	; 12
+   00A1 0C                  209 	.db #0x0C	; 12
+   00A2 0C                  210 	.db #0x0C	; 12
+   00A3 0C                  211 	.db #0x0C	; 12
+   00A4 0C                  212 	.db #0x0C	; 12
+   00A5 0C                  213 	.db #0x0C	; 12
+   00A6 0C                  214 	.db #0x0C	; 12
+   00A7 0C                  215 	.db #0x0C	; 12
+   00A8                     216 _g_paletajulinho_03:
+   00A8 C0                  217 	.db #0xC0	; 192
+   00A9 0C                  218 	.db #0x0C	; 12
+   00AA C0                  219 	.db #0xC0	; 192
+   00AB 0C                  220 	.db #0x0C	; 12
+   00AC C0                  221 	.db #0xC0	; 192
+   00AD C0                  222 	.db #0xC0	; 192
+   00AE C0                  223 	.db #0xC0	; 192
+   00AF C0                  224 	.db #0xC0	; 192
+   00B0                     225 _g_paletajulinho_04:
+   00B0 CC                  226 	.db #0xCC	; 204
+   00B1 CC                  227 	.db #0xCC	; 204
+   00B2 CC                  228 	.db #0xCC	; 204
+   00B3 CC                  229 	.db #0xCC	; 204
+   00B4 CC                  230 	.db #0xCC	; 204
+   00B5 CC                  231 	.db #0xCC	; 204
+   00B6 CC                  232 	.db #0xCC	; 204
+   00B7 CC                  233 	.db #0xCC	; 204
+   00B8                     234 _g_paletajulinho_05:
+   00B8 30                  235 	.db #0x30	; 48	'0'
+   00B9 30                  236 	.db #0x30	; 48	'0'
+   00BA 30                  237 	.db #0x30	; 48	'0'
+   00BB 30                  238 	.db #0x30	; 48	'0'
+   00BC 30                  239 	.db #0x30	; 48	'0'
+   00BD 30                  240 	.db #0x30	; 48	'0'
+   00BE 30                  241 	.db #0x30	; 48	'0'
+   00BF 30                  242 	.db #0x30	; 48	'0'
+   00C0                     243 _g_paletajulinho_06:
+   00C0 F0                  244 	.db #0xF0	; 240
+   00C1 F0                  245 	.db #0xF0	; 240
+   00C2 F0                  246 	.db #0xF0	; 240
+   00C3 F0                  247 	.db #0xF0	; 240
+   00C4 F0                  248 	.db #0xF0	; 240
+   00C5 F0                  249 	.db #0xF0	; 240
+   00C6 F0                  250 	.db #0xF0	; 240
+   00C7 F0                  251 	.db #0xF0	; 240
+   00C8                     252 _g_paletajulinho_07:
+   00C8 C0                  253 	.db #0xC0	; 192
+   00C9 C0                  254 	.db #0xC0	; 192
+   00CA C0                  255 	.db #0xC0	; 192
+   00CB C0                  256 	.db #0xC0	; 192
+   00CC 0C                  257 	.db #0x0C	; 12
+   00CD C0                  258 	.db #0xC0	; 192
+   00CE 0C                  259 	.db #0x0C	; 12
+   00CF C0                  260 	.db #0xC0	; 192
+   00D0                     261 _g_paletajulinho_08:
+   00D0 3C                  262 	.db #0x3C	; 60
+   00D1 3C                  263 	.db #0x3C	; 60
+   00D2 3C                  264 	.db #0x3C	; 60
+   00D3 3C                  265 	.db #0x3C	; 60
+   00D4 3C                  266 	.db #0x3C	; 60
+   00D5 3C                  267 	.db #0x3C	; 60
+   00D6 3C                  268 	.db #0x3C	; 60
+   00D7 3C                  269 	.db #0x3C	; 60
+   00D8                     270 _g_paletajulinho_09:
+   00D8 FC                  271 	.db #0xFC	; 252
+   00D9 FC                  272 	.db #0xFC	; 252
+   00DA FC                  273 	.db #0xFC	; 252
+   00DB FC                  274 	.db #0xFC	; 252
+   00DC FC                  275 	.db #0xFC	; 252
+   00DD FC                  276 	.db #0xFC	; 252
+   00DE FC                  277 	.db #0xFC	; 252
+   00DF FC                  278 	.db #0xFC	; 252
+   00E0                     279 _g_paletajulinho_10:
+   00E0 03                  280 	.db #0x03	; 3
+   00E1 03                  281 	.db #0x03	; 3
+   00E2 03                  282 	.db #0x03	; 3
+   00E3 03                  283 	.db #0x03	; 3
+   00E4 03                  284 	.db #0x03	; 3
+   00E5 03                  285 	.db #0x03	; 3
+   00E6 03                  286 	.db #0x03	; 3
+   00E7 03                  287 	.db #0x03	; 3
+   00E8                     288 _g_paletajulinho_11:
+   00E8 30                  289 	.db #0x30	; 48	'0'
+   00E9 70                  290 	.db #0x70	; 112	'p'
+   00EA 30                  291 	.db #0x30	; 48	'0'
+   00EB 70                  292 	.db #0x70	; 112	'p'
+   00EC 30                  293 	.db #0x30	; 48	'0'
+   00ED 70                  294 	.db #0x70	; 112	'p'
+   00EE 30                  295 	.db #0x30	; 48	'0'
+   00EF 70                  296 	.db #0x70	; 112	'p'
+   00F0                     297 _g_paletajulinho_12:
+   00F0 C3                  298 	.db #0xC3	; 195
+   00F1 C3                  299 	.db #0xC3	; 195
+   00F2 C3                  300 	.db #0xC3	; 195
+   00F3 C3                  301 	.db #0xC3	; 195
+   00F4 C3                  302 	.db #0xC3	; 195
+   00F5 C3                  303 	.db #0xC3	; 195
+   00F6 C3                  304 	.db #0xC3	; 195
+   00F7 C3                  305 	.db #0xC3	; 195
+   00F8                     306 _g_paletajulinho_13:
+   00F8 0F                  307 	.db #0x0F	; 15
+   00F9 0F                  308 	.db #0x0F	; 15
+   00FA 0F                  309 	.db #0x0F	; 15
+   00FB 0F                  310 	.db #0x0F	; 15
+   00FC 0F                  311 	.db #0x0F	; 15
+   00FD 0F                  312 	.db #0x0F	; 15
+   00FE 0F                  313 	.db #0x0F	; 15
+   00FF 0F                  314 	.db #0x0F	; 15
+   0100                     315 _g_paletajulinho_14:
+   0100 CF                  316 	.db #0xCF	; 207
+   0101 CF                  317 	.db #0xCF	; 207
+   0102 CF                  318 	.db #0xCF	; 207
+   0103 CF                  319 	.db #0xCF	; 207
+   0104 CF                  320 	.db #0xCF	; 207
+   0105 CF                  321 	.db #0xCF	; 207
+   0106 CF                  322 	.db #0xCF	; 207
+   0107 CF                  323 	.db #0xCF	; 207
+   0108                     324 _g_paletajulinho_15:
+   0108 B0                  325 	.db #0xB0	; 176
+   0109 30                  326 	.db #0x30	; 48	'0'
+   010A B0                  327 	.db #0xB0	; 176
+   010B 30                  328 	.db #0x30	; 48	'0'
+   010C B0                  329 	.db #0xB0	; 176
+   010D 30                  330 	.db #0x30	; 48	'0'
+   010E B0                  331 	.db #0xB0	; 176
+   010F 30                  332 	.db #0x30	; 48	'0'
+   0110                     333 _g_paletajulinho_16:
+   0110 33                  334 	.db #0x33	; 51	'3'
+   0111 33                  335 	.db #0x33	; 51	'3'
+   0112 33                  336 	.db #0x33	; 51	'3'
+   0113 33                  337 	.db #0x33	; 51	'3'
+   0114 33                  338 	.db #0x33	; 51	'3'
+   0115 33                  339 	.db #0x33	; 51	'3'
+   0116 33                  340 	.db #0x33	; 51	'3'
+   0117 33                  341 	.db #0x33	; 51	'3'
+   0118                     342 _g_paletajulinho_17:
+   0118 F3                  343 	.db #0xF3	; 243
+   0119 F3                  344 	.db #0xF3	; 243
+   011A F3                  345 	.db #0xF3	; 243
+   011B F3                  346 	.db #0xF3	; 243
+   011C F3                  347 	.db #0xF3	; 243
+   011D F3                  348 	.db #0xF3	; 243
+   011E F3                  349 	.db #0xF3	; 243
+   011F F3                  350 	.db #0xF3	; 243
+   0120                     351 _g_paletajulinho_18:
+   0120 3F                  352 	.db #0x3F	; 63
+   0121 3F                  353 	.db #0x3F	; 63
+   0122 3F                  354 	.db #0x3F	; 63
+   0123 3F                  355 	.db #0x3F	; 63
+   0124 3F                  356 	.db #0x3F	; 63
+   0125 3F                  357 	.db #0x3F	; 63
+   0126 3F                  358 	.db #0x3F	; 63
+   0127 3F                  359 	.db #0x3F	; 63
+   0128                     360 _g_paletajulinho_19:
+   0128 F0                  361 	.db #0xF0	; 240
+   0129 F0                  362 	.db #0xF0	; 240
+   012A 30                  363 	.db #0x30	; 48	'0'
+   012B 30                  364 	.db #0x30	; 48	'0'
+   012C 30                  365 	.db #0x30	; 48	'0'
+   012D 30                  366 	.db #0x30	; 48	'0'
+   012E 30                  367 	.db #0x30	; 48	'0'
+   012F 30                  368 	.db #0x30	; 48	'0'
+   0130                     369 _g_paletajulinho_20:
+   0130 FF                  370 	.db #0xFF	; 255
+   0131 FF                  371 	.db #0xFF	; 255
+   0132 FF                  372 	.db #0xFF	; 255
+   0133 FF                  373 	.db #0xFF	; 255
+   0134 FF                  374 	.db #0xFF	; 255
+   0135 FF                  375 	.db #0xFF	; 255
+   0136 FF                  376 	.db #0xFF	; 255
+   0137 FF                  377 	.db #0xFF	; 255
+   0138                     378 _g_paletajulinho_21:
+   0138 C3                  379 	.db #0xC3	; 195
+   0139 C3                  380 	.db #0xC3	; 195
+   013A 03                  381 	.db #0x03	; 3
+   013B 43                  382 	.db #0x43	; 67	'C'
+   013C 0F                  383 	.db #0x0F	; 15
+   013D 43                  384 	.db #0x43	; 67	'C'
+   013E 0F                  385 	.db #0x0F	; 15
+   013F 43                  386 	.db #0x43	; 67	'C'
+   0140                     387 _g_paletajulinho_22:
+   0140 C3                  388 	.db #0xC3	; 195
+   0141 C3                  389 	.db #0xC3	; 195
+   0142 83                  390 	.db #0x83	; 131
+   0143 03                  391 	.db #0x03	; 3
+   0144 83                  392 	.db #0x83	; 131
+   0145 0F                  393 	.db #0x0F	; 15
+   0146 83                  394 	.db #0x83	; 131
+   0147 0F                  395 	.db #0x0F	; 15
+   0148                     396 _g_paletajulinho_23:
+   0148 30                  397 	.db #0x30	; 48	'0'
+   0149 30                  398 	.db #0x30	; 48	'0'
+   014A 30                  399 	.db #0x30	; 48	'0'
+   014B 30                  400 	.db #0x30	; 48	'0'
+   014C 30                  401 	.db #0x30	; 48	'0'
+   014D 30                  402 	.db #0x30	; 48	'0'
+   014E F0                  403 	.db #0xF0	; 240
+   014F F0                  404 	.db #0xF0	; 240
+   0150                     405 _g_paletajulinho_24:
+   0150 0F                  406 	.db #0x0F	; 15
+   0151 43                  407 	.db #0x43	; 67	'C'
+   0152 0F                  408 	.db #0x0F	; 15
+   0153 43                  409 	.db #0x43	; 67	'C'
+   0154 03                  410 	.db #0x03	; 3
+   0155 43                  411 	.db #0x43	; 67	'C'
+   0156 C3                  412 	.db #0xC3	; 195
+   0157 C3                  413 	.db #0xC3	; 195
+   0158                     414 _g_paletajulinho_25:
+   0158 83                  415 	.db #0x83	; 131
+   0159 0F                  416 	.db #0x0F	; 15
+   015A 83                  417 	.db #0x83	; 131
+   015B 0F                  418 	.db #0x0F	; 15
+   015C 83                  419 	.db #0x83	; 131
+   015D 03                  420 	.db #0x03	; 3
+   015E C3                  421 	.db #0xC3	; 195
+   015F C3                  422 	.db #0xC3	; 195
+   0160                     423 _g_paletajulinho_26:
+   0160 83                  424 	.db #0x83	; 131
+   0161 0F                  425 	.db #0x0F	; 15
+   0162 83                  426 	.db #0x83	; 131
+   0163 0F                  427 	.db #0x0F	; 15
+   0164 83                  428 	.db #0x83	; 131
+   0165 0F                  429 	.db #0x0F	; 15
+   0166 83                  430 	.db #0x83	; 131
+   0167 0F                  431 	.db #0x0F	; 15
+   0168                     432 _g_paletajulinho_27:
+   0168 30                  433 	.db #0x30	; 48	'0'
+   0169 60                  434 	.db #0x60	; 96
+   016A 30                  435 	.db #0x30	; 48	'0'
+   016B 60                  436 	.db #0x60	; 96
+   016C 30                  437 	.db #0x30	; 48	'0'
+   016D 60                  438 	.db #0x60	; 96
+   016E 30                  439 	.db #0x30	; 48	'0'
+   016F 60                  440 	.db #0x60	; 96
+   0170                     441 _g_paletajulinho_28:
+   0170 0F                  442 	.db #0x0F	; 15
+   0171 43                  443 	.db #0x43	; 67	'C'
+   0172 0F                  444 	.db #0x0F	; 15
+   0173 43                  445 	.db #0x43	; 67	'C'
+   0174 0F                  446 	.db #0x0F	; 15
+   0175 43                  447 	.db #0x43	; 67	'C'
+   0176 0F                  448 	.db #0x0F	; 15
+   0177 43                  449 	.db #0x43	; 67	'C'
+   0178                     450 _g_paletajulinho_29:
+   0178 C3                  451 	.db #0xC3	; 195
+   0179 C3                  452 	.db #0xC3	; 195
+   017A 03                  453 	.db #0x03	; 3
+   017B 03                  454 	.db #0x03	; 3
+   017C 0F                  455 	.db #0x0F	; 15
+   017D 0F                  456 	.db #0x0F	; 15
+   017E 0F                  457 	.db #0x0F	; 15
+   017F 0F                  458 	.db #0x0F	; 15
+   0180                     459 _g_paletajulinho_30:
+   0180 0F                  460 	.db #0x0F	; 15
+   0181 0F                  461 	.db #0x0F	; 15
+   0182 0F                  462 	.db #0x0F	; 15
+   0183 0F                  463 	.db #0x0F	; 15
+   0184 03                  464 	.db #0x03	; 3
+   0185 03                  465 	.db #0x03	; 3
+   0186 C3                  466 	.db #0xC3	; 195
+   0187 C3                  467 	.db #0xC3	; 195
+   0188                     468 _g_paletajulinho_31:
+   0188 90                  469 	.db #0x90	; 144
+   0189 30                  470 	.db #0x30	; 48	'0'
+   018A 90                  471 	.db #0x90	; 144
+   018B 30                  472 	.db #0x30	; 48	'0'
+   018C 90                  473 	.db #0x90	; 144
+   018D 30                  474 	.db #0x30	; 48	'0'
+   018E 90                  475 	.db #0x90	; 144
+   018F 30                  476 	.db #0x30	; 48	'0'
+   0190                     477 _g_paletajulinho_32:
+   0190 30                  478 	.db #0x30	; 48	'0'
+   0191 30                  479 	.db #0x30	; 48	'0'
+   0192 30                  480 	.db #0x30	; 48	'0'
+   0193 30                  481 	.db #0x30	; 48	'0'
+   0194 30                  482 	.db #0x30	; 48	'0'
+   0195 FF                  483 	.db #0xFF	; 255
+   0196 30                  484 	.db #0x30	; 48	'0'
+   0197 BA                  485 	.db #0xBA	; 186
+   0198                     486 _g_paletajulinho_33:
+   0198 30                  487 	.db #0x30	; 48	'0'
+   0199 30                  488 	.db #0x30	; 48	'0'
+   019A 30                  489 	.db #0x30	; 48	'0'
+   019B 30                  490 	.db #0x30	; 48	'0'
+   019C FF                  491 	.db #0xFF	; 255
+   019D 30                  492 	.db #0x30	; 48	'0'
+   019E 30                  493 	.db #0x30	; 48	'0'
+   019F 30                  494 	.db #0x30	; 48	'0'
+   01A0                     495 _g_paletajulinho_34:
+   01A0 F0                  496 	.db #0xF0	; 240
+   01A1 F0                  497 	.db #0xF0	; 240
+   01A2 FC                  498 	.db #0xFC	; 252
+   01A3 F0                  499 	.db #0xF0	; 240
+   01A4 FC                  500 	.db #0xFC	; 252
+   01A5 F0                  501 	.db #0xF0	; 240
+   01A6 F0                  502 	.db #0xF0	; 240
+   01A7 F0                  503 	.db #0xF0	; 240
+   01A8                     504 _g_paletajulinho_35:
+   01A8 30                  505 	.db #0x30	; 48	'0'
+   01A9 24                  506 	.db #0x24	; 36
+   01AA 30                  507 	.db #0x30	; 48	'0'
+   01AB 24                  508 	.db #0x24	; 36
+   01AC 30                  509 	.db #0x30	; 48	'0'
+   01AD 24                  510 	.db #0x24	; 36
+   01AE 30                  511 	.db #0x30	; 48	'0'
+   01AF 24                  512 	.db #0x24	; 36
+   01B0                     513 _g_paletajulinho_36:
+   01B0 30                  514 	.db #0x30	; 48	'0'
+   01B1 BA                  515 	.db #0xBA	; 186
+   01B2 30                  516 	.db #0x30	; 48	'0'
+   01B3 FF                  517 	.db #0xFF	; 255
+   01B4 30                  518 	.db #0x30	; 48	'0'
+   01B5 BA                  519 	.db #0xBA	; 186
+   01B6 30                  520 	.db #0x30	; 48	'0'
+   01B7 BA                  521 	.db #0xBA	; 186
+   01B8                     522 _g_paletajulinho_37:
+   01B8 30                  523 	.db #0x30	; 48	'0'
+   01B9 30                  524 	.db #0x30	; 48	'0'
+   01BA FF                  525 	.db #0xFF	; 255
+   01BB 30                  526 	.db #0x30	; 48	'0'
+   01BC 30                  527 	.db #0x30	; 48	'0'
+   01BD 30                  528 	.db #0x30	; 48	'0'
+   01BE 30                  529 	.db #0x30	; 48	'0'
+   01BF 30                  530 	.db #0x30	; 48	'0'
+   01C0                     531 _g_paletajulinho_38:
+   01C0 F0                  532 	.db #0xF0	; 240
+   01C1 F0                  533 	.db #0xF0	; 240
+   01C2 F4                  534 	.db #0xF4	; 244
+   01C3 F8                  535 	.db #0xF8	; 248
+   01C4 F4                  536 	.db #0xF4	; 244
+   01C5 F8                  537 	.db #0xF8	; 248
+   01C6 F0                  538 	.db #0xF0	; 240
+   01C7 F0                  539 	.db #0xF0	; 240
+   01C8                     540 _g_paletajulinho_39:
+   01C8 18                  541 	.db #0x18	; 24
+   01C9 30                  542 	.db #0x30	; 48	'0'
+   01CA 18                  543 	.db #0x18	; 24
+   01CB 30                  544 	.db #0x30	; 48	'0'
+   01CC 18                  545 	.db #0x18	; 24
+   01CD 30                  546 	.db #0x30	; 48	'0'
+   01CE 18                  547 	.db #0x18	; 24
+   01CF 30                  548 	.db #0x30	; 48	'0'
+   01D0                     549 _g_paletajulinho_40:
+   01D0 30                  550 	.db #0x30	; 48	'0'
+   01D1 FF                  551 	.db #0xFF	; 255
+   01D2 30                  552 	.db #0x30	; 48	'0'
+   01D3 30                  553 	.db #0x30	; 48	'0'
+   01D4 30                  554 	.db #0x30	; 48	'0'
+   01D5 30                  555 	.db #0x30	; 48	'0'
+   01D6 30                  556 	.db #0x30	; 48	'0'
+   01D7 30                  557 	.db #0x30	; 48	'0'
+   01D8                     558 _g_paletajulinho_41:
+   01D8 FF                  559 	.db #0xFF	; 255
+   01D9 30                  560 	.db #0x30	; 48	'0'
+   01DA 30                  561 	.db #0x30	; 48	'0'
+   01DB 30                  562 	.db #0x30	; 48	'0'
+   01DC 30                  563 	.db #0x30	; 48	'0'
+   01DD 30                  564 	.db #0x30	; 48	'0'
+   01DE 30                  565 	.db #0x30	; 48	'0'
+   01DF 30                  566 	.db #0x30	; 48	'0'
+   01E0                     567 _g_paletajulinho_42:
+   01E0 3C                  568 	.db #0x3C	; 60
+   01E1 3C                  569 	.db #0x3C	; 60
+   01E2 39                  570 	.db #0x39	; 57	'9'
+   01E3 36                  571 	.db #0x36	; 54	'6'
+   01E4 39                  572 	.db #0x39	; 57	'9'
+   01E5 36                  573 	.db #0x36	; 54	'6'
+   01E6 3C                  574 	.db #0x3C	; 60
+   01E7 3C                  575 	.db #0x3C	; 60
+   01E8                     576 _g_paletajulinho_43:
+   01E8 3F                  577 	.db #0x3F	; 63
+   01E9 3F                  578 	.db #0x3F	; 63
+   01EA 7F                  579 	.db #0x7F	; 127
+   01EB BF                  580 	.db #0xBF	; 191
+   01EC 7F                  581 	.db #0x7F	; 127
+   01ED BF                  582 	.db #0xBF	; 191
+   01EE 3F                  583 	.db #0x3F	; 63
+   01EF 3F                  584 	.db #0x3F	; 63
+   01F0                     585 _g_paletajulinho_44:
+   01F0 3C                  586 	.db #0x3C	; 60
+   01F1 3C                  587 	.db #0x3C	; 60
+   01F2 3C                  588 	.db #0x3C	; 60
+   01F3 33                  589 	.db #0x33	; 51	'3'
+   01F4 3C                  590 	.db #0x3C	; 60
+   01F5 33                  591 	.db #0x33	; 51	'3'
+   01F6 3C                  592 	.db #0x3C	; 60
+   01F7 3C                  593 	.db #0x3C	; 60
+   01F8                     594 _g_paletajulinho_45:
+   01F8 0C                  595 	.db #0x0C	; 12
+   01F9 0C                  596 	.db #0x0C	; 12
+   01FA 1C                  597 	.db #0x1C	; 28
+   01FB 2C                  598 	.db #0x2C	; 44
+   01FC 1C                  599 	.db #0x1C	; 28
+   01FD 2C                  600 	.db #0x2C	; 44
+   01FE 0C                  601 	.db #0x0C	; 12
+   01FF 0C                  602 	.db #0x0C	; 12
+   0200                     603 _g_paletajulinho_46:
+   0200 0C                  604 	.db #0x0C	; 12
+   0201 0C                  605 	.db #0x0C	; 12
+   0202 0C                  606 	.db #0x0C	; 12
+   0203 0C                  607 	.db #0x0C	; 12
+   0204 1C                  608 	.db #0x1C	; 28
+   0205 2C                  609 	.db #0x2C	; 44
+   0206 1C                  610 	.db #0x1C	; 28
+   0207 2C                  611 	.db #0x2C	; 44
+   0208                     612 _g_paletajulinho_47:
+   0208 3F                  613 	.db #0x3F	; 63
+   0209 3F                  614 	.db #0x3F	; 63
+   020A 3F                  615 	.db #0x3F	; 63
+   020B 3F                  616 	.db #0x3F	; 63
+   020C FF                  617 	.db #0xFF	; 255
+   020D 3F                  618 	.db #0x3F	; 63
+   020E FF                  619 	.db #0xFF	; 255
+   020F 3F                  620 	.db #0x3F	; 63
+   0210                     621 _g_paletajulinho_48:
+   0210 FC                  622 	.db #0xFC	; 252
+   0211 FC                  623 	.db #0xFC	; 252
+   0212 ED                  624 	.db #0xED	; 237
+   0213 DE                  625 	.db #0xDE	; 222
+   0214 ED                  626 	.db #0xED	; 237
+   0215 DE                  627 	.db #0xDE	; 222
+   0216 FC                  628 	.db #0xFC	; 252
+   0217 FC                  629 	.db #0xFC	; 252
+   0218                     630 _g_paletajulinho_49:
+   0218 FC                  631 	.db #0xFC	; 252
+   0219 FC                  632 	.db #0xFC	; 252
+   021A FC                  633 	.db #0xFC	; 252
+   021B FC                  634 	.db #0xFC	; 252
+   021C FC                  635 	.db #0xFC	; 252
+   021D CF                  636 	.db #0xCF	; 207
+   021E FC                  637 	.db #0xFC	; 252
+   021F CF                  638 	.db #0xCF	; 207
+   0220                     639 _g_paletajulinho_50:
+   0220 F3                  640 	.db #0xF3	; 243
+   0221 F3                  641 	.db #0xF3	; 243
+   0222 B7                  642 	.db #0xB7	; 183
+   0223 7B                  643 	.db #0x7B	; 123
+   0224 B7                  644 	.db #0xB7	; 183
+   0225 7B                  645 	.db #0x7B	; 123
+   0226 F3                  646 	.db #0xF3	; 243
+   0227 F3                  647 	.db #0xF3	; 243
+   0228                     648 _g_paletajulinho_51:
+   0228 3F                  649 	.db #0x3F	; 63
+   0229 F3                  650 	.db #0xF3	; 243
+   022A 3F                  651 	.db #0x3F	; 63
+   022B F3                  652 	.db #0xF3	; 243
+   022C F3                  653 	.db #0xF3	; 243
+   022D F3                  654 	.db #0xF3	; 243
+   022E F3                  655 	.db #0xF3	; 243
+   022F F3                  656 	.db #0xF3	; 243
+   0230                     657 _g_paletajulinho_52:
+   0230 38                  658 	.db #0x38	; 56	'8'
+   0231 30                  659 	.db #0x30	; 48	'0'
+   0232 38                  660 	.db #0x38	; 56	'8'
+   0233 30                  661 	.db #0x30	; 48	'0'
+   0234 38                  662 	.db #0x38	; 56	'8'
+   0235 30                  663 	.db #0x30	; 48	'0'
+   0236 38                  664 	.db #0x38	; 56	'8'
+   0237 30                  665 	.db #0x30	; 48	'0'
+   0238                     666 _g_paletajulinho_53:
+   0238 30                  667 	.db #0x30	; 48	'0'
+   0239 34                  668 	.db #0x34	; 52	'4'
+   023A 30                  669 	.db #0x30	; 48	'0'
+   023B 34                  670 	.db #0x34	; 52	'4'
+   023C 30                  671 	.db #0x30	; 48	'0'
+   023D 34                  672 	.db #0x34	; 52	'4'
+   023E 30                  673 	.db #0x30	; 48	'0'
+   023F 34                  674 	.db #0x34	; 52	'4'
+   0240                     675 _g_paletajulinho_54:
+   0240 3A                  676 	.db #0x3A	; 58
+   0241 30                  677 	.db #0x30	; 48	'0'
+   0242 3A                  678 	.db #0x3A	; 58
+   0243 30                  679 	.db #0x30	; 48	'0'
+   0244 3A                  680 	.db #0x3A	; 58
+   0245 30                  681 	.db #0x30	; 48	'0'
+   0246 3A                  682 	.db #0x3A	; 58
+   0247 30                  683 	.db #0x30	; 48	'0'
+   0248                     684 _g_paletajulinho_55:
+   0248 30                  685 	.db #0x30	; 48	'0'
+   0249 35                  686 	.db #0x35	; 53	'5'
+   024A 30                  687 	.db #0x30	; 48	'0'
+   024B 35                  688 	.db #0x35	; 53	'5'
+   024C 30                  689 	.db #0x30	; 48	'0'
+   024D 35                  690 	.db #0x35	; 53	'5'
+   024E 30                  691 	.db #0x30	; 48	'0'
+   024F 35                  692 	.db #0x35	; 53	'5'
+   0250                     693 _g_paletajulinho_56:
+   0250 30                  694 	.db #0x30	; 48	'0'
+   0251 30                  695 	.db #0x30	; 48	'0'
+   0252 30                  696 	.db #0x30	; 48	'0'
+   0253 30                  697 	.db #0x30	; 48	'0'
+   0254 30                  698 	.db #0x30	; 48	'0'
+   0255 30                  699 	.db #0x30	; 48	'0'
+   0256 3F                  700 	.db #0x3F	; 63
+   0257 3F                  701 	.db #0x3F	; 63
+   0258                     702 _g_paletajulinho_57:
+   0258 30                  703 	.db #0x30	; 48	'0'
+   0259 71                  704 	.db #0x71	; 113	'q'
+   025A 30                  705 	.db #0x30	; 48	'0'
+   025B 71                  706 	.db #0x71	; 113	'q'
+   025C 30                  707 	.db #0x30	; 48	'0'
+   025D 71                  708 	.db #0x71	; 113	'q'
+   025E 30                  709 	.db #0x30	; 48	'0'
+   025F 71                  710 	.db #0x71	; 113	'q'
+   0260                     711 _g_paletajulinho_58:
+   0260 12                  712 	.db #0x12	; 18
+   0261 30                  713 	.db #0x30	; 48	'0'
+   0262 12                  714 	.db #0x12	; 18
+   0263 30                  715 	.db #0x30	; 48	'0'
+   0264 12                  716 	.db #0x12	; 18
+   0265 30                  717 	.db #0x30	; 48	'0'
+   0266 12                  718 	.db #0x12	; 18
+   0267 30                  719 	.db #0x30	; 48	'0'
+   0268                     720 _g_paletajulinho_59:
+   0268 CF                  721 	.db #0xCF	; 207
+   0269 CF                  722 	.db #0xCF	; 207
+   026A CF                  723 	.db #0xCF	; 207
+   026B CF                  724 	.db #0xCF	; 207
+   026C CF                  725 	.db #0xCF	; 207
+   026D CF                  726 	.db #0xCF	; 207
+   026E CF                  727 	.db #0xCF	; 207
+   026F CF                  728 	.db #0xCF	; 207
+   0270                     729 _g_paletajulinho_60:
+   0270 F0                  730 	.db #0xF0	; 240
+   0271 F0                  731 	.db #0xF0	; 240
+   0272 F0                  732 	.db #0xF0	; 240
+   0273 F0                  733 	.db #0xF0	; 240
+   0274 F0                  734 	.db #0xF0	; 240
+   0275 F5                  735 	.db #0xF5	; 245
+   0276 F0                  736 	.db #0xF0	; 240
+   0277 FA                  737 	.db #0xFA	; 250
+   0278                     738 _g_paletajulinho_61:
+   0278 F0                  739 	.db #0xF0	; 240
+   0279 F0                  740 	.db #0xF0	; 240
+   027A F0                  741 	.db #0xF0	; 240
+   027B F0                  742 	.db #0xF0	; 240
+   027C FA                  743 	.db #0xFA	; 250
+   027D F0                  744 	.db #0xF0	; 240
+   027E F5                  745 	.db #0xF5	; 245
+   027F F0                  746 	.db #0xF0	; 240
+   0280                     747 _g_paletajulinho_62:
+   0280 FF                  748 	.db #0xFF	; 255
+   0281 EF                  749 	.db #0xEF	; 239
+   0282 3C                  750 	.db #0x3C	; 60
+   0283 FF                  751 	.db #0xFF	; 255
+   0284 3C                  752 	.db #0x3C	; 60
+   0285 FF                  753 	.db #0xFF	; 255
+   0286 3C                  754 	.db #0x3C	; 60
+   0287 FF                  755 	.db #0xFF	; 255
+   0288                     756 _g_paletajulinho_63:
+   0288 CF                  757 	.db #0xCF	; 207
+   0289 CF                  758 	.db #0xCF	; 207
+   028A FF                  759 	.db #0xFF	; 255
+   028B FF                  760 	.db #0xFF	; 255
+   028C FF                  761 	.db #0xFF	; 255
+   028D FF                  762 	.db #0xFF	; 255
+   028E FF                  763 	.db #0xFF	; 255
+   028F FF                  764 	.db #0xFF	; 255
+   0290                     765 _g_paletajulinho_64:
+   0290 F0                  766 	.db #0xF0	; 240
+   0291 FA                  767 	.db #0xFA	; 250
+   0292 F0                  768 	.db #0xF0	; 240
+   0293 FF                  769 	.db #0xFF	; 255
+   0294 F0                  770 	.db #0xF0	; 240
+   0295 FA                  771 	.db #0xFA	; 250
+   0296 F0                  772 	.db #0xF0	; 240
+   0297 FA                  773 	.db #0xFA	; 250
+   0298                     774 _g_paletajulinho_65:
+   0298 F5                  775 	.db #0xF5	; 245
+   0299 F0                  776 	.db #0xF0	; 240
+   029A FF                  777 	.db #0xFF	; 255
+   029B F0                  778 	.db #0xF0	; 240
+   029C F5                  779 	.db #0xF5	; 245
+   029D F0                  780 	.db #0xF0	; 240
+   029E F5                  781 	.db #0xF5	; 245
+   029F F0                  782 	.db #0xF0	; 240
+   02A0                     783 _g_paletajulinho_66:
+   02A0 7D                  784 	.db #0x7D	; 125
+   02A1 FF                  785 	.db #0xFF	; 255
+   02A2 FF                  786 	.db #0xFF	; 255
+   02A3 FF                  787 	.db #0xFF	; 255
+   02A4 FF                  788 	.db #0xFF	; 255
+   02A5 FF                  789 	.db #0xFF	; 255
+   02A6 FF                  790 	.db #0xFF	; 255
+   02A7 FF                  791 	.db #0xFF	; 255
+   02A8                     792 _g_paletajulinho_67:
+   02A8 FF                  793 	.db #0xFF	; 255
+   02A9 FF                  794 	.db #0xFF	; 255
+   02AA FF                  795 	.db #0xFF	; 255
+   02AB FF                  796 	.db #0xFF	; 255
+   02AC FF                  797 	.db #0xFF	; 255
+   02AD FF                  798 	.db #0xFF	; 255
+   02AE FF                  799 	.db #0xFF	; 255
+   02AF FF                  800 	.db #0xFF	; 255
+   02B0                     801 _g_paletajulinho_68:
+   02B0 F0                  802 	.db #0xF0	; 240
+   02B1 FA                  803 	.db #0xFA	; 250
+   02B2 F0                  804 	.db #0xF0	; 240
+   02B3 F0                  805 	.db #0xF0	; 240
+   02B4 F0                  806 	.db #0xF0	; 240
+   02B5 F0                  807 	.db #0xF0	; 240
+   02B6 F0                  808 	.db #0xF0	; 240
+   02B7 F0                  809 	.db #0xF0	; 240
+   02B8                     810 _g_paletajulinho_69:
+   02B8 F5                  811 	.db #0xF5	; 245
+   02B9 F0                  812 	.db #0xF0	; 240
+   02BA F0                  813 	.db #0xF0	; 240
+   02BB F0                  814 	.db #0xF0	; 240
+   02BC F0                  815 	.db #0xF0	; 240
+   02BD F0                  816 	.db #0xF0	; 240
+   02BE F0                  817 	.db #0xF0	; 240
+   02BF F0                  818 	.db #0xF0	; 240
+   02C0                     819 _g_paletajulinho_70:
+   02C0 FF                  820 	.db #0xFF	; 255
+   02C1 FF                  821 	.db #0xFF	; 255
+   02C2 FF                  822 	.db #0xFF	; 255
+   02C3 FF                  823 	.db #0xFF	; 255
+   02C4 FF                  824 	.db #0xFF	; 255
+   02C5 FF                  825 	.db #0xFF	; 255
+   02C6 FF                  826 	.db #0xFF	; 255
+   02C7 FF                  827 	.db #0xFF	; 255
+   02C8                     828 _g_paletajulinho_71:
+   02C8 FF                  829 	.db #0xFF	; 255
+   02C9 FF                  830 	.db #0xFF	; 255
+   02CA FF                  831 	.db #0xFF	; 255
+   02CB FF                  832 	.db #0xFF	; 255
+   02CC FF                  833 	.db #0xFF	; 255
+   02CD FF                  834 	.db #0xFF	; 255
+   02CE FF                  835 	.db #0xFF	; 255
+   02CF FF                  836 	.db #0xFF	; 255
+                            837 	.area _INITIALIZER
+                            838 	.area _CABS (ABS)

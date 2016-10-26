@@ -1,0 +1,50 @@
+XL2
+H 9 areas 5 global symbols
+M naveEnemiga2
+O -mz80
+S .__.ABS. Def0000
+A _CODE size 80 flags 0 addr 0
+S _g_naveEnemiga2_0 Def0000
+S _g_naveEnemiga2_1 Def0020
+S _g_naveEnemiga2_2 Def0040
+S _g_naveEnemiga2_3 Def0060
+A _DATA size 0 flags 0 addr 0
+A _INITIALIZED size 0 flags 0 addr 0
+A _DABS size 0 flags 8 addr 0
+A _HOME size 0 flags 0 addr 0
+A _GSINIT size 0 flags 0 addr 0
+A _GSFINAL size 0 flags 0 addr 0
+A _INITIALIZER size 0 flags 0 addr 0
+A _CABS size 0 flags 8 addr 0
+T 00 00
+R 00 00 00 00
+T 00 00 00 44 88 00 40 84 48 80 C0 0C 0C C0 84 1C
+R 00 00 00 00
+T 0E 00 2C 48 84 3C 3C 48 84 1C 2C 48 40 0C 0C 80
+R 00 00 00 00
+T 1C 00 00 C0 C0 00
+R 00 00 00 00
+T 20 00
+R 00 00 00 00
+T 20 00 00 C0 C0 00 40 0C 48 80 84 1C 0C 80 84 3C
+R 00 00 00 00
+T 2E 00 2C 4C 84 3C 2C 4C 84 1C 0C 80 40 0C 48 80
+R 00 00 00 00
+T 3C 00 00 C0 C0 00
+R 00 00 00 00
+T 40 00
+R 00 00 00 00
+T 40 00 00 C0 C0 00 40 0C 0C 80 84 1C 2C 48 84 3C
+R 00 00 00 00
+T 4E 00 3C 48 84 1C 2C 48 C0 0C 0C C0 40 84 48 80
+R 00 00 00 00
+T 5C 00 00 44 88 00
+R 00 00 00 00
+T 60 00
+R 00 00 00 00
+T 60 00 00 C0 C0 00 40 84 0C 80 40 0C 2C 48 8C 1C
+R 00 00 00 00
+T 6E 00 3C 48 8C 1C 3C 48 40 0C 2C 48 40 84 0C 80
+R 00 00 00 00
+T 7C 00 00 C0 C0 00
+R 00 00 00 00

@@ -40,6 +40,8 @@ const TStaticAnimation explosion = {
 TStaticAnimation* getExplosion(){
 	return &explosion;
 }
+
+
 //Esta función activará una animación de explosión en la posición de la bala que le pasan por parámetro
 void explosionBala(TBullet* bullet){
 	//Solo si la bala estaba en el estado de disparado
@@ -55,6 +57,7 @@ void explosionBala(TBullet* bullet){
 		exp->ent.curr_dir = 0;
 		exp->ent.cuadrante = mapaActual;
 		bullet->ent.draw = NO;
+		bullet->ent.vivo = NO;
 		bullet->state = es_explotando;	//Cambiamos a la bala estado explotando
 		
 	}

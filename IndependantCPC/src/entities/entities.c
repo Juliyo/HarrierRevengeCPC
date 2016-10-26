@@ -1,16 +1,20 @@
 #include <stdio.h>
+#include <math.h>
 
 #include <cpctelera.h>
 #include "entities.h"
 #include "../mapas/map11.h"
 #include "../sprites/naves.h"
 #include "../sprites/bala.h"
+#include "../sprites/bala_enemiga.h"
 #include "../sprites/naveEnemiga1.h"
 #include "../sprites/naveEnemiga2.h"
 #include "../sprites/naveEnemiga3.h"
 #include "../game.h"
 #include "../animation/animation.h"
 #include "../entities/wavemanager.h"
+#include "../sprites/captutada.h"
+#include "../sprites/capturada.h"
 
 #define COLUMNA 8
 #define FILA 16
@@ -36,17 +40,17 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				0,				//y
 				0,				//px
 				0,				//py
-				3,				//vx
-				6,				//vy
+				2,				//vx
+				4,				//vy
 				NO,				//draw
 				{				//sprites
-					g_bala_0,
-					g_bala_1,
-					g_bala_2,
-					g_bala_3,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
 				},		
-				G_BALA_0_W,		//sw
-				G_BALA_0_H,		//sh
+				G_BALA_ENEMIGA_W,		//sw
+				G_BALA_ENEMIGA_H,		//sh
 				d_up,			//curr_dir
 				e_bullet,		//Bullet
 				{
@@ -55,7 +59,8 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					G_BALA_0_W,
 					G_BALA_0_H
 				},
-				1
+				0,				//vivo
+				2,				//cuadrante
 			}
 		},
 		{	50,				//x
@@ -84,7 +89,13 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			1,
 			2,				//cuadrante
 			s_mover
-		}
+		},
+		s_mover,	//statusIA
+		0,			//cycles
+		1,			//wait_cycles
+		0,
+		0			//puntoControl
+
 	},
 	{
 		{					//Bullet
@@ -96,17 +107,17 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				0,				//y
 				0,				//px
 				0,				//py
-				3,				//vx
-				6,				//vy
+				2,				//vx
+				4,				//vy
 				NO,				//draw
 				{				//sprites
-					g_bala_0,
-					g_bala_1,
-					g_bala_2,
-					g_bala_3,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
 				},		
-				G_BALA_0_W,		//sw
-				G_BALA_0_H,		//sh
+				G_BALA_ENEMIGA_W,		//sw
+				G_BALA_ENEMIGA_H,		//sh
 				d_up,			//curr_dir
 				e_bullet,		//Bullet
 				{
@@ -114,7 +125,9 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					0,
 					G_BALA_0_W,
 					G_BALA_0_H
-				}
+				},
+				0,				//vivo
+				4				//cuadrante
 			}
 		},
 		{	20,				//x
@@ -143,7 +156,12 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 			1,
 			4,				//cuadrante
 			s_mover
-		}
+		},
+		s_mover,	//statusIA
+		0,			//cycles
+		1,			//wait_cycles
+		0,
+		0			//puntoControl
 	},
 	{
 		{					//Bullet
@@ -155,17 +173,17 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				0,				//y
 				0,				//px
 				0,				//py
-				3,				//vx
-				6,				//vy
+				2,				//vx
+				4,				//vy
 				NO,				//draw
 				{				//sprites
-					g_bala_0,
-					g_bala_1,
-					g_bala_2,
-					g_bala_3,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
+					g_bala_enemiga,
 				},		
-				G_BALA_0_W,		//sw
-				G_BALA_0_H,		//sh
+				G_BALA_ENEMIGA_W,		//sw
+				G_BALA_ENEMIGA_H,		//sh
 				d_up,			//curr_dir
 				e_bullet,		//Bullet
 				{
@@ -173,7 +191,9 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 					0,
 					G_BALA_0_W,
 					G_BALA_0_H
-				}
+				},
+				0,
+				0
 			}
 		},
 		{	35,				//x
@@ -199,24 +219,245 @@ const TEnemy enemigos[NUM_ENEMIGOS] = {
 				G_NAVEENEMIGA3_0_W,
 				G_NAVEENEMIGA3_0_H
 			},
-			1,
+			1,				//vivo
 			0,				//cuadrante
 			s_mover
-		}
+		},
+		s_mover,	//statusIA
+		0,			//cycles
+		1,			//wait_cycles
+		0,
+		0			//puntoControl
 	}
 };
 
+const TBase bases[NUM_BASES] = {
+ {        //Base del primer mapa (11)
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  200,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   48, 156,     //Posicion
+   48, 156,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    48,
+    156,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   0
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   46, 100,     //Posicion
+   46, 100,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    46,
+    100,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   1
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   4, 112,     //Posicion
+   4, 112,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    4,
+    112,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   2
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   68, 136,     //Posicion
+   136, 136,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    68,
+    136,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   3
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   4, 68,     //Posicion
+   4, 68,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    4,
+    68,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   4
+  }
+ },
+ {
+  1,       //Base enemiga (1) al principio
+  100,      //Porcentaje capturado (100 para el enemigo)
+  1000,      //Tiempo (ciclos) necesarios para capturar la base
+  0,       //Ciclos que han pasado
+  {       //Entity
+   68, 104,     //Posicion
+   68, 104,     //Posicion Prev
+   0, 0,     //Velocidad
+   SI,      //DRAW
+   {      //SPRITES
+    NULL,
+    NULL,
+    NULL,
+    NULL
+   },
+   G_CAPTURADA_W,
+   G_CAPTURADA_H,
+   d_up,
+   e_base,
+   {
+    68,
+    104,
+    G_CAPTURADA_W,
+    G_CAPTURADA_H
+   },
+   1,
+   5
+  }
+ }
+};
+// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
+const TCoord puntos[4] = {
+	{ 40, ORIGEN_MAPA_Y + 20 },		//Arriba por el centro
+	{ 40, ALTO - 15 	     },		//Abajo por el centro
+	{ 65, ORIGEN_MAPA_Y + 60 },		//Derecha por el centro
+	{ 10, ORIGEN_MAPA_Y + 60 }		//Izquierda por el centro
+};
+
+
+
 u8 count1 = 0;
 
+u8 turno = 0;		//Para controlar el updateado de las naves enemigas (1a por update)
+
+u8 bulletsTurno = 0;     //Para controlar el updateado de las balas enemigas (1a por update)
 
 
 void incializarEntities(TPlayer* p){
+	TBase* bases = getBases();
+	TEnemy* enes = getEnemies();
+	u8 i = 0;
 	//Inicializar entities necesarias
 	p->vida = 3;
 	p->pvida = 3;
 	p->ent.x = px_spawn;
 	p->ent.y = py_spawn;
 	p->ent.draw = SI;
+	p->puntuacion = 0;
+	p->puntuacionPrev = 0;
+
+	for(i = 0; i < NUM_BASES; ++i){
+		bases[i].whom = 1;
+		bases[i].ent.sprites[0] = NULL;
+		bases[i].cycles = 0;
+	}
+	for(i = 0; i< NUM_ENEMIGOS; ++i){
+		if(enes[i].ent.cuadrante == 0){
+			enes[i].ent.vivo = 0;
+			enes[i].bullet.ent.vivo = 0;
+			enes[i].ent.draw = NO;
+		}
+	}
+	wshot_cycles = 30;
+	basesCapturadas = 0;
+	prev_basesCapturadas = 0;
 
 	inicializarWaveManager();
 }
@@ -384,6 +625,7 @@ void disparar(TBullet* bullet, u8 x, u8 y, TPlayerDirection dir){
 		bullet->ent.px = bullet->ent.x;
 		bullet->ent.py = bullet->ent.y;
 		bullet->ent.draw = SI;
+		bullet->ent.vivo = SI;
 		bullet->ent.curr_dir = dir;
 	}
 }
@@ -402,6 +644,7 @@ void updateBullet(TBullet* bullet){
 					calculaEntity(&bullet->ent, SI);
 					borrarEntity(&bullet->ent);
 					bullet->ent.draw = NO;
+					bullet->ent.vivo = NO;
 				}
 				
 				bullet->frameCount = 0;
@@ -418,49 +661,231 @@ void updateBullet(TBullet* bullet){
 
 
 void playerHerido(TPlayer* player){
+	TBase* bases = getBases();
 	player->vida--;
 	player->ent.x = px_spawn;
 	player->ent.y = py_spawn;
+	player->ent.draw = SI;
 	mapaActual = 0;
 	player->ent.cuadrante = 0;
 	mapa = mapas[0];
+	bases[mapaActual].ent.draw = SI;
 	dibujarMapa();
 }
 
 void updateEntities(){
-
-	u8 random_number;
 	u8 i;
-
-	TEntity* ent;
-
-	//seed = 1;
-
-	seed++;
-	if(seed > 15000)
-		seed = 1;
-
-	cpct_srand(seed);
+	/*if(bulletsTurno >= NUM_ENEMIGOS){
+		bulletsTurno = 0;
+	}*/
 
 	
-	for(i = 0; i < NUM_ENEMIGOS; i++){
-		
-			ent = &enemigos[i].ent;
-			if(ent->vivo == 1){
-		accion(ent,es_mover,ent->curr_dir);
-		}
-		random_number = cpct_rand()%4;
-		if(count1 > 60){
-			count1 = 0;
-			ent->curr_dir = random_number;
-		}
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		/*if(enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
+			if(bulletsTurno == i){*/
+				updateBullet(&enemigos[i].bullet);
+			/*}
+		}else{
+			bulletsTurno++;
+		}*/
 
-		
-		
-		count1++;
+	}
+	
+	updateIA();
+}
+u8 contarEnemigos(){
+	u8 i;
+	u8 cuenta = 0;
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		if(enemigos[i].ent.cuadrante == mapaActual && enemigos[i].ent.vivo == 1){
+			cuenta++;
+		}
+	}
+	return cuenta;
+}
+
+void updateIA(){
+	u8 i;
+	/*if(turno >= NUM_ENEMIGOS){
+		turno = 0;
+	}*/
+
+	for(i=0;i<NUM_ENEMIGOS;++i){
+		//Solo updateamos la IA si ese enemigo esta en el cuadrante del player
+		//Y es su turno
+		if(enemigos[i].ent.cuadrante == mapaActual && enemigos[i].ent.vivo){
+			//if(turno == i){
+				updateIAState(&enemigos[i]);
+				/*turno++;
+			}*/
+			
+		}/*else{
+			turno++;
+		}*/
+	}
+}
+TPlayerDirection comprobarEjeX(TEnemy* ene){
+	TPlayerDirection dir;
+	//Comprobamos hacia donde moverse
+	if(ene->ent.x > puntos[ene->puntoDeControl].x){	//Si se cumple movemos hacia la izquierda
+		dir = d_left;
+	}else{
+		dir = d_right;
 	}
 
+	return dir;
+}
+TPlayerDirection comprobarEjeY(TEnemy* ene){
+	TPlayerDirection dir;
+	//Comprobamos hacia donde moverse
+	if(ene->ent.y > puntos[ene->puntoDeControl].y){	//Si se cumple movemos hacia la derecha
+		dir = d_up;
+	}else{
+		dir = d_down;
+	}
+
+	return dir;
+}
+u8 moverHaciaPuntoDeControl(TEnemy* ene){
+	TPlayerDirection dir;
+	i16 diff;
+	u8 llego = NO;
+	if(++ene->cycles >= ene->wait_cycles){
+		dir = comprobarEjeX(ene);
+		//Calculamos el valor absoluto de la diferencia de eje X
+		diff = abs(ene->ent.x - puntos[ene->puntoDeControl].x);	
+		if(diff <= 2){
+			dir = comprobarEjeY(ene);
+			diff = abs(ene->ent.y - puntos[ene->puntoDeControl].y);	
+			if(diff <= 2){
+				llego = SI;
+			}
+		}
+		ene->ent.curr_dir = dir;
+		ene->cycles = 0; //Reseteamos el ciclo actual de espera
+	}
 	
+	accion(&ene->ent, es_mover, ene->ent.curr_dir);
+
+	return llego;
+}
+i16 abs(i16 num){
+	i16 i;
+	i16 numPositivo=0;
+	if(num<0){
+		numPositivo -= num;
+	}else{
+		numPositivo=num;
+	}
+
+	return numPositivo;
+}
+
+TPlayerDirection calculaDireccion(){
+	TPlayerDirection dir;
+	switch(mapaActual){
+		case 0:
+			dir = d_right;
+		break;
+		case 1:
+			dir = d_up;
+		break;
+		case 2:
+			dir = d_right;
+		break;
+		case 3:
+			dir = d_up;
+		break;
+		case 4:
+			dir = d_down;
+		break;
+		case 5:
+			dir = d_down;
+		break;
+	}
+	return dir;
+}
+
+void updateIAState(TEnemy* ene){
+		TPlayer* p = &player;
+		TCoord* c = &puntos[0];
+		TBase* bases = getBases();
+		u8 i = 0;
+		switch(ene->statusIA){
+			case s_mover:
+				//Hay que comprobar si hay 5 o mas bases capturadas
+				//Y si el enemigo esta solo, entonces huye
+				if(basesCapturadas >= 5 && contarEnemigos() == 1 && count == 0){
+					ene->statusIA = s_huir;
+					count++;
+					break;		//Salimos
+				}
+				// 0 = punto1(Arriba), 1 = punto2(Abajo), 3 = punto3(Derecha), 4 = punto4(Izquierda)
+				if(moverHaciaPuntoDeControl(ene))	//si devuelve true es que ha llegado al siguiente
+					ene->puntoDeControl++;			//punto de control por lo que ahora cambia de destino
+				if(ene->puntoDeControl > 3){
+					//Cambiamos una posicion del punto de control a la posicion del enemigo actualmente
+					c->x = p->ent.x;
+					c->y = p->ent.y;
+					ene->puntoDeControl = 0;
+				}
+				comprobarSiDisparo(ene, p);
+			break;
+			case s_huir:
+			ene->ent.curr_dir = calculaDireccion();
+			if(accion(&ene->ent, es_mover, ene->ent.curr_dir) != d_nothing){
+				calculaEntity(&ene->ent, SI);
+				borrarEntity(&ene->ent);
+				ene->ent.cuadrante++;
+				if(ene->ent.cuadrante > 5)
+					ene->ent.cuadrante = 0;
+				for(i = 0; i<NUM_BASES; i++){
+					if(bases[i].whom == 0 && bases[i].ent.cuadrante != mapaActual){
+						bases[i].whom = 1;
+						bases[i].cycles = 0;
+						bases[i].ent.sprites[0] = NULL;
+						basesCapturadas--;
+						break;
+					}
+				}
+			}
+				//Huir
+				/*random_number = getRandomUniform(seed)%2 + 1;
+				if(random_number)
+					respawnearEnemigo(&enemies[random_number]);*/
+			break;
+		}
+}
+void comprobarSiDisparo(TEnemy* ene, TPlayer* p){
+	TPlayerDirection dir;
+	i16 diff;
+	if(++ene->shot_cycles >= wshot_cycles){
+		diff = abs(ene->ent.x - p->ent.x);	
+		if(diff <= 2){//Disparo en direccion dir
+			if(ene->ent.y > p->ent.y){	//Si se cumple sabemos dir de disparo
+				dir = d_up;
+			}else{
+				dir = d_down;
+			}
+			ene->ent.curr_dir = dir;
+			disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+		}else{
+			diff = abs(ene->ent.y - p->ent.y);	
+			if(diff <= 2){
+				if(ene->ent.x > p->ent.x){	//Si se cumple sabemos dir de disparo
+					dir = d_left;
+				}else{
+					dir = d_right;
+				}
+				ene->ent.curr_dir = dir;
+				disparar(&ene->bullet, ene->ent.x, ene->ent.y, dir);
+			}
+		}
+		//reinicio la cuenta
+		ene->shot_cycles = 0;
+	}
+	
+		
 }
 
 void redibujarEntity(TEntity* ent, u8 w, u8 h){
@@ -487,11 +912,18 @@ void dibujarEntity(TEntity* ent, u8 w, u8 h){
 
 //Calculamos lo que vamos a dibujar
 void calculaEntity(TEntity* ent, u8 origen){
-	ent->tw = ent->sw/2 + (ent->px & 1);
-	ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
+	/*if(ent->sw%2 != 0)
+		ent->tw = ent->sw/2 + (ent->px & 1) + 1;
+	else*/
+		ent->tw = ent->sw/2 + (ent->px & 1);
+	/*if(ent->sh%4 != 0)
+		ent->th = ent->sh/4 + 1 + (ent->py & 3 ? 1 : 0);
+	else*/
+		ent->th = ent->sh/4 + (ent->py & 3 ? 1 : 0);
+	
 	ent->tpx = ent->px / 2;
 	if(origen == SI)
-		ent->tpy = (ent->py-ORIGEN_MAPA_Y) / 4;
+		ent->tpy = (ent->py - ORIGEN_MAPA_Y) / 4;
 	else
 		ent->tpy = (ent->py) / 4;
 	ent->coll.x = ent->x;
@@ -508,25 +940,50 @@ void calculaAllEntities(TPlayer* player){
 	calculaEntity(&player->bullet.ent, SI);
 	calculaEntity(&exp->ent, SI);
 	for(i=0;i < NUM_ENEMIGOS;++i){
-		calculaEntity(&enemigos[i].ent, SI);
+		if(enemigos[i].ent.cuadrante == mapaActual){
+			calculaEntity(&enemigos[i].ent, SI);
+			calculaEntity(&enemigos[i].bullet.ent, SI);
+		}
+		
 	}
+	calculaEntity(&bases[mapaActual].ent, SI);
 }
 
 //Dibujamos todos los enemigos y el player
 void drawAll(TPlayer* player){
 	u8 i;
+	TBase *bases;
 	TStaticAnimation* exp;
 	exp = getExplosion();
+	bases = getBases();
+
+	/*for(i=0;i < NUM_BASES; ++i){
+		if(bases[i].ent.sprites[0] != NULL){
+			redibujarEntity(&bases[i].ent, bases[i].ent.sw, bases[i].ent.sh);
+		}
+	}*/
+	if(bases[mapaActual].ent.sprites[0] != NULL){
+			redibujarEntity(&bases[mapaActual].ent, bases[mapaActual].ent.sw, bases[mapaActual].ent.sh);
+		}
+
 	redibujarEntity(&player->bullet.ent, player->bullet.ent.sw, player->bullet.ent.sh);
 	redibujarEntity(&player->ent, player->ent.sw, player->ent.sh);
 	redibujarEntity(&exp->ent,exp->ent.sw,exp->ent.sh);
 	//Dibujamos los enemigos
 	for(i = 0; i < NUM_ENEMIGOS; ++i){
-		redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+		if(enemigos[i].ent.cuadrante == mapaActual){
+			redibujarEntity(&enemigos[i].ent, enemigos[i].ent.sw, enemigos[i].ent.sh);
+			redibujarEntity(&enemigos[i].bullet.ent, enemigos[i].bullet.ent.sw, enemigos[i].bullet.ent.sh);
+		}
 	}
+	
 }
 
 
 TEnemy* getEnemies(){
 	return enemigos;
+}
+
+TBase* getBases(){
+	return bases;
 }

@@ -22,7 +22,11 @@ void posicionAleatoriaBorde(TEnemy* enemy);
 void inicializarWaveManager();
 
 //Respawnea un enemigo cuando el player cambia de mapa
-void respawnearEnemigo();
+void aparecerEnemigo();
+void respawnearEnemigo(TEnemy* enemy);
+
+
+
 void revivirEnemigo(TEnemy* enemy, i16 x, i16 y, TPlayerDirection dir);
 
 void restarEnemigo();

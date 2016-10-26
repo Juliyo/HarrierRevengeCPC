@@ -1,0 +1,118 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+  0 ___str_0                                                       013E R
+  0 ___str_1                                                       0149 R
+  0 ___str_2                                                       0976 R
+  0 ___str_3                                                       09ED R
+  7 __xinit__basesCapturadas                                       0005 R
+  7 __xinit__count                                                 0008 R
+  7 __xinit__mapa                                                  0000 R
+  7 __xinit__mapaActual                                            0002 R
+  7 __xinit__prev_basesCapturadas                                  0006 R
+  7 __xinit__previousMap                                           0003 R
+  7 __xinit__salirMenu                                             0004 R
+  7 __xinit__wshot_cycles                                          0007 R
+    _accion                                                        **** GX
+    _aparecerEnemigo                                               **** GX
+    _bases                                                         **** GX
+  2 _basesCapturadas                                               0005 GR
+    _borrarEntity                                                  **** GX
+    _calculaAllEntities                                            **** GX
+  0 _calculaColisiones                                             0562 GR
+    _calculaEntity                                                 **** GX
+  0 _cambiarAbajo                                                  02F2 GR
+  0 _cambiarArriba                                                 02B9 GR
+  0 _cambiarDerecha                                                0251 GR
+  0 _cambiarIzquierda                                              0285 GR
+  0 _cambiarMapa                                                   01B1 GR
+  0 _checkCollision                                                040C GR
+  2 _count                                                         0008 GR
+    _cpct_drawSolidBox                                             **** GX
+    _cpct_drawStringM0                                             **** GX
+    _cpct_etm_drawTileBox2x4                                       **** GX
+    _cpct_etm_setTileset2x4                                        **** GX
+    _cpct_getScreenPtr                                             **** GX
+    _cpct_isAnyKeyPressed                                          **** GX
+    _cpct_isKeyPressed                                             **** GX
+    _cpct_memset                                                   **** GX
+    _cpct_scanKeyboard_if                                          **** GX
+    _cpct_waitVSYNC                                                **** GX
+  0 _dibujarBase                                                   0906 GR
+    _dibujarEntity                                                 **** GX
+  0 _dibujarMapa                                                   0154 GR
+  0 _dibujarPuntos                                                 0979 GR
+    _disparar                                                      **** GX
+    _drawAll                                                       **** GX
+  0 _drawHUD                                                       086A GR
+    _explosionBala                                                 **** GX
+    _g_bala_0                                                      **** GX
+    _g_bala_1                                                      **** GX
+    _g_bala_2                                                      **** GX
+    _g_bala_3                                                      **** GX
+    _g_capturada                                                   **** GX
+    _g_hearth                                                      **** GX
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    _g_map11                                                       **** GX
+    _g_map12                                                       **** GX
+    _g_map21                                                       **** GX
+    _g_map22                                                       **** GX
+    _g_map31                                                       **** GX
+    _g_map32                                                       **** GX
+    _g_naves_0                                                     **** GX
+    _g_naves_1                                                     **** GX
+    _g_naves_2                                                     **** GX
+    _g_naves_3                                                     **** GX
+    _g_tileset                                                     **** GX
+    _getBases                                                      **** GX
+    _getEnemies                                                    **** GX
+  0 _hearth                                                        010F GR
+    _incializarEntities                                            **** GX
+  0 _inicializarPantalla                                           0000 GR
+  2 _mapa                                                          0000 GR
+  2 _mapaActual                                                    0002 GR
+  0 _mapas                                                         0132 GR
+  0 _play                                                          09F0 GR
+  0 _player                                                        00C0 GR
+    _playerHerido                                                  **** GX
+  2 _prev_basesCapturadas                                          0006 GR
+  2 _previousMap                                                   0003 GR
+  0 _resetearBala                                                  023C GR
+  0 _resetearDrawEnemigos                                          016A GR
+    _resetearTimepoEnMapa                                          **** GX
+    _restarEnemigo                                                 **** GX
+  2 _salirMenu                                                     0004 GR
+    _sprintf                                                       **** GX
+    _updateEntities                                                **** GX
+    _updatePlayer                                                  **** GX
+  0 _updateUser                                                    032A GR
+    _updateX                                                       **** GX
+    _updateY                                                       **** GX
+  2 _wshot_cycles                                                  0007 GR
+
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size  A42   flags    0
+   1 _DATA                                      size    0   flags    0
+   2 _INITIALIZED                               size    9   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _INITIALIZER                               size    9   flags    0
+   8 _CABS                                      size    0   flags    8
+
