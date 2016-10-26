@@ -1,0 +1,300 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module animation
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _calculaEntity
+                             12 	.globl _borrarEntity
+                             13 	.globl _explosion
+                             14 	.globl _g_frames
+                             15 	.globl _getExplosion
+                             16 	.globl _explosionBala
+                             17 	.globl _updateXY
+                             18 	.globl _updateExplosion
+                             19 ;--------------------------------------------------------
+                             20 ; special function registers
+                             21 ;--------------------------------------------------------
+                             22 ;--------------------------------------------------------
+                             23 ; ram data
+                             24 ;--------------------------------------------------------
+                             25 	.area _DATA
+                             26 ;--------------------------------------------------------
+                             27 ; ram data
+                             28 ;--------------------------------------------------------
+                             29 	.area _INITIALIZED
+                             30 ;--------------------------------------------------------
+                             31 ; absolute external ram data
+                             32 ;--------------------------------------------------------
+                             33 	.area _DABS (ABS)
+                             34 ;--------------------------------------------------------
+                             35 ; global & static initialisations
+                             36 ;--------------------------------------------------------
+                             37 	.area _HOME
+                             38 	.area _GSINIT
+                             39 	.area _GSFINAL
+                             40 	.area _GSINIT
+                             41 ;--------------------------------------------------------
+                             42 ; Home
+                             43 ;--------------------------------------------------------
+                             44 	.area _HOME
+                             45 	.area _HOME
+                             46 ;--------------------------------------------------------
+                             47 ; code
+                             48 ;--------------------------------------------------------
+                             49 	.area _CODE
+                             50 ;src/animation/animation.c:40: TStaticAnimation* getExplosion(){
+                             51 ;	---------------------------------
+                             52 ; Function getExplosion
+                             53 ; ---------------------------------
+   0000                      54 _getExplosion::
+                             55 ;src/animation/animation.c:41: return &explosion;
+   0000 21r20r00      [10]   56 	ld	hl,#_explosion
+   0003 C9            [10]   57 	ret
+   0004                      58 _g_frames:
+   0004r00r00                59 	.dw _g_explosion_00
+   0006r00r00                60 	.dw _g_explosion_01
+   0008r00r00                61 	.dw _g_explosion_02
+   000Ar00r00                62 	.dw _g_explosion_03
+   000Cr00r00                63 	.dw _g_explosion_04
+   000Er00r00                64 	.dw _g_explosion_05
+   0010r00r00                65 	.dw _g_explosion_06
+   0012r00r00                66 	.dw _g_explosion_07
+   0014r00r00                67 	.dw _g_explosion_08
+   0016r00r00                68 	.dw _g_explosion_09
+   0018r00r00                69 	.dw _g_explosion_10
+   001Ar00r00                70 	.dw _g_explosion_11
+   001C 00                   71 	.db 0x00
+   001D 00                   72 	.db 0x00
+   001E 00                   73 	.db 0x00
+   001F 00                   74 	.db 0x00
+   0020                      75 _explosion:
+   0020 00                   76 	.db #0x00	; 0
+   0021 00 00                77 	.dw #0x0000
+   0023 00 00                78 	.dw #0x0000
+   0025 00 00                79 	.dw #0x0000
+   0027 00 00                80 	.dw #0x0000
+   0029 00                   81 	.db #0x00	; 0
+   002A 00                   82 	.db #0x00	; 0
+   002B 00                   83 	.db #0x00	; 0
+   002C 00 00                84 	.dw #0x0000
+   002E 00 00                85 	.dw #0x0000
+   0030 00 00                86 	.dw #0x0000
+   0032 00 00                87 	.dw #0x0000
+   0034 04                   88 	.db #0x04	; 4
+   0035 08                   89 	.db #0x08	; 8
+   0036 00                   90 	.db #0x00	; 0
+   0037 00                   91 	.db #0x00	; 0
+   0038 00                   92 	.byte #0x00
+   0039 00                   93 	.byte #0x00
+   003A 00                   94 	.byte #0x00
+   003B 00                   95 	.byte #0x00
+   003C 00                   96 	.db #0x00	; 0
+   003D 00                   97 	.db #0x00	; 0
+   003E 00                   98 	.db #0x00	; 0
+   003F 00                   99 	.db #0x00	; 0
+   0040 00                  100 	.db #0x00	; 0
+   0041 00                  101 	.db #0x00	; 0
+   0042 00 00               102 	.dw #0x0000
+                            103 ;src/animation/animation.c:46: void explosionBala(TBullet* bullet){
+                            104 ;	---------------------------------
+                            105 ; Function explosionBala
+                            106 ; ---------------------------------
+   0044                     107 _explosionBala::
+   0044 DD E5         [15]  108 	push	ix
+   0046 DD 21 00 00   [14]  109 	ld	ix,#0
+   004A DD 39         [15]  110 	add	ix,sp
+   004C F5            [11]  111 	push	af
+                            112 ;src/animation/animation.c:48: if(bullet->state == es_disparado){
+   004D DD 4E 04      [19]  113 	ld	c,4 (ix)
+   0050 DD 46 05      [19]  114 	ld	b,5 (ix)
+   0053 21 02 00      [10]  115 	ld	hl,#0x0002
+   0056 09            [11]  116 	add	hl,bc
+   0057 E3            [19]  117 	ex	(sp), hl
+   0058 E1            [10]  118 	pop	hl
+   0059 E5            [11]  119 	push	hl
+   005A 7E            [ 7]  120 	ld	a,(hl)
+   005B D6 02         [ 7]  121 	sub	a, #0x02
+   005D 20 50         [12]  122 	jr	NZ,00103$
+                            123 ;src/animation/animation.c:50: exp = &explosion;
+                            124 ;src/animation/animation.c:51: exp->n_frames = 0;
+   005F 21r20r00      [10]  125 	ld	hl,#_explosion
+   0062 36 00         [10]  126 	ld	(hl),#0x00
+                            127 ;src/animation/animation.c:52: exp->ent.draw = SI;
+   0064 21r2Br00      [10]  128 	ld	hl,#(_explosion + 0x000b)
+   0067 36 01         [10]  129 	ld	(hl),#0x01
+                            130 ;src/animation/animation.c:54: updateXY(&exp->ent, bullet->ent.x, bullet->ent.y);
+   0069 C5            [11]  131 	push	bc
+   006A FD E1         [14]  132 	pop	iy
+   006C 69            [ 4]  133 	ld	l, c
+   006D 60            [ 4]  134 	ld	h, b
+   006E 11 05 00      [10]  135 	ld	de, #0x0005
+   0071 19            [11]  136 	add	hl, de
+   0072 5E            [ 7]  137 	ld	e,(hl)
+   0073 23            [ 6]  138 	inc	hl
+   0074 56            [ 7]  139 	ld	d,(hl)
+   0075 FD 6E 03      [19]  140 	ld	l,3 (iy)
+   0078 FD 66 04      [19]  141 	ld	h,4 (iy)
+   007B C5            [11]  142 	push	bc
+   007C D5            [11]  143 	push	de
+   007D E5            [11]  144 	push	hl
+   007E 21r21r00      [10]  145 	ld	hl,#(_explosion + 0x0001)
+   0081 E5            [11]  146 	push	hl
+   0082 CDrB4r00      [17]  147 	call	_updateXY
+   0085 21 06 00      [10]  148 	ld	hl,#6
+   0088 39            [11]  149 	add	hl,sp
+   0089 F9            [ 6]  150 	ld	sp,hl
+   008A C1            [10]  151 	pop	bc
+                            152 ;src/animation/animation.c:56: exp->ent.sprites[0] = g_frames[0];
+   008B ED 5Br04r00   [20]  153 	ld	de, (#_g_frames + 0)
+   008F ED 53r2Cr00   [20]  154 	ld	((_explosion + 0x000c)), de
+                            155 ;src/animation/animation.c:57: exp->ent.curr_dir = 0;
+   0093 21r36r00      [10]  156 	ld	hl,#(_explosion + 0x0016)
+   0096 36 00         [10]  157 	ld	(hl),#0x00
+                            158 ;src/animation/animation.c:58: exp->ent.cuadrante = mapaActual;
+   0098 21r3Dr00      [10]  159 	ld	hl,#(_explosion + 0x001d)
+   009B 3Ar00r00      [13]  160 	ld	a,(#_mapaActual + 0)
+   009E 77            [ 7]  161 	ld	(hl),a
+                            162 ;src/animation/animation.c:59: bullet->ent.draw = NO;
+   009F 21 0D 00      [10]  163 	ld	hl,#0x000D
+   00A2 09            [11]  164 	add	hl,bc
+   00A3 36 00         [10]  165 	ld	(hl),#0x00
+                            166 ;src/animation/animation.c:60: bullet->ent.vivo = NO;
+   00A5 21 1E 00      [10]  167 	ld	hl,#0x001E
+   00A8 09            [11]  168 	add	hl,bc
+   00A9 36 00         [10]  169 	ld	(hl),#0x00
+                            170 ;src/animation/animation.c:61: bullet->state = es_explotando;	//Cambiamos a la bala estado explotando
+   00AB E1            [10]  171 	pop	hl
+   00AC E5            [11]  172 	push	hl
+   00AD 36 03         [10]  173 	ld	(hl),#0x03
+   00AF                     174 00103$:
+   00AF DD F9         [10]  175 	ld	sp, ix
+   00B1 DD E1         [14]  176 	pop	ix
+   00B3 C9            [10]  177 	ret
+                            178 ;src/animation/animation.c:67: void updateXY(TEntity* ent1, i16 x, i16 y){
+                            179 ;	---------------------------------
+                            180 ; Function updateXY
+                            181 ; ---------------------------------
+   00B4                     182 _updateXY::
+                            183 ;src/animation/animation.c:68: ent1->x = x;
+   00B4 D1            [10]  184 	pop	de
+   00B5 C1            [10]  185 	pop	bc
+   00B6 C5            [11]  186 	push	bc
+   00B7 D5            [11]  187 	push	de
+   00B8 69            [ 4]  188 	ld	l, c
+   00B9 60            [ 4]  189 	ld	h, b
+   00BA FD 21 04 00   [14]  190 	ld	iy,#4
+   00BE FD 39         [15]  191 	add	iy,sp
+   00C0 FD 7E 00      [19]  192 	ld	a,0 (iy)
+   00C3 77            [ 7]  193 	ld	(hl),a
+   00C4 23            [ 6]  194 	inc	hl
+   00C5 FD 7E 01      [19]  195 	ld	a,1 (iy)
+   00C8 77            [ 7]  196 	ld	(hl),a
+                            197 ;src/animation/animation.c:69: ent1->y = y;
+   00C9 59            [ 4]  198 	ld	e, c
+   00CA 50            [ 4]  199 	ld	d, b
+   00CB 13            [ 6]  200 	inc	de
+   00CC 13            [ 6]  201 	inc	de
+   00CD FD 21 06 00   [14]  202 	ld	iy,#6
+   00D1 FD 39         [15]  203 	add	iy,sp
+   00D3 FD 7E 00      [19]  204 	ld	a,0 (iy)
+   00D6 12            [ 7]  205 	ld	(de),a
+   00D7 13            [ 6]  206 	inc	de
+   00D8 FD 7E 01      [19]  207 	ld	a,1 (iy)
+   00DB 12            [ 7]  208 	ld	(de),a
+                            209 ;src/animation/animation.c:70: ent1->px = x;
+   00DC 21 04 00      [10]  210 	ld	hl,#0x0004
+   00DF 09            [11]  211 	add	hl,bc
+   00E0 FD 21 04 00   [14]  212 	ld	iy,#4
+   00E4 FD 39         [15]  213 	add	iy,sp
+   00E6 FD 7E 00      [19]  214 	ld	a,0 (iy)
+   00E9 77            [ 7]  215 	ld	(hl),a
+   00EA 23            [ 6]  216 	inc	hl
+   00EB FD 7E 01      [19]  217 	ld	a,1 (iy)
+   00EE 77            [ 7]  218 	ld	(hl),a
+                            219 ;src/animation/animation.c:71: ent1->py = y;
+   00EF 21 06 00      [10]  220 	ld	hl,#0x0006
+   00F2 09            [11]  221 	add	hl,bc
+   00F3 FD 21 06 00   [14]  222 	ld	iy,#6
+   00F7 FD 39         [15]  223 	add	iy,sp
+   00F9 FD 7E 00      [19]  224 	ld	a,0 (iy)
+   00FC 77            [ 7]  225 	ld	(hl),a
+   00FD 23            [ 6]  226 	inc	hl
+   00FE FD 7E 01      [19]  227 	ld	a,1 (iy)
+   0101 77            [ 7]  228 	ld	(hl),a
+   0102 C9            [10]  229 	ret
+                            230 ;src/animation/animation.c:74: void updateExplosion(TBullet* bullet){
+                            231 ;	---------------------------------
+                            232 ; Function updateExplosion
+                            233 ; ---------------------------------
+   0103                     234 _updateExplosion::
+   0103 DD E5         [15]  235 	push	ix
+   0105 DD 21 00 00   [14]  236 	ld	ix,#0
+   0109 DD 39         [15]  237 	add	ix,sp
+                            238 ;src/animation/animation.c:76: if(bullet->state == es_explotando){	//Solo se updatea si está en estado de explosión	
+   010B DD 4E 04      [19]  239 	ld	c,4 (ix)
+   010E DD 46 05      [19]  240 	ld	b,5 (ix)
+   0111 03            [ 6]  241 	inc	bc
+   0112 03            [ 6]  242 	inc	bc
+   0113 0A            [ 7]  243 	ld	a,(bc)
+   0114 D6 03         [ 7]  244 	sub	a, #0x03
+   0116 20 4B         [12]  245 	jr	NZ,00105$
+                            246 ;src/animation/animation.c:77: exp = &explosion;
+                            247 ;src/animation/animation.c:78: exp->ent.draw = SI;
+   0118 21r2Br00      [10]  248 	ld	hl,#(_explosion + 0x000b)
+   011B 36 01         [10]  249 	ld	(hl),#0x01
+                            250 ;src/animation/animation.c:79: exp->ent.cuadrante = mapaActual;
+   011D 21r3Dr00      [10]  251 	ld	hl,#(_explosion + 0x001d)
+   0120 3Ar00r00      [13]  252 	ld	a,(#_mapaActual + 0)
+   0123 77            [ 7]  253 	ld	(hl),a
+                            254 ;src/animation/animation.c:81: exp->ent.sprites[0] = g_frames[exp->n_frames];
+   0124 11r04r00      [10]  255 	ld	de,#_g_frames+0
+   0127 21r20r00      [10]  256 	ld	hl, #_explosion + 0
+   012A 6E            [ 7]  257 	ld	l,(hl)
+   012B 26 00         [ 7]  258 	ld	h,#0x00
+   012D 29            [11]  259 	add	hl, hl
+   012E 19            [11]  260 	add	hl,de
+   012F 5E            [ 7]  261 	ld	e,(hl)
+   0130 23            [ 6]  262 	inc	hl
+   0131 56            [ 7]  263 	ld	d,(hl)
+   0132 ED 53r2Cr00   [20]  264 	ld	((_explosion + 0x000c)), de
+                            265 ;src/animation/animation.c:82: exp->n_frames = exp->n_frames + 1;
+   0136 3Ar20r00      [13]  266 	ld	a, (#_explosion + 0)
+   0139 3C            [ 4]  267 	inc	a
+   013A 32r20r00      [13]  268 	ld	(#_explosion),a
+                            269 ;src/animation/animation.c:83: if(exp->n_frames == EXPLOSION_FRAMES - 1){
+   013D D6 0D         [ 7]  270 	sub	a, #0x0D
+   013F 20 22         [12]  271 	jr	NZ,00105$
+                            272 ;src/animation/animation.c:84: calculaEntity(&exp->ent,SI);
+   0141 C5            [11]  273 	push	bc
+   0142 3E 01         [ 7]  274 	ld	a,#0x01
+   0144 F5            [11]  275 	push	af
+   0145 33            [ 6]  276 	inc	sp
+   0146 21r21r00      [10]  277 	ld	hl,#(_explosion + 0x0001)
+   0149 E5            [11]  278 	push	hl
+   014A CDr00r00      [17]  279 	call	_calculaEntity
+   014D 33            [ 6]  280 	inc	sp
+   014E 21r21r00      [10]  281 	ld	hl,#(_explosion + 0x0001)
+   0151 E3            [19]  282 	ex	(sp),hl
+   0152 CDr00r00      [17]  283 	call	_borrarEntity
+   0155 F1            [10]  284 	pop	af
+   0156 C1            [10]  285 	pop	bc
+                            286 ;src/animation/animation.c:86: exp->ent.draw = NO;
+   0157 21r2Br00      [10]  287 	ld	hl,#(_explosion + 0x000b)
+   015A 36 00         [10]  288 	ld	(hl),#0x00
+                            289 ;src/animation/animation.c:87: bullet->state = es_static;
+   015C AF            [ 4]  290 	xor	a, a
+   015D 02            [ 7]  291 	ld	(bc),a
+                            292 ;src/animation/animation.c:88: exp->n_frames = 0;
+   015E 21r20r00      [10]  293 	ld	hl,#_explosion
+   0161 36 00         [10]  294 	ld	(hl),#0x00
+   0163                     295 00105$:
+   0163 DD E1         [14]  296 	pop	ix
+   0165 C9            [10]  297 	ret
+                            298 	.area _CODE
+                            299 	.area _INITIALIZER
+                            300 	.area _CABS (ABS)

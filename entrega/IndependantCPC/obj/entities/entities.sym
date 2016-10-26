@@ -1,0 +1,107 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.                                                    =  2710 L
+    .__.ABS.                                                    =  0000 G
+    .__.CPU.                                                    =  0000 L
+    .__.H$L.                                                    =  0000 L
+  A __xinit__bulletsTurno                                          0002 R
+  A __xinit__count1                                                0000 R
+  A __xinit__turno                                                 0001 R
+  9 _abs                                                           0A51 GR
+  9 _accion                                                        02B8 GR
+  9 _bases                                                         01C6 GR
+    _basesCapturadas                                               **** GX
+  9 _borrarEntity                                                  0E93 GR
+  2 _bulletsTurno                                                  0002 GR
+  9 _calculaAllEntities                                            109F GR
+  9 _calculaDireccion                                              0A6E GR
+  9 _calculaEntity                                                 0F45 GR
+  9 _comprobarEjeX                                                 08C3 GR
+  9 _comprobarEjeY                                                 0900 GR
+  9 _comprobarSiDisparo                                            0C78 GR
+  9 _contarEnemigos                                                0827 GR
+  9 _corregirPosicion                                              0580 GR
+    _count                                                         **** GX
+  2 _count1                                                        0000 GR
+    _cpct_drawSpriteMaskedAlignedTable                             **** GX
+    _cpct_etm_drawTileBox2x4                                       **** GX
+    _cpct_getScreenPtr                                             **** GX
+  9 _dibujarEntity                                                 0EF9 GR
+    _dibujarMapa                                                   **** GX
+  9 _disparar                                                      069F GR
+  9 _drawAll                                                       1168 GR
+  0 _dummy_cpct_transparentMaskTable0M0_container                  0000 GR
+  9 _enemigos                                                      00DC GR
+  9 _flipSprite                                                    036A GR
+    _g_bala_enemiga                                                **** GX
+    _g_naveEnemiga1_0                                              **** GX
+    _g_naveEnemiga1_1                                              **** GX
+    _g_naveEnemiga1_2                                              **** GX
+    _g_naveEnemiga1_3                                              **** GX
+    _g_naveEnemiga2_0                                              **** GX
+    _g_naveEnemiga2_1                                              **** GX
+    _g_naveEnemiga2_2                                              **** GX
+    _g_naveEnemiga2_3                                              **** GX
+    _g_naveEnemiga3_0                                              **** GX
+    _g_naveEnemiga3_1                                              **** GX
+    _g_naveEnemiga3_2                                              **** GX
+    _g_naveEnemiga3_3                                              **** GX
+  8 _g_tablatrans                                                  0100 GR
+  9 _getBases                                                      12AE GR
+  9 _getEnemies                                                    12AA GR
+    _getExplosion                                                  **** GX
+  9 _incializarEntities                                            0000 GR
+    _inicializarWaveManager                                        **** GX
+    _mapa                                                          **** GX
+    _mapaActual                                                    **** GX
+    _mapas                                                         **** GX
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+  9 _moverAbajo                                                    03E7 GR
+  9 _moverArriba                                                   0386 GR
+  9 _moverDerecha                                                  04D7 GR
+  9 _moverHaciaPuntoDeControl                                      093E GR
+  9 _moverIzquierda                                                048A GR
+    _player                                                        **** GX
+  9 _playerHerido                                                  07AE GR
+    _prev_basesCapturadas                                          **** GX
+    _previousMap                                                   **** GX
+  9 _puntos                                                        02B0 GR
+  9 _redibujarEntity                                               0E28 GR
+    _resetearTimepoEnMapa                                          **** GX
+  2 _turno                                                         0001 GR
+  9 _updateBullet                                                  070C GR
+  9 _updateEntities                                                0807 GR
+    _updateExplosion                                               **** GX
+  9 _updateIA                                                      0878 GR
+  9 _updateIAState                                                 0AAD GR
+  9 _updatePlayer                                                  055C GR
+    _updateTiempoEnMapa                                            **** GX
+  9 _updateX                                                       0663 GR
+  9 _updateY                                                       067F GR
+    _wshot_cycles                                                  **** GX
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 3.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE                                      size    0   flags    0
+   1 _DATA                                      size    0   flags    0
+   2 _INITIALIZED                               size    3   flags    0
+   3 _DABS                                      size    0   flags    8
+   4 _HOME                                      size    0   flags    0
+   5 _GSINIT                                    size    0   flags    0
+   6 _GSFINAL                                   size    0   flags    0
+   7 _g_tablatrans_                             size    0   flags    8
+   8 _g_tablatrans_0                            size  100   flags    8
+   9 _CSEG                                      size 12B2   flags    0
+   A _INITIALIZER                               size    3   flags    0
+   B _CABS                                      size    0   flags    8
+

@@ -91,9 +91,12 @@ void menu(){
 					 cpctm_screenPtr(CPCT_VMEM_START, G_PORTADA_0_W, 10)
 					,G_PORTADA_0_W, G_PORTADA_0_H);	
 
-	cpct_drawStringM0("PULSA INTRO", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
+	cpct_drawStringM0("PRESS ENTER", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
 	if(player.vida == 0){
 		cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
+	}
+	if(basesCapturadas == 6){
+		cpct_drawStringM0("YOU WON!", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
 	}
 	do{
 		cpct_scanKeyboard_f();
