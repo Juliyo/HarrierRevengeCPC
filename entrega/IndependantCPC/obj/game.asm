@@ -1745,7 +1745,7 @@ _play::
 ;src/game.c:427: inicializarPantalla();
 	call	_inicializarPantalla
 ;src/game.c:430: while(player.vida>0){
-00103$:
+00105$:
 	ld	a, (#_player + 73)
 	or	a, a
 	ret	Z
@@ -1778,8 +1778,18 @@ _play::
 	ld	a,(#_salirMenu + 0)
 	and	a, #0x01
 	dec	a
-	jr	NZ,00103$
+	ret	Z
 ;src/game.c:445: return;
+	jr	00102$
+00102$:
+;src/game.c:447: if(basesCapturadas == 6){
+	ld	a,(#_basesCapturadas + 0)
+	sub	a, #0x06
+	jr	NZ,00105$
+;src/game.c:448: salirMenu = 1;
+	ld	hl,#_salirMenu + 0
+	ld	(hl), #0x01
+;src/game.c:449: return;
 	ret
 	.area _CODE
 	.area _INITIALIZER

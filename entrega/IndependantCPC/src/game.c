@@ -444,6 +444,10 @@ void play(){
 
 			return;
 		}
+		if(basesCapturadas == 6){
+			salirMenu = 1;
+			return;
+		}
 
 	}
 	/*if(player.vida == 0){

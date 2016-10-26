@@ -7,9 +7,12 @@ Symbol Table
     .__.ABS.                                                    =  0000 G
     .__.CPU.                                                    =  0000 L
     .__.H$L.                                                    =  0000 L
-  0 ___str_0                                                       00FC R
-  0 ___str_1                                                       0108 R
+  0 ___str_0                                                       012F R
+  0 ___str_1                                                       013B R
+  0 ___str_2                                                       0145 R
   7 __xinit__mostrarMenu                                           0000 R
+    _basesCapturadas                                               **** GX
+    _cpct_akp_musicInit                                            **** GX
     _cpct_akp_musicPlay                                            **** GX
     _cpct_disableFirmware                                          **** GX
     _cpct_drawSprite                                               **** GX
@@ -19,6 +22,7 @@ Symbol Table
     _cpct_memset                                                   **** GX
     _cpct_scanKeyboard_f                                           **** GX
     _cpct_scanKeyboard_if                                          **** GX
+    _cpct_setInterruptHandler                                      **** GX
     _cpct_setPALColour                                             **** GX
     _cpct_setPalette                                               **** GX
     _cpct_setVideoMode                                             **** GX
@@ -26,14 +30,15 @@ Symbol Table
     _g_flores1_1                                                   **** GX
     _g_flores2_0                                                   **** GX
     _g_flores2_1                                                   **** GX
+    _g_mysong                                                      **** GX
     _g_palette                                                     **** GX
     _g_portada_0                                                   **** GX
     _g_portada_1                                                   **** GX
   0 _inicializar                                                   0026 GR
   0 _interrupcion                                                  0010 GR
   1 _interrupcion_kk_1_84                                          0000 R
-  0 _main                                                          0112 GR
-  0 _menu                                                          0041 GR
+  0 _main                                                          014E GR
+  0 _menu                                                          004F GR
   2 _mostrarMenu                                                   0000 GR
     _play                                                          **** GX
     _player                                                        **** GX
@@ -45,7 +50,7 @@ Hexadecimal [16-Bits]
 
 Area Table
 
-   0 _CODE                                      size  124   flags    0
+   0 _CODE                                      size  163   flags    0
    1 _DATA                                      size    1   flags    0
    2 _INITIALIZED                               size    1   flags    0
    3 _DABS                                      size    0   flags    8

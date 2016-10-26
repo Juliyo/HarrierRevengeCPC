@@ -14,6 +14,8 @@
 	.globl _interrupcion
 	.globl _playmusic
 	.globl _play
+	.globl _cpct_akp_musicPlay
+	.globl _cpct_akp_musicInit
 	.globl _cpct_getScreenPtr
 	.globl _cpct_setPALColour
 	.globl _cpct_setPalette
@@ -24,6 +26,7 @@
 	.globl _cpct_scanKeyboard_if
 	.globl _cpct_scanKeyboard_f
 	.globl _cpct_memset
+	.globl _cpct_setInterruptHandler
 	.globl _cpct_disableFirmware
 	.globl _mostrarMenu
 ;--------------------------------------------------------
@@ -120,6 +123,14 @@ _inicializar::
 ;src/main.c:63: cpct_setVideoMode(0);
 	ld	l,#0x00
 	call	_cpct_setVideoMode
+;src/main.c:65: cpct_akp_musicInit(g_mysong);    // Initialize the music
+	ld	hl,#_g_mysong
+	push	hl
+	call	_cpct_akp_musicInit
+	pop	af
+;src/main.c:66: cpct_setInterruptHandler(interrupcion);
+	ld	hl,#_interrupcion
+	call	_cpct_setInterruptHandler
 	ret
 ;src/main.c:69: void menu(){
 ;	---------------------------------
@@ -183,7 +194,7 @@ _menu::
 	ld	hl,#_g_portada_1
 	push	hl
 	call	_cpct_drawSprite
-;src/main.c:94: cpct_drawStringM0("PULSA INTRO", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
+;src/main.c:94: cpct_drawStringM0("PRESS ENTER", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
 	ld	hl,#0xA011
 	push	hl
 	ld	hl,#0xC000
@@ -203,7 +214,7 @@ _menu::
 ;src/main.c:95: if(player.vida == 0){
 	ld	a, (#(_player + 0x0049) + 0)
 	or	a, a
-	jr	NZ,00103$
+	jr	NZ,00102$
 ;src/main.c:96: cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
 	ld	hl,#0x6E14
 	push	hl
@@ -221,43 +232,70 @@ _menu::
 	ld	hl,#6
 	add	hl,sp
 	ld	sp,hl
-;src/main.c:98: do{
-00103$:
-;src/main.c:99: cpct_scanKeyboard_f();
+00102$:
+;src/main.c:98: if(basesCapturadas == 6){
+	ld	a,(#_basesCapturadas + 0)
+	sub	a, #0x06
+	jr	NZ,00105$
+;src/main.c:99: cpct_drawStringM0("YOU WON!", cpct_getScreenPtr(CPCT_VMEM_START, 24, 110), 3, 0);
+	ld	hl,#0x6E18
+	push	hl
+	ld	hl,#0xC000
+	push	hl
+	call	_cpct_getScreenPtr
+	ld	c,l
+	ld	b,h
+	ld	hl,#0x0003
+	push	hl
+	push	bc
+	ld	hl,#___str_2
+	push	hl
+	call	_cpct_drawStringM0
+	ld	hl,#6
+	add	hl,sp
+	ld	sp,hl
+;src/main.c:101: do{
+00105$:
+;src/main.c:102: cpct_scanKeyboard_f();
 	call	_cpct_scanKeyboard_f
-;src/main.c:100: }while(!cpct_isKeyPressed(Key_Enter));
+;src/main.c:103: }while(!cpct_isKeyPressed(Key_Enter));
 	ld	hl,#0x4000
 	call	_cpct_isKeyPressed
 	ld	a,l
 	or	a, a
-	jr	Z,00103$
-;src/main.c:101: mostrarMenu = 0;
+	jr	Z,00105$
+;src/main.c:104: mostrarMenu = 0;
 	ld	hl,#_mostrarMenu + 0
 	ld	(hl), #0x00
 	ret
 ___str_0:
-	.ascii "PULSA INTRO"
+	.ascii "PRESS ENTER"
 	.db 0x00
 ___str_1:
 	.ascii "GAME OVER"
 	.db 0x00
-;src/main.c:106: void main(void) {
+___str_2:
+	.ascii "YOU WON!"
+	.db 0x00
+;src/main.c:109: void main(void) {
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;src/main.c:108: inicializar();
+;src/main.c:111: inicializar();
 	call	_inicializar
-;src/main.c:111: while (1){
+;src/main.c:114: while (1){
 00104$:
-;src/main.c:113: if(mostrarMenu % 2 == 0){
+;src/main.c:115: cpct_akp_musicPlay();
+	call	_cpct_akp_musicPlay
+;src/main.c:116: if(mostrarMenu % 2 == 0){
 	ld	hl,#_mostrarMenu+0
 	bit	0, (hl)
 	jr	NZ,00102$
-;src/main.c:114: menu();
+;src/main.c:117: menu();
 	call	_menu
 00102$:
-;src/main.c:116: play();
+;src/main.c:119: play();
 	call	_play
 	jr	00104$
 	.area _CODE

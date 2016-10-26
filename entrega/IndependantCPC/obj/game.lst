@@ -1747,7 +1747,7 @@
                            1745 ;src/game.c:427: inicializarPantalla();
    09FD CDr00r00      [17] 1746 	call	_inicializarPantalla
                            1747 ;src/game.c:430: while(player.vida>0){
-   0A00                    1748 00103$:
+   0A00                    1748 00105$:
    0A00 3Ar09r01      [13] 1749 	ld	a, (#_player + 73)
    0A03 B7            [ 4] 1750 	or	a, a
    0A04 C8            [11] 1751 	ret	Z
@@ -1780,25 +1780,35 @@
    0A2C 3Ar04r00      [13] 1778 	ld	a,(#_salirMenu + 0)
    0A2F E6 01         [ 7] 1779 	and	a, #0x01
    0A31 3D            [ 4] 1780 	dec	a
-   0A32 20 CC         [12] 1781 	jr	NZ,00103$
+   0A32 C8            [11] 1781 	ret	Z
                            1782 ;src/game.c:445: return;
-   0A34 C9            [10] 1783 	ret
-                           1784 	.area _CODE
-                           1785 	.area _INITIALIZER
-   0000                    1786 __xinit__mapa:
-   0000 00 00              1787 	.dw #0x0000
-   0002                    1788 __xinit__mapaActual:
-   0002 00                 1789 	.db #0x00	; 0
-   0003                    1790 __xinit__previousMap:
-   0003 00                 1791 	.db #0x00	; 0
-   0004                    1792 __xinit__salirMenu:
-   0004 00                 1793 	.db #0x00	; 0
-   0005                    1794 __xinit__basesCapturadas:
-   0005 00                 1795 	.db #0x00	; 0
-   0006                    1796 __xinit__prev_basesCapturadas:
-   0006 00                 1797 	.db #0x00	; 0
-   0007                    1798 __xinit__wshot_cycles:
-   0007 1E                 1799 	.db #0x1E	; 30
-   0008                    1800 __xinit__count:
-   0008 00                 1801 	.db #0x00	; 0
-                           1802 	.area _CABS (ABS)
+   0A33 18 00         [12] 1783 	jr	00102$
+   0A35                    1784 00102$:
+                           1785 ;src/game.c:447: if(basesCapturadas == 6){
+   0A35 3Ar05r00      [13] 1786 	ld	a,(#_basesCapturadas + 0)
+   0A38 D6 06         [ 7] 1787 	sub	a, #0x06
+   0A3A 20 C4         [12] 1788 	jr	NZ,00105$
+                           1789 ;src/game.c:448: salirMenu = 1;
+   0A3C 21r04r00      [10] 1790 	ld	hl,#_salirMenu + 0
+   0A3F 36 01         [10] 1791 	ld	(hl), #0x01
+                           1792 ;src/game.c:449: return;
+   0A41 C9            [10] 1793 	ret
+                           1794 	.area _CODE
+                           1795 	.area _INITIALIZER
+   0000                    1796 __xinit__mapa:
+   0000 00 00              1797 	.dw #0x0000
+   0002                    1798 __xinit__mapaActual:
+   0002 00                 1799 	.db #0x00	; 0
+   0003                    1800 __xinit__previousMap:
+   0003 00                 1801 	.db #0x00	; 0
+   0004                    1802 __xinit__salirMenu:
+   0004 00                 1803 	.db #0x00	; 0
+   0005                    1804 __xinit__basesCapturadas:
+   0005 00                 1805 	.db #0x00	; 0
+   0006                    1806 __xinit__prev_basesCapturadas:
+   0006 00                 1807 	.db #0x00	; 0
+   0007                    1808 __xinit__wshot_cycles:
+   0007 1E                 1809 	.db #0x1E	; 30
+   0008                    1810 __xinit__count:
+   0008 00                 1811 	.db #0x00	; 0
+                           1812 	.area _CABS (ABS)

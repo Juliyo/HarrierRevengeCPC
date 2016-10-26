@@ -62,8 +62,8 @@ void inicializar(){
 	//Mode 0 (160x200, 16 colours)
 	cpct_setVideoMode(0);
 
-	//cpct_akp_musicInit(g_mysong);    // Initialize the music
-   	//cpct_setInterruptHandler(interrupcion);
+	cpct_akp_musicInit(g_mysong);    // Initialize the music
+   	cpct_setInterruptHandler(interrupcion);
 }
 
 void menu(){
@@ -91,9 +91,12 @@ void menu(){
 					 cpctm_screenPtr(CPCT_VMEM_START, G_PORTADA_0_W, 10)
 					,G_PORTADA_0_W, G_PORTADA_0_H);	
 
-	cpct_drawStringM0("PULSA INTRO", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
+	cpct_drawStringM0("PRESS ENTER", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
 	if(player.vida == 0){
 		cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
+	}
+	if(basesCapturadas == 6){
+		cpct_drawStringM0("YOU WON!", cpct_getScreenPtr(CPCT_VMEM_START, 24, 110), 3, 0);
 	}
 	do{
 		cpct_scanKeyboard_f();
@@ -109,7 +112,7 @@ void main(void) {
 
    // Loop forever
    while (1){
-   	//cpct_akp_musicPlay();
+   	cpct_akp_musicPlay();
    	if(mostrarMenu % 2 == 0){
    		menu();
    	}
