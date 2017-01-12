@@ -1,0 +1,251 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module main
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _main
+                             12 	.globl _menu
+                             13 	.globl _inicializar
+                             14 	.globl _play
+                             15 	.globl _cpct_getScreenPtr
+                             16 	.globl _cpct_setPALColour
+                             17 	.globl _cpct_setPalette
+                             18 	.globl _cpct_setVideoMode
+                             19 	.globl _cpct_drawStringM0
+                             20 	.globl _cpct_drawSprite
+                             21 	.globl _cpct_isKeyPressed
+                             22 	.globl _cpct_scanKeyboard_f
+                             23 	.globl _cpct_memset
+                             24 	.globl _cpct_disableFirmware
+                             25 	.globl _mostrarMenu
+                             26 ;--------------------------------------------------------
+                             27 ; special function registers
+                             28 ;--------------------------------------------------------
+                             29 ;--------------------------------------------------------
+                             30 ; ram data
+                             31 ;--------------------------------------------------------
+                             32 	.area _DATA
+                             33 ;--------------------------------------------------------
+                             34 ; ram data
+                             35 ;--------------------------------------------------------
+                             36 	.area _INITIALIZED
+   0000                      37 _mostrarMenu::
+   0000                      38 	.ds 1
+                             39 ;--------------------------------------------------------
+                             40 ; absolute external ram data
+                             41 ;--------------------------------------------------------
+                             42 	.area _DABS (ABS)
+                             43 ;--------------------------------------------------------
+                             44 ; global & static initialisations
+                             45 ;--------------------------------------------------------
+                             46 	.area _HOME
+                             47 	.area _GSINIT
+                             48 	.area _GSFINAL
+                             49 	.area _GSINIT
+                             50 ;--------------------------------------------------------
+                             51 ; Home
+                             52 ;--------------------------------------------------------
+                             53 	.area _HOME
+                             54 	.area _HOME
+                             55 ;--------------------------------------------------------
+                             56 ; code
+                             57 ;--------------------------------------------------------
+                             58 	.area _CODE
+                             59 ;src/main.c:28: void inicializar(){
+                             60 ;	---------------------------------
+                             61 ; Function inicializar
+                             62 ; ---------------------------------
+   0000                      63 _inicializar::
+                             64 ;src/main.c:29: cpct_disableFirmware();
+   0000 CDr00r00      [17]   65 	call	_cpct_disableFirmware
+                             66 ;src/main.c:30: cpct_setBorder(HW_BLACK);
+   0003 21 10 14      [10]   67 	ld	hl,#0x1410
+   0006 E5            [11]   68 	push	hl
+   0007 CDr00r00      [17]   69 	call	_cpct_setPALColour
+                             70 ;src/main.c:31: cpct_setPalette(g_palette,16);
+   000A 21 10 00      [10]   71 	ld	hl,#0x0010
+   000D E5            [11]   72 	push	hl
+   000E 21r00r00      [10]   73 	ld	hl,#_g_palette
+   0011 E5            [11]   74 	push	hl
+   0012 CDr00r00      [17]   75 	call	_cpct_setPalette
+                             76 ;src/main.c:34: cpct_setVideoMode(0);
+   0015 2E 00         [ 7]   77 	ld	l,#0x00
+   0017 CDr00r00      [17]   78 	call	_cpct_setVideoMode
+   001A C9            [10]   79 	ret
+                             80 ;src/main.c:37: void menu(){
+                             81 ;	---------------------------------
+                             82 ; Function menu
+                             83 ; ---------------------------------
+   001B                      84 _menu::
+                             85 ;src/main.c:40: cpct_clearScreen(0);
+   001B 21 00 40      [10]   86 	ld	hl,#0x4000
+   001E E5            [11]   87 	push	hl
+   001F AF            [ 4]   88 	xor	a, a
+   0020 F5            [11]   89 	push	af
+   0021 33            [ 6]   90 	inc	sp
+   0022 26 C0         [ 7]   91 	ld	h, #0xC0
+   0024 E5            [11]   92 	push	hl
+   0025 CDr00r00      [17]   93 	call	_cpct_memset
+                             94 ;src/main.c:41: cpct_drawSprite (g_flores1_0,
+   0028 21 28 0A      [10]   95 	ld	hl,#0x0A28
+   002B E5            [11]   96 	push	hl
+   002C 21 00 C0      [10]   97 	ld	hl,#0xC000
+   002F E5            [11]   98 	push	hl
+   0030 21r00r00      [10]   99 	ld	hl,#_g_flores1_0
+   0033 E5            [11]  100 	push	hl
+   0034 CDr00r00      [17]  101 	call	_cpct_drawSprite
+                            102 ;src/main.c:44: cpct_drawSprite (g_flores1_1,
+   0037 21 28 0A      [10]  103 	ld	hl,#0x0A28
+   003A E5            [11]  104 	push	hl
+   003B 26 C0         [ 7]  105 	ld	h, #0xC0
+   003D E5            [11]  106 	push	hl
+   003E 21r00r00      [10]  107 	ld	hl,#_g_flores1_1
+   0041 E5            [11]  108 	push	hl
+   0042 CDr00r00      [17]  109 	call	_cpct_drawSprite
+                            110 ;src/main.c:48: cpct_drawSprite (g_flores2_0,
+   0045 21 28 0A      [10]  111 	ld	hl,#0x0A28
+   0048 E5            [11]  112 	push	hl
+   0049 21 E0 E6      [10]  113 	ld	hl,#0xE6E0
+   004C E5            [11]  114 	push	hl
+   004D 21r00r00      [10]  115 	ld	hl,#_g_flores2_0
+   0050 E5            [11]  116 	push	hl
+   0051 CDr00r00      [17]  117 	call	_cpct_drawSprite
+                            118 ;src/main.c:51: cpct_drawSprite (g_flores2_1,
+   0054 21 28 0A      [10]  119 	ld	hl,#0x0A28
+   0057 E5            [11]  120 	push	hl
+   0058 21 08 E7      [10]  121 	ld	hl,#0xE708
+   005B E5            [11]  122 	push	hl
+   005C 21r00r00      [10]  123 	ld	hl,#_g_flores2_1
+   005F E5            [11]  124 	push	hl
+   0060 CDr00r00      [17]  125 	call	_cpct_drawSprite
+                            126 ;src/main.c:55: cpct_drawSprite (g_portada_0,
+   0063 21 28 42      [10]  127 	ld	hl,#0x4228
+   0066 E5            [11]  128 	push	hl
+   0067 21 50 D0      [10]  129 	ld	hl,#0xD050
+   006A E5            [11]  130 	push	hl
+   006B 21r00r00      [10]  131 	ld	hl,#_g_portada_0
+   006E E5            [11]  132 	push	hl
+   006F CDr00r00      [17]  133 	call	_cpct_drawSprite
+                            134 ;src/main.c:58: cpct_drawSprite (g_portada_1,
+   0072 21 28 42      [10]  135 	ld	hl,#0x4228
+   0075 E5            [11]  136 	push	hl
+   0076 21 78 D0      [10]  137 	ld	hl,#0xD078
+   0079 E5            [11]  138 	push	hl
+   007A 21r00r00      [10]  139 	ld	hl,#_g_portada_1
+   007D E5            [11]  140 	push	hl
+   007E CDr00r00      [17]  141 	call	_cpct_drawSprite
+                            142 ;src/main.c:62: cpct_drawStringM0("PRESS ENTER", cpct_getScreenPtr(CPCT_VMEM_START, 17, 160), 6, 0);
+   0081 21 11 A0      [10]  143 	ld	hl,#0xA011
+   0084 E5            [11]  144 	push	hl
+   0085 21 00 C0      [10]  145 	ld	hl,#0xC000
+   0088 E5            [11]  146 	push	hl
+   0089 CDr00r00      [17]  147 	call	_cpct_getScreenPtr
+   008C 4D            [ 4]  148 	ld	c,l
+   008D 44            [ 4]  149 	ld	b,h
+   008E 21 06 00      [10]  150 	ld	hl,#0x0006
+   0091 E5            [11]  151 	push	hl
+   0092 C5            [11]  152 	push	bc
+   0093 21rFBr00      [10]  153 	ld	hl,#___str_0
+   0096 E5            [11]  154 	push	hl
+   0097 CDr00r00      [17]  155 	call	_cpct_drawStringM0
+   009A 21 06 00      [10]  156 	ld	hl,#6
+   009D 39            [11]  157 	add	hl,sp
+   009E F9            [ 6]  158 	ld	sp,hl
+                            159 ;src/main.c:63: if(player.vida == 0){
+   009F 3Ar49r00      [13]  160 	ld	a, (#(_player + 0x0049) + 0)
+   00A2 B7            [ 4]  161 	or	a, a
+   00A3 20 1E         [12]  162 	jr	NZ,00102$
+                            163 ;src/main.c:64: cpct_drawStringM0("GAME OVER", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
+   00A5 21 14 6E      [10]  164 	ld	hl,#0x6E14
+   00A8 E5            [11]  165 	push	hl
+   00A9 21 00 C0      [10]  166 	ld	hl,#0xC000
+   00AC E5            [11]  167 	push	hl
+   00AD CDr00r00      [17]  168 	call	_cpct_getScreenPtr
+   00B0 4D            [ 4]  169 	ld	c,l
+   00B1 44            [ 4]  170 	ld	b,h
+   00B2 21 03 00      [10]  171 	ld	hl,#0x0003
+   00B5 E5            [11]  172 	push	hl
+   00B6 C5            [11]  173 	push	bc
+   00B7 21r07r01      [10]  174 	ld	hl,#___str_1
+   00BA E5            [11]  175 	push	hl
+   00BB CDr00r00      [17]  176 	call	_cpct_drawStringM0
+   00BE 21 06 00      [10]  177 	ld	hl,#6
+   00C1 39            [11]  178 	add	hl,sp
+   00C2 F9            [ 6]  179 	ld	sp,hl
+   00C3                     180 00102$:
+                            181 ;src/main.c:66: if(basesCapturadas == 6){
+   00C3 3Ar00r00      [13]  182 	ld	a,(#_basesCapturadas + 0)
+   00C6 D6 06         [ 7]  183 	sub	a, #0x06
+   00C8 20 1E         [12]  184 	jr	NZ,00105$
+                            185 ;src/main.c:67: cpct_drawStringM0("YOU WON!", cpct_getScreenPtr(CPCT_VMEM_START, 20, 110), 3, 0);
+   00CA 21 14 6E      [10]  186 	ld	hl,#0x6E14
+   00CD E5            [11]  187 	push	hl
+   00CE 21 00 C0      [10]  188 	ld	hl,#0xC000
+   00D1 E5            [11]  189 	push	hl
+   00D2 CDr00r00      [17]  190 	call	_cpct_getScreenPtr
+   00D5 4D            [ 4]  191 	ld	c,l
+   00D6 44            [ 4]  192 	ld	b,h
+   00D7 21 03 00      [10]  193 	ld	hl,#0x0003
+   00DA E5            [11]  194 	push	hl
+   00DB C5            [11]  195 	push	bc
+   00DC 21r11r01      [10]  196 	ld	hl,#___str_2
+   00DF E5            [11]  197 	push	hl
+   00E0 CDr00r00      [17]  198 	call	_cpct_drawStringM0
+   00E3 21 06 00      [10]  199 	ld	hl,#6
+   00E6 39            [11]  200 	add	hl,sp
+   00E7 F9            [ 6]  201 	ld	sp,hl
+                            202 ;src/main.c:69: do{
+   00E8                     203 00105$:
+                            204 ;src/main.c:70: cpct_scanKeyboard_f();
+   00E8 CDr00r00      [17]  205 	call	_cpct_scanKeyboard_f
+                            206 ;src/main.c:71: }while(!cpct_isKeyPressed(Key_Enter));
+   00EB 21 00 40      [10]  207 	ld	hl,#0x4000
+   00EE CDr00r00      [17]  208 	call	_cpct_isKeyPressed
+   00F1 7D            [ 4]  209 	ld	a,l
+   00F2 B7            [ 4]  210 	or	a, a
+   00F3 28 F3         [12]  211 	jr	Z,00105$
+                            212 ;src/main.c:72: mostrarMenu = 0;
+   00F5 21r00r00      [10]  213 	ld	hl,#_mostrarMenu + 0
+   00F8 36 00         [10]  214 	ld	(hl), #0x00
+   00FA C9            [10]  215 	ret
+   00FB                     216 ___str_0:
+   00FB 50 52 45 53 53 20   217 	.ascii "PRESS ENTER"
+        45 4E 54 45 52
+   0106 00                  218 	.db 0x00
+   0107                     219 ___str_1:
+   0107 47 41 4D 45 20 4F   220 	.ascii "GAME OVER"
+        56 45 52
+   0110 00                  221 	.db 0x00
+   0111                     222 ___str_2:
+   0111 59 4F 55 20 57 4F   223 	.ascii "YOU WON!"
+        4E 21
+   0119 00                  224 	.db 0x00
+                            225 ;src/main.c:77: void main(void) {
+                            226 ;	---------------------------------
+                            227 ; Function main
+                            228 ; ---------------------------------
+   011A                     229 _main::
+                            230 ;src/main.c:79: inicializar();
+   011A CDr00r00      [17]  231 	call	_inicializar
+                            232 ;src/main.c:82: while (1){
+   011D                     233 00104$:
+                            234 ;src/main.c:83: if(mostrarMenu % 2 == 0){
+   011D 21r00r00      [10]  235 	ld	hl,#_mostrarMenu+0
+   0120 CB 46         [12]  236 	bit	0, (hl)
+   0122 20 03         [12]  237 	jr	NZ,00102$
+                            238 ;src/main.c:84: menu();
+   0124 CDr1Br00      [17]  239 	call	_menu
+   0127                     240 00102$:
+                            241 ;src/main.c:86: play();
+   0127 CDr00r00      [17]  242 	call	_play
+   012A 18 F1         [12]  243 	jr	00104$
+                            244 	.area _CODE
+                            245 	.area _INITIALIZER
+   0000                     246 __xinit__mostrarMenu:
+   0000 01                  247 	.db #0x01	; 1
+                            248 	.area _CABS (ABS)

@@ -1,0 +1,1813 @@
+                              1 ;--------------------------------------------------------
+                              2 ; File Created by SDCC : free open source ANSI-C Compiler
+                              3 ; Version 3.5.5 #9498 (Linux)
+                              4 ;--------------------------------------------------------
+                              5 	.module game
+                              6 	.optsdcc -mz80
+                              7 	
+                              8 ;--------------------------------------------------------
+                              9 ; Public variables in this module
+                             10 ;--------------------------------------------------------
+                             11 	.globl _dibujarPuntos
+                             12 	.globl _explosionBala
+                             13 	.globl _getBases
+                             14 	.globl _getEnemies
+                             15 	.globl _calculaAllEntities
+                             16 	.globl _calculaEntity
+                             17 	.globl _drawAll
+                             18 	.globl _dibujarEntity
+                             19 	.globl _borrarEntity
+                             20 	.globl _updateY
+                             21 	.globl _updateX
+                             22 	.globl _updatePlayer
+                             23 	.globl _disparar
+                             24 	.globl _playerHerido
+                             25 	.globl _accion
+                             26 	.globl _incializarEntities
+                             27 	.globl _restarEnemigo
+                             28 	.globl _aparecerEnemigo
+                             29 	.globl _resetearTimepoEnMapa
+                             30 	.globl _cpct_etm_setTileset2x4
+                             31 	.globl _cpct_etm_drawTileBox2x4
+                             32 	.globl _cpct_getScreenPtr
+                             33 	.globl _cpct_waitVSYNC
+                             34 	.globl _cpct_drawStringM0
+                             35 	.globl _cpct_drawSolidBox
+                             36 	.globl _cpct_isAnyKeyPressed
+                             37 	.globl _cpct_isKeyPressed
+                             38 	.globl _cpct_scanKeyboard_if
+                             39 	.globl _cpct_memset
+                             40 	.globl _sprintf
+                             41 	.globl _count
+                             42 	.globl _wshot_cycles
+                             43 	.globl _prev_basesCapturadas
+                             44 	.globl _basesCapturadas
+                             45 	.globl _salirMenu
+                             46 	.globl _previousMap
+                             47 	.globl _mapaActual
+                             48 	.globl _mapa
+                             49 	.globl _mapas
+                             50 	.globl _hearth
+                             51 	.globl _player
+                             52 	.globl _inicializarPantalla
+                             53 	.globl _dibujarMapa
+                             54 	.globl _resetearDrawEnemigos
+                             55 	.globl _cambiarMapa
+                             56 	.globl _resetearBala
+                             57 	.globl _cambiarDerecha
+                             58 	.globl _cambiarIzquierda
+                             59 	.globl _cambiarArriba
+                             60 	.globl _cambiarAbajo
+                             61 	.globl _updateUser
+                             62 	.globl _checkCollision
+                             63 	.globl _calculaColisiones
+                             64 	.globl _drawHUD
+                             65 	.globl _dibujarBase
+                             66 	.globl _play
+                             67 ;--------------------------------------------------------
+                             68 ; special function registers
+                             69 ;--------------------------------------------------------
+                             70 ;--------------------------------------------------------
+                             71 ; ram data
+                             72 ;--------------------------------------------------------
+                             73 	.area _DATA
+                             74 ;--------------------------------------------------------
+                             75 ; ram data
+                             76 ;--------------------------------------------------------
+                             77 	.area _INITIALIZED
+   0000                      78 _mapa::
+   0000                      79 	.ds 2
+   0002                      80 _mapaActual::
+   0002                      81 	.ds 1
+   0003                      82 _previousMap::
+   0003                      83 	.ds 1
+   0004                      84 _salirMenu::
+   0004                      85 	.ds 1
+   0005                      86 _basesCapturadas::
+   0005                      87 	.ds 1
+   0006                      88 _prev_basesCapturadas::
+   0006                      89 	.ds 1
+   0007                      90 _wshot_cycles::
+   0007                      91 	.ds 1
+   0008                      92 _count::
+   0008                      93 	.ds 1
+                             94 ;--------------------------------------------------------
+                             95 ; absolute external ram data
+                             96 ;--------------------------------------------------------
+                             97 	.area _DABS (ABS)
+                             98 ;--------------------------------------------------------
+                             99 ; global & static initialisations
+                            100 ;--------------------------------------------------------
+                            101 	.area _HOME
+                            102 	.area _GSINIT
+                            103 	.area _GSFINAL
+                            104 	.area _GSINIT
+                            105 ;--------------------------------------------------------
+                            106 ; Home
+                            107 ;--------------------------------------------------------
+                            108 	.area _HOME
+                            109 	.area _HOME
+                            110 ;--------------------------------------------------------
+                            111 ; code
+                            112 ;--------------------------------------------------------
+                            113 	.area _CODE
+                            114 ;src/game.c:116: void inicializarPantalla(){
+                            115 ;	---------------------------------
+                            116 ; Function inicializarPantalla
+                            117 ; ---------------------------------
+   0000                     118 _inicializarPantalla::
+                            119 ;src/game.c:119: TEntity* ent = &hearth;
+                            120 ;src/game.c:121: cpct_clearScreen(0);
+   0000 21 00 40      [10]  121 	ld	hl,#0x4000
+   0003 E5            [11]  122 	push	hl
+   0004 AF            [ 4]  123 	xor	a, a
+   0005 F5            [11]  124 	push	af
+   0006 33            [ 6]  125 	inc	sp
+   0007 26 C0         [ 7]  126 	ld	h, #0xC0
+   0009 E5            [11]  127 	push	hl
+   000A CDr00r00      [17]  128 	call	_cpct_memset
+                            129 ;src/game.c:122: mapaActual = 0;
+   000D 21r02r00      [10]  130 	ld	hl,#_mapaActual + 0
+   0010 36 00         [10]  131 	ld	(hl), #0x00
+                            132 ;src/game.c:123: previousMap = 0;
+   0012 21r03r00      [10]  133 	ld	hl,#_previousMap + 0
+   0015 36 00         [10]  134 	ld	(hl), #0x00
+                            135 ;src/game.c:124: mapa = g_map11;
+   0017 21r00r00      [10]  136 	ld	hl,#_g_map11+0
+   001A 22r00r00      [16]  137 	ld	(_mapa),hl
+                            138 ;src/game.c:125: cpct_etm_setTileset2x4(g_tileset);
+   001D 21r00r00      [10]  139 	ld	hl,#_g_tileset
+   0020 CDr00r00      [17]  140 	call	_cpct_etm_setTileset2x4
+                            141 ;src/game.c:126: dibujarMapa();
+   0023 CDr54r01      [17]  142 	call	_dibujarMapa
+                            143 ;src/game.c:127: cpct_drawStringM0("Score: 000",cpct_getScreenPtr(CPCT_VMEM_START,36,23),2,0);
+   0026 21 24 17      [10]  144 	ld	hl,#0x1724
+   0029 E5            [11]  145 	push	hl
+   002A 21 00 C0      [10]  146 	ld	hl,#0xC000
+   002D E5            [11]  147 	push	hl
+   002E CDr00r00      [17]  148 	call	_cpct_getScreenPtr
+   0031 4D            [ 4]  149 	ld	c,l
+   0032 44            [ 4]  150 	ld	b,h
+   0033 21 02 00      [10]  151 	ld	hl,#0x0002
+   0036 E5            [11]  152 	push	hl
+   0037 C5            [11]  153 	push	bc
+   0038 21r3Er01      [10]  154 	ld	hl,#___str_0
+   003B E5            [11]  155 	push	hl
+   003C CDr00r00      [17]  156 	call	_cpct_drawStringM0
+   003F 21 06 00      [10]  157 	ld	hl,#6
+   0042 39            [11]  158 	add	hl,sp
+   0043 F9            [ 6]  159 	ld	sp,hl
+                            160 ;src/game.c:128: cpct_drawStringM0("Bases:   0",cpct_getScreenPtr(CPCT_VMEM_START,36,5),2,0);
+   0044 21 24 05      [10]  161 	ld	hl,#0x0524
+   0047 E5            [11]  162 	push	hl
+   0048 21 00 C0      [10]  163 	ld	hl,#0xC000
+   004B E5            [11]  164 	push	hl
+   004C CDr00r00      [17]  165 	call	_cpct_getScreenPtr
+   004F 4D            [ 4]  166 	ld	c,l
+   0050 44            [ 4]  167 	ld	b,h
+   0051 21 02 00      [10]  168 	ld	hl,#0x0002
+   0054 E5            [11]  169 	push	hl
+   0055 C5            [11]  170 	push	bc
+   0056 21r49r01      [10]  171 	ld	hl,#___str_1
+   0059 E5            [11]  172 	push	hl
+   005A CDr00r00      [17]  173 	call	_cpct_drawStringM0
+   005D 21 06 00      [10]  174 	ld	hl,#6
+   0060 39            [11]  175 	add	hl,sp
+   0061 F9            [ 6]  176 	ld	sp,hl
+                            177 ;src/game.c:129: for(i = 0; i < player.vida; ++i){
+   0062 0E 00         [ 7]  178 	ld	c,#0x00
+   0064                     179 00103$:
+   0064 21r09r01      [10]  180 	ld	hl, #(_player + 0x0049) + 0
+   0067 46            [ 7]  181 	ld	b,(hl)
+   0068 79            [ 4]  182 	ld	a,c
+   0069 90            [ 4]  183 	sub	a, b
+   006A 30 48         [12]  184 	jr	NC,00101$
+                            185 ;src/game.c:130: ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+   006C 21r0Fr01      [10]  186 	ld	hl,#_hearth
+   006F 23            [ 6]  187 	inc	hl
+   0070 23            [ 6]  188 	inc	hl
+   0071 5E            [ 7]  189 	ld	e,(hl)
+   0072 23            [ 6]  190 	inc	hl
+   0073 56            [ 7]  191 	ld	d,(hl)
+   0074 43            [ 4]  192 	ld	b,e
+   0075 2Ar0Fr01      [16]  193 	ld	hl, (#_hearth + 0)
+   0078 55            [ 4]  194 	ld	d,l
+   0079 C5            [11]  195 	push	bc
+   007A 4A            [ 4]  196 	ld	c, d
+   007B C5            [11]  197 	push	bc
+   007C 21 00 C0      [10]  198 	ld	hl,#0xC000
+   007F E5            [11]  199 	push	hl
+   0080 CDr00r00      [17]  200 	call	_cpct_getScreenPtr
+   0083 5D            [ 4]  201 	ld	e,l
+   0084 54            [ 4]  202 	ld	d,h
+   0085 C1            [10]  203 	pop	bc
+   0086 ED 53r30r01   [20]  204 	ld	((_hearth + 0x0021)), de
+                            205 ;src/game.c:131: dibujarEntity(ent,ent->sw,ent->sh);
+   008A 21r23r01      [10]  206 	ld	hl,#_hearth + 20
+   008D 46            [ 7]  207 	ld	b, (hl)
+   008E 21r0Fr01      [10]  208 	ld	hl,#_hearth
+   0091 11 13 00      [10]  209 	ld	de, #0x0013
+   0094 19            [11]  210 	add	hl, de
+   0095 56            [ 7]  211 	ld	d,(hl)
+   0096 C5            [11]  212 	push	bc
+   0097 4A            [ 4]  213 	ld	c, d
+   0098 C5            [11]  214 	push	bc
+   0099 21r0Fr01      [10]  215 	ld	hl,#_hearth
+   009C E5            [11]  216 	push	hl
+   009D CDr00r00      [17]  217 	call	_dibujarEntity
+   00A0 F1            [10]  218 	pop	af
+   00A1 F1            [10]  219 	pop	af
+   00A2 C1            [10]  220 	pop	bc
+                            221 ;src/game.c:132: ent->x+=10;
+   00A3 ED 5Br0Fr01   [20]  222 	ld	de, (#_hearth + 0)
+   00A7 21 0A 00      [10]  223 	ld	hl,#0x000A
+   00AA 19            [11]  224 	add	hl,de
+   00AB 5D            [ 4]  225 	ld	e,l
+   00AC 54            [ 4]  226 	ld	d,h
+   00AD ED 53r0Fr01   [20]  227 	ld	(_hearth), de
+                            228 ;src/game.c:129: for(i = 0; i < player.vida; ++i){
+   00B1 0C            [ 4]  229 	inc	c
+   00B2 18 B0         [12]  230 	jr	00103$
+   00B4                     231 00101$:
+                            232 ;src/game.c:135: count = 0;
+   00B4 21r08r00      [10]  233 	ld	hl,#_count + 0
+   00B7 36 00         [10]  234 	ld	(hl), #0x00
+                            235 ;src/game.c:136: ent->x = 2;
+   00B9 21 02 00      [10]  236 	ld	hl,#0x0002
+   00BC 22r0Fr01      [16]  237 	ld	(_hearth), hl
+   00BF C9            [10]  238 	ret
+   00C0                     239 _player:
+   00C0 00                  240 	.db #0x00	; 0
+   00C1 01                  241 	.db #0x01	; 1
+   00C2 00                  242 	.db #0x00	; 0
+   00C3 00 00               243 	.dw #0x0000
+   00C5 00 00               244 	.dw #0x0000
+   00C7 00 00               245 	.dw #0x0000
+   00C9 00 00               246 	.dw #0x0000
+   00CB 03                  247 	.db #0x03	; 3
+   00CC 06                  248 	.db #0x06	; 6
+   00CD 00                  249 	.db #0x00	; 0
+   00CEr00r00               250 	.dw _g_bala_0
+   00D0r00r00               251 	.dw _g_bala_1
+   00D2r00r00               252 	.dw _g_bala_2
+   00D4r00r00               253 	.dw _g_bala_3
+   00D6 02                  254 	.db #0x02	; 2
+   00D7 04                  255 	.db #0x04	; 4
+   00D8 00                  256 	.db #0x00	; 0
+   00D9 02                  257 	.db #0x02	; 2
+   00DA 00                  258 	.db #0x00	; 0
+   00DB 00                  259 	.db #0x00	; 0
+   00DC 02                  260 	.db #0x02	; 2
+   00DD 04                  261 	.db #0x04	; 4
+   00DE 00                  262 	.db #0x00	; 0
+   00DF 00                  263 	.db #0x00	; 0
+   00E0 00                  264 	.db #0x00	; 0
+   00E1 00                  265 	.db #0x00	; 0
+   00E2 00                  266 	.db #0x00	; 0
+   00E3 00                  267 	.db #0x00	; 0
+   00E4 00 00               268 	.dw #0x0000
+   00E6 0A 00               269 	.dw #0x000A
+   00E8 AA 00               270 	.dw #0x00AA
+   00EA 0A 00               271 	.dw #0x000A
+   00EC AA 00               272 	.dw #0x00AA
+   00EE 01                  273 	.db #0x01	; 1
+   00EF 02                  274 	.db #0x02	; 2
+   00F0 01                  275 	.db #0x01	; 1
+   00F1r00r00               276 	.dw _g_naves_0
+   00F3r00r00               277 	.dw _g_naves_1
+   00F5r00r00               278 	.dw _g_naves_2
+   00F7r00r00               279 	.dw _g_naves_3
+   00F9 06                  280 	.db #0x06	; 6
+   00FA 0C                  281 	.db #0x0C	; 12
+   00FB 00                  282 	.db #0x00	; 0
+   00FC 01                  283 	.db #0x01	; 1
+   00FD 0A                  284 	.db #0x0A	; 10
+   00FE AA                  285 	.db #0xAA	; 170
+   00FF 06                  286 	.db #0x06	; 6
+   0100 0C                  287 	.db #0x0C	; 12
+   0101 00                  288 	.db #0x00	; 0
+   0102 00                  289 	.db #0x00	; 0
+   0103 00                  290 	.db #0x00	; 0
+   0104 00                  291 	.db #0x00	; 0
+   0105 00                  292 	.db #0x00	; 0
+   0106 00                  293 	.db #0x00	; 0
+   0107 00 00               294 	.dw #0x0000
+   0109 03                  295 	.db #0x03	; 3
+   010A 03                  296 	.db #0x03	; 3
+   010B 00 00               297 	.dw #0x0000
+   010D 00 00               298 	.dw #0x0000
+   010F                     299 _hearth:
+   010F 02 00               300 	.dw #0x0002
+   0111 0A 00               301 	.dw #0x000A
+   0113 02 00               302 	.dw #0x0002
+   0115 0A 00               303 	.dw #0x000A
+   0117 01                  304 	.db #0x01	; 1
+   0118 01                  305 	.db #0x01	; 1
+   0119 01                  306 	.db #0x01	; 1
+   011Ar00r00               307 	.dw _g_hearth
+   011C 00 00               308 	.dw #0x0000
+   011E 00 00               309 	.dw #0x0000
+   0120 00 00               310 	.dw #0x0000
+   0122 09                  311 	.db #0x09	; 9
+   0123 10                  312 	.db #0x10	; 16
+   0124 00                  313 	.db #0x00	; 0
+   0125 00                  314 	.db #0x00	; 0
+   0126 00                  315 	.byte #0x00
+   0127 00                  316 	.byte #0x00
+   0128 00                  317 	.byte #0x00
+   0129 00                  318 	.byte #0x00
+   012A 00                  319 	.db #0x00	; 0
+   012B 00                  320 	.db #0x00	; 0
+   012C 00                  321 	.db #0x00	; 0
+   012D 00                  322 	.db #0x00	; 0
+   012E 00                  323 	.db #0x00	; 0
+   012F 00                  324 	.db #0x00	; 0
+   0130 00 00               325 	.dw #0x0000
+   0132                     326 _mapas:
+   0132r00r00               327 	.dw _g_map11
+   0134r00r00               328 	.dw _g_map12
+   0136r00r00               329 	.dw _g_map21
+   0138r00r00               330 	.dw _g_map22
+   013Ar00r00               331 	.dw _g_map31
+   013Cr00r00               332 	.dw _g_map32
+   013E                     333 ___str_0:
+   013E 53 63 6F 72 65 3A   334 	.ascii "Score: 000"
+        20 30 30 30
+   0148 00                  335 	.db 0x00
+   0149                     336 ___str_1:
+   0149 42 61 73 65 73 3A   337 	.ascii "Bases:   0"
+        20 20 20 30
+   0153 00                  338 	.db 0x00
+                            339 ;src/game.c:142: void dibujarMapa(){
+                            340 ;	---------------------------------
+                            341 ; Function dibujarMapa
+                            342 ; ---------------------------------
+   0154                     343 _dibujarMapa::
+                            344 ;src/game.c:143: cpct_etm_drawTilemap2x4(g_map11_W, g_map11_H, ORIGEN_MAPA, mapa);
+   0154 2Ar00r00      [16]  345 	ld	hl,(_mapa)
+   0157 E5            [11]  346 	push	hl
+   0158 21 90 C1      [10]  347 	ld	hl,#0xC190
+   015B E5            [11]  348 	push	hl
+   015C 21 28 28      [10]  349 	ld	hl,#0x2828
+   015F E5            [11]  350 	push	hl
+   0160 2E 00         [ 7]  351 	ld	l, #0x00
+   0162 E5            [11]  352 	push	hl
+   0163 AF            [ 4]  353 	xor	a, a
+   0164 F5            [11]  354 	push	af
+   0165 33            [ 6]  355 	inc	sp
+   0166 CDr00r00      [17]  356 	call	_cpct_etm_drawTileBox2x4
+   0169 C9            [10]  357 	ret
+                            358 ;src/game.c:145: void resetearDrawEnemigos(){
+                            359 ;	---------------------------------
+                            360 ; Function resetearDrawEnemigos
+                            361 ; ---------------------------------
+   016A                     362 _resetearDrawEnemigos::
+   016A DD E5         [15]  363 	push	ix
+   016C DD 21 00 00   [14]  364 	ld	ix,#0
+   0170 DD 39         [15]  365 	add	ix,sp
+   0172 F5            [11]  366 	push	af
+   0173 3B            [ 6]  367 	dec	sp
+                            368 ;src/game.c:148: enemigos = getEnemies();
+   0174 CDr00r00      [17]  369 	call	_getEnemies
+   0177 33            [ 6]  370 	inc	sp
+   0178 33            [ 6]  371 	inc	sp
+   0179 E5            [11]  372 	push	hl
+                            373 ;src/game.c:149: for(i=0;i<NUM_ENEMIGOS;++i){
+   017A DD 36 FF 00   [19]  374 	ld	-1 (ix),#0x00
+   017E 11 00 00      [10]  375 	ld	de,#0x0000
+   0181                     376 00104$:
+                            377 ;src/game.c:150: if(enemigos[i].ent.vivo == 1)
+   0181 DD 7E FD      [19]  378 	ld	a,-3 (ix)
+   0184 83            [ 4]  379 	add	a, e
+   0185 4F            [ 4]  380 	ld	c,a
+   0186 DD 7E FE      [19]  381 	ld	a,-2 (ix)
+   0189 8A            [ 4]  382 	adc	a, d
+   018A 47            [ 4]  383 	ld	b,a
+   018B 69            [ 4]  384 	ld	l, c
+   018C 60            [ 4]  385 	ld	h, b
+   018D C5            [11]  386 	push	bc
+   018E 01 41 00      [10]  387 	ld	bc, #0x0041
+   0191 09            [11]  388 	add	hl, bc
+   0192 C1            [10]  389 	pop	bc
+   0193 6E            [ 7]  390 	ld	l,(hl)
+   0194 2D            [ 4]  391 	dec	l
+   0195 20 06         [12]  392 	jr	NZ,00105$
+                            393 ;src/game.c:151: enemigos[i].ent.draw = SI;
+   0197 21 30 00      [10]  394 	ld	hl,#0x0030
+   019A 09            [11]  395 	add	hl,bc
+   019B 36 01         [10]  396 	ld	(hl),#0x01
+   019D                     397 00105$:
+                            398 ;src/game.c:149: for(i=0;i<NUM_ENEMIGOS;++i){
+   019D 21 4E 00      [10]  399 	ld	hl,#0x004E
+   01A0 19            [11]  400 	add	hl,de
+   01A1 EB            [ 4]  401 	ex	de,hl
+   01A2 DD 34 FF      [23]  402 	inc	-1 (ix)
+   01A5 DD 7E FF      [19]  403 	ld	a,-1 (ix)
+   01A8 D6 03         [ 7]  404 	sub	a, #0x03
+   01AA 38 D5         [12]  405 	jr	C,00104$
+   01AC DD F9         [10]  406 	ld	sp, ix
+   01AE DD E1         [14]  407 	pop	ix
+   01B0 C9            [10]  408 	ret
+                            409 ;src/game.c:154: u8 cambiarMapa(u8 suma, u8 cantidad){
+                            410 ;	---------------------------------
+                            411 ; Function cambiarMapa
+                            412 ; ---------------------------------
+   01B1                     413 _cambiarMapa::
+   01B1 DD E5         [15]  414 	push	ix
+   01B3 DD 21 00 00   [14]  415 	ld	ix,#0
+   01B7 DD 39         [15]  416 	add	ix,sp
+                            417 ;src/game.c:156: if(suma % 2 != 0){ //tengo que sumar
+   01B9 DD CB 04 46   [20]  418 	bit	0, 4 (ix)
+   01BD 28 28         [12]  419 	jr	Z,00102$
+                            420 ;src/game.c:157: mapaActual = mapaActual + cantidad;
+   01BF 21r02r00      [10]  421 	ld	hl,#_mapaActual
+   01C2 7E            [ 7]  422 	ld	a,(hl)
+   01C3 DD 86 05      [19]  423 	add	a, 5 (ix)
+   01C6 77            [ 7]  424 	ld	(hl),a
+                            425 ;src/game.c:158: mapa = mapas[mapaActual];
+   01C7 01r32r01      [10]  426 	ld	bc,#_mapas+0
+   01CA FD 21r02r00   [14]  427 	ld	iy,#_mapaActual
+   01CE FD 6E 00      [19]  428 	ld	l,0 (iy)
+   01D1 26 00         [ 7]  429 	ld	h,#0x00
+   01D3 29            [11]  430 	add	hl, hl
+   01D4 09            [11]  431 	add	hl,bc
+   01D5 7E            [ 7]  432 	ld	a,(hl)
+   01D6 FD 21r00r00   [14]  433 	ld	iy,#_mapa
+   01DA FD 77 00      [19]  434 	ld	0 (iy),a
+   01DD 23            [ 6]  435 	inc	hl
+   01DE 7E            [ 7]  436 	ld	a,(hl)
+   01DF 32r01r00      [13]  437 	ld	(#_mapa + 1),a
+                            438 ;src/game.c:159: dibujarMapa();
+   01E2 CDr54r01      [17]  439 	call	_dibujarMapa
+   01E5 18 26         [12]  440 	jr	00103$
+   01E7                     441 00102$:
+                            442 ;src/game.c:161: mapaActual = mapaActual - cantidad;
+   01E7 21r02r00      [10]  443 	ld	hl,#_mapaActual
+   01EA 7E            [ 7]  444 	ld	a,(hl)
+   01EB DD 96 05      [19]  445 	sub	a, 5 (ix)
+   01EE 77            [ 7]  446 	ld	(hl),a
+                            447 ;src/game.c:162: mapa = mapas[mapaActual];
+   01EF 01r32r01      [10]  448 	ld	bc,#_mapas+0
+   01F2 FD 21r02r00   [14]  449 	ld	iy,#_mapaActual
+   01F6 FD 6E 00      [19]  450 	ld	l,0 (iy)
+   01F9 26 00         [ 7]  451 	ld	h,#0x00
+   01FB 29            [11]  452 	add	hl, hl
+   01FC 09            [11]  453 	add	hl,bc
+   01FD 7E            [ 7]  454 	ld	a,(hl)
+   01FE FD 21r00r00   [14]  455 	ld	iy,#_mapa
+   0202 FD 77 00      [19]  456 	ld	0 (iy),a
+   0205 23            [ 6]  457 	inc	hl
+   0206 7E            [ 7]  458 	ld	a,(hl)
+   0207 32r01r00      [13]  459 	ld	(#_mapa + 1),a
+                            460 ;src/game.c:163: dibujarMapa();
+   020A CDr54r01      [17]  461 	call	_dibujarMapa
+   020D                     462 00103$:
+                            463 ;src/game.c:165: resetearDrawEnemigos();
+   020D CDr6Ar01      [17]  464 	call	_resetearDrawEnemigos
+                            465 ;src/game.c:166: resetearBala(&player.bullet);
+   0210 21rC0r00      [10]  466 	ld	hl,#_player
+   0213 E5            [11]  467 	push	hl
+   0214 CDr3Cr02      [17]  468 	call	_resetearBala
+   0217 F1            [10]  469 	pop	af
+                            470 ;src/game.c:167: base = &bases[mapaActual];
+   0218 01r00r00      [10]  471 	ld	bc,#_bases+0
+   021B ED 5Br02r00   [20]  472 	ld	de,(_mapaActual)
+   021F 16 00         [ 7]  473 	ld	d,#0x00
+   0221 6B            [ 4]  474 	ld	l, e
+   0222 62            [ 4]  475 	ld	h, d
+   0223 29            [11]  476 	add	hl, hl
+   0224 29            [11]  477 	add	hl, hl
+   0225 29            [11]  478 	add	hl, hl
+   0226 19            [11]  479 	add	hl, de
+   0227 29            [11]  480 	add	hl, hl
+   0228 19            [11]  481 	add	hl, de
+   0229 29            [11]  482 	add	hl, hl
+   022A 19            [11]  483 	add	hl, de
+   022B 09            [11]  484 	add	hl,bc
+                            485 ;src/game.c:168: base->ent.draw = SI;
+   022C 01 0E 00      [10]  486 	ld	bc,#0x000E
+   022F 09            [11]  487 	add	hl,bc
+   0230 36 01         [10]  488 	ld	(hl),#0x01
+                            489 ;src/game.c:170: return mapaActual;
+   0232 FD 21r02r00   [14]  490 	ld	iy,#_mapaActual
+   0236 FD 6E 00      [19]  491 	ld	l,0 (iy)
+   0239 DD E1         [14]  492 	pop	ix
+   023B C9            [10]  493 	ret
+                            494 ;src/game.c:172: void resetearBala(TBullet* bullet){
+                            495 ;	---------------------------------
+                            496 ; Function resetearBala
+                            497 ; ---------------------------------
+   023C                     498 _resetearBala::
+                            499 ;src/game.c:176: bullet->ent.draw = NO;
+   023C D1            [10]  500 	pop	de
+   023D C1            [10]  501 	pop	bc
+   023E C5            [11]  502 	push	bc
+   023F D5            [11]  503 	push	de
+   0240 21 0D 00      [10]  504 	ld	hl,#0x000D
+   0243 09            [11]  505 	add	hl,bc
+   0244 36 00         [10]  506 	ld	(hl),#0x00
+                            507 ;src/game.c:177: bullet->ent.vivo = NO;
+   0246 21 1E 00      [10]  508 	ld	hl,#0x001E
+   0249 09            [11]  509 	add	hl,bc
+   024A 36 00         [10]  510 	ld	(hl),#0x00
+                            511 ;src/game.c:178: bullet->state = es_static;
+   024C 03            [ 6]  512 	inc	bc
+   024D 03            [ 6]  513 	inc	bc
+   024E AF            [ 4]  514 	xor	a, a
+   024F 02            [ 7]  515 	ld	(bc),a
+   0250 C9            [10]  516 	ret
+                            517 ;src/game.c:181: void cambiarDerecha(TEntity* ent){
+                            518 ;	---------------------------------
+                            519 ; Function cambiarDerecha
+                            520 ; ---------------------------------
+   0251                     521 _cambiarDerecha::
+                            522 ;src/game.c:182: if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 == 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son pares
+   0251 3Ar02r00      [13]  523 	ld	a,(#_mapaActual + 0)
+   0254 D6 06         [ 7]  524 	sub	a, #0x06
+   0256 D0            [11]  525 	ret	NC
+   0257 21r02r00      [10]  526 	ld	hl,#_mapaActual+0
+   025A CB 46         [12]  527 	bit	0, (hl)
+   025C C0            [11]  528 	ret	NZ
+                            529 ;src/game.c:183: mapaActual = cambiarMapa(1,1);
+   025D 21 01 01      [10]  530 	ld	hl,#0x0101
+   0260 E5            [11]  531 	push	hl
+   0261 CDrB1r01      [17]  532 	call	_cambiarMapa
+   0264 F1            [10]  533 	pop	af
+   0265 FD 21r02r00   [14]  534 	ld	iy,#_mapaActual
+   0269 FD 75 00      [19]  535 	ld	0 (iy),l
+                            536 ;src/game.c:184: ent->cuadrante = mapaActual;
+   026C D1            [10]  537 	pop	de
+   026D C1            [10]  538 	pop	bc
+   026E C5            [11]  539 	push	bc
+   026F D5            [11]  540 	push	de
+   0270 21 1C 00      [10]  541 	ld	hl,#0x001C
+   0273 09            [11]  542 	add	hl,bc
+   0274 3Ar02r00      [13]  543 	ld	a,(#_mapaActual + 0)
+   0277 77            [ 7]  544 	ld	(hl),a
+                            545 ;src/game.c:185: updateX(ent,0); //esto es para cambiar la posision del player cuando cambia de mapa.
+   0278 21 00 00      [10]  546 	ld	hl,#0x0000
+   027B E5            [11]  547 	push	hl
+   027C C5            [11]  548 	push	bc
+   027D CDr00r00      [17]  549 	call	_updateX
+   0280 F1            [10]  550 	pop	af
+   0281 F1            [10]  551 	pop	af
+                            552 ;src/game.c:186: aparecerEnemigo();
+   0282 C3r00r00      [10]  553 	jp  _aparecerEnemigo
+                            554 ;src/game.c:190: void cambiarIzquierda(TEntity* ent){
+                            555 ;	---------------------------------
+                            556 ; Function cambiarIzquierda
+                            557 ; ---------------------------------
+   0285                     558 _cambiarIzquierda::
+                            559 ;src/game.c:191: if(mapaActual >= 0 && mapaActual < 6 && mapaActual % 2 != 0){ //pongo a mano el numero de mapas que hay en total y se mueve si son impares
+   0285 3Ar02r00      [13]  560 	ld	a,(#_mapaActual + 0)
+   0288 D6 06         [ 7]  561 	sub	a, #0x06
+   028A D0            [11]  562 	ret	NC
+   028B 21r02r00      [10]  563 	ld	hl,#_mapaActual+0
+   028E CB 46         [12]  564 	bit	0, (hl)
+   0290 C8            [11]  565 	ret	Z
+                            566 ;src/game.c:192: mapaActual = cambiarMapa(0,1);
+   0291 21 00 01      [10]  567 	ld	hl,#0x0100
+   0294 E5            [11]  568 	push	hl
+   0295 CDrB1r01      [17]  569 	call	_cambiarMapa
+   0298 F1            [10]  570 	pop	af
+   0299 FD 21r02r00   [14]  571 	ld	iy,#_mapaActual
+   029D FD 75 00      [19]  572 	ld	0 (iy),l
+                            573 ;src/game.c:193: ent->cuadrante = mapaActual;
+   02A0 D1            [10]  574 	pop	de
+   02A1 C1            [10]  575 	pop	bc
+   02A2 C5            [11]  576 	push	bc
+   02A3 D5            [11]  577 	push	de
+   02A4 21 1C 00      [10]  578 	ld	hl,#0x001C
+   02A7 09            [11]  579 	add	hl,bc
+   02A8 3Ar02r00      [13]  580 	ld	a,(#_mapaActual + 0)
+   02AB 77            [ 7]  581 	ld	(hl),a
+                            582 ;src/game.c:194: updateX(ent,74);//80-6 == ancho del mapa - ancho sprite(en bytes), poner en variables
+   02AC 21 4A 00      [10]  583 	ld	hl,#0x004A
+   02AF E5            [11]  584 	push	hl
+   02B0 C5            [11]  585 	push	bc
+   02B1 CDr00r00      [17]  586 	call	_updateX
+   02B4 F1            [10]  587 	pop	af
+   02B5 F1            [10]  588 	pop	af
+                            589 ;src/game.c:195: aparecerEnemigo();
+   02B6 C3r00r00      [10]  590 	jp  _aparecerEnemigo
+                            591 ;src/game.c:199: void cambiarArriba(TEntity* ent){
+                            592 ;	---------------------------------
+                            593 ; Function cambiarArriba
+                            594 ; ---------------------------------
+   02B9                     595 _cambiarArriba::
+                            596 ;src/game.c:200: if(mapaActual >= 0 && mapaActual < 4){//desde los 4 primeros mapas puedo subir
+   02B9 3Ar02r00      [13]  597 	ld	a,(#_mapaActual + 0)
+   02BC D6 04         [ 7]  598 	sub	a, #0x04
+   02BE D0            [11]  599 	ret	NC
+                            600 ;src/game.c:201: mapaActual = cambiarMapa(1,2);
+   02BF 21 01 02      [10]  601 	ld	hl,#0x0201
+   02C2 E5            [11]  602 	push	hl
+   02C3 CDrB1r01      [17]  603 	call	_cambiarMapa
+   02C6 F1            [10]  604 	pop	af
+   02C7 FD 21r02r00   [14]  605 	ld	iy,#_mapaActual
+   02CB FD 75 00      [19]  606 	ld	0 (iy),l
+                            607 ;src/game.c:202: ent->cuadrante = mapaActual;
+   02CE D1            [10]  608 	pop	de
+   02CF C1            [10]  609 	pop	bc
+   02D0 C5            [11]  610 	push	bc
+   02D1 D5            [11]  611 	push	de
+   02D2 21 1C 00      [10]  612 	ld	hl,#0x001C
+   02D5 09            [11]  613 	add	hl,bc
+   02D6 3Ar02r00      [13]  614 	ld	a,(#_mapaActual + 0)
+   02D9 77            [ 7]  615 	ld	(hl),a
+                            616 ;src/game.c:203: updateY(ent, 188);ent->y = 188;//200-12 == alto del mapa - alto sprite, poner en variables
+   02DA C5            [11]  617 	push	bc
+   02DB 21 BC 00      [10]  618 	ld	hl,#0x00BC
+   02DE E5            [11]  619 	push	hl
+   02DF C5            [11]  620 	push	bc
+   02E0 CDr00r00      [17]  621 	call	_updateY
+   02E3 F1            [10]  622 	pop	af
+   02E4 F1            [10]  623 	pop	af
+   02E5 C1            [10]  624 	pop	bc
+   02E6 03            [ 6]  625 	inc	bc
+   02E7 03            [ 6]  626 	inc	bc
+   02E8 60            [ 4]  627 	ld	h,b
+   02E9 69            [ 4]  628 	ld	l, c
+   02EA 36 BC         [10]  629 	ld	(hl),#0xBC
+   02EC 23            [ 6]  630 	inc	hl
+   02ED 36 00         [10]  631 	ld	(hl),#0x00
+                            632 ;src/game.c:204: aparecerEnemigo();
+   02EF C3r00r00      [10]  633 	jp  _aparecerEnemigo
+                            634 ;src/game.c:209: void cambiarAbajo(TEntity* ent){
+                            635 ;	---------------------------------
+                            636 ; Function cambiarAbajo
+                            637 ; ---------------------------------
+   02F2                     638 _cambiarAbajo::
+                            639 ;src/game.c:210: if(mapaActual > 1 && mapaActual < 6){ //desde los 4 ultimos mapas puedo bajar
+   02F2 3E 01         [ 7]  640 	ld	a,#0x01
+   02F4 FD 21r02r00   [14]  641 	ld	iy,#_mapaActual
+   02F8 FD 96 00      [19]  642 	sub	a, 0 (iy)
+   02FB D0            [11]  643 	ret	NC
+   02FC 3Ar02r00      [13]  644 	ld	a,(#_mapaActual + 0)
+   02FF D6 06         [ 7]  645 	sub	a, #0x06
+   0301 D0            [11]  646 	ret	NC
+                            647 ;src/game.c:211: mapaActual = cambiarMapa(0,2);
+   0302 21 00 02      [10]  648 	ld	hl,#0x0200
+   0305 E5            [11]  649 	push	hl
+   0306 CDrB1r01      [17]  650 	call	_cambiarMapa
+   0309 F1            [10]  651 	pop	af
+   030A FD 21r02r00   [14]  652 	ld	iy,#_mapaActual
+   030E FD 75 00      [19]  653 	ld	0 (iy),l
+                            654 ;src/game.c:212: ent->cuadrante = mapaActual;
+   0311 D1            [10]  655 	pop	de
+   0312 C1            [10]  656 	pop	bc
+   0313 C5            [11]  657 	push	bc
+   0314 D5            [11]  658 	push	de
+   0315 21 1C 00      [10]  659 	ld	hl,#0x001C
+   0318 09            [11]  660 	add	hl,bc
+   0319 3Ar02r00      [13]  661 	ld	a,(#_mapaActual + 0)
+   031C 77            [ 7]  662 	ld	(hl),a
+                            663 ;src/game.c:213: updateY(ent, 40); //en 40 comienza el mapa a pintarse
+   031D 21 28 00      [10]  664 	ld	hl,#0x0028
+   0320 E5            [11]  665 	push	hl
+   0321 C5            [11]  666 	push	bc
+   0322 CDr00r00      [17]  667 	call	_updateY
+   0325 F1            [10]  668 	pop	af
+   0326 F1            [10]  669 	pop	af
+                            670 ;src/game.c:214: aparecerEnemigo();
+   0327 C3r00r00      [10]  671 	jp  _aparecerEnemigo
+                            672 ;src/game.c:218: void updateUser(){
+                            673 ;	---------------------------------
+                            674 ; Function updateUser
+                            675 ; ---------------------------------
+   032A                     676 _updateUser::
+                            677 ;src/game.c:219: TPlayer* p = &player;
+                            678 ;src/game.c:221: cpct_scanKeyboard_if();
+   032A CDr00r00      [17]  679 	call	_cpct_scanKeyboard_if
+                            680 ;src/game.c:222: if(cpct_isAnyKeyPressed()){
+   032D CDr00r00      [17]  681 	call	_cpct_isAnyKeyPressed
+   0330 7D            [ 4]  682 	ld	a, l
+   0331 B7            [ 4]  683 	or	a, a
+   0332 C8            [11]  684 	ret	Z
+                            685 ;src/game.c:223: if(cpct_isKeyPressed(Key_Space)){
+   0333 21 05 80      [10]  686 	ld	hl,#0x8005
+   0336 CDr00r00      [17]  687 	call	_cpct_isKeyPressed
+                            688 ;src/game.c:224: disparar(&player.bullet, player.ent.x, player.ent.y, player.ent.curr_dir);
+                            689 ;src/game.c:223: if(cpct_isKeyPressed(Key_Space)){
+   0339 7D            [ 4]  690 	ld	a,l
+   033A B7            [ 4]  691 	or	a, a
+   033B 28 1A         [12]  692 	jr	Z,00102$
+                            693 ;src/game.c:224: disparar(&player.bullet, player.ent.x, player.ent.y, player.ent.curr_dir);
+   033D 21rFBr00      [10]  694 	ld	hl, #_player + 59
+   0340 4E            [ 7]  695 	ld	c,(hl)
+   0341 ED 5BrE8r00   [20]  696 	ld	de, (#_player + 40)
+   0345 2ArE6r00      [16]  697 	ld	hl, (#(_player + 0x0026) + 0)
+   0348 45            [ 4]  698 	ld	b,l
+   0349 51            [ 4]  699 	ld	d, c
+   034A D5            [11]  700 	push	de
+   034B C5            [11]  701 	push	bc
+   034C 33            [ 6]  702 	inc	sp
+   034D 21rC0r00      [10]  703 	ld	hl,#_player
+   0350 E5            [11]  704 	push	hl
+   0351 CDr00r00      [17]  705 	call	_disparar
+   0354 F1            [10]  706 	pop	af
+   0355 F1            [10]  707 	pop	af
+   0356 33            [ 6]  708 	inc	sp
+   0357                     709 00102$:
+                            710 ;src/game.c:226: if(cpct_isKeyPressed(Key_CursorUp)){
+   0357 21 00 01      [10]  711 	ld	hl,#0x0100
+   035A CDr00r00      [17]  712 	call	_cpct_isKeyPressed
+                            713 ;src/game.c:229: p->bullet.ent.cuadrante = mapaActual;
+                            714 ;src/game.c:227: if(accion(&player.ent, es_mover, d_up) == d_up){
+   035D 01rE6r00      [10]  715 	ld	bc,#(_player + 0x0026)
+                            716 ;src/game.c:229: p->bullet.ent.cuadrante = mapaActual;
+                            717 ;src/game.c:226: if(cpct_isKeyPressed(Key_CursorUp)){
+   0360 7D            [ 4]  718 	ld	a,l
+   0361 B7            [ 4]  719 	or	a, a
+   0362 28 1D         [12]  720 	jr	Z,00123$
+                            721 ;src/game.c:227: if(accion(&player.ent, es_mover, d_up) == d_up){
+   0364 21 01 00      [10]  722 	ld	hl,#0x0001
+   0367 E5            [11]  723 	push	hl
+   0368 C5            [11]  724 	push	bc
+   0369 CDr00r00      [17]  725 	call	_accion
+   036C F1            [10]  726 	pop	af
+   036D F1            [10]  727 	pop	af
+   036E 7D            [ 4]  728 	ld	a,l
+   036F B7            [ 4]  729 	or	a, a
+   0370 C0            [11]  730 	ret	NZ
+                            731 ;src/game.c:228: cambiarArriba(&player.ent);
+   0371 21rE6r00      [10]  732 	ld	hl,#(_player + 0x0026)
+   0374 E5            [11]  733 	push	hl
+   0375 CDrB9r02      [17]  734 	call	_cambiarArriba
+   0378 F1            [10]  735 	pop	af
+                            736 ;src/game.c:229: p->bullet.ent.cuadrante = mapaActual;
+   0379 21rDFr00      [10]  737 	ld	hl,#(_player + 0x001f)
+   037C 3Ar02r00      [13]  738 	ld	a,(#_mapaActual + 0)
+   037F 77            [ 7]  739 	ld	(hl),a
+   0380 C9            [10]  740 	ret
+   0381                     741 00123$:
+                            742 ;src/game.c:231: }else if(cpct_isKeyPressed(Key_CursorDown)){
+   0381 C5            [11]  743 	push	bc
+   0382 21 00 04      [10]  744 	ld	hl,#0x0400
+   0385 CDr00r00      [17]  745 	call	_cpct_isKeyPressed
+   0388 C1            [10]  746 	pop	bc
+   0389 7D            [ 4]  747 	ld	a,l
+   038A B7            [ 4]  748 	or	a, a
+   038B 28 1E         [12]  749 	jr	Z,00120$
+                            750 ;src/game.c:232: if(accion(&player.ent, es_mover, d_down) == d_down){
+   038D 21 01 02      [10]  751 	ld	hl,#0x0201
+   0390 E5            [11]  752 	push	hl
+   0391 C5            [11]  753 	push	bc
+   0392 CDr00r00      [17]  754 	call	_accion
+   0395 F1            [10]  755 	pop	af
+   0396 F1            [10]  756 	pop	af
+   0397 7D            [ 4]  757 	ld	a,l
+   0398 D6 02         [ 7]  758 	sub	a, #0x02
+   039A C0            [11]  759 	ret	NZ
+                            760 ;src/game.c:233: cambiarAbajo(&player.ent);
+   039B 21rE6r00      [10]  761 	ld	hl,#(_player + 0x0026)
+   039E E5            [11]  762 	push	hl
+   039F CDrF2r02      [17]  763 	call	_cambiarAbajo
+   03A2 F1            [10]  764 	pop	af
+                            765 ;src/game.c:234: p->bullet.ent.cuadrante = mapaActual;
+   03A3 21rDFr00      [10]  766 	ld	hl,#(_player + 0x001f)
+   03A6 3Ar02r00      [13]  767 	ld	a,(#_mapaActual + 0)
+   03A9 77            [ 7]  768 	ld	(hl),a
+   03AA C9            [10]  769 	ret
+   03AB                     770 00120$:
+                            771 ;src/game.c:236: }else if(cpct_isKeyPressed(Key_CursorRight)){
+   03AB C5            [11]  772 	push	bc
+   03AC 21 00 02      [10]  773 	ld	hl,#0x0200
+   03AF CDr00r00      [17]  774 	call	_cpct_isKeyPressed
+   03B2 C1            [10]  775 	pop	bc
+   03B3 7D            [ 4]  776 	ld	a,l
+   03B4 B7            [ 4]  777 	or	a, a
+   03B5 28 1C         [12]  778 	jr	Z,00117$
+                            779 ;src/game.c:237: if(accion(&player.ent,es_mover,d_right) == d_right){
+   03B7 21 01 01      [10]  780 	ld	hl,#0x0101
+   03BA E5            [11]  781 	push	hl
+   03BB C5            [11]  782 	push	bc
+   03BC CDr00r00      [17]  783 	call	_accion
+   03BF F1            [10]  784 	pop	af
+   03C0 F1            [10]  785 	pop	af
+   03C1 2D            [ 4]  786 	dec	l
+   03C2 C0            [11]  787 	ret	NZ
+                            788 ;src/game.c:238: cambiarDerecha(&player.ent);
+   03C3 21rE6r00      [10]  789 	ld	hl,#(_player + 0x0026)
+   03C6 E5            [11]  790 	push	hl
+   03C7 CDr51r02      [17]  791 	call	_cambiarDerecha
+   03CA F1            [10]  792 	pop	af
+                            793 ;src/game.c:239: p->bullet.ent.cuadrante = mapaActual;
+   03CB 21rDFr00      [10]  794 	ld	hl,#(_player + 0x001f)
+   03CE 3Ar02r00      [13]  795 	ld	a,(#_mapaActual + 0)
+   03D1 77            [ 7]  796 	ld	(hl),a
+   03D2 C9            [10]  797 	ret
+   03D3                     798 00117$:
+                            799 ;src/game.c:241: }else if(cpct_isKeyPressed(Key_CursorLeft)){
+   03D3 C5            [11]  800 	push	bc
+   03D4 21 01 01      [10]  801 	ld	hl,#0x0101
+   03D7 CDr00r00      [17]  802 	call	_cpct_isKeyPressed
+   03DA C1            [10]  803 	pop	bc
+   03DB 7D            [ 4]  804 	ld	a,l
+   03DC B7            [ 4]  805 	or	a, a
+   03DD 28 1E         [12]  806 	jr	Z,00114$
+                            807 ;src/game.c:242: if(accion(&player.ent,es_mover,d_left) == d_left){
+   03DF 21 01 03      [10]  808 	ld	hl,#0x0301
+   03E2 E5            [11]  809 	push	hl
+   03E3 C5            [11]  810 	push	bc
+   03E4 CDr00r00      [17]  811 	call	_accion
+   03E7 F1            [10]  812 	pop	af
+   03E8 F1            [10]  813 	pop	af
+   03E9 7D            [ 4]  814 	ld	a,l
+   03EA D6 03         [ 7]  815 	sub	a, #0x03
+   03EC C0            [11]  816 	ret	NZ
+                            817 ;src/game.c:243: cambiarIzquierda(&player.ent);
+   03ED 21rE6r00      [10]  818 	ld	hl,#(_player + 0x0026)
+   03F0 E5            [11]  819 	push	hl
+   03F1 CDr85r02      [17]  820 	call	_cambiarIzquierda
+   03F4 F1            [10]  821 	pop	af
+                            822 ;src/game.c:244: p->bullet.ent.cuadrante = mapaActual;
+   03F5 21rDFr00      [10]  823 	ld	hl,#(_player + 0x001f)
+   03F8 3Ar02r00      [13]  824 	ld	a,(#_mapaActual + 0)
+   03FB 77            [ 7]  825 	ld	(hl),a
+   03FC C9            [10]  826 	ret
+   03FD                     827 00114$:
+                            828 ;src/game.c:246: }else if(cpct_isKeyPressed(Key_Esc)){
+   03FD 21 08 04      [10]  829 	ld	hl,#0x0408
+   0400 CDr00r00      [17]  830 	call	_cpct_isKeyPressed
+   0403 7D            [ 4]  831 	ld	a,l
+   0404 B7            [ 4]  832 	or	a, a
+   0405 C8            [11]  833 	ret	Z
+                            834 ;src/game.c:247: salirMenu = 1;
+   0406 21r04r00      [10]  835 	ld	hl,#_salirMenu + 0
+   0409 36 01         [10]  836 	ld	(hl), #0x01
+   040B C9            [10]  837 	ret
+                            838 ;src/game.c:253: u8 checkCollision(TCollision *col1, TCollision *col2){
+                            839 ;	---------------------------------
+                            840 ; Function checkCollision
+                            841 ; ---------------------------------
+   040C                     842 _checkCollision::
+   040C DD E5         [15]  843 	push	ix
+   040E DD 21 00 00   [14]  844 	ld	ix,#0
+   0412 DD 39         [15]  845 	add	ix,sp
+   0414 21 F7 FF      [10]  846 	ld	hl,#-9
+   0417 39            [11]  847 	add	hl,sp
+   0418 F9            [ 6]  848 	ld	sp,hl
+                            849 ;src/game.c:255: if (col1->x < col2->x + col2->w &&
+   0419 DD 7E 04      [19]  850 	ld	a,4 (ix)
+   041C DD 77 FC      [19]  851 	ld	-4 (ix),a
+   041F DD 7E 05      [19]  852 	ld	a,5 (ix)
+   0422 DD 77 FD      [19]  853 	ld	-3 (ix),a
+   0425 DD 6E FC      [19]  854 	ld	l,-4 (ix)
+   0428 DD 66 FD      [19]  855 	ld	h,-3 (ix)
+   042B 4E            [ 7]  856 	ld	c,(hl)
+   042C DD 7E 06      [19]  857 	ld	a,6 (ix)
+   042F DD 77 FA      [19]  858 	ld	-6 (ix),a
+   0432 DD 7E 07      [19]  859 	ld	a,7 (ix)
+   0435 DD 77 FB      [19]  860 	ld	-5 (ix),a
+   0438 DD 6E FA      [19]  861 	ld	l,-6 (ix)
+   043B DD 66 FB      [19]  862 	ld	h,-5 (ix)
+   043E 46            [ 7]  863 	ld	b,(hl)
+   043F DD 70 F8      [19]  864 	ld	-8 (ix),b
+   0442 DD 36 F9 00   [19]  865 	ld	-7 (ix),#0x00
+   0446 DD 6E FA      [19]  866 	ld	l,-6 (ix)
+   0449 DD 66 FB      [19]  867 	ld	h,-5 (ix)
+   044C 23            [ 6]  868 	inc	hl
+   044D 23            [ 6]  869 	inc	hl
+   044E 5E            [ 7]  870 	ld	e,(hl)
+   044F 16 00         [ 7]  871 	ld	d,#0x00
+   0451 DD 6E F8      [19]  872 	ld	l,-8 (ix)
+   0454 DD 66 F9      [19]  873 	ld	h,-7 (ix)
+   0457 19            [11]  874 	add	hl,de
+   0458 DD 71 FE      [19]  875 	ld	-2 (ix),c
+   045B DD 36 FF 00   [19]  876 	ld	-1 (ix),#0x00
+   045F DD 7E FE      [19]  877 	ld	a,-2 (ix)
+   0462 95            [ 4]  878 	sub	a, l
+   0463 DD 7E FF      [19]  879 	ld	a,-1 (ix)
+   0466 9C            [ 4]  880 	sbc	a, h
+   0467 E2r6Cr04      [10]  881 	jp	PO, 00125$
+   046A EE 80         [ 7]  882 	xor	a, #0x80
+   046C                     883 00125$:
+   046C F2r56r05      [10]  884 	jp	P,00102$
+                            885 ;src/game.c:256: col1->x + col1->w > col2->x &&
+   046F DD 6E FC      [19]  886 	ld	l,-4 (ix)
+   0472 DD 66 FD      [19]  887 	ld	h,-3 (ix)
+   0475 23            [ 6]  888 	inc	hl
+   0476 23            [ 6]  889 	inc	hl
+   0477 4E            [ 7]  890 	ld	c,(hl)
+   0478 06 00         [ 7]  891 	ld	b,#0x00
+   047A DD 6E FE      [19]  892 	ld	l,-2 (ix)
+   047D DD 66 FF      [19]  893 	ld	h,-1 (ix)
+   0480 09            [11]  894 	add	hl,bc
+   0481 DD 7E F8      [19]  895 	ld	a,-8 (ix)
+   0484 95            [ 4]  896 	sub	a, l
+   0485 DD 7E F9      [19]  897 	ld	a,-7 (ix)
+   0488 9C            [ 4]  898 	sbc	a, h
+   0489 E2r8Er04      [10]  899 	jp	PO, 00126$
+   048C EE 80         [ 7]  900 	xor	a, #0x80
+   048E                     901 00126$:
+   048E F2r56r05      [10]  902 	jp	P,00102$
+                            903 ;src/game.c:257: col1->y < col2->y + col2->h &&
+   0491 DD 7E FC      [19]  904 	ld	a,-4 (ix)
+   0494 DD 77 FE      [19]  905 	ld	-2 (ix),a
+   0497 DD 7E FD      [19]  906 	ld	a,-3 (ix)
+   049A DD 77 FF      [19]  907 	ld	-1 (ix),a
+   049D DD 6E FE      [19]  908 	ld	l,-2 (ix)
+   04A0 DD 66 FF      [19]  909 	ld	h,-1 (ix)
+   04A3 23            [ 6]  910 	inc	hl
+   04A4 7E            [ 7]  911 	ld	a,(hl)
+   04A5 DD 77 FE      [19]  912 	ld	-2 (ix),a
+   04A8 DD 7E FA      [19]  913 	ld	a,-6 (ix)
+   04AB DD 77 F8      [19]  914 	ld	-8 (ix),a
+   04AE DD 7E FB      [19]  915 	ld	a,-5 (ix)
+   04B1 DD 77 F9      [19]  916 	ld	-7 (ix),a
+   04B4 DD 6E F8      [19]  917 	ld	l,-8 (ix)
+   04B7 DD 66 F9      [19]  918 	ld	h,-7 (ix)
+   04BA 23            [ 6]  919 	inc	hl
+   04BB 7E            [ 7]  920 	ld	a,(hl)
+   04BC DD 77 F8      [19]  921 	ld	-8 (ix), a
+   04BF DD 77 F8      [19]  922 	ld	-8 (ix),a
+   04C2 DD 36 F9 00   [19]  923 	ld	-7 (ix),#0x00
+   04C6 DD 6E FA      [19]  924 	ld	l,-6 (ix)
+   04C9 DD 66 FB      [19]  925 	ld	h,-5 (ix)
+   04CC 23            [ 6]  926 	inc	hl
+   04CD 23            [ 6]  927 	inc	hl
+   04CE 23            [ 6]  928 	inc	hl
+   04CF 7E            [ 7]  929 	ld	a,(hl)
+   04D0 DD 77 FA      [19]  930 	ld	-6 (ix), a
+   04D3 DD 77 FA      [19]  931 	ld	-6 (ix),a
+   04D6 DD 36 FB 00   [19]  932 	ld	-5 (ix),#0x00
+   04DA DD 7E F8      [19]  933 	ld	a,-8 (ix)
+   04DD DD 86 FA      [19]  934 	add	a, -6 (ix)
+   04E0 DD 77 FA      [19]  935 	ld	-6 (ix),a
+   04E3 DD 7E F9      [19]  936 	ld	a,-7 (ix)
+   04E6 DD 8E FB      [19]  937 	adc	a, -5 (ix)
+   04E9 DD 77 FB      [19]  938 	ld	-5 (ix),a
+   04EC DD 7E FE      [19]  939 	ld	a,-2 (ix)
+   04EF DD 77 FE      [19]  940 	ld	-2 (ix),a
+   04F2 DD 36 FF 00   [19]  941 	ld	-1 (ix),#0x00
+   04F6 DD 7E FE      [19]  942 	ld	a,-2 (ix)
+   04F9 DD 96 FA      [19]  943 	sub	a, -6 (ix)
+   04FC DD 7E FF      [19]  944 	ld	a,-1 (ix)
+   04FF DD 9E FB      [19]  945 	sbc	a, -5 (ix)
+   0502 E2r07r05      [10]  946 	jp	PO, 00127$
+   0505 EE 80         [ 7]  947 	xor	a, #0x80
+   0507                     948 00127$:
+   0507 F2r56r05      [10]  949 	jp	P,00102$
+                            950 ;src/game.c:258: col1->h + col1->y > col2->y) {
+   050A DD 7E FC      [19]  951 	ld	a,-4 (ix)
+   050D DD 77 FA      [19]  952 	ld	-6 (ix),a
+   0510 DD 7E FD      [19]  953 	ld	a,-3 (ix)
+   0513 DD 77 FB      [19]  954 	ld	-5 (ix),a
+   0516 DD 6E FA      [19]  955 	ld	l,-6 (ix)
+   0519 DD 66 FB      [19]  956 	ld	h,-5 (ix)
+   051C 23            [ 6]  957 	inc	hl
+   051D 23            [ 6]  958 	inc	hl
+   051E 23            [ 6]  959 	inc	hl
+   051F 7E            [ 7]  960 	ld	a,(hl)
+   0520 DD 77 FA      [19]  961 	ld	-6 (ix), a
+   0523 DD 77 FA      [19]  962 	ld	-6 (ix),a
+   0526 DD 36 FB 00   [19]  963 	ld	-5 (ix),#0x00
+   052A DD 7E FA      [19]  964 	ld	a,-6 (ix)
+   052D DD 86 FE      [19]  965 	add	a, -2 (ix)
+   0530 DD 77 FE      [19]  966 	ld	-2 (ix),a
+   0533 DD 7E FB      [19]  967 	ld	a,-5 (ix)
+   0536 DD 8E FF      [19]  968 	adc	a, -1 (ix)
+   0539 DD 77 FF      [19]  969 	ld	-1 (ix),a
+   053C DD 7E F8      [19]  970 	ld	a,-8 (ix)
+   053F DD 96 FE      [19]  971 	sub	a, -2 (ix)
+   0542 DD 7E F9      [19]  972 	ld	a,-7 (ix)
+   0545 DD 9E FF      [19]  973 	sbc	a, -1 (ix)
+   0548 E2r4Dr05      [10]  974 	jp	PO, 00128$
+   054B EE 80         [ 7]  975 	xor	a, #0x80
+   054D                     976 00128$:
+   054D F2r56r05      [10]  977 	jp	P,00102$
+                            978 ;src/game.c:260: collide = 1;
+   0550 DD 36 F7 01   [19]  979 	ld	-9 (ix),#0x01
+   0554 18 04         [12]  980 	jr	00103$
+   0556                     981 00102$:
+                            982 ;src/game.c:262: collide = 0;
+   0556 DD 36 F7 00   [19]  983 	ld	-9 (ix),#0x00
+   055A                     984 00103$:
+                            985 ;src/game.c:266: return collide;
+   055A DD 6E F7      [19]  986 	ld	l,-9 (ix)
+   055D DD F9         [10]  987 	ld	sp, ix
+   055F DD E1         [14]  988 	pop	ix
+   0561 C9            [10]  989 	ret
+                            990 ;src/game.c:269: void calculaColisiones(){
+                            991 ;	---------------------------------
+                            992 ; Function calculaColisiones
+                            993 ; ---------------------------------
+   0562                     994 _calculaColisiones::
+   0562 DD E5         [15]  995 	push	ix
+   0564 DD 21 00 00   [14]  996 	ld	ix,#0
+   0568 DD 39         [15]  997 	add	ix,sp
+   056A 21 F5 FF      [10]  998 	ld	hl,#-11
+   056D 39            [11]  999 	add	hl,sp
+   056E F9            [ 6] 1000 	ld	sp,hl
+                           1001 ;src/game.c:275: p = &player;
+                           1002 ;src/game.c:276: enemigos = getEnemies();
+   056F CDr00r00      [17] 1003 	call	_getEnemies
+   0572 DD 75 F6      [19] 1004 	ld	-10 (ix),l
+   0575 DD 74 F7      [19] 1005 	ld	-9 (ix),h
+                           1006 ;src/game.c:277: bases = getBases();
+   0578 CDr00r00      [17] 1007 	call	_getBases
+   057B DD 75 F8      [19] 1008 	ld	-8 (ix),l
+   057E DD 74 F9      [19] 1009 	ld	-7 (ix),h
+                           1010 ;src/game.c:279: for(i=0;i<NUM_ENEMIGOS;++i){
+   0581 DD 36 F5 00   [19] 1011 	ld	-11 (ix),#0x00
+   0585 DD 36 FE 00   [19] 1012 	ld	-2 (ix),#0x00
+   0589 DD 36 FF 00   [19] 1013 	ld	-1 (ix),#0x00
+   058D DD 36 FC 00   [19] 1014 	ld	-4 (ix),#0x00
+   0591 DD 36 FD 00   [19] 1015 	ld	-3 (ix),#0x00
+   0595                    1016 00131$:
+                           1017 ;src/game.c:280: if(mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+   0595 DD 7E F6      [19] 1018 	ld	a,-10 (ix)
+   0598 DD 86 FC      [19] 1019 	add	a, -4 (ix)
+   059B DD 77 FA      [19] 1020 	ld	-6 (ix),a
+   059E DD 7E F7      [19] 1021 	ld	a,-9 (ix)
+   05A1 DD 8E FD      [19] 1022 	adc	a, -3 (ix)
+   05A4 DD 77 FB      [19] 1023 	ld	-5 (ix),a
+   05A7 DD 6E FA      [19] 1024 	ld	l,-6 (ix)
+   05AA DD 66 FB      [19] 1025 	ld	h,-5 (ix)
+   05AD 11 42 00      [10] 1026 	ld	de, #0x0042
+   05B0 19            [11] 1027 	add	hl, de
+   05B1 4E            [ 7] 1028 	ld	c,(hl)
+   05B2 3Ar02r00      [13] 1029 	ld	a,(#_mapaActual + 0)
+   05B5 91            [ 4] 1030 	sub	a, c
+   05B6 20 32         [12] 1031 	jr	NZ,00104$
+   05B8 DD 6E FA      [19] 1032 	ld	l,-6 (ix)
+   05BB DD 66 FB      [19] 1033 	ld	h,-5 (ix)
+   05BE 11 41 00      [10] 1034 	ld	de, #0x0041
+   05C1 19            [11] 1035 	add	hl, de
+   05C2 4E            [ 7] 1036 	ld	c,(hl)
+   05C3 0D            [ 4] 1037 	dec	c
+   05C4 20 24         [12] 1038 	jr	NZ,00104$
+                           1039 ;src/game.c:281: collide = checkCollision(&player.ent.coll, &enemigos[i].ent.coll);
+   05C6 DD 7E FA      [19] 1040 	ld	a,-6 (ix)
+   05C9 C6 3D         [ 7] 1041 	add	a, #0x3D
+   05CB 4F            [ 4] 1042 	ld	c,a
+   05CC DD 7E FB      [19] 1043 	ld	a,-5 (ix)
+   05CF CE 00         [ 7] 1044 	adc	a, #0x00
+   05D1 47            [ 4] 1045 	ld	b,a
+   05D2 C5            [11] 1046 	push	bc
+   05D3 21rFDr00      [10] 1047 	ld	hl,#(_player + 0x003d)
+   05D6 E5            [11] 1048 	push	hl
+   05D7 CDr0Cr04      [17] 1049 	call	_checkCollision
+   05DA F1            [10] 1050 	pop	af
+   05DB F1            [10] 1051 	pop	af
+                           1052 ;src/game.c:282: if(collide){
+   05DC 7D            [ 4] 1053 	ld	a,l
+   05DD B7            [ 4] 1054 	or	a, a
+   05DE 28 0A         [12] 1055 	jr	Z,00104$
+                           1056 ;src/game.c:283: playerHerido(&player);
+   05E0 21rC0r00      [10] 1057 	ld	hl,#_player
+   05E3 E5            [11] 1058 	push	hl
+   05E4 CDr00r00      [17] 1059 	call	_playerHerido
+   05E7 F1            [10] 1060 	pop	af
+                           1061 ;src/game.c:284: break;
+   05E8 18 73         [12] 1062 	jr	00112$
+   05EA                    1063 00104$:
+                           1064 ;src/game.c:287: if(enemigos[i].ent.vivo == 1 && enemigos[i].bullet.ent.cuadrante == mapaActual && enemigos[i].bullet.ent.vivo){
+   05EA DD 7E F6      [19] 1065 	ld	a,-10 (ix)
+   05ED DD 86 FE      [19] 1066 	add	a, -2 (ix)
+   05F0 4F            [ 4] 1067 	ld	c,a
+   05F1 DD 7E F7      [19] 1068 	ld	a,-9 (ix)
+   05F4 DD 8E FF      [19] 1069 	adc	a, -1 (ix)
+   05F7 47            [ 4] 1070 	ld	b,a
+   05F8 C5            [11] 1071 	push	bc
+   05F9 FD E1         [14] 1072 	pop	iy
+   05FB FD 5E 41      [19] 1073 	ld	e,65 (iy)
+   05FE 1D            [ 4] 1074 	dec	e
+   05FF 20 31         [12] 1075 	jr	NZ,00132$
+   0601 C5            [11] 1076 	push	bc
+   0602 FD E1         [14] 1077 	pop	iy
+   0604 FD 5E 1F      [19] 1078 	ld	e,31 (iy)
+   0607 3Ar02r00      [13] 1079 	ld	a,(#_mapaActual + 0)
+   060A 93            [ 4] 1080 	sub	a, e
+   060B 20 25         [12] 1081 	jr	NZ,00132$
+   060D C5            [11] 1082 	push	bc
+   060E FD E1         [14] 1083 	pop	iy
+   0610 FD 7E 1E      [19] 1084 	ld	a,30 (iy)
+   0613 B7            [ 4] 1085 	or	a, a
+   0614 28 1C         [12] 1086 	jr	Z,00132$
+                           1087 ;src/game.c:289: collide = checkCollision(&enemigos[i].bullet.ent.coll, &player.ent.coll);
+   0616 21 1A 00      [10] 1088 	ld	hl,#0x001A
+   0619 09            [11] 1089 	add	hl,bc
+   061A 01rFDr00      [10] 1090 	ld	bc,#(_player + 0x003d)
+   061D C5            [11] 1091 	push	bc
+   061E E5            [11] 1092 	push	hl
+   061F CDr0Cr04      [17] 1093 	call	_checkCollision
+   0622 F1            [10] 1094 	pop	af
+   0623 F1            [10] 1095 	pop	af
+                           1096 ;src/game.c:290: if(collide){
+   0624 7D            [ 4] 1097 	ld	a,l
+   0625 B7            [ 4] 1098 	or	a, a
+   0626 28 0A         [12] 1099 	jr	Z,00132$
+                           1100 ;src/game.c:291: playerHerido(&player);
+   0628 21rC0r00      [10] 1101 	ld	hl,#_player
+   062B E5            [11] 1102 	push	hl
+   062C CDr00r00      [17] 1103 	call	_playerHerido
+   062F F1            [10] 1104 	pop	af
+                           1105 ;src/game.c:292: break;
+   0630 18 2B         [12] 1106 	jr	00112$
+   0632                    1107 00132$:
+                           1108 ;src/game.c:279: for(i=0;i<NUM_ENEMIGOS;++i){
+   0632 DD 7E FE      [19] 1109 	ld	a,-2 (ix)
+   0635 C6 4E         [ 7] 1110 	add	a, #0x4E
+   0637 DD 77 FE      [19] 1111 	ld	-2 (ix),a
+   063A DD 7E FF      [19] 1112 	ld	a,-1 (ix)
+   063D CE 00         [ 7] 1113 	adc	a, #0x00
+   063F DD 77 FF      [19] 1114 	ld	-1 (ix),a
+   0642 DD 7E FC      [19] 1115 	ld	a,-4 (ix)
+   0645 C6 4E         [ 7] 1116 	add	a, #0x4E
+   0647 DD 77 FC      [19] 1117 	ld	-4 (ix),a
+   064A DD 7E FD      [19] 1118 	ld	a,-3 (ix)
+   064D CE 00         [ 7] 1119 	adc	a, #0x00
+   064F DD 77 FD      [19] 1120 	ld	-3 (ix),a
+   0652 DD 34 F5      [23] 1121 	inc	-11 (ix)
+   0655 DD 7E F5      [19] 1122 	ld	a,-11 (ix)
+   0658 D6 03         [ 7] 1123 	sub	a, #0x03
+   065A DAr95r05      [10] 1124 	jp	C,00131$
+   065D                    1125 00112$:
+                           1126 ;src/game.c:298: if(player.bullet.ent.vivo == SI){
+   065D 21rDEr00      [10] 1127 	ld	hl, #_player + 30
+   0660 4E            [ 7] 1128 	ld	c,(hl)
+                           1129 ;src/game.c:310: p->puntuacion = p->puntuacion + 100;
+                           1130 ;src/game.c:298: if(player.bullet.ent.vivo == SI){
+   0661 0D            [ 4] 1131 	dec	c
+   0662 C2r3Er07      [10] 1132 	jp	NZ,00120$
+                           1133 ;src/game.c:300: for(i=0;i<NUM_ENEMIGOS;++i){
+   0665 DD 36 F5 00   [19] 1134 	ld	-11 (ix),#0x00
+   0669 DD 36 FA 00   [19] 1135 	ld	-6 (ix),#0x00
+   066D DD 36 FB 00   [19] 1136 	ld	-5 (ix),#0x00
+   0671                    1137 00133$:
+                           1138 ;src/game.c:301: if(mapaActual == enemigos[i].ent.cuadrante && enemigos[i].ent.vivo == 1){
+   0671 DD 7E F6      [19] 1139 	ld	a,-10 (ix)
+   0674 DD 86 FA      [19] 1140 	add	a, -6 (ix)
+   0677 4F            [ 4] 1141 	ld	c,a
+   0678 DD 7E F7      [19] 1142 	ld	a,-9 (ix)
+   067B DD 8E FB      [19] 1143 	adc	a, -5 (ix)
+   067E 47            [ 4] 1144 	ld	b,a
+   067F 21 26 00      [10] 1145 	ld	hl,#0x0026
+   0682 09            [11] 1146 	add	hl,bc
+   0683 EB            [ 4] 1147 	ex	de,hl
+   0684 C5            [11] 1148 	push	bc
+   0685 FD E1         [14] 1149 	pop	iy
+   0687 FD 7E 42      [19] 1150 	ld	a,66 (iy)
+   068A DD 77 FC      [19] 1151 	ld	-4 (ix),a
+   068D 3Ar02r00      [13] 1152 	ld	a,(#_mapaActual + 0)
+   0690 DD 96 FC      [19] 1153 	sub	a, -4 (ix)
+   0693 C2r23r07      [10] 1154 	jp	NZ,00134$
+   0696 21 41 00      [10] 1155 	ld	hl,#0x0041
+   0699 09            [11] 1156 	add	hl,bc
+   069A DD 75 FC      [19] 1157 	ld	-4 (ix),l
+   069D DD 74 FD      [19] 1158 	ld	-3 (ix),h
+   06A0 DD 6E FC      [19] 1159 	ld	l,-4 (ix)
+   06A3 DD 66 FD      [19] 1160 	ld	h,-3 (ix)
+   06A6 6E            [ 7] 1161 	ld	l,(hl)
+   06A7 2D            [ 4] 1162 	dec	l
+   06A8 20 79         [12] 1163 	jr	NZ,00134$
+                           1164 ;src/game.c:302: collide = checkCollision(&player.bullet.ent.coll, &enemigos[i].ent.coll);
+   06AA 21 3D 00      [10] 1165 	ld	hl,#0x003D
+   06AD 09            [11] 1166 	add	hl,bc
+   06AE C5            [11] 1167 	push	bc
+   06AF D5            [11] 1168 	push	de
+   06B0 E5            [11] 1169 	push	hl
+   06B1 21rDAr00      [10] 1170 	ld	hl,#(_player + 0x001a)
+   06B4 E5            [11] 1171 	push	hl
+   06B5 CDr0Cr04      [17] 1172 	call	_checkCollision
+   06B8 F1            [10] 1173 	pop	af
+   06B9 F1            [10] 1174 	pop	af
+   06BA D1            [10] 1175 	pop	de
+   06BB C1            [10] 1176 	pop	bc
+                           1177 ;src/game.c:303: if(collide){
+   06BC 7D            [ 4] 1178 	ld	a,l
+   06BD B7            [ 4] 1179 	or	a, a
+   06BE 28 63         [12] 1180 	jr	Z,00134$
+                           1181 ;src/game.c:305: explosionBala(&player.bullet);
+   06C0 C5            [11] 1182 	push	bc
+   06C1 D5            [11] 1183 	push	de
+   06C2 21rC0r00      [10] 1184 	ld	hl,#_player
+   06C5 E5            [11] 1185 	push	hl
+   06C6 CDr00r00      [17] 1186 	call	_explosionBala
+   06C9 F1            [10] 1187 	pop	af
+   06CA CDr00r00      [17] 1188 	call	_restarEnemigo
+   06CD D1            [10] 1189 	pop	de
+   06CE D5            [11] 1190 	push	de
+   06CF 3E 01         [ 7] 1191 	ld	a,#0x01
+   06D1 F5            [11] 1192 	push	af
+   06D2 33            [ 6] 1193 	inc	sp
+   06D3 D5            [11] 1194 	push	de
+   06D4 CDr00r00      [17] 1195 	call	_calculaEntity
+   06D7 F1            [10] 1196 	pop	af
+   06D8 33            [ 6] 1197 	inc	sp
+   06D9 D1            [10] 1198 	pop	de
+   06DA C1            [10] 1199 	pop	bc
+                           1200 ;src/game.c:308: enemigos[i].ent.draw = SI;
+   06DB 21 30 00      [10] 1201 	ld	hl,#0x0030
+   06DE 09            [11] 1202 	add	hl,bc
+   06DF DD 75 FE      [19] 1203 	ld	-2 (ix),l
+   06E2 DD 74 FF      [19] 1204 	ld	-1 (ix),h
+   06E5 DD 6E FE      [19] 1205 	ld	l,-2 (ix)
+   06E8 DD 66 FF      [19] 1206 	ld	h,-1 (ix)
+   06EB 36 01         [10] 1207 	ld	(hl),#0x01
+                           1208 ;src/game.c:309: borrarEntity(&enemigos[i].ent);
+   06ED C5            [11] 1209 	push	bc
+   06EE D5            [11] 1210 	push	de
+   06EF CDr00r00      [17] 1211 	call	_borrarEntity
+   06F2 F1            [10] 1212 	pop	af
+   06F3 C1            [10] 1213 	pop	bc
+                           1214 ;src/game.c:310: p->puntuacion = p->puntuacion + 100;
+   06F4 ED 5Br0Br01   [20] 1215 	ld	de, (#(_player + 0x004b) + 0)
+   06F8 21 64 00      [10] 1216 	ld	hl,#0x0064
+   06FB 19            [11] 1217 	add	hl,de
+   06FC 5D            [ 4] 1218 	ld	e,l
+   06FD 54            [ 4] 1219 	ld	d,h
+   06FE ED 53r0Br01   [20] 1220 	ld	((_player + 0x004b)), de
+                           1221 ;src/game.c:311: enemigos[i].ent.vivo = 0;
+   0702 DD 6E FC      [19] 1222 	ld	l,-4 (ix)
+   0705 DD 66 FD      [19] 1223 	ld	h,-3 (ix)
+   0708 36 00         [10] 1224 	ld	(hl),#0x00
+                           1225 ;src/game.c:312: enemigos[i].ent.draw = NO;
+   070A DD 6E FE      [19] 1226 	ld	l,-2 (ix)
+   070D DD 66 FF      [19] 1227 	ld	h,-1 (ix)
+   0710 36 00         [10] 1228 	ld	(hl),#0x00
+                           1229 ;src/game.c:313: enemigos[i].bullet.ent.vivo = NO;
+   0712 21 1E 00      [10] 1230 	ld	hl,#0x001E
+   0715 09            [11] 1231 	add	hl,bc
+   0716 36 00         [10] 1232 	ld	(hl),#0x00
+                           1233 ;src/game.c:314: enemigos[i].bullet.ent.draw = NO;
+   0718 21 0D 00      [10] 1234 	ld	hl,#0x000D
+   071B 09            [11] 1235 	add	hl,bc
+   071C 36 00         [10] 1236 	ld	(hl),#0x00
+                           1237 ;src/game.c:316: resetearTimepoEnMapa();
+   071E CDr00r00      [17] 1238 	call	_resetearTimepoEnMapa
+                           1239 ;src/game.c:317: break;
+   0721 18 1B         [12] 1240 	jr	00120$
+   0723                    1241 00134$:
+                           1242 ;src/game.c:300: for(i=0;i<NUM_ENEMIGOS;++i){
+   0723 DD 7E FA      [19] 1243 	ld	a,-6 (ix)
+   0726 C6 4E         [ 7] 1244 	add	a, #0x4E
+   0728 DD 77 FA      [19] 1245 	ld	-6 (ix),a
+   072B DD 7E FB      [19] 1246 	ld	a,-5 (ix)
+   072E CE 00         [ 7] 1247 	adc	a, #0x00
+   0730 DD 77 FB      [19] 1248 	ld	-5 (ix),a
+   0733 DD 34 F5      [23] 1249 	inc	-11 (ix)
+   0736 DD 7E F5      [19] 1250 	ld	a,-11 (ix)
+   0739 D6 03         [ 7] 1251 	sub	a, #0x03
+   073B DAr71r06      [10] 1252 	jp	C,00133$
+   073E                    1253 00120$:
+                           1254 ;src/game.c:326: collide = checkCollision(&player.ent.coll, &bases[mapaActual].ent.coll);
+   073E ED 4Br02r00   [20] 1255 	ld	bc,(_mapaActual)
+   0742 06 00         [ 7] 1256 	ld	b,#0x00
+   0744 69            [ 4] 1257 	ld	l, c
+   0745 60            [ 4] 1258 	ld	h, b
+   0746 29            [11] 1259 	add	hl, hl
+   0747 29            [11] 1260 	add	hl, hl
+   0748 29            [11] 1261 	add	hl, hl
+   0749 09            [11] 1262 	add	hl, bc
+   074A 29            [11] 1263 	add	hl, hl
+   074B 09            [11] 1264 	add	hl, bc
+   074C 29            [11] 1265 	add	hl, hl
+   074D 09            [11] 1266 	add	hl, bc
+   074E DD 5E F8      [19] 1267 	ld	e,-8 (ix)
+   0751 DD 56 F9      [19] 1268 	ld	d,-7 (ix)
+   0754 19            [11] 1269 	add	hl,de
+   0755 01 1B 00      [10] 1270 	ld	bc,#0x001B
+   0758 09            [11] 1271 	add	hl,bc
+   0759 E5            [11] 1272 	push	hl
+   075A 21rFDr00      [10] 1273 	ld	hl,#(_player + 0x003d)
+   075D E5            [11] 1274 	push	hl
+   075E CDr0Cr04      [17] 1275 	call	_checkCollision
+   0761 F1            [10] 1276 	pop	af
+   0762 F1            [10] 1277 	pop	af
+                           1278 ;src/game.c:328: if(collide){
+   0763 7D            [ 4] 1279 	ld	a, l
+   0764 B7            [ 4] 1280 	or	a, a
+   0765 CAr68r08      [10] 1281 	jp	Z,00135$
+                           1282 ;src/game.c:329: bases[mapaActual].ent.draw = SI;
+   0768 ED 4Br02r00   [20] 1283 	ld	bc,(_mapaActual)
+   076C 06 00         [ 7] 1284 	ld	b,#0x00
+   076E 69            [ 4] 1285 	ld	l, c
+   076F 60            [ 4] 1286 	ld	h, b
+   0770 29            [11] 1287 	add	hl, hl
+   0771 29            [11] 1288 	add	hl, hl
+   0772 29            [11] 1289 	add	hl, hl
+   0773 09            [11] 1290 	add	hl, bc
+   0774 29            [11] 1291 	add	hl, hl
+   0775 09            [11] 1292 	add	hl, bc
+   0776 29            [11] 1293 	add	hl, hl
+   0777 09            [11] 1294 	add	hl, bc
+   0778 DD 5E F8      [19] 1295 	ld	e,-8 (ix)
+   077B DD 56 F9      [19] 1296 	ld	d,-7 (ix)
+   077E 19            [11] 1297 	add	hl,de
+   077F 01 0E 00      [10] 1298 	ld	bc,#0x000E
+   0782 09            [11] 1299 	add	hl,bc
+   0783 36 01         [10] 1300 	ld	(hl),#0x01
+                           1301 ;src/game.c:330: p->ent.draw = SI;
+   0785 21rF0r00      [10] 1302 	ld	hl,#(_player + 0x0030)
+   0788 36 01         [10] 1303 	ld	(hl),#0x01
+                           1304 ;src/game.c:333: if(bases[mapaActual].whom == 1){
+   078A ED 4Br02r00   [20] 1305 	ld	bc,(_mapaActual)
+   078E 06 00         [ 7] 1306 	ld	b,#0x00
+   0790 69            [ 4] 1307 	ld	l, c
+   0791 60            [ 4] 1308 	ld	h, b
+   0792 29            [11] 1309 	add	hl, hl
+   0793 29            [11] 1310 	add	hl, hl
+   0794 29            [11] 1311 	add	hl, hl
+   0795 09            [11] 1312 	add	hl, bc
+   0796 29            [11] 1313 	add	hl, hl
+   0797 09            [11] 1314 	add	hl, bc
+   0798 29            [11] 1315 	add	hl, hl
+   0799 09            [11] 1316 	add	hl, bc
+   079A DD 5E F8      [19] 1317 	ld	e,-8 (ix)
+   079D DD 56 F9      [19] 1318 	ld	d,-7 (ix)
+   07A0 19            [11] 1319 	add	hl,de
+   07A1 4E            [ 7] 1320 	ld	c,(hl)
+   07A2 0D            [ 4] 1321 	dec	c
+   07A3 C2r68r08      [10] 1322 	jp	NZ,00135$
+                           1323 ;src/game.c:335: bases[mapaActual].cycles++;
+   07A6 23            [ 6] 1324 	inc	hl
+   07A7 23            [ 6] 1325 	inc	hl
+   07A8 23            [ 6] 1326 	inc	hl
+   07A9 4E            [ 7] 1327 	ld	c,(hl)
+   07AA 0C            [ 4] 1328 	inc	c
+   07AB 71            [ 7] 1329 	ld	(hl),c
+                           1330 ;src/game.c:336: if(bases[mapaActual].cycles >= bases[mapaActual].waitCycles){
+   07AC ED 4Br02r00   [20] 1331 	ld	bc,(_mapaActual)
+   07B0 06 00         [ 7] 1332 	ld	b,#0x00
+   07B2 69            [ 4] 1333 	ld	l, c
+   07B3 60            [ 4] 1334 	ld	h, b
+   07B4 29            [11] 1335 	add	hl, hl
+   07B5 29            [11] 1336 	add	hl, hl
+   07B6 29            [11] 1337 	add	hl, hl
+   07B7 09            [11] 1338 	add	hl, bc
+   07B8 29            [11] 1339 	add	hl, hl
+   07B9 09            [11] 1340 	add	hl, bc
+   07BA 29            [11] 1341 	add	hl, hl
+   07BB 09            [11] 1342 	add	hl, bc
+   07BC 7D            [ 4] 1343 	ld	a,l
+   07BD DD 86 F8      [19] 1344 	add	a, -8 (ix)
+   07C0 4F            [ 4] 1345 	ld	c,a
+   07C1 7C            [ 4] 1346 	ld	a,h
+   07C2 DD 8E F9      [19] 1347 	adc	a, -7 (ix)
+   07C5 47            [ 4] 1348 	ld	b,a
+   07C6 69            [ 4] 1349 	ld	l, c
+   07C7 60            [ 4] 1350 	ld	h, b
+   07C8 23            [ 6] 1351 	inc	hl
+   07C9 23            [ 6] 1352 	inc	hl
+   07CA 23            [ 6] 1353 	inc	hl
+   07CB 5E            [ 7] 1354 	ld	e,(hl)
+   07CC 69            [ 4] 1355 	ld	l, c
+   07CD 60            [ 4] 1356 	ld	h, b
+   07CE 23            [ 6] 1357 	inc	hl
+   07CF 23            [ 6] 1358 	inc	hl
+   07D0 4E            [ 7] 1359 	ld	c,(hl)
+   07D1 7B            [ 4] 1360 	ld	a,e
+   07D2 91            [ 4] 1361 	sub	a, c
+   07D3 DAr68r08      [10] 1362 	jp	C,00135$
+                           1363 ;src/game.c:338: basesCapturadas++; //Aumentamos la cuenta de bases capturadas
+   07D6 FD 21r05r00   [14] 1364 	ld	iy,#_basesCapturadas
+   07DA FD 34 00      [23] 1365 	inc	0 (iy)
+                           1366 ;src/game.c:340: if(wshot_cycles >= 5)
+   07DD 3Ar07r00      [13] 1367 	ld	a,(#_wshot_cycles + 0)
+   07E0 D6 05         [ 7] 1368 	sub	a, #0x05
+   07E2 38 07         [12] 1369 	jr	C,00122$
+                           1370 ;src/game.c:341: wshot_cycles -= 7;
+   07E4 21r07r00      [10] 1371 	ld	hl,#_wshot_cycles
+   07E7 7E            [ 7] 1372 	ld	a,(hl)
+   07E8 C6 F9         [ 7] 1373 	add	a,#0xF9
+   07EA 77            [ 7] 1374 	ld	(hl),a
+   07EB                    1375 00122$:
+                           1376 ;src/game.c:342: p->puntuacion = p->puntuacion + 500;
+   07EB ED 4Br0Br01   [20] 1377 	ld	bc, (#(_player + 0x004b) + 0)
+   07EF 21 F4 01      [10] 1378 	ld	hl,#0x01F4
+   07F2 09            [11] 1379 	add	hl,bc
+   07F3 4D            [ 4] 1380 	ld	c,l
+   07F4 44            [ 4] 1381 	ld	b,h
+   07F5 ED 43r0Br01   [20] 1382 	ld	((_player + 0x004b)), bc
+                           1383 ;src/game.c:343: bases[mapaActual].whom = 0;
+   07F9 ED 4Br02r00   [20] 1384 	ld	bc,(_mapaActual)
+   07FD 06 00         [ 7] 1385 	ld	b,#0x00
+   07FF 69            [ 4] 1386 	ld	l, c
+   0800 60            [ 4] 1387 	ld	h, b
+   0801 29            [11] 1388 	add	hl, hl
+   0802 29            [11] 1389 	add	hl, hl
+   0803 29            [11] 1390 	add	hl, hl
+   0804 09            [11] 1391 	add	hl, bc
+   0805 29            [11] 1392 	add	hl, hl
+   0806 09            [11] 1393 	add	hl, bc
+   0807 29            [11] 1394 	add	hl, hl
+   0808 09            [11] 1395 	add	hl, bc
+   0809 DD 5E F8      [19] 1396 	ld	e,-8 (ix)
+   080C DD 56 F9      [19] 1397 	ld	d,-7 (ix)
+   080F 19            [11] 1398 	add	hl,de
+   0810 36 00         [10] 1399 	ld	(hl),#0x00
+                           1400 ;src/game.c:344: bases[mapaActual].ent.sprites[0] = g_capturada;
+   0812 ED 4Br02r00   [20] 1401 	ld	bc,(_mapaActual)
+   0816 06 00         [ 7] 1402 	ld	b,#0x00
+   0818 69            [ 4] 1403 	ld	l, c
+   0819 60            [ 4] 1404 	ld	h, b
+   081A 29            [11] 1405 	add	hl, hl
+   081B 29            [11] 1406 	add	hl, hl
+   081C 29            [11] 1407 	add	hl, hl
+   081D 09            [11] 1408 	add	hl, bc
+   081E 29            [11] 1409 	add	hl, hl
+   081F 09            [11] 1410 	add	hl, bc
+   0820 29            [11] 1411 	add	hl, hl
+   0821 09            [11] 1412 	add	hl, bc
+   0822 DD 5E F8      [19] 1413 	ld	e,-8 (ix)
+   0825 DD 56 F9      [19] 1414 	ld	d,-7 (ix)
+   0828 19            [11] 1415 	add	hl,de
+   0829 01 0F 00      [10] 1416 	ld	bc,#0x000F
+   082C 09            [11] 1417 	add	hl,bc
+   082D 01r00r00      [10] 1418 	ld	bc,#_g_capturada+0
+   0830 71            [ 7] 1419 	ld	(hl),c
+   0831 23            [ 6] 1420 	inc	hl
+   0832 70            [ 7] 1421 	ld	(hl),b
+                           1422 ;src/game.c:345: bases[mapaActual].ent.draw = SI;
+   0833 ED 4Br02r00   [20] 1423 	ld	bc,(_mapaActual)
+   0837 06 00         [ 7] 1424 	ld	b,#0x00
+   0839 69            [ 4] 1425 	ld	l, c
+   083A 60            [ 4] 1426 	ld	h, b
+   083B 29            [11] 1427 	add	hl, hl
+   083C 29            [11] 1428 	add	hl, hl
+   083D 29            [11] 1429 	add	hl, hl
+   083E 09            [11] 1430 	add	hl, bc
+   083F 29            [11] 1431 	add	hl, hl
+   0840 09            [11] 1432 	add	hl, bc
+   0841 29            [11] 1433 	add	hl, hl
+   0842 09            [11] 1434 	add	hl, bc
+   0843 DD 5E F8      [19] 1435 	ld	e,-8 (ix)
+   0846 DD 56 F9      [19] 1436 	ld	d,-7 (ix)
+   0849 19            [11] 1437 	add	hl,de
+   084A 01 0E 00      [10] 1438 	ld	bc,#0x000E
+   084D 09            [11] 1439 	add	hl,bc
+   084E 36 01         [10] 1440 	ld	(hl),#0x01
+                           1441 ;src/game.c:346: if(p->vida + 1 <= 3){
+   0850 21r09r01      [10] 1442 	ld	hl,#_player + 73
+   0853 4E            [ 7] 1443 	ld	c,(hl)
+   0854 59            [ 4] 1444 	ld	e,c
+   0855 16 00         [ 7] 1445 	ld	d,#0x00
+   0857 13            [ 6] 1446 	inc	de
+   0858 3E 03         [ 7] 1447 	ld	a,#0x03
+   085A BB            [ 4] 1448 	cp	a, e
+   085B 3E 00         [ 7] 1449 	ld	a,#0x00
+   085D 9A            [ 4] 1450 	sbc	a, d
+   085E E2r63r08      [10] 1451 	jp	PO, 00225$
+   0861 EE 80         [ 7] 1452 	xor	a, #0x80
+   0863                    1453 00225$:
+   0863 FAr68r08      [10] 1454 	jp	M,00135$
+                           1455 ;src/game.c:347: p->vida++;
+   0866 0C            [ 4] 1456 	inc	c
+   0867 71            [ 7] 1457 	ld	(hl),c
+   0868                    1458 00135$:
+   0868 DD F9         [10] 1459 	ld	sp, ix
+   086A DD E1         [14] 1460 	pop	ix
+   086C C9            [10] 1461 	ret
+                           1462 ;src/game.c:362: void drawHUD(){
+                           1463 ;	---------------------------------
+                           1464 ; Function drawHUD
+                           1465 ; ---------------------------------
+   086D                    1466 _drawHUD::
+                           1467 ;src/game.c:364: TPlayer* p = &player;
+                           1468 ;src/game.c:365: TEntity* ent = &hearth;
+                           1469 ;src/game.c:367: if(player.vida != player.pvida){
+   086D 21r09r01      [10] 1470 	ld	hl, #(_player + 0x0049) + 0
+   0870 4E            [ 7] 1471 	ld	c,(hl)
+   0871 21r0Ar01      [10] 1472 	ld	hl, #_player + 74
+   0874 46            [ 7] 1473 	ld	b,(hl)
+   0875 79            [ 4] 1474 	ld	a,c
+   0876 90            [ 4] 1475 	sub	a, b
+   0877 CAr02r09      [10] 1476 	jp	Z,00106$
+                           1477 ;src/game.c:370: ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+                           1478 ;src/game.c:371: dibujarEntity(ent,ent->sw,ent->sh);
+                           1479 ;src/game.c:368: if(player.vida > player.pvida){
+   087A 78            [ 4] 1480 	ld	a,b
+   087B 91            [ 4] 1481 	sub	a, c
+   087C 30 4B         [12] 1482 	jr	NC,00103$
+                           1483 ;src/game.c:369: for(i = 0; i < player.vida; ++i){
+   087E 0E 00         [ 7] 1484 	ld	c,#0x00
+   0880                    1485 00108$:
+   0880 21r09r01      [10] 1486 	ld	hl, #(_player + 0x0049) + 0
+   0883 46            [ 7] 1487 	ld	b,(hl)
+   0884 79            [ 4] 1488 	ld	a,c
+   0885 90            [ 4] 1489 	sub	a, b
+   0886 30 6C         [12] 1490 	jr	NC,00104$
+                           1491 ;src/game.c:370: ent->vmem = cpct_getScreenPtr(CPCT_VMEM_START,ent->x, ent->y);
+   0888 2Ar11r01      [16] 1492 	ld	hl, (#(_hearth + 0x0002) + 0)
+   088B 45            [ 4] 1493 	ld	b,l
+   088C 2Ar0Fr01      [16] 1494 	ld	hl, (#_hearth + 0)
+   088F 7D            [ 4] 1495 	ld	a,l
+   0890 C5            [11] 1496 	push	bc
+   0891 C5            [11] 1497 	push	bc
+   0892 33            [ 6] 1498 	inc	sp
+   0893 F5            [11] 1499 	push	af
+   0894 33            [ 6] 1500 	inc	sp
+   0895 21 00 C0      [10] 1501 	ld	hl,#0xC000
+   0898 E5            [11] 1502 	push	hl
+   0899 CDr00r00      [17] 1503 	call	_cpct_getScreenPtr
+   089C 5D            [ 4] 1504 	ld	e,l
+   089D 54            [ 4] 1505 	ld	d,h
+   089E C1            [10] 1506 	pop	bc
+   089F ED 53r30r01   [20] 1507 	ld	((_hearth + 0x0021)), de
+                           1508 ;src/game.c:371: dibujarEntity(ent,ent->sw,ent->sh);
+   08A3 21r23r01      [10] 1509 	ld	hl, #(_hearth + 0x0014) + 0
+   08A6 46            [ 7] 1510 	ld	b,(hl)
+   08A7 21r22r01      [10] 1511 	ld	hl, #(_hearth + 0x0013) + 0
+   08AA 56            [ 7] 1512 	ld	d,(hl)
+   08AB C5            [11] 1513 	push	bc
+   08AC 4A            [ 4] 1514 	ld	c, d
+   08AD C5            [11] 1515 	push	bc
+   08AE 21r0Fr01      [10] 1516 	ld	hl,#_hearth
+   08B1 E5            [11] 1517 	push	hl
+   08B2 CDr00r00      [17] 1518 	call	_dibujarEntity
+   08B5 F1            [10] 1519 	pop	af
+   08B6 F1            [10] 1520 	pop	af
+   08B7 C1            [10] 1521 	pop	bc
+                           1522 ;src/game.c:372: ent->x+=10;
+   08B8 ED 5Br0Fr01   [20] 1523 	ld	de, (#_hearth + 0)
+   08BC 21 0A 00      [10] 1524 	ld	hl,#0x000A
+   08BF 19            [11] 1525 	add	hl,de
+   08C0 5D            [ 4] 1526 	ld	e,l
+   08C1 54            [ 4] 1527 	ld	d,h
+   08C2 ED 53r0Fr01   [20] 1528 	ld	(_hearth), de
+                           1529 ;src/game.c:369: for(i = 0; i < player.vida; ++i){
+   08C6 0C            [ 4] 1530 	inc	c
+   08C7 18 B7         [12] 1531 	jr	00108$
+   08C9                    1532 00103$:
+                           1533 ;src/game.c:380: ,ent->sh
+   08C9 21r23r01      [10] 1534 	ld	hl, #(_hearth + 0x0014) + 0
+   08CC 56            [ 7] 1535 	ld	d,(hl)
+                           1536 ;src/game.c:379: ,ent->sw
+   08CD 21r22r01      [10] 1537 	ld	hl, #(_hearth + 0x0013) + 0
+   08D0 5E            [ 7] 1538 	ld	e,(hl)
+                           1539 ;src/game.c:377: cpct_getScreenPtr(CPCT_VMEM_START,2 + 10*(player.vida),ent->y)
+   08D1 2Ar11r01      [16] 1540 	ld	hl, (#(_hearth + 0x0002) + 0)
+   08D4 45            [ 4] 1541 	ld	b,l
+   08D5 79            [ 4] 1542 	ld	a,c
+   08D6 87            [ 4] 1543 	add	a, a
+   08D7 87            [ 4] 1544 	add	a, a
+   08D8 81            [ 4] 1545 	add	a, c
+   08D9 87            [ 4] 1546 	add	a, a
+   08DA C6 02         [ 7] 1547 	add	a, #0x02
+   08DC D5            [11] 1548 	push	de
+   08DD C5            [11] 1549 	push	bc
+   08DE 33            [ 6] 1550 	inc	sp
+   08DF F5            [11] 1551 	push	af
+   08E0 33            [ 6] 1552 	inc	sp
+   08E1 21 00 C0      [10] 1553 	ld	hl,#0xC000
+   08E4 E5            [11] 1554 	push	hl
+   08E5 CDr00r00      [17] 1555 	call	_cpct_getScreenPtr
+   08E8 4D            [ 4] 1556 	ld	c,l
+   08E9 44            [ 4] 1557 	ld	b,h
+   08EA AF            [ 4] 1558 	xor	a, a
+   08EB F5            [11] 1559 	push	af
+   08EC 33            [ 6] 1560 	inc	sp
+   08ED C5            [11] 1561 	push	bc
+   08EE CDr00r00      [17] 1562 	call	_cpct_drawSolidBox
+   08F1 F1            [10] 1563 	pop	af
+   08F2 F1            [10] 1564 	pop	af
+   08F3 33            [ 6] 1565 	inc	sp
+   08F4                    1566 00104$:
+                           1567 ;src/game.c:383: ent->x = 2;
+   08F4 21 02 00      [10] 1568 	ld	hl,#0x0002
+   08F7 22r0Fr01      [16] 1569 	ld	(_hearth), hl
+                           1570 ;src/game.c:384: p->pvida = p->vida;
+   08FA 21r09r01      [10] 1571 	ld	hl,#_player + 73
+   08FD 4E            [ 7] 1572 	ld	c, (hl)
+   08FE 21r0Ar01      [10] 1573 	ld	hl,#(_player + 0x004a)
+   0901 71            [ 7] 1574 	ld	(hl),c
+   0902                    1575 00106$:
+                           1576 ;src/game.c:387: dibujarPuntos();
+   0902 CDr7Cr09      [17] 1577 	call	_dibujarPuntos
+                           1578 ;src/game.c:388: dibujarBase();
+   0905 CDr09r09      [17] 1579 	call	_dibujarBase
+   0908 C9            [10] 1580 	ret
+                           1581 ;src/game.c:390: void dibujarBase(){
+                           1582 ;	---------------------------------
+                           1583 ; Function dibujarBase
+                           1584 ; ---------------------------------
+   0909                    1585 _dibujarBase::
+   0909 DD E5         [15] 1586 	push	ix
+   090B DD 21 00 00   [14] 1587 	ld	ix,#0
+   090F DD 39         [15] 1588 	add	ix,sp
+   0911 F5            [11] 1589 	push	af
+   0912 F5            [11] 1590 	push	af
+                           1591 ;src/game.c:392: if(basesCapturadas != prev_basesCapturadas){
+   0913 3Ar05r00      [13] 1592 	ld	a,(#_basesCapturadas + 0)
+   0916 FD 21r06r00   [14] 1593 	ld	iy,#_prev_basesCapturadas
+   091A FD 96 00      [19] 1594 	sub	a, 0 (iy)
+   091D 28 55         [12] 1595 	jr	Z,00103$
+                           1596 ;src/game.c:395: cpct_getScreenPtr(CPCT_VMEM_START,71,5)
+   091F 21 47 05      [10] 1597 	ld	hl,#0x0547
+   0922 E5            [11] 1598 	push	hl
+   0923 21 00 C0      [10] 1599 	ld	hl,#0xC000
+   0926 E5            [11] 1600 	push	hl
+   0927 CDr00r00      [17] 1601 	call	_cpct_getScreenPtr
+   092A 4D            [ 4] 1602 	ld	c,l
+   092B 44            [ 4] 1603 	ld	b,h
+   092C 21 06 08      [10] 1604 	ld	hl,#0x0806
+   092F E5            [11] 1605 	push	hl
+   0930 AF            [ 4] 1606 	xor	a, a
+   0931 F5            [11] 1607 	push	af
+   0932 33            [ 6] 1608 	inc	sp
+   0933 C5            [11] 1609 	push	bc
+   0934 CDr00r00      [17] 1610 	call	_cpct_drawSolidBox
+   0937 F1            [10] 1611 	pop	af
+   0938 F1            [10] 1612 	pop	af
+   0939 33            [ 6] 1613 	inc	sp
+                           1614 ;src/game.c:400: sprintf(strPts,"%d",basesCapturadas);
+   093A 21r05r00      [10] 1615 	ld	hl,#_basesCapturadas + 0
+   093D 5E            [ 7] 1616 	ld	e, (hl)
+   093E 16 00         [ 7] 1617 	ld	d,#0x00
+   0940 21 00 00      [10] 1618 	ld	hl,#0x0000
+   0943 39            [11] 1619 	add	hl,sp
+   0944 E5            [11] 1620 	push	hl
+   0945 D5            [11] 1621 	push	de
+   0946 11r79r09      [10] 1622 	ld	de,#___str_2
+   0949 D5            [11] 1623 	push	de
+   094A E5            [11] 1624 	push	hl
+   094B CDr00r00      [17] 1625 	call	_sprintf
+   094E 21 06 00      [10] 1626 	ld	hl,#6
+   0951 39            [11] 1627 	add	hl,sp
+   0952 F9            [ 6] 1628 	ld	sp,hl
+   0953 21 47 05      [10] 1629 	ld	hl,#0x0547
+   0956 E5            [11] 1630 	push	hl
+   0957 21 00 C0      [10] 1631 	ld	hl,#0xC000
+   095A E5            [11] 1632 	push	hl
+   095B CDr00r00      [17] 1633 	call	_cpct_getScreenPtr
+   095E EB            [ 4] 1634 	ex	de,hl
+   095F C1            [10] 1635 	pop	bc
+   0960 21 02 00      [10] 1636 	ld	hl,#0x0002
+   0963 E5            [11] 1637 	push	hl
+   0964 D5            [11] 1638 	push	de
+   0965 C5            [11] 1639 	push	bc
+   0966 CDr00r00      [17] 1640 	call	_cpct_drawStringM0
+   0969 21 06 00      [10] 1641 	ld	hl,#6
+   096C 39            [11] 1642 	add	hl,sp
+   096D F9            [ 6] 1643 	ld	sp,hl
+                           1644 ;src/game.c:402: prev_basesCapturadas = basesCapturadas;
+   096E 3Ar05r00      [13] 1645 	ld	a,(#_basesCapturadas + 0)
+   0971 32r06r00      [13] 1646 	ld	(#_prev_basesCapturadas + 0),a
+   0974                    1647 00103$:
+   0974 DD F9         [10] 1648 	ld	sp, ix
+   0976 DD E1         [14] 1649 	pop	ix
+   0978 C9            [10] 1650 	ret
+   0979                    1651 ___str_2:
+   0979 25 64              1652 	.ascii "%d"
+   097B 00                 1653 	.db 0x00
+                           1654 ;src/game.c:405: void dibujarPuntos(){
+                           1655 ;	---------------------------------
+                           1656 ; Function dibujarPuntos
+                           1657 ; ---------------------------------
+   097C                    1658 _dibujarPuntos::
+   097C DD E5         [15] 1659 	push	ix
+   097E DD 21 00 00   [14] 1660 	ld	ix,#0
+   0982 DD 39         [15] 1661 	add	ix,sp
+   0984 F5            [11] 1662 	push	af
+   0985 F5            [11] 1663 	push	af
+                           1664 ;src/game.c:406: TPlayer* p = &player;
+                           1665 ;src/game.c:408: if(p->puntuacion != p->puntuacionPrev){
+   0986 ED 4Br0Br01   [20] 1666 	ld	bc, (#(_player + 0x004b) + 0)
+   098A ED 5Br0Dr01   [20] 1667 	ld	de, (#(_player + 0x004d) + 0)
+   098E 79            [ 4] 1668 	ld	a,c
+   098F 93            [ 4] 1669 	sub	a, e
+   0990 20 04         [12] 1670 	jr	NZ,00109$
+   0992 78            [ 4] 1671 	ld	a,b
+   0993 92            [ 4] 1672 	sub	a, d
+   0994 28 55         [12] 1673 	jr	Z,00103$
+   0996                    1674 00109$:
+                           1675 ;src/game.c:412: cpct_getScreenPtr(CPCT_VMEM_START,63,23)
+   0996 21 3F 17      [10] 1676 	ld	hl,#0x173F
+   0999 E5            [11] 1677 	push	hl
+   099A 21 00 C0      [10] 1678 	ld	hl,#0xC000
+   099D E5            [11] 1679 	push	hl
+   099E CDr00r00      [17] 1680 	call	_cpct_getScreenPtr
+   09A1 4D            [ 4] 1681 	ld	c,l
+   09A2 44            [ 4] 1682 	ld	b,h
+   09A3 21 14 08      [10] 1683 	ld	hl,#0x0814
+   09A6 E5            [11] 1684 	push	hl
+   09A7 AF            [ 4] 1685 	xor	a, a
+   09A8 F5            [11] 1686 	push	af
+   09A9 33            [ 6] 1687 	inc	sp
+   09AA C5            [11] 1688 	push	bc
+   09AB CDr00r00      [17] 1689 	call	_cpct_drawSolidBox
+   09AE F1            [10] 1690 	pop	af
+   09AF F1            [10] 1691 	pop	af
+   09B0 33            [ 6] 1692 	inc	sp
+                           1693 ;src/game.c:417: sprintf(strPts,"%d",p->puntuacion);
+   09B1 ED 5Br0Br01   [20] 1694 	ld	de, (#(_player + 0x004b) + 0)
+   09B5 21 00 00      [10] 1695 	ld	hl,#0x0000
+   09B8 39            [11] 1696 	add	hl,sp
+   09B9 E5            [11] 1697 	push	hl
+   09BA D5            [11] 1698 	push	de
+   09BB 11rF0r09      [10] 1699 	ld	de,#___str_3
+   09BE D5            [11] 1700 	push	de
+   09BF E5            [11] 1701 	push	hl
+   09C0 CDr00r00      [17] 1702 	call	_sprintf
+   09C3 21 06 00      [10] 1703 	ld	hl,#6
+   09C6 39            [11] 1704 	add	hl,sp
+   09C7 F9            [ 6] 1705 	ld	sp,hl
+   09C8 21 3F 17      [10] 1706 	ld	hl,#0x173F
+   09CB E5            [11] 1707 	push	hl
+   09CC 21 00 C0      [10] 1708 	ld	hl,#0xC000
+   09CF E5            [11] 1709 	push	hl
+   09D0 CDr00r00      [17] 1710 	call	_cpct_getScreenPtr
+   09D3 EB            [ 4] 1711 	ex	de,hl
+   09D4 C1            [10] 1712 	pop	bc
+   09D5 21 02 00      [10] 1713 	ld	hl,#0x0002
+   09D8 E5            [11] 1714 	push	hl
+   09D9 D5            [11] 1715 	push	de
+   09DA C5            [11] 1716 	push	bc
+   09DB CDr00r00      [17] 1717 	call	_cpct_drawStringM0
+   09DE 21 06 00      [10] 1718 	ld	hl,#6
+   09E1 39            [11] 1719 	add	hl,sp
+   09E2 F9            [ 6] 1720 	ld	sp,hl
+                           1721 ;src/game.c:419: p->puntuacionPrev = p->puntuacion;
+   09E3 ED 4Br0Br01   [20] 1722 	ld	bc, (#(_player + 0x004b) + 0)
+   09E7 ED 43r0Dr01   [20] 1723 	ld	((_player + 0x004d)), bc
+   09EB                    1724 00103$:
+   09EB DD F9         [10] 1725 	ld	sp, ix
+   09ED DD E1         [14] 1726 	pop	ix
+   09EF C9            [10] 1727 	ret
+   09F0                    1728 ___str_3:
+   09F0 25 64              1729 	.ascii "%d"
+   09F2 00                 1730 	.db 0x00
+                           1731 ;src/game.c:423: void play(){
+                           1732 ;	---------------------------------
+                           1733 ; Function play
+                           1734 ; ---------------------------------
+   09F3                    1735 _play::
+                           1736 ;src/game.c:425: salirMenu = 0;
+   09F3 21r04r00      [10] 1737 	ld	hl,#_salirMenu + 0
+   09F6 36 00         [10] 1738 	ld	(hl), #0x00
+                           1739 ;src/game.c:426: incializarEntities(&player);
+   09F8 21rC0r00      [10] 1740 	ld	hl,#_player
+   09FB E5            [11] 1741 	push	hl
+   09FC CDr00r00      [17] 1742 	call	_incializarEntities
+   09FF F1            [10] 1743 	pop	af
+                           1744 ;src/game.c:427: inicializarPantalla();
+   0A00 CDr00r00      [17] 1745 	call	_inicializarPantalla
+                           1746 ;src/game.c:430: while(player.vida>0){
+   0A03                    1747 00105$:
+   0A03 3Ar09r01      [13] 1748 	ld	a, (#_player + 73)
+   0A06 B7            [ 4] 1749 	or	a, a
+   0A07 C8            [11] 1750 	ret	Z
+                           1751 ;src/game.c:431: updateUser();
+   0A08 CDr2Ar03      [17] 1752 	call	_updateUser
+                           1753 ;src/game.c:432: updatePlayer(&player);
+   0A0B 21rC0r00      [10] 1754 	ld	hl,#_player
+   0A0E E5            [11] 1755 	push	hl
+   0A0F CDr00r00      [17] 1756 	call	_updatePlayer
+   0A12 F1            [10] 1757 	pop	af
+                           1758 ;src/game.c:433: updateEntities();
+   0A13 CDr00r00      [17] 1759 	call	_updateEntities
+                           1760 ;src/game.c:435: calculaColisiones();
+   0A16 CDr62r05      [17] 1761 	call	_calculaColisiones
+                           1762 ;src/game.c:436: calculaAllEntities(&player);
+   0A19 21rC0r00      [10] 1763 	ld	hl,#_player
+   0A1C E5            [11] 1764 	push	hl
+   0A1D CDr00r00      [17] 1765 	call	_calculaAllEntities
+   0A20 F1            [10] 1766 	pop	af
+                           1767 ;src/game.c:438: cpct_waitVSYNC();
+   0A21 CDr00r00      [17] 1768 	call	_cpct_waitVSYNC
+                           1769 ;src/game.c:440: drawAll(&player);
+   0A24 21rC0r00      [10] 1770 	ld	hl,#_player
+   0A27 E5            [11] 1771 	push	hl
+   0A28 CDr00r00      [17] 1772 	call	_drawAll
+   0A2B F1            [10] 1773 	pop	af
+                           1774 ;src/game.c:441: drawHUD();
+   0A2C CDr6Dr08      [17] 1775 	call	_drawHUD
+                           1776 ;src/game.c:443: if(salirMenu % 2 == 1){
+   0A2F 3Ar04r00      [13] 1777 	ld	a,(#_salirMenu + 0)
+   0A32 E6 01         [ 7] 1778 	and	a, #0x01
+   0A34 3D            [ 4] 1779 	dec	a
+   0A35 C8            [11] 1780 	ret	Z
+                           1781 ;src/game.c:445: return;
+   0A36 18 00         [12] 1782 	jr	00102$
+   0A38                    1783 00102$:
+                           1784 ;src/game.c:447: if(basesCapturadas == 6){
+   0A38 3Ar05r00      [13] 1785 	ld	a,(#_basesCapturadas + 0)
+   0A3B D6 06         [ 7] 1786 	sub	a, #0x06
+   0A3D 20 C4         [12] 1787 	jr	NZ,00105$
+                           1788 ;src/game.c:448: salirMenu = 1;
+   0A3F 21r04r00      [10] 1789 	ld	hl,#_salirMenu + 0
+   0A42 36 01         [10] 1790 	ld	(hl), #0x01
+                           1791 ;src/game.c:449: return;
+   0A44 C9            [10] 1792 	ret
+                           1793 	.area _CODE
+                           1794 	.area _INITIALIZER
+   0000                    1795 __xinit__mapa:
+   0000 00 00              1796 	.dw #0x0000
+   0002                    1797 __xinit__mapaActual:
+   0002 00                 1798 	.db #0x00	; 0
+   0003                    1799 __xinit__previousMap:
+   0003 00                 1800 	.db #0x00	; 0
+   0004                    1801 __xinit__salirMenu:
+   0004 00                 1802 	.db #0x00	; 0
+   0005                    1803 __xinit__basesCapturadas:
+   0005 00                 1804 	.db #0x00	; 0
+   0006                    1805 __xinit__prev_basesCapturadas:
+   0006 00                 1806 	.db #0x00	; 0
+   0007                    1807 __xinit__wshot_cycles:
+   0007 1E                 1808 	.db #0x1E	; 30
+   0008                    1809 __xinit__count:
+   0008 00                 1810 	.db #0x00	; 0
+                           1811 	.area _CABS (ABS)

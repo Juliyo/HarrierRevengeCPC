@@ -1,0 +1,498 @@
+ASxxxx Linker V03.00 + NoICE + sdld,  page 1.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000000  .__.ABS.                           
+     00000000  l__CABS                         
+     00000000  l__DABS                         
+     00000000  l__GSFINAL                      
+     00000000  l__GSINIT                       
+     00000000  l__HOME                         
+     00000000  l__g_tablatrans_                
+     00000000  s__CABS                         
+     00000000  s__DABS                         
+     00000000  s__g_tablatrans_                
+     00000000  s__g_tablatrans_0               
+     00000002  l__DATA                         
+     00000013  l__INITIALIZED                  
+     00000013  l__INITIALIZER                  
+     00000100  l__g_tablatrans_0               
+     00001000  s__CODE                         
+     000012B2  l__CSEG                         
+     00006D79  l__CODE                         
+     00007D79  s__DATA                         
+     00007D7B  s__INITIALIZED                  
+     00007D8E  s__GSFINAL                      
+     00007D8E  s__GSINIT                       
+     00007D8E  s__HOME                         
+     00007D8E  s__INITIALIZER                  
+     00007DA1  s__CSEG                         
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00001000    00006D79 =       28025. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00001000  _g_map32                           map32
+     00001640  _g_map31                           map31
+     00001C80  _g_map22                           map22
+     000022C0  _g_map21                           map21
+     00002900  _g_map12                           map12
+     00002F40  _g_map11                           map11
+     00003580  _g_tileset                         paletajulinho
+     00003610  _g_paletajulinho_00                paletajulinho
+     00003618  _g_paletajulinho_01                paletajulinho
+     00003620  _g_paletajulinho_02                paletajulinho
+     00003628  _g_paletajulinho_03                paletajulinho
+     00003630  _g_paletajulinho_04                paletajulinho
+     00003638  _g_paletajulinho_05                paletajulinho
+     00003640  _g_paletajulinho_06                paletajulinho
+     00003648  _g_paletajulinho_07                paletajulinho
+     00003650  _g_paletajulinho_08                paletajulinho
+     00003658  _g_paletajulinho_09                paletajulinho
+     00003660  _g_paletajulinho_10                paletajulinho
+     00003668  _g_paletajulinho_11                paletajulinho
+     00003670  _g_paletajulinho_12                paletajulinho
+     00003678  _g_paletajulinho_13                paletajulinho
+     00003680  _g_paletajulinho_14                paletajulinho
+     00003688  _g_paletajulinho_15                paletajulinho
+     00003690  _g_paletajulinho_16                paletajulinho
+     00003698  _g_paletajulinho_17                paletajulinho
+     000036A0  _g_paletajulinho_18                paletajulinho
+     000036A8  _g_paletajulinho_19                paletajulinho
+     000036B0  _g_paletajulinho_20                paletajulinho
+     000036B8  _g_paletajulinho_21                paletajulinho
+     000036C0  _g_paletajulinho_22                paletajulinho
+     000036C8  _g_paletajulinho_23                paletajulinho
+     000036D0  _g_paletajulinho_24                paletajulinho
+     000036D8  _g_paletajulinho_25                paletajulinho
+     000036E0  _g_paletajulinho_26                paletajulinho
+     000036E8  _g_paletajulinho_27                paletajulinho
+     000036F0  _g_paletajulinho_28                paletajulinho
+     000036F8  _g_paletajulinho_29                paletajulinho
+     00003700  _g_paletajulinho_30                paletajulinho
+     00003708  _g_paletajulinho_31                paletajulinho
+     00003710  _g_paletajulinho_32                paletajulinho
+     00003718  _g_paletajulinho_33                paletajulinho
+     00003720  _g_paletajulinho_34                paletajulinho
+     00003728  _g_paletajulinho_35                paletajulinho
+     00003730  _g_paletajulinho_36                paletajulinho
+     00003738  _g_paletajulinho_37                paletajulinho
+     00003740  _g_paletajulinho_38                paletajulinho
+     00003748  _g_paletajulinho_39                paletajulinho
+     00003750  _g_paletajulinho_40                paletajulinho
+     00003758  _g_paletajulinho_41                paletajulinho
+     00003760  _g_paletajulinho_42                paletajulinho
+ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00001000    00006D79 =       28025. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00003768  _g_paletajulinho_43                paletajulinho
+     00003770  _g_paletajulinho_44                paletajulinho
+     00003778  _g_paletajulinho_45                paletajulinho
+     00003780  _g_paletajulinho_46                paletajulinho
+     00003788  _g_paletajulinho_47                paletajulinho
+     00003790  _g_paletajulinho_48                paletajulinho
+     00003798  _g_paletajulinho_49                paletajulinho
+     000037A0  _g_paletajulinho_50                paletajulinho
+     000037A8  _g_paletajulinho_51                paletajulinho
+     000037B0  _g_paletajulinho_52                paletajulinho
+     000037B8  _g_paletajulinho_53                paletajulinho
+     000037C0  _g_paletajulinho_54                paletajulinho
+     000037C8  _g_paletajulinho_55                paletajulinho
+     000037D0  _g_paletajulinho_56                paletajulinho
+     000037D8  _g_paletajulinho_57                paletajulinho
+     000037E0  _g_paletajulinho_58                paletajulinho
+     000037E8  _g_paletajulinho_59                paletajulinho
+     000037F0  _g_paletajulinho_60                paletajulinho
+     000037F8  _g_paletajulinho_61                paletajulinho
+     00003800  _g_paletajulinho_62                paletajulinho
+     00003808  _g_paletajulinho_63                paletajulinho
+     00003810  _g_paletajulinho_64                paletajulinho
+     00003818  _g_paletajulinho_65                paletajulinho
+     00003820  _g_paletajulinho_66                paletajulinho
+     00003828  _g_paletajulinho_67                paletajulinho
+     00003830  _g_paletajulinho_68                paletajulinho
+     00003838  _g_paletajulinho_69                paletajulinho
+     00003840  _g_paletajulinho_70                paletajulinho
+     00003848  _g_paletajulinho_71                paletajulinho
+     00003850  _g_flores2_0                       flores2
+     000039E0  _g_flores2_1                       flores2
+     00003B70  _g_flores1_0                       flores1
+     00003D00  _g_flores1_1                       flores1
+     00003E90  _g_portada_0                       portada
+     000048E0  _g_portada_1                       portada
+     00005330  _g_hearth                          hearth
+     000053C0  _g_explosion_00                    explosion
+     000053E0  _g_explosion_01                    explosion
+     00005400  _g_explosion_02                    explosion
+     00005420  _g_explosion_03                    explosion
+     00005440  _g_explosion_04                    explosion
+     00005460  _g_explosion_05                    explosion
+     00005480  _g_explosion_06                    explosion
+     000054A0  _g_explosion_07                    explosion
+     000054C0  _g_explosion_08                    explosion
+     000054E0  _g_explosion_09                    explosion
+     00005500  _g_explosion_10                    explosion
+     00005520  _g_explosion_11                    explosion
+     00005540  _g_bala_enemiga                    bala_enemiga
+     00005548  _g_bala_0                          bala
+     00005550  _g_bala_1                          bala
+ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00001000    00006D79 =       28025. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00005558  _g_bala_2                          bala
+     00005560  _g_bala_3                          bala
+     00005568  _g_naveEnemiga3_0                  naveEnemiga3
+     00005588  _g_naveEnemiga3_1                  naveEnemiga3
+     000055A8  _g_naveEnemiga3_2                  naveEnemiga3
+     000055C8  _g_naveEnemiga3_3                  naveEnemiga3
+     000055E8  _g_naveEnemiga2_0                  naveEnemiga2
+     00005608  _g_naveEnemiga2_1                  naveEnemiga2
+     00005628  _g_naveEnemiga2_2                  naveEnemiga2
+     00005648  _g_naveEnemiga2_3                  naveEnemiga2
+     00005668  _g_naveEnemiga1_0                  naveEnemiga1
+     00005688  _g_naveEnemiga1_1                  naveEnemiga1
+     000056A8  _g_naveEnemiga1_2                  naveEnemiga1
+     000056C8  _g_naveEnemiga1_3                  naveEnemiga1
+     000056E8  _g_palette                         naves
+     000056F8  _g_naves_0                         naves
+     00005740  _g_naves_1                         naves
+     00005788  _g_naves_2                         naves
+     000057D0  _g_naves_3                         naves
+     00005818  _inicializarPantalla               game
+     000058D8  _player                            game
+     00005927  _hearth                            game
+     0000594A  _mapas                             game
+     0000596C  _dibujarMapa                       game
+     00005982  _resetearDrawEnemigos              game
+     000059C9  _cambiarMapa                       game
+     00005A54  _resetearBala                      game
+     00005A69  _cambiarDerecha                    game
+     00005A9D  _cambiarIzquierda                  game
+     00005AD1  _cambiarArriba                     game
+     00005B0A  _cambiarAbajo                      game
+     00005B42  _updateUser                        game
+     00005C24  _checkCollision                    game
+     00005D7A  _calculaColisiones                 game
+     00006085  _drawHUD                           game
+     00006121  _dibujarBase                       game
+     00006194  _dibujarPuntos                     game
+     0000620B  _play                              game
+     0000625D  _inicializar                       main
+     00006278  _menu                              main
+     00006377  _main                              main
+     00006389  _getExplosion                      animation
+     0000638D  _g_frames                          animation
+     000063A9  _explosion                         animation
+     000063CD  _explosionBala                     animation
+     0000643D  _updateXY                          animation
+     0000648C  _updateExplosion                   animation
+     000064EF  _aparecerEnemigo                   wavemanager
+     000064EF  _dummy_cpct_transparentMaskTable   entities
+     00006529  _respawnearEnemigo                 wavemanager
+     0000659C  _inicializarWaveManager            wavemanager
+ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00001000    00006D79 =       28025. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000065B2  _updateTiempoEnMapa                wavemanager
+     000065DF  _resetearTimepoEnMapa              wavemanager
+     000065E6  _respawnearEnemigoPorBorde         wavemanager
+     00006615  _posicionAleatoriaBorde            wavemanager
+     000069EA  _revivirEnemigo                    wavemanager
+     00006A5A  _restarEnemigo                     wavemanager
+     00006A5F  _getRandomUniform                  random
+     00006A7A  _g_randUnif                        random
+     00006B7A  _g_capturada                       capturada
+     00006C1A  _g_captutada                       captutada
+     00006C4A  _g_naves8x8_0                      naves8x8
+     00006C6A  _g_naves8x8_1                      naves8x8
+     00006C8A  _g_naves8x8_2                      naves8x8
+     00006CAA  _g_naves8x8_3                      naves8x8
+     00006CCA  _cpct_setPalette                   cpct_video
+     00006CE1  _cpct_scanKeyboard_f               cpct_keyboard
+     00006CE1  cpct_scanKeyboard_f_asm            cpct_keyboard
+     00006D4B  _cpct_isKeyPressed                 cpct_keyboard
+     00006D4B  cpct_isKeyPressed_asm              cpct_keyboard
+     00006D57  _cpct_setPALColour                 cpct_video
+     00006D63  _cpct_drawStringM0                 cpct_strings
+     00006D6B  cpct_drawStringM0_asm              cpct_strings
+     00006D87  _cpct_drawSprite                   cpct_sprites
+     00006E2C  _cpct_etm_drawTileBox2x4           cpct_easytilemaps
+     00006EBB  __moduchar                         
+     00006EC7  __moduint                          
+     00006ED2  _cpct_etm_setTileset2x4            cpct_easytilemaps
+     00006ED2  cpct_etm_setTileset2x4_asm         cpct_easytilemaps
+     00006ED6  _cpct_drawCharM0                   cpct_strings
+     00006EE3  cpct_drawCharM0_asm                cpct_strings
+     00006F63  _cpct_keyboardStatusBuffer         cpct_keyboard
+     00006F6D  __divuint                          
+     00006F75  __divuchar                         
+     00006F7C  __divu8                            
+     00006F7F  __divu16                           
+     00006FAE  _cpct_etm_drawTileRow2x4           cpct_easytilemaps
+     00006FB5  cpct_etm_drawTileRow2x4_asm        cpct_easytilemaps
+     00006FB7  dtr_restore_ptileset               cpct_easytilemaps
+     00006FEF  _vsprintf                          sprintf
+     00007024  _sprintf                           sprintf
+     00007059  _cpct_isAnyKeyPressed              cpct_keyboard
+     00007059  cpct_isAnyKeyPressed_asm           cpct_keyboard
+     00007066  _cpct_scanKeyboard_if              cpct_keyboard
+     00007066  cpct_scanKeyboard_if_asm           cpct_keyboard
+     000070CE  _cpct_setVideoMode                 cpct_video
+     000070DC  _cpct_waitVSYNC                    cpct_video
+     000070DC  cpct_waitVSYNC_asm                 cpct_video
+     000070E4  dc_mode0_ct                        cpct_strings
+     000070F4  _cpct_memset                       cpct_memutils
+     00007102  _cpct_disableFirmware              cpct_firmware
+     00007102  _cpct_removeInterruptHandler       cpct_firmware
+ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CODE                               00001000    00006D79 =       28025. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00007102  cpct_disableFirmware_asm           cpct_firmware
+     00007102  cpct_removeInterruptHandler_asm    cpct_firmware
+     00007112  _cpct_drawSolidBox                 cpct_sprites
+     000071CA  cpct_drawTileAligned2x4_f_asm      cpct_sprites
+     000071EB  _cpct_mode_rom_status              cpct_firmware
+     000071EC  _cpct_drawSpriteMaskedAlignedTab   cpct_sprites
+     00007227  _cpct_getScreenPtr                 cpct_video
+     0000734A  __print_format                     printf_large
+     00007D69  ___sdcc_call_hl                    
+     00007D6A  _strlen                            
+ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_DATA                               00007D79    00000002 =           2. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00007D79  _mapaPrev                          wavemanager
+     00007D7A  _g_nextRand                        random
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZED                        00007D7B    00000013 =          19. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00007D7B  _mapa                              game
+     00007D7D  _mapaActual                        game
+     00007D7E  _previousMap                       game
+     00007D7F  _salirMenu                         game
+     00007D80  _basesCapturadas                   game
+     00007D81  _prev_basesCapturadas              game
+     00007D82  _wshot_cycles                      game
+     00007D83  _count                             game
+     00007D84  _mostrarMenu                       main
+     00007D85  _count1                            entities
+     00007D86  _turno                             entities
+     00007D87  _bulletsTurno                      entities
+     00007D88  _s_samemap                         wavemanager
+     00007D8A  _d_samemap                         wavemanager
+     00007D8C  _seed                              wavemanager
+     00007D8D  _enemigos_actual                   wavemanager
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_INITIALIZER                        00007D8E    00000013 =          19. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_g_tablatrans_0                     00000000    00000100 =         256. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00000100  _g_tablatrans                      entities
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_CSEG                               00007DA1    000012B2 =        4786. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     00007DA1  _incializarEntities                entities
+     00007E7D  _enemigos                          entities
+     00007F67  _bases                             entities
+     00008051  _puntos                            entities
+     00008059  _accion                            entities
+     0000810B  _flipSprite                        entities
+     00008127  _moverArriba                       entities
+     00008188  _moverAbajo                        entities
+     0000822B  _moverIzquierda                    entities
+     00008278  _moverDerecha                      entities
+     000082FD  _updatePlayer                      entities
+     00008321  _corregirPosicion                  entities
+     00008404  _updateX                           entities
+     00008420  _updateY                           entities
+     00008440  _disparar                          entities
+     000084AD  _updateBullet                      entities
+     0000854F  _playerHerido                      entities
+     000085A8  _updateEntities                    entities
+     000085C8  _contarEnemigos                    entities
+     00008619  _updateIA                          entities
+     00008664  _comprobarEjeX                     entities
+     000086A1  _comprobarEjeY                     entities
+     000086DF  _moverHaciaPuntoDeControl          entities
+     000087F2  _abs                               entities
+     0000880F  _calculaDireccion                  entities
+     0000884E  _updateIAState                     entities
+     00008A19  _comprobarSiDisparo                entities
+     00008BC9  _redibujarEntity                   entities
+     00008C34  _borrarEntity                      entities
+     00008C9A  _dibujarEntity                     entities
+     00008CE6  _calculaEntity                     entities
+     00008E40  _calculaAllEntities                entities
+     00008F09  _drawAll                           entities
+     0000904B  _getEnemies                        entities
+     0000904F  _getBases                          entities
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+
+Files Linked                              [ module(s) ]
+
+obj/mapas/map32.rel                       [ map32 ]
+obj/mapas/map31.rel                       [ map31 ]
+obj/mapas/map22.rel                       [ map22 ]
+obj/mapas/map21.rel                       [ map21 ]
+obj/mapas/map12.rel                       [ map12 ]
+obj/mapas/map11.rel                       [ map11 ]
+obj/sprites/paletajulinho.rel             [ paletajulinho ]
+obj/sprites/flores2.rel                   [ flores2 ]
+obj/sprites/flores1.rel                   [ flores1 ]
+obj/sprites/portada.rel                   [ portada ]
+obj/sprites/hearth.rel                    [ hearth ]
+obj/sprites/explosion.rel                 [ explosion ]
+obj/sprites/bala_enemiga.rel              [ bala_enemiga ]
+obj/sprites/bala.rel                      [ bala ]
+obj/sprites/naveEnemiga3.rel              [ naveEnemiga3 ]
+obj/sprites/naveEnemiga2.rel              [ naveEnemiga2 ]
+obj/sprites/naveEnemiga1.rel              [ naveEnemiga1 ]
+obj/sprites/naves.rel                     [ naves ]
+obj/game.rel                              [ game ]
+obj/main.rel                              [ main ]
+obj/animation/animation.rel               [ animation ]
+obj/entities/entities.rel                 [ entities ]
+obj/entities/wavemanager.rel              [ wavemanager ]
+obj/random/random.rel                     [ random ]
+obj/sprites/capturada.rel                 [ capturada ]
+obj/sprites/captutada.rel                 [ captutada ]
+obj/sprites/naves8x8.rel                  [ naves8x8 ]
+
+
+Libraries Linked                          [ object file ]
+
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPalette_cbindings.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard_f.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isKeyPressed.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setPALColour_cbindings.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawStringM0.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSprite_cbindings.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_drawTileBox2x4_cbinding ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ modunsigned.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_setTileset2x4.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawCharM0.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ keyboard.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ divunsigned.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_etm_drawTileRow2x4.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ sprintf.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_isAnyKeyPressed.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_scanKeyboard_if.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_setVideoMode_cbindings.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_waitVSYNC.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_dc_mode0_ct.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_memset_cbinding.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_removeInterruptHandler.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSolidBox_cbindings.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawTileAligned2x4_f_asmbin ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpc_mode_rom_status.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_drawSpriteMaskedAlignedTabl ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/cpctelera.lib
+                                          [ cpct_getScreenPtr_cbindings.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ printf_large.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ __sdcc_call_hl.rel ]
+/mnt/c/Users/tonir/cpctelera/cpctelera/tools/sdcc-3.5.5/bin/../share/sdcc/lib/z80/z80.lib
+                                          [ strlen.rel ]
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+
+User Base Address Definitions
+
+_CODE = 0x1000
+_DATA = 0x0000
+
+
