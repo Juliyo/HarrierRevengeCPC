@@ -1,2 +1,6 @@
-# independiente
-Proyecto Amstrad CPC V1 2016
+# Harrier Revenge
+Videojuego para Amstrad CPC
+
+![alt text]()
+
+![alt text]()
